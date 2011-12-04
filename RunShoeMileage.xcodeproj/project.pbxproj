@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCF643D148AF7E7004C0E6A /* UIKit.framework */; };
+		1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCF643F148AF7E7004C0E6A /* Foundation.framework */; };
+		1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCF6441148AF7E7004C0E6A /* CoreGraphics.framework */; };
+		1BCF6448148AF7E7004C0E6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF6446148AF7E7004C0E6A /* InfoPlist.strings */; };
+		1BCF644A148AF7E7004C0E6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF6449148AF7E7004C0E6A /* main.m */; };
+		1BCF644E148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF644D148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m */; };
+		1BCF6451148AF7E7004C0E6A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF644F148AF7E7004C0E6A /* MainWindow.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1BCF6439148AF7E7004C0E6A /* RunShoeMileage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunShoeMileage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BCF643D148AF7E7004C0E6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1BCF643F148AF7E7004C0E6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1BCF6441148AF7E7004C0E6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1BCF6445148AF7E7004C0E6A /* RunShoeMileage-Info.plist */ = {isa = PBXFileReference; path = "RunShoeMileage-Info.plist"; sourceTree = "<group>"; };
+		1BCF6447148AF7E7004C0E6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1BCF6449148AF7E7004C0E6A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1BCF644B148AF7E7004C0E6A /* RunShoeMileage-Prefix.pch */ = {isa = PBXFileReference; path = "RunShoeMileage-Prefix.pch"; sourceTree = "<group>"; };
+		1BCF644C148AF7E7004C0E6A /* RunShoeMileageAppDelegate.h */ = {isa = PBXFileReference; path = RunShoeMileageAppDelegate.h; sourceTree = "<group>"; };
+		1BCF644D148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunShoeMileageAppDelegate.m; sourceTree = "<group>"; };
+		1BCF6450148AF7E7004C0E6A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1BCF6436148AF7E6004C0E6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */,
+				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
+				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1BCF642E148AF7E5004C0E6A = {
+			isa = PBXGroup;
+			children = (
+				1BCF6443148AF7E7004C0E6A /* RunShoeMileage */,
+				1BCF643C148AF7E7004C0E6A /* Frameworks */,
+				1BCF643A148AF7E7004C0E6A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1BCF643A148AF7E7004C0E6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1BCF6439148AF7E7004C0E6A /* RunShoeMileage.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1BCF643C148AF7E7004C0E6A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1BCF643D148AF7E7004C0E6A /* UIKit.framework */,
+				1BCF643F148AF7E7004C0E6A /* Foundation.framework */,
+				1BCF6441148AF7E7004C0E6A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1BCF6443148AF7E7004C0E6A /* RunShoeMileage */ = {
+			isa = PBXGroup;
+			children = (
+				1BCF644C148AF7E7004C0E6A /* RunShoeMileageAppDelegate.h */,
+				1BCF644D148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m */,
+				1BCF644F148AF7E7004C0E6A /* MainWindow.xib */,
+				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
+			);
+			path = RunShoeMileage;
+			sourceTree = "<group>";
+		};
+		1BCF6444148AF7E7004C0E6A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1BCF6445148AF7E7004C0E6A /* RunShoeMileage-Info.plist */,
+				1BCF6446148AF7E7004C0E6A /* InfoPlist.strings */,
+				1BCF6449148AF7E7004C0E6A /* main.m */,
+				1BCF644B148AF7E7004C0E6A /* RunShoeMileage-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1BCF6438148AF7E6004C0E6A /* RunShoeMileage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BCF6454148AF7E7004C0E6A /* Build configuration list for PBXNativeTarget "RunShoeMileage" */;
+			buildPhases = (
+				1BCF6435148AF7E6004C0E6A /* Sources */,
+				1BCF6436148AF7E6004C0E6A /* Frameworks */,
+				1BCF6437148AF7E6004C0E6A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RunShoeMileage;
+			productName = RunShoeMileage;
+			productReference = 1BCF6439148AF7E7004C0E6A /* RunShoeMileage.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1BCF6430148AF7E5004C0E6A /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1BCF6433148AF7E5004C0E6A /* Build configuration list for PBXProject "RunShoeMileage" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1BCF642E148AF7E5004C0E6A;
+			productRefGroup = 1BCF643A148AF7E7004C0E6A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1BCF6438148AF7E6004C0E6A /* RunShoeMileage */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1BCF6437148AF7E6004C0E6A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BCF6448148AF7E7004C0E6A /* InfoPlist.strings in Resources */,
+				1BCF6451148AF7E7004C0E6A /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1BCF6435148AF7E6004C0E6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
+				1BCF644E148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1BCF6446148AF7E7004C0E6A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1BCF6447148AF7E7004C0E6A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1BCF644F148AF7E7004C0E6A /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1BCF6450148AF7E7004C0E6A /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1BCF6452148AF7E7004C0E6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1BCF6453148AF7E7004C0E6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1BCF6455148AF7E7004C0E6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RunShoeMileage/RunShoeMileage-Prefix.pch";
+				INFOPLIST_FILE = "RunShoeMileage/RunShoeMileage-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1BCF6456148AF7E7004C0E6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RunShoeMileage/RunShoeMileage-Prefix.pch";
+				INFOPLIST_FILE = "RunShoeMileage/RunShoeMileage-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1BCF6433148AF7E5004C0E6A /* Build configuration list for PBXProject "RunShoeMileage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BCF6452148AF7E7004C0E6A /* Debug */,
+				1BCF6453148AF7E7004C0E6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BCF6454148AF7E7004C0E6A /* Build configuration list for PBXNativeTarget "RunShoeMileage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BCF6455148AF7E7004C0E6A /* Debug */,
+				1BCF6456148AF7E7004C0E6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1BCF6430148AF7E5004C0E6A /* Project object */;
+}
