@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface RunShoeMileageAppDelegate : NSObject <UIApplicationDelegate>
+{
+@public
+    UITabBarController *tabBarController;
+    
+}
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) UITabBarController *tabBarController;
+
 
 @end

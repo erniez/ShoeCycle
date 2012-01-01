@@ -7,14 +7,61 @@
 //
 
 #import "RunShoeMileageAppDelegate.h"
+#import "AddDistanceViewController.h"
+#import "EditShoesViewController.h"
+#import "SetupViewController.h"
+#import "EditShoesNavController.h"
 
 @implementation RunShoeMileageAppDelegate
 
-@synthesize window = _window;
+@synthesize window, tabBarController;
+//@synthesize navController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // Create the tabBarController
+    tabBarController = [[UITabBarController alloc] init];
+    
+    // Create viewControllers for the tabBar
+    AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] init];
+    EditShoesViewController *vc2 = [[EditShoesViewController alloc] init];
+    SetupViewController *vc3 = [[SetupViewController alloc] init];
+    
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:vc2] autorelease];
+    
+    // Make an array containing the view controllers
+    NSArray *viewControllers = [NSArray arrayWithObjects:vc1, navController, vc3, nil];
+    
+    // Get tab bar item for the Edit shoes navigation controller 
+    // If I do the following code in the init of the root view controller, it will not will
+    // I would need to create a seperate navigation controller class and override the init field if I don't
+    // want the following two lines of code in the App Delegate.
+    UITabBarItem *tbi = [navController tabBarItem];
+    
+    // Give it a label
+    [tbi setTitle:@"Add/Edit Shoes"];
+
+    
+    [vc1 release];
+    [vc2 release];
+    [vc3 release];
+
+    
+    // Attach the array to the tabBarController
+    [tabBarController setViewControllers:viewControllers];
+    
+    // Load AddDistanceViewController
+//    AddDistanceViewController *addDistanceViewController = [[AddDistanceViewController alloc] init];
+//    [[self window] setRootViewController:addDistanceViewController];
+    [[self window] setRootViewController:tabBarController];
+    [tabBarController release];
+    
+   // [addDistanceViewController release];
+ //   
+  //  [window addSubview:navController.view];
+    
+    NSLog(@"View Did Finish Launching");
+
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -60,7 +107,8 @@
 
 - (void)dealloc
 {
-    [_window release];
+    [window release];
+//    [navController release];
     [super dealloc];
 }
 
