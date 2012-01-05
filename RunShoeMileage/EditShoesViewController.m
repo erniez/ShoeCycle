@@ -9,6 +9,8 @@
 #import "EditShoesViewController.h"
 #import "ShoeDetailViewController.h"
 #import "RunShoeMileageAppDelegate.h"
+#import "ShoeStore.h"
+#import "Shoe.h"
 
 @implementation EditShoesViewController
 @synthesize testBrandArray, testNameArray;
@@ -28,7 +30,7 @@
         
         // Give it a label
         [tbi setTitle:@"Add/Edit Shoes"];
-***  Moved this block of Code to the appDelegate        */
+***  Moved this block of Code to the appDelegate. The title text was not appearing in the tab for some reason */
          NSLog(@"Made it to init Self");
         
         UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
@@ -43,6 +45,41 @@
         
         [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
         
+        Shoe *ts = [[Shoe alloc] init];
+        
+        ts = [[ShoeStore defaultStore] createShoe];
+        
+        ts.brand = @"Test Brand 1";
+        ts.desc = @"Test Description 1";
+        
+        NSLog(@"%@",ts.brand);
+        NSLog(@"%@",ts.desc);
+        
+        ts = [[ShoeStore defaultStore] createShoe];
+        
+        ts.brand = @"Test Brand 2";
+        ts.desc = @"Test Description 2";
+        
+        NSLog(@"%@",ts.brand);
+        NSLog(@"%@",ts.desc);
+
+        ts = [[ShoeStore defaultStore] createShoe];
+        
+        ts.brand = @"Test Brand 3";
+        ts.desc = @"Test Description 3";
+        
+        NSLog(@"%@",ts.brand);
+        NSLog(@"%@",ts.desc);
+        
+//        shoes = [[NSArray alloc] initWithArray:[[ShoeStore defaultStore] allShoes]];
+        
+//        Shoe *s = [shoes objectAtIndex:0];
+        
+//        NSLog(@"shoes array %@",s.brand);
+//        NSLog(@"shoes array %@",s.desc);
+        
+        
+
         testData = [[ShoesTestData  alloc] init];
         NSLog(@"test data count = %d",[testData.testNameArray count]);
     } 
@@ -85,6 +122,14 @@
 
 #pragma mark - View lifecycle
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[self tableView] reloadData];
+//    NSLog(@"Shoe Count = %d", [shoes count]);
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -120,45 +165,31 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	// return [testBrandArray count];
-//    NSLog(@"test data count = %d",[testData.testNameArray count]);
-    return [testData.testNameArray count];
+//    return [testData.testNameArray count];
+    return [[[ShoeStore defaultStore] allShoes] count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    NSLog(@"Made it to tableView");
-    
-    static NSString *kCustomCellID = @"CustomCellID";
-    
-    NSLog(@"Made it to tableView");
- //   NSLog(@"%d",[self.testBrandArray count]);
 	
-//    ShoesTestData *testData = [[ShoesTestData alloc] init];
+// pwc   ShoesTestData *testData = [[ShoesTestData alloc] init];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCustomCellID];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
 	if (cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kCustomCellID] autorelease];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"] autorelease];
 	}
     
-	NSLog(@"Made it to tableView");
-    NSLog(@"testData count in tableview = %d",[testData.testNameArray count]);
-
-//	NSString *cellValue = [self.testBrandArray objectAtIndex:indexPath.row];
+// pwc    cell.textLabel.text = [testData.testBrandArray objectAtIndex:indexPath.row];
     
-//    cell.textLabel.text = [self.testBrandArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [testData.testBrandArray objectAtIndex:indexPath.row];
-
+    Shoe *s = [[[ShoeStore defaultStore] allShoes] objectAtIndex:indexPath.row];
     
-//	cell.detailTextLabel.text = [testNameArray objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [testData.testNameArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = s.brand;
+    cell.detailTextLabel.text = s.desc;
 
-//    cell.textLabel.text = @"%f",indexPath.row;
-//    NSLog(@"Row %d",indexPath.row);
+// pwc    cell.detailTextLabel.text = [testData.testNameArray objectAtIndex:indexPath.row];
 	
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
@@ -173,31 +204,61 @@
 {
     ShoeDetailViewController *detailViewController = [[[ShoeDetailViewController alloc] init] autorelease];
     
-    detailViewController.testBrandString = [testData.testBrandArray objectAtIndex:indexPath.row];
-    detailViewController.testNameString = [testData.testNameArray objectAtIndex:indexPath.row];
+//    detailViewController.testBrandString = [testData.testBrandArray objectAtIndex:indexPath.row];
+//    detailViewController.testNameString = [testData.testNameArray objectAtIndex:indexPath.row];
     
- //   detailViewController.testBrandString = @"test"; 
+//    Shoe *s = [shoes objectAtIndex:indexPath.row];
     
-//    [detailViewController.brandField setText:(@"???")];
+    Shoe *s = [[[ShoeStore defaultStore] allShoes] objectAtIndex:indexPath.row];
+
     
-    NSLog(@"%@",[testData.testBrandArray objectAtIndex:indexPath.row]);
+//    detailViewController.testBrandString = s.brand;
+//    detailViewController.testNameString = s.desc;
+
+    [detailViewController setShoe:s];
+    
+    NSLog(@"didSelectRow Brand = %@",s.brand);
 
     
     [[self navigationController] pushViewController:detailViewController animated:YES];
 }
 
 
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ShoeStore *ss = [ShoeStore defaultStore];
+        NSArray *shoes = [ss allShoes];
+        Shoe *s = [shoes objectAtIndex:[indexPath row]];
+        [ss removeShoe:s];
+        
+        // remove row from table with animation
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    [[ShoeStore defaultStore] moveShoeAtIndex:[fromIndexPath row] toIndex:[toIndexPath row]];
+}
+
+
 - (IBAction)addNewShoe:(id)sender
 {
+    Shoe *newShoe = [[ShoeStore defaultStore] createShoe];
     ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] initForNewItem:YES];
     
-//    RunShoeMileageAppDelegate *appDelegate = (RunShoeMileageAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    NSArray *otherShoes = [[NSArray alloc] initWithArray:[[ShoeStore defaultStore] allShoes]];
     
-//    UITabBarController *myProperty = appDelegate.tabBarController;
-
+    newShoe.brand = @"test123";
+    
+//    NSLog(@"Other Shoes Count = %d",[otherShoes count]);
+//    NSLog(@"All Shoe Count = %d",[shoes count]);
+    
+    [detailViewController setShoe:newShoe];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
-    
 
     
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];

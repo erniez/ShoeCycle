@@ -7,9 +7,11 @@
 //
 
 #import "ShoeDetailViewController.h"
+#import "ShoeStore.h"
+#import "ImageStore.h"
 
 @implementation ShoeDetailViewController
-@synthesize brandField, testBrandString, testNameString;
+@synthesize brandField, testBrandString, testNameString, shoe;
 
 - (id)initForNewItem:(BOOL)isNew
 {
@@ -69,13 +71,36 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [brandField setText:testBrandString];
-    [name setText:testNameString];
+//    [brandField setText:testBrandString];
+//    [name setText:testNameString];
+    [brandField setText:shoe.brand];
+    [name setText:shoe.desc];
+    
+    NSString *imageKey = [shoe imageKey];
+    
+    if (imageKey) {
+        // Get image for image key from image store
+        UIImage *imageToDisplay = [[ImageStore defaultImageStore] imageForKey:imageKey];
+        
+        // Use that image to put on the screen in imageView
+        [imageView setImage:imageToDisplay];
+    } else {
+        // Clear the imageView
+        [imageView setImage:nil];
+    }
+
 
     
 //    [brand setText:brandField];
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    shoe.brand = brandField.text;
+    shoe.desc = name.text;
+}
 
 - (void)viewDidLoad
 {
@@ -125,6 +150,26 @@
  End View Lifecycle
  =============================================================== */
 
+// ==========================================================================================
+// dismiss keyboards
+// ==========================================================================================
+
+- (IBAction)backgroundTapped:(id)sender
+{
+    [[self view] endEditing:YES];    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    NSLog(@"Made it to textFieldShouldReturn");
+    return YES;
+}
+
+// ==========================================================================================
+// end dismiss keyboards
+// ==========================================================================================
+
 
 - (IBAction)takePicture:(id)sender
 {
@@ -165,9 +210,34 @@
 - (void)imagePickerController:(UIImagePickerController *)picker 
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    NSString *oldKey = [shoe imageKey];
+    
+    
+    // Did the possession already have an image?
+    if (oldKey) {
+        // Delete the old image
+        [[ImageStore defaultImageStore] deleteImageForKey:oldKey];
+    }
+    
     // Get picked image from info dictionary
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+    // Create a CFUUID object - it knows how to create unique identifier strings
+    CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
     
+    // Create a string from a unique identifier
+    CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
+    
+    // Use that unique ID to set our possessions imageKey
+    [shoe setImageKey:(NSString *)newUniqueIDString];
+    
+    // We used "Create" in the functions to make objects, we need to release them
+    CFRelease(newUniqueIDString);
+    CFRelease(newUniqueID);
+    
+    // Store  image in the ImageStore with this key
+    [[ImageStore defaultImageStore] setImage:image forKey:[shoe imageKey]];
+
     // Put that image onto the screen in our image view
     [imageView setImage:image];
     
@@ -178,7 +248,12 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (IBAction)save:(id)sender
 {
-    // This message gets forwarded to the parentViewController
+//    shoe.brand = brandField.text;
+//    shoe.desc = name.text;
+    
+    NSLog(@"%@", shoe.brand);
+    
+    // This message gets forwarded to the parentViewController  
     [self dismissModalViewControllerAnimated:YES];
     
 //    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
@@ -192,6 +267,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 //    [[PossessionStore defaultStore] removePossession:possession];
     
     // This message gets forwarded to the parentViewController
+
+    [[ShoeStore defaultStore] removeShoe:shoe];
     [self dismissModalViewControllerAnimated:YES];
     
 //    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
