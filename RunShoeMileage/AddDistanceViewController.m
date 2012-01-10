@@ -8,12 +8,18 @@
 
 #import "AddDistanceViewController.h"
 #import "StandardDistancesViewController.h"
+#import "ShoeStore.h"
+#import "Shoe.h"
 
 @implementation AddDistanceViewController
+@synthesize nameField;
 @synthesize runDateField;
+@synthesize maxDistanceLabel;
 @synthesize enterDistanceField;
 @synthesize totalDistanceField;
 @synthesize pickerView, doneButton,runDateFormatter, standardDistanceString;
+@synthesize distShoe;
+@synthesize totalDistanceProgress;
 
 
 - (id)init
@@ -60,6 +66,27 @@
         [enterDistanceField setText:standardDistanceString];
     }
 
+    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    
+    NSLog(@"shoes count = %d",[shoes count]);
+    
+    if ([shoes count] == 0) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
+                                                    message:nil
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert autorelease];
+    [alert show];
+    return;
+    }
+    
+    distShoe = [shoes objectAtIndex:0];
+    
+    nameField.text = [NSString stringWithFormat:@"%@: %@",distShoe.brand, distShoe.desc];
+    totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
+    [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %.0f",[distShoe.maxDistance floatValue]]];
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -78,15 +105,26 @@
         enterDistanceField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
+    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    
+    if ([shoes count]) {
+        distShoe = [shoes objectAtIndex:0];
+    }
+    
+    
+    nameField.text = distShoe.brand;
+    
+    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
+      
     NSLog(@"View Did Load addDistanceViewController");
     
-    [totalDistanceField setText:[NSString stringWithFormat:@"%.1f",0.0]];
+//    [totalDistanceField setText:[NSString stringWithFormat:@"%.1f",shoe.totalDistance]];
     self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
     runDateField.delegate = self;
 //    NSLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
-    [runDateField setText:[NSString stringWithFormat:[self.runDateFormatter stringFromDate:[NSDate date]]]];
+    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 
 //    [self setTotalDistanceField:nil];
 }
@@ -114,6 +152,9 @@
     [runDateField release];
     [runDateField release];
     [self setRunDateField:nil];
+    [self setNameField:nil];
+    [self setTotalDistanceProgress:nil];
+    [self setMaxDistanceLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -131,6 +172,10 @@
     [runDateField release];
     [runDateField release];
     [runDateField release];
+    [distShoe release];
+    [nameField release];
+    [totalDistanceProgress release];
+    [maxDistanceLabel release];
     [super dealloc];
 }
 
@@ -149,21 +194,24 @@
 
 - (IBAction)addDistanceButton:(id)sender 
 {
-    float addDistance, total;
+    double addDistance;
     
     // clear any editors that may be visible (clicking directly from distance number pad)
     [[self view] endEditing:YES];
     
-    total = [[totalDistanceField text] floatValue]; 
-    addDistance = [[enterDistanceField text] floatValue];
-    total += addDistance;    
+
+    addDistance = [[enterDistanceField text] floatValue]; 
     
-    [totalDistanceField setText:[NSString stringWithFormat:@"%.1f",total]];
+    distShoe.totalDistance = [NSNumber numberWithFloat:(addDistance + [distShoe.totalDistance floatValue])];
+    
+    NSLog(@"totalDistance = %@",distShoe.totalDistance);
+    
+    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
     
     enterDistanceField.text = nil;
-    [runDateField setText:[NSString stringWithFormat:[self.runDateFormatter stringFromDate:[NSDate date]]]];
+    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
+    totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
     
-    NSLog(@"%.1f",total);
 }
 
 
@@ -202,10 +250,18 @@
 
 - (IBAction)standardDistancesButtonPressed:(id)sender
 {
+    [[self view] endEditing:YES];           // clear any editors that may be visible
+    
     StandardDistancesViewController *modalViewController = [[StandardDistancesViewController alloc] initWithDistance:self];
     
-    [self presentModalViewController:modalViewController animated:YES];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
+
     
+    
+    [self presentModalViewController:navController animated:YES];
+ 
+    [modalViewController release];
+    [navController release];    
 }
 
 
@@ -214,7 +270,8 @@
     NSLog(@"actionSHeetCancel");
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     NSLog(@"%@",[self.runDateFormatter stringFromDate:self.pickerView.date]);
-    [runDateField setText:[NSString stringWithFormat:[self.runDateFormatter stringFromDate:self.pickerView.date]]];
+//    [runDateField setText:[NSString stringWithFormat:[self.runDateFormatter stringFromDate:self.pickerView.date]]];
+    [runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
 
     
 }

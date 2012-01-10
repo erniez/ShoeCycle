@@ -11,6 +11,7 @@
 #import "EditShoesViewController.h"
 #import "SetupViewController.h"
 #import "EditShoesNavController.h"
+#import "ShoeStore.h"
 
 @implementation RunShoeMileageAppDelegate
 
@@ -30,7 +31,7 @@
     UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:vc2] autorelease];
     
     // Make an array containing the view controllers
-    NSArray *viewControllers = [NSArray arrayWithObjects:vc1, navController, vc3, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: vc1, navController, vc3, nil];
     
     // Get tab bar item for the Edit shoes navigation controller 
     // If I do the following code in the init of the root view controller, it will not will
@@ -80,6 +81,7 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    [[ShoeStore defaultStore] saveChanges];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -103,6 +105,9 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+    
+    [[ShoeStore defaultStore] saveChanges];
+    
 }
 
 - (void)dealloc

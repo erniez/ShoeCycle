@@ -12,6 +12,8 @@
 
 @implementation ShoeDetailViewController
 @synthesize brandField, testBrandString, testNameString, shoe;
+@synthesize expPickerView, expirationDateFormatter, expirationDate;
+@synthesize toolbar;
 
 - (id)initForNewItem:(BOOL)isNew
 {
@@ -31,6 +33,29 @@
                                            action:@selector(cancel:)];
             [[self navigationItem] setLeftBarButtonItem:cancelItem];
             [cancelItem release];
+            UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:@selector(takePicture:)];
+            UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
+            
+            NSArray *items = [NSArray arrayWithObjects:camera, spacer, nil];
+            
+            toolbar = [UIToolbar new];
+            toolbar.barStyle = UIBarStyleDefault;
+            
+            // size up the toolbar and set its frame
+            [toolbar sizeToFit];
+            CGFloat toolbarHeight = [toolbar frame].size.height;
+            CGRect mainViewBounds = self.view.bounds;
+            [toolbar setFrame:CGRectMake(CGRectGetMinX(mainViewBounds),
+                                         CGRectGetMinY(mainViewBounds) + CGRectGetHeight(mainViewBounds) - (toolbarHeight * 2.0) + 2.0,
+                                         CGRectGetWidth(mainViewBounds),
+                                         toolbarHeight)];
+            
+            [toolbar setItems:items animated:YES];
+            
+            [self.view addSubview:toolbar];
+                        
+            [camera release];
+            [spacer release];
         }
     }
     
@@ -71,10 +96,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [brandField setText:testBrandString];
-//    [name setText:testNameString];
     [brandField setText:shoe.brand];
     [name setText:shoe.desc];
+    [maxDistance setText:[NSString stringWithFormat:@"%@",shoe.maxDistance]];
+    [startDistance setText:[NSString stringWithFormat:@"%@",shoe.startDistance]];
+    
+    self.expirationDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[self.expirationDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    expirationDateField.delegate = self;
+    expirationDate = shoe.expirationDate;
+    [expirationDateField setText:[self.expirationDateFormatter stringFromDate:shoe.expirationDate]];
+    NSLog(@"Arriving Date = %@",shoe.expirationDate);
     
     NSString *imageKey = [shoe imageKey];
     
@@ -89,8 +122,7 @@
         [imageView setImage:nil];
     }
 
-
-    
+   
 //    [brand setText:brandField];
 }
 
@@ -100,11 +132,26 @@
     [super viewWillDisappear:animated];
     shoe.brand = brandField.text;
     shoe.desc = name.text;
+    shoe.maxDistance = [NSNumber numberWithFloat:[maxDistance.text floatValue]];
+    NSLog(@"Leaving maxDistance %@",shoe.maxDistance);
+    shoe.startDistance = [NSNumber numberWithFloat:[startDistance.text floatValue]];
+    shoe.expirationDate = expirationDate;
+    NSLog(@"Leaving Date = %@",shoe.expirationDate);
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    maxDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+        maxDistance.keyboardType = UIKeyboardTypeDecimalPad;
+    }
+    startDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
+        startDistance.keyboardType = UIKeyboardTypeDecimalPad;
+    }
+ 
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -117,8 +164,8 @@
     name = nil;
     [maxDistance release];
     maxDistance = nil;
-    [expirationDate release];
-    expirationDate = nil;
+    [expirationDateField release];
+    expirationDateField = nil;
     [startDistance release];
     startDistance = nil;
     [self setBrandField:nil];
@@ -139,10 +186,11 @@
 //    [brand release];
     [name release];
     [maxDistance release];
-    [expirationDate release];
+    [expirationDateField release];
     [startDistance release];
     [brandField release];
     [imageView release];
+    [toolbar release];
     [super dealloc];
 }
 
@@ -182,7 +230,6 @@
         [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
     
-    // This line of code will generate 2 warnings right now, ignore them
     [imagePicker setDelegate:self];
     
     // Place image picker on the screen
@@ -264,8 +311,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (IBAction)cancel:(id)sender
 {
     // If the user cancelled, then remove the Possession from the store
-//    [[PossessionStore defaultStore] removePossession:possession];
-    
     // This message gets forwarded to the parentViewController
 
     [[ShoeStore defaultStore] removeShoe:shoe];
@@ -274,5 +319,63 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 //    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
  //       [delegate itemDetailViewControllerWillDismiss:self];
 }
+
+
+- (IBAction)callDP:(id)sender 
+{
+    
+    [[self view] endEditing:YES];           // clear any editors that may be visible (clicking from distance to date)
+    
+    actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    
+    CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
+    
+    expPickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
+    expPickerView.tag = 10;
+    expPickerView.datePickerMode = UIDatePickerModeDate;
+//    [expPickerView addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
+    
+    [actionSheet addSubview:expPickerView];
+    
+    UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
+    closeButton.momentary = YES; 
+    closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
+    closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    closeButton.tintColor = [UIColor blackColor];
+    [closeButton addTarget:self action:@selector(actionSheetCancel:) forControlEvents:UIControlEventValueChanged];
+    [actionSheet addSubview:closeButton];
+    [closeButton release];
+    
+    
+    //[actionSheet showInView:self.view];
+    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    
+    [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+}
+
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == expirationDateField) {
+        [self callDP:nil];
+        return NO;
+    }
+    
+    return YES;    
+}
+
+
+- (void)actionSheetCancel:(id)sender
+{
+
+    expirationDate = self.expPickerView.date;
+    NSLog(@"Expiration Date = %@",expirationDate);
+    [expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+    
+}
+
 
 @end

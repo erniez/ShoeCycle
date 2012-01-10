@@ -27,5 +27,6 @@
 - (IBAction)distanceTenMilesButtonPressed:(id)sender;
 - (IBAction)distanceHalfMarathonButtonPressed:(id)sender;
 - (IBAction)distanceMarathonButtonPressed:(id)sender;
+- (IBAction)cancel:(id)sender;
 
 @end

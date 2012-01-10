@@ -7,6 +7,7 @@
 //
 
 #import "ImageStore.h"
+#import "FileHelpers.h"
 
 static ImageStore *defaultImageStore = nil;
 
@@ -80,20 +81,20 @@ static ImageStore *defaultImageStore = nil;
     [dictionary setObject:i forKey:s];
     
     // Create full path for image
-//    NSString *imagePath = pathInDocumentDirectory(s);
+    NSString *imagePath = pathInDocumentDirectory(s);
     
     // Turn image into JPEG data
-//    NSData *d = UIImageJPEGRepresentation(i, 0.5);
+    NSData *d = UIImageJPEGRepresentation(i, 0.5);
     
     // Write it to full path
-//    [d writeToFile:imagePath atomically:YES];
+    [d writeToFile:imagePath atomically:YES];
 }
 
 
 - (UIImage *)imageForKey:(NSString *)s 
 {
-  return [dictionary objectForKey:s];// -> removed because of updated code to make use of file system
-/*    
+//  return [dictionary objectForKey:s];// -> removed because of updated code to make use of file system
+    
     // If possible, get it from the dictionary
     UIImage *result = [dictionary objectForKey:s];
     
@@ -108,7 +109,7 @@ static ImageStore *defaultImageStore = nil;
             NSLog(@"Error: unable to find %@", pathInDocumentDirectory(s));
         }
     }
-    return result;*/
+    return result;
 }
 
 
@@ -117,8 +118,8 @@ static ImageStore *defaultImageStore = nil;
     if (!s)
         return;
     [dictionary removeObjectForKey:s];
-//    NSString *path = pathInDocumentDirectory(s);
-//    [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
+    NSString *path = pathInDocumentDirectory(s);
+    [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
 }
 
 @end

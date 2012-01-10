@@ -45,7 +45,7 @@
         
         [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
         
-        Shoe *ts = [[Shoe alloc] init];
+/*        Shoe *ts = [[Shoe alloc] init];  *** Test data no longer needed.
         
         ts = [[ShoeStore defaultStore] createShoe];
         
@@ -69,7 +69,7 @@
         ts.desc = @"Test Description 3";
         
         NSLog(@"%@",ts.brand);
-        NSLog(@"%@",ts.desc);
+        NSLog(@"%@",ts.desc);*/
         
 //        shoes = [[NSArray alloc] initWithArray:[[ShoeStore defaultStore] allShoes]];
         
@@ -80,8 +80,8 @@
         
         
 
-        testData = [[ShoesTestData  alloc] init];
-        NSLog(@"test data count = %d",[testData.testNameArray count]);
+//        testData = [[ShoesTestData  alloc] init];
+ //       NSLog(@"test data count = %d",[testData.testNameArray count]);
     } 
     
     return self;
@@ -129,7 +129,7 @@
 //    NSLog(@"Shoe Count = %d", [shoes count]);
 }
 
-
+/*
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -150,6 +150,12 @@
     self.testBrandArray = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+} */
+
+
+- (void)EditShoesViewControllerWillDismiss:(EditShoesViewController *)vc
+{
+    [[self tableView] reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -166,6 +172,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //    return [testData.testNameArray count];
+    NSLog(@"Tableview Shoe Count = %d",[[[ShoeStore defaultStore] allShoes] count]);
     return [[[ShoeStore defaultStore] allShoes] count];
 }
 
@@ -184,12 +191,14 @@
     
 // pwc    cell.textLabel.text = [testData.testBrandArray objectAtIndex:indexPath.row];
     
-    Shoe *s = [[[ShoeStore defaultStore] allShoes] objectAtIndex:indexPath.row];
+    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    
+    Shoe *s = [shoes objectAtIndex:indexPath.row];
     
     cell.textLabel.text = s.brand;
     cell.detailTextLabel.text = s.desc;
 
-// pwc    cell.detailTextLabel.text = [testData.testNameArray objectAtIndex:indexPath.row];
+// pwc    cell.detailTextLabel.text = [testData.testNameArray objectAtIndex:indexPath.row];      
 	
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
@@ -209,15 +218,14 @@
     
 //    Shoe *s = [shoes objectAtIndex:indexPath.row];
     
-    Shoe *s = [[[ShoeStore defaultStore] allShoes] objectAtIndex:indexPath.row];
-
+    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
 //    detailViewController.testBrandString = s.brand;
 //    detailViewController.testNameString = s.desc;
 
-    [detailViewController setShoe:s];
+    [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
     
-    NSLog(@"didSelectRow Brand = %@",s.brand);
+//    NSLog(@"didSelectRow Brand = %@",s.brand);
 
     
     [[self navigationController] pushViewController:detailViewController animated:YES];
@@ -259,9 +267,22 @@
     [detailViewController setShoe:newShoe];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
-
+    
+    UIToolbar *toolBar = [[UIToolbar alloc] init];
+    
+    UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:NULL];
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
+    UIBarButtonItem *trash = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:nil action:NULL];
+    
+    NSArray *items = [NSArray arrayWithObjects:camera, spacer, trash, nil];
+    
+    [toolBar setItems:items animated:YES];
     
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    
+    [camera release];
+    [spacer release];
+    [trash release];
     
     [self presentModalViewController:navController animated:YES];
     

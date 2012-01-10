@@ -12,11 +12,12 @@
 #import "Shoe.h"
 
 @interface EditShoesViewController : UITableViewController
-<UIApplicationDelegate>
+//<UIApplicationDelegate>
+<UITableViewDelegate>
 {
-    NSArray *testBrandArray;
-    NSArray *testNameArray;
-    ShoesTestData *testData;
+//    NSArray *testBrandArray;
+//    NSArray *testNameArray;
+//    ShoesTestData *testData;
 //    NSArray *shoes;
     
 }

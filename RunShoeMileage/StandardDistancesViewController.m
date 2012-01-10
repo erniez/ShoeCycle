@@ -23,6 +23,13 @@
 //        self.distanceString = vc.standardDistanceString;
 //        self.distanceString = @"test init";
         addDistanceViewController = vc;
+        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                       target:self
+                                       action:@selector(cancel:)];
+        [[self navigationItem] setLeftBarButtonItem:cancelItem];
+        [cancelItem release];
+
     }
     return self;
 }
@@ -119,6 +126,12 @@
     
     [self dismissModalViewControllerAnimated:YES];
 
+}
+
+
+- (void)cancel:(id)sender
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
