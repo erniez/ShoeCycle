@@ -86,6 +86,7 @@
     nameField.text = [NSString stringWithFormat:@"%@: %@",distShoe.brand, distShoe.desc];
     totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
     [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %.0f",[distShoe.maxDistance floatValue]]];
+    [imageView setImage:[distShoe thumbnail]];
     
 }
 
@@ -155,6 +156,8 @@
     [self setNameField:nil];
     [self setTotalDistanceProgress:nil];
     [self setMaxDistanceLabel:nil];
+    [imageView release];
+    imageView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -176,6 +179,7 @@
     [nameField release];
     [totalDistanceProgress release];
     [maxDistanceLabel release];
+    [imageView release];
     [super dealloc];
 }
 

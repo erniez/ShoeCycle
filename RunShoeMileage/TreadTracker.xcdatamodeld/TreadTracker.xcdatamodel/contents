@@ -8,9 +8,11 @@
         <attribute name="maxDistance" optional="YES" attributeType="Double" defaultValueString="0"/>
         <attribute name="orderingValue" optional="YES" attributeType="Double" defaultValueString="0.0"/>
         <attribute name="startDistance" optional="YES" attributeType="Double" defaultValueString="0"/>
+        <attribute name="thumbnail" optional="YES" transient="YES"/>
+        <attribute name="thumbnailData" optional="YES" attributeType="Binary"/>
         <attribute name="totalDistance" optional="YES" attributeType="Double" defaultValueString="0.0"/>
     </entity>
     <elements>
-        <element name="Shoe" positionX="160" positionY="192" width="128" height="165"/>
+        <element name="Shoe" positionX="160" positionY="192" width="128" height="195"/>
     </elements>
 </model>

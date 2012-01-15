@@ -30,6 +30,7 @@
     UIProgressView *totalDistanceProgress;
     
     UILabel *maxDistanceLabel;
+    IBOutlet UIImageView *imageView;
 }
 @property (nonatomic, retain) IBOutlet UILabel *maxDistanceLabel;
 @property (nonatomic, retain) IBOutlet UITextField *enterDistanceField;

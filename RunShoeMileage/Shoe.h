@@ -2,7 +2,7 @@
 //  Shoe.h
 //  RunShoeMileage
 //
-//  Created by Ernie on 1/8/12.
+//  Created by Ernie on 1/13/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,13 +13,17 @@
 @interface Shoe : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSString * brand;
-@property (nonatomic, retain) NSString * desc;
-@property (nonatomic, retain) NSDate * expirationDate;
-@property (nonatomic, retain) NSString * imageKey;
-@property (nonatomic, retain) NSNumber * maxDistance;
-@property (nonatomic, retain) NSNumber * orderingValue;
-@property (nonatomic, retain) NSNumber * startDistance;
-@property (nonatomic, retain) NSNumber * totalDistance;
+@property (nonatomic, retain) NSString *brand;
+@property (nonatomic, retain) NSString *desc;
+@property (nonatomic, retain) NSDate *expirationDate;
+@property (nonatomic, retain) NSString *imageKey;
+@property (nonatomic, retain) NSNumber *maxDistance;
+@property (nonatomic, retain) NSNumber *orderingValue;
+@property (nonatomic, retain) NSNumber *startDistance;
+@property (nonatomic, retain) NSNumber *totalDistance;
+@property (nonatomic, retain) NSData *thumbnailData;
+@property (nonatomic, retain) UIImage *thumbnail;
 
+- (void)setThumbnailDataFromImage:(UIImage *)image width:(int)w height:(int)h;
++ (CGSize)thumbnailSizeFromWidth:(int)w height:(int)h;
 @end

@@ -283,10 +283,12 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     CFRelease(newUniqueID);
     
     // Store  image in the ImageStore with this key
-    [[ImageStore defaultImageStore] setImage:image forKey:[shoe imageKey]];
+    [[ImageStore defaultImageStore] setImage:image withWidth:210 withHeight:140 forKey:[shoe imageKey]];
 
     // Put that image onto the screen in our image view
     [imageView setImage:image];
+    
+    [shoe setThumbnailDataFromImage:image width:120 height:80];
     
     // Take image picker off the screen - You must call this dismiss method
     [self dismissModalViewControllerAnimated:YES];

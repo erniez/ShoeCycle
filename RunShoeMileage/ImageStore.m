@@ -75,16 +75,54 @@ static ImageStore *defaultImageStore = nil;
 }
 
 
-- (void)setImage:(UIImage *)i forKey:(NSString *)s
+- (void)setImage:(UIImage *)i withWidth:(int)w withHeight:(int)h forKey:(NSString *)s
 {
+    CGSize origImageSize = [i size];
+    
+    CGRect newRect;
+    newRect.origin = CGPointZero;
+    newRect.size = CGSizeMake(w, h);    
+    // How do we scale the image?
+    float ratio = MAX(newRect.size.width/origImageSize.width,
+                      newRect.size.height/origImageSize.height);
+    
+    // Create a bitmap image context
+    UIGraphicsBeginImageContext(newRect.size);
+    
+    // Round the corners
+//    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:newRect
+//                                                    cornerRadius:5.0];
+//    [path addClip];
+    
+    // Into what rectangle shall I composite the image?
+    CGRect projectRect;
+    projectRect.size.width = ratio * origImageSize.width;
+    projectRect.size.height = ratio * origImageSize.height;
+    projectRect.origin.x = (newRect.size.width - projectRect.size.width)/2.0;
+    projectRect.origin.y = (newRect.size.height - projectRect.size.height) / 2.0;
+    
+    // Draw an image on it
+    [i drawInRect:projectRect];
+    
+    // Get the image from the image context, retain it as our thumbnail
+    UIImage *reduced = UIGraphicsGetImageFromCurrentImageContext();
+//    [self setThumbnail:small];
+    
+    // Get the image as a PNG data
+//    NSData *data = UIImagePNGRepresentation(reduced);
+//    [self setThumbnailData:data];
+    
+    // Cleanup image context resources, we're done
+//    UIGraphicsEndImageContext();
+    
     // Put it in the dictionary
-    [dictionary setObject:i forKey:s];
+    [dictionary setObject:reduced forKey:s];
     
     // Create full path for image
     NSString *imagePath = pathInDocumentDirectory(s);
     
     // Turn image into JPEG data
-    NSData *d = UIImageJPEGRepresentation(i, 0.5);
+    NSData *d = UIImageJPEGRepresentation(reduced, 0.5);
     
     // Write it to full path
     [d writeToFile:imagePath atomically:YES];

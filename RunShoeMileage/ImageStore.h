@@ -16,7 +16,7 @@
 + (ImageStore *)defaultImageStore;
 
 
-- (void)setImage:(UIImage *)i forKey:(NSString *)s;
+- (void)setImage:(UIImage *)i withWidth:(int)w withHeight:(int)h forKey:(NSString *)s;
 - (UIImage *)imageForKey:(NSString *)s;
 - (void)deleteImageForKey:(NSString *)s;
 
