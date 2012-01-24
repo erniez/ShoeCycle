@@ -2,11 +2,12 @@
 //  Shoe.m
 //  RunShoeMileage
 //
-//  Created by Ernie on 1/13/12.
+//  Created by Ernie on 1/19/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Shoe.h"
+#import "History.h"
 
 
 @implementation Shoe
@@ -17,9 +18,10 @@
 @dynamic maxDistance;
 @dynamic orderingValue;
 @dynamic startDistance;
-@dynamic totalDistance;
-@dynamic thumbnailData;
 @dynamic thumbnail;
+@dynamic thumbnailData;
+@dynamic totalDistance;
+@dynamic history;
 
 - (void)awakeFromFetch
 {
@@ -37,7 +39,7 @@
     CGRect newRect;
     newRect.origin = CGPointZero;
     newRect.size = [[self class] thumbnailSizeFromWidth:w height:h];
-
+    
     // How do we scale the image?
     float ratio = MAX(newRect.size.width/origImageSize.width,
                       newRect.size.height/origImageSize.height);
@@ -77,6 +79,5 @@
 {
     return CGSizeMake(w, h);
 }
-
 
 @end

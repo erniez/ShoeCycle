@@ -14,6 +14,7 @@
 @interface ShoeStore : NSObject
 {
     NSMutableArray *allShoes;
+    NSMutableArray *allRunDistances;
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;
 }
@@ -23,9 +24,11 @@
 
 #pragma mark Shoes
 - (NSArray *)allShoes;
+- (NSArray *)allRunDistances;
 - (Shoe *)createShoe;
 - (void)removeShoe:(Shoe *)s;
 - (void)moveShoeAtIndex:(int)from toIndex:(int)to;
 - (void)fetchShoesIfNecessary;
+- (void)setRunDistance:(float)dist;
 
 @end

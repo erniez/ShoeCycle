@@ -8,8 +8,10 @@
 
 #import "AddDistanceViewController.h"
 #import "StandardDistancesViewController.h"
+#import "RunHistoryViewController.h"
 #import "ShoeStore.h"
 #import "Shoe.h"
+#import "History.h"
 
 @implementation AddDistanceViewController
 @synthesize nameField;
@@ -18,7 +20,7 @@
 @synthesize enterDistanceField;
 @synthesize totalDistanceField;
 @synthesize pickerView, doneButton,runDateFormatter, standardDistanceString;
-@synthesize distShoe;
+@synthesize distShoe, addRunDate, hist;
 @synthesize totalDistanceProgress;
 
 
@@ -61,14 +63,14 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    NSLog(@"standardDistanceString = %@", standardDistanceString);
+//    NSLog(@"standardDistanceString = %@", standardDistanceString);
     if (standardDistanceString != nil) {
         [enterDistanceField setText:standardDistanceString];
     }
 
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
-    NSLog(@"shoes count = %d",[shoes count]);
+    NSLog(@"History count = %d",[distShoe.history count]);
     
     if ([shoes count] == 0) {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
@@ -81,7 +83,17 @@
     return;
     }
     
-    distShoe = [shoes objectAtIndex:0];
+    self.distShoe = [shoes objectAtIndex:0];
+    NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
+    float runTotal = 0;
+    int i = 0;
+    do {
+        History *tempHist = [runs objectAtIndex:i];
+        runTotal = runTotal +  [tempHist.runDistance floatValue];
+        NSLog (@"runDistance = %.2f",[tempHist.runDistance floatValue]);
+        i++;
+    } while (i < [distShoe.history count]);
+    NSLog(@"run total = %.2f",runTotal);
     
     nameField.text = [NSString stringWithFormat:@"%@: %@",distShoe.brand, distShoe.desc];
     totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
@@ -125,6 +137,8 @@
 	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
     runDateField.delegate = self;
 //    NSLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
+    self.addRunDate = [NSDate date];
+     NSLog(@"run date = %@",addRunDate);
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 
 //    [self setTotalDistanceField:nil];
@@ -180,6 +194,7 @@
     [totalDistanceProgress release];
     [maxDistanceLabel release];
     [imageView release];
+    [addRunDate release];
     [super dealloc];
 }
 
@@ -199,12 +214,36 @@
 - (IBAction)addDistanceButton:(id)sender 
 {
     double addDistance;
+    NSManagedObjectContext *context = [distShoe managedObjectContext];
+    NSDate *testDate;
     
     // clear any editors that may be visible (clicking directly from distance number pad)
     [[self view] endEditing:YES];
     
 
     addDistance = [[enterDistanceField text] floatValue]; 
+    testDate = self.addRunDate;
+//    NSLog(@"setting history test run date = %@",testDate);
+    
+    [[ShoeStore defaultStore] setRunDistance:addDistance];
+    
+//    NSArray *allDistances = [[ShoeStore defaultStore] allRunDistances];
+//    NSManagedObject *runDist = [allDistances objectAtIndex:0];
+    self.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
+    [distShoe addHistoryObject:hist];
+    hist.runDistance = [NSNumber numberWithFloat:addDistance];
+    NSLog(@"setting history run distance = %@",hist.runDistance);
+    hist.runDate = testDate;
+//    hist.runDate = [NSDate date];
+//    NSLog(@"setting history run date = %@",hist.runDate);
+    
+    
+    NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
+    NSManagedObject *runDist = [runDistances objectAtIndex:0];
+    NSString *displayDistance = [runDist valueForKey:@"runDistance"];
+    
+    NSLog(@"%@",hist.runDistance);
+    NSLog(@"Top of runDistance: %@",displayDistance);
     
     distShoe.totalDistance = [NSNumber numberWithFloat:(addDistance + [distShoe.totalDistance floatValue])];
     
@@ -215,6 +254,8 @@
     enterDistanceField.text = nil;
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
+    
+    [runDistances release];
     
 }
 
@@ -268,6 +309,21 @@
     [navController release];    
 }
 
+- (IBAction)runHistoryButtonPressed:(id)sender 
+{
+    [[self view] endEditing:YES];           // clear any editors that may be visible
+    
+    RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] initWithStyle:UITableViewStylePlain];
+    modalViewController.shoe = distShoe;
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
+   
+    [self presentModalViewController:navController animated:YES];
+    
+    [modalViewController release];
+    [navController release];    
+}
+
 
 - (void)actionSheetCancel:(id)sender
 {
@@ -275,6 +331,7 @@
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     NSLog(@"%@",[self.runDateFormatter stringFromDate:self.pickerView.date]);
 //    [runDateField setText:[NSString stringWithFormat:[self.runDateFormatter stringFromDate:self.pickerView.date]]];
+    self.addRunDate = self.pickerView.date;
     [runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
 
     

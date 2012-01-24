@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Shoe.h"
+@class History;
 
 @interface AddDistanceViewController : UIViewController
 <UITextFieldDelegate, UIActionSheetDelegate>
@@ -19,6 +20,7 @@
 	UIBarButtonItem *doneButton;	// this button appears only when the date picker is open
     
     UITextField *runDateField;
+    NSDate *addRunDate;
     NSDateFormatter *runDateFormatter;
     UITextField *nameField;
     
@@ -27,6 +29,7 @@
     NSString *standardDistanceString;
     
     Shoe *distShoe;
+    History *hist;
     UIProgressView *totalDistanceProgress;
     
     UILabel *maxDistanceLabel;
@@ -42,7 +45,9 @@
 @property (nonatomic, retain) IBOutlet UITextField *nameField;
 @property (nonatomic, readwrite, retain) NSString *standardDistanceString; 
 @property (nonatomic, retain) Shoe *distShoe;
+@property (nonatomic, retain) History *hist;
 @property (nonatomic, retain) IBOutlet UIProgressView *totalDistanceProgress;
+@property (nonatomic, retain) NSDate *addRunDate;
 
 
 - (void)actionSheetCancel:(id)sender;
@@ -50,5 +55,6 @@
 - (IBAction)addDistanceButton:(id)sender;
 - (IBAction)callDP:(id)sender;
 - (IBAction)standardDistancesButtonPressed:(id)sender;
+- (IBAction)runHistoryButtonPressed:(id)sender;
 
 @end

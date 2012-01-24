@@ -105,7 +105,7 @@
 	[self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.expirationDateFormatter setTimeStyle:NSDateFormatterNoStyle];
     expirationDateField.delegate = self;
-    expirationDate = shoe.expirationDate;
+    self.expirationDate = shoe.expirationDate;
     [expirationDateField setText:[self.expirationDateFormatter stringFromDate:shoe.expirationDate]];
     NSLog(@"Arriving Date = %@",shoe.expirationDate);
     
@@ -135,7 +135,7 @@
     shoe.maxDistance = [NSNumber numberWithFloat:[maxDistance.text floatValue]];
     NSLog(@"Leaving maxDistance %@",shoe.maxDistance);
     shoe.startDistance = [NSNumber numberWithFloat:[startDistance.text floatValue]];
-    shoe.expirationDate = expirationDate;
+    shoe.expirationDate = self.expirationDate;
     NSLog(@"Leaving Date = %@",shoe.expirationDate);
     
 }
@@ -372,8 +372,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (void)actionSheetCancel:(id)sender
 {
 
-    expirationDate = self.expPickerView.date;
-    NSLog(@"Expiration Date = %@",expirationDate);
+    self.expirationDate = self.expPickerView.date;
+    NSLog(@"Expiration Date = %@",self.expirationDate);
     [expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     

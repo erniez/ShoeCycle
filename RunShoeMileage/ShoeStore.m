@@ -228,4 +228,35 @@ static ShoeStore *defaultStore = nil;
     
     return pathInDocumentDirectory(@"shoes.data");
 }
+
+
+- (void)setRunDistance:(float)dist
+{
+    NSManagedObject *history;
+    
+    history = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
+    [history setValue:[NSNumber numberWithFloat:dist] forKey:@"runDistance"];
+    
+}
+
+
+- (NSArray *)allRunDistances
+{
+    if (!allRunDistances) {
+        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        
+        NSEntityDescription *e = [[model entitiesByName] objectForKey:@"History"];
+        
+        [request setEntity:e];
+        
+        NSError *error;
+        NSArray *result = [context executeFetchRequest:request error:&error];
+        if (!result) {
+            [NSException raise:@"Fetch failed"
+                        format:@"Reason: %@", [error localizedDescription]];
+        }
+        allRunDistances = [result mutableCopy];
+    }
+    return allRunDistances;
+}
 @end

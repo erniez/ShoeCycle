@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="562" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="History" representedClassName="History">
+        <attribute name="runDate" optional="YES" attributeType="Date"/>
+        <attribute name="runDistance" optional="YES" attributeType="Double" defaultValueString="0.0"/>
+        <relationship name="shoe" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shoe" inverseName="history" inverseEntity="Shoe"/>
+    </entity>
     <entity name="Shoe" representedClassName="Shoe">
         <attribute name="brand" optional="YES" attributeType="String"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
@@ -11,8 +16,10 @@
         <attribute name="thumbnail" optional="YES" transient="YES"/>
         <attribute name="thumbnailData" optional="YES" attributeType="Binary"/>
         <attribute name="totalDistance" optional="YES" attributeType="Double" defaultValueString="0.0"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="History" inverseName="shoe" inverseEntity="History"/>
     </entity>
     <elements>
-        <element name="Shoe" positionX="160" positionY="192" width="128" height="195"/>
+        <element name="Shoe" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="History" positionX="574" positionY="441" width="128" height="90"/>
     </elements>
 </model>
