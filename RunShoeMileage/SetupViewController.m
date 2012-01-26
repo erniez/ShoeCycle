@@ -7,8 +7,13 @@
 //
 
 #import "SetupViewController.h"
+#import "RunShoeMileageAppDelegate.h"
+#import "UserDistanceSetting.h"
+
+//extern NSInteger distanceUnit;
 
 @implementation SetupViewController
+@synthesize distanceUnitControl;
 
 
 - (id)init
@@ -53,8 +58,15 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
+}
+
 - (void)viewDidUnload
 {
+    [self setDistanceUnitControl:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -66,4 +78,19 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)changeDistanceUnits:(id)sender 
+{
+//    [[NSUserDefaults standardUserDefaults]
+//        setInteger:[sender selectedSegmentIndex]
+//            forKey:TreadTrackerDistanceUnitPrefKey];
+//    distanceUnit = [sender selectedSegmentIndex];
+    [UserDistanceSetting setDistanceUnit:[sender selectedSegmentIndex]];
+    
+}
+
+
+- (void)dealloc {
+    [distanceUnitControl release];
+    [super dealloc];
+}
 @end

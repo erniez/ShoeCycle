@@ -13,7 +13,13 @@
 #import "EditShoesNavController.h"
 #import "ShoeStore.h"
 
+//NSString * const TreadTrackerDistanceUnitPrefKey = @"TreadTrackerDistanceUnitPrefKey";
+//NSInteger distanceUnit;
+//float const milesToKilometers = 1.609344;
+
 @implementation RunShoeMileageAppDelegate
+
+
 
 @synthesize window, tabBarController;
 //@synthesize navController;
@@ -61,6 +67,8 @@
  //   
   //  [window addSubview:navController.view];
     
+ //   distanceUnit = [[NSUserDefaults standardUserDefaults] integerForKey:TreadTrackerDistanceUnitPrefKey];
+ //   NSLog(@"distanceUnit = %d",distanceUnit);
     NSLog(@"View Did Finish Launching");
 
     [self.window makeKeyAndVisible];

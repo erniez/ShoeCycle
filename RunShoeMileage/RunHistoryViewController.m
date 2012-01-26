@@ -8,6 +8,7 @@
 
 #import "RunHistoryViewController.h"
 #import "History.h"
+#import "UserDistanceSetting.h"
 
 
 
@@ -57,7 +58,7 @@
      autorelease];
     UILabel *headerLabel =
     [[[UILabel alloc]
-      initWithFrame:CGRectMake(11, 5, 80, 21)]
+      initWithFrame:CGRectMake(8, 5, 80, 21)]
      autorelease];
     headerLabel.text = NSLocalizedString(@"Run Date", @"");
     headerLabel.textColor = [UIColor blackColor];
@@ -67,11 +68,20 @@
     headerLabel.backgroundColor = [UIColor clearColor];
     [containerView addSubview:headerLabel];
     
-    UILabel *headerLabel2 =
-    [[[UILabel alloc]
-      initWithFrame:CGRectMake(240, 5, 75, 21)]
-     autorelease];
-    headerLabel2.text = NSLocalizedString(@"Distance", @"");
+    UILabel *headerLabel2;
+    if ([UserDistanceSetting getDistanceUnit]) {
+        headerLabel2 =
+            [[[UILabel alloc] initWithFrame:CGRectMake(207, 5, 107, 21)] autorelease];
+
+        headerLabel2.text = NSLocalizedString(@"Distance(km)", @"");
+        
+    }
+    else {
+        headerLabel2 = [[[UILabel alloc] initWithFrame:CGRectMake(186, 5, 130, 21)] autorelease];
+        
+        headerLabel2.text = NSLocalizedString(@"Distance(miles)", @"");
+   
+    }
     headerLabel2.textColor = [UIColor blackColor];
     //    headerLabel.shadowColor = [UIColor blackColor];
     //    headerLabel.shadowOffset = CGSizeMake(0, 1);
@@ -173,7 +183,7 @@
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
     cell.textLabel.text = [dateFormatter stringFromDate:hist.runDate];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f",[hist.runDistance floatValue]];
+    cell.detailTextLabel.text = [UserDistanceSetting displayDistance:[hist.runDistance floatValue]];
     NSLog (@"hist.runDistance = %@",hist.runDistance);
     
     [numberFormatter release];

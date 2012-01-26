@@ -28,6 +28,7 @@
 		1BCF6448148AF7E7004C0E6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF6446148AF7E7004C0E6A /* InfoPlist.strings */; };
 		1BCF644A148AF7E7004C0E6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF6449148AF7E7004C0E6A /* main.m */; };
 		1BCF644E148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF644D148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m */; };
+		1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */; };
 		1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2FAED14B5D343006A4542 /* CoreData.framework */; };
 		1BD976D714BB1C720012E958 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BD976D614BB1C720012E958 /* Default.png */; };
 		1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDDEC5C148BDF8B009E5436 /* AddDistanceViewController.m */; };
@@ -72,6 +73,8 @@
 		1BCF644C148AF7E7004C0E6A /* RunShoeMileageAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunShoeMileageAppDelegate.h; sourceTree = "<group>"; };
 		1BCF644D148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunShoeMileageAppDelegate.m; sourceTree = "<group>"; };
 		1BCF6450148AF7E7004C0E6A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDistanceSetting.h; sourceTree = "<group>"; };
+		1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDistanceSetting.m; sourceTree = "<group>"; };
 		1BD2FAED14B5D343006A4542 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1BD976D614BB1C720012E958 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1BDDEC5B148BDF8B009E5436 /* AddDistanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDistanceViewController.h; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */,
 				1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */,
 				1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */,
+				1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */,
+				1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */,
 				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
 			);
 			path = RunShoeMileage;
@@ -255,6 +260,7 @@
 				1B2E8CA214C90DC900F0917C /* Shoe.m in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
+				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

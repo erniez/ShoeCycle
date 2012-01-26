@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const TreadTrackerDistanceUnitPrefKey;
+
 @interface RunShoeMileageAppDelegate : NSObject <UIApplicationDelegate>
-{
-@public
+{ 
     UITabBarController *tabBarController;
-    
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

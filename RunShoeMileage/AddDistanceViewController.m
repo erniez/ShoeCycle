@@ -12,6 +12,10 @@
 #import "ShoeStore.h"
 #import "Shoe.h"
 #import "History.h"
+#import "UserDistanceSetting.h"
+
+extern NSInteger distanceUnit;
+float const milesToKilometers;
 
 @implementation AddDistanceViewController
 @synthesize nameField;
@@ -19,7 +23,7 @@
 @synthesize maxDistanceLabel;
 @synthesize enterDistanceField;
 @synthesize totalDistanceField;
-@synthesize pickerView, doneButton,runDateFormatter, standardDistanceString;
+@synthesize pickerView, doneButton,runDateFormatter; // standardDistanceString;
 @synthesize distShoe, addRunDate, hist;
 @synthesize totalDistanceProgress;
 
@@ -35,6 +39,8 @@
         
         // Give it a label
         [tbi setTitle:@"Add Distance"];
+        
+        standardDistance = 0;
     }
     
     return self;
@@ -64,8 +70,8 @@
 - (void) viewWillAppear:(BOOL)animated
 {
 //    NSLog(@"standardDistanceString = %@", standardDistanceString);
-    if (standardDistanceString != nil) {
-        [enterDistanceField setText:standardDistanceString];
+    if (standardDistance != 0) {
+        [enterDistanceField setText:[UserDistanceSetting displayDistance:standardDistance]];
     }
 
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
@@ -100,6 +106,9 @@
     [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %.0f",[distShoe.maxDistance floatValue]]];
     [imageView setImage:[distShoe thumbnail]];
     
+//    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
+    [totalDistanceField setText:[UserDistanceSetting displayDistance:runTotal]];
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -124,10 +133,13 @@
         distShoe = [shoes objectAtIndex:0];
     }
     
-    
     nameField.text = distShoe.brand;
+/*    float displayValue = [distShoe.totalDistance floatValue];
+    if ([UserDistanceSetting getDistanceUnit]) {
+        displayValue = displayValue * milesToKilometers;
+    } */
     
-    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
+    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
       
     NSLog(@"View Did Load addDistanceViewController");
     
@@ -147,7 +159,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    standardDistanceString = nil;
+    standardDistance = 0;
+    [enterDistanceField setText:nil];
+    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -213,7 +227,7 @@
 
 - (IBAction)addDistanceButton:(id)sender 
 {
-    double addDistance;
+    float addDistance;
     NSManagedObjectContext *context = [distShoe managedObjectContext];
     NSDate *testDate;
     
@@ -221,9 +235,12 @@
     [[self view] endEditing:YES];
     
 
-    addDistance = [[enterDistanceField text] floatValue]; 
+    addDistance = [UserDistanceSetting enterDistance:[enterDistanceField text]]; 
+    if (standardDistance) {
+        addDistance = standardDistance;
+    }
+    NSLog(@"addDistance = %.2f",addDistance);
     testDate = self.addRunDate;
-//    NSLog(@"setting history test run date = %@",testDate);
     
     [[ShoeStore defaultStore] setRunDistance:addDistance];
     
@@ -234,10 +251,7 @@
     hist.runDistance = [NSNumber numberWithFloat:addDistance];
     NSLog(@"setting history run distance = %@",hist.runDistance);
     hist.runDate = testDate;
-//    hist.runDate = [NSDate date];
-//    NSLog(@"setting history run date = %@",hist.runDate);
-    
-    
+   
     NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
     NSManagedObject *runDist = [runDistances objectAtIndex:0];
     NSString *displayDistance = [runDist valueForKey:@"runDistance"];
@@ -249,9 +263,17 @@
     
     NSLog(@"totalDistance = %@",distShoe.totalDistance);
     
-    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
+    /*    float displayValue = [distShoe.totalDistance floatValue];
+     if ([UserDistanceSetting getDistanceUnit]) {
+     displayValue = displayValue * milesToKilometers;
+     } */
+    
+    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
+    
+//    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
     
     enterDistanceField.text = nil;
+    standardDistance = 0;
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
     

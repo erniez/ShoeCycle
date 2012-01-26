@@ -76,18 +76,15 @@
 - (IBAction) distance5kButtonPressed:(id)sender
 {
     
-    addDistanceViewController.standardDistanceString = @"3.1";
+    addDistanceViewController->standardDistance = 3.10685596;
     
-//    self.distanceString = @"test";
-    NSLog (@"%@",addDistanceViewController.standardDistanceString);
-//    [self.distanceString release];
     [self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)distance10kButtonPressed:(id)sender
 {
-    addDistanceViewController.standardDistanceString = @"6.2";
+    addDistanceViewController->standardDistance = 6.21371192;
 
     [self dismissModalViewControllerAnimated:YES];
 }
@@ -95,7 +92,7 @@
 
 - (IBAction)distance5MilesButtonPressed:(id)sender 
 {
-    addDistanceViewController.standardDistanceString = @"5.0";
+    addDistanceViewController->standardDistance = 5.0;
     
     [self dismissModalViewControllerAnimated:YES];
 
@@ -104,7 +101,7 @@
 
 - (IBAction)distanceTenMilesButtonPressed:(id)sender 
 {
-    addDistanceViewController.standardDistanceString = @"10.0";
+    addDistanceViewController->standardDistance = 10.0;
     
     [self dismissModalViewControllerAnimated:YES];
 
@@ -113,7 +110,7 @@
 
 - (IBAction)distanceHalfMarathonButtonPressed:(id)sender 
 {
-    addDistanceViewController.standardDistanceString = @"13.1";
+    addDistanceViewController->standardDistance = 13.109375;
     
     [self dismissModalViewControllerAnimated:YES];
 
@@ -122,7 +119,7 @@
 
 - (IBAction)distanceMarathonButtonPressed:(id)sender 
 {
-    addDistanceViewController.standardDistanceString = @"26.2";
+    addDistanceViewController->standardDistance = 26.21875;
     
     [self dismissModalViewControllerAnimated:YES];
 
