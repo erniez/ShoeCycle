@@ -18,6 +18,10 @@
 
 @property (nonatomic, retain) NSString *distanceString;
 @property (nonatomic, retain) AddDistanceViewController *addDistanceViewController;
+@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance1Button;
+@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance2Button;
+@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance3Button;
+@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance4Button;
 
 - (id)initWithDistance:(AddDistanceViewController *)vc;
 
@@ -28,5 +32,9 @@
 - (IBAction)distanceHalfMarathonButtonPressed:(id)sender;
 - (IBAction)distanceMarathonButtonPressed:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)userDefinedDistance1ButtonPressed:(id)sender;
+- (IBAction)userDefinedDistance2ButtonPressed:(id)sender;
+- (IBAction)userDefinedDistance3ButtonPressed:(id)sender;
+- (IBAction)userDefinedDistance4ButtonPressed:(id)sender;
 
 @end

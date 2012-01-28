@@ -12,6 +12,11 @@ float const milesToKilometers = 1.609344;
 float const kilometersToMiles = 0.621371;
 
 NSString * const TreadTrackerDistanceUnitPrefKey = @"TreadTrackerDistanceUnitPrefKey";
+NSString * const TreadTrackerUserDefineDistance1PrefKey = @"TreadTrackerUserDefineDistance1PrefKey";
+NSString * const TreadTrackerUserDefineDistance2PrefKey = @"TreadTrackerUserDefineDistance2PrefKey";
+NSString * const TreadTrackerUserDefineDistance3PrefKey = @"TreadTrackerUserDefineDistance3PrefKey";
+NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefineDistance4PrefKey";
+
 // static NSInteger distanceUnit;
 
 @implementation UserDistanceSetting
@@ -55,5 +60,64 @@ NSString * const TreadTrackerDistanceUnitPrefKey = @"TreadTrackerDistanceUnitPre
     return distance;  // have to return value in miles
 }
 
+
++ (float) getUserDefinedDistance1
+{
+    return [[NSUserDefaults standardUserDefaults] floatForKey:TreadTrackerUserDefineDistance1PrefKey];
+}
+
+
++ (void) setUserDefinedDistance1:(float)setting
+{
+    [[NSUserDefaults standardUserDefaults]
+     setFloat:setting
+     forKey:TreadTrackerUserDefineDistance1PrefKey];
+    return;
+}
+
+
++ (float) getUserDefinedDistance2
+{
+    return [[NSUserDefaults standardUserDefaults] floatForKey:TreadTrackerUserDefineDistance2PrefKey];
+}
+
+
++ (void) setUserDefinedDistance2:(float)setting
+{
+    [[NSUserDefaults standardUserDefaults]
+     setFloat:setting
+     forKey:TreadTrackerUserDefineDistance2PrefKey];
+    return;
+}
+
+
++ (float) getUserDefinedDistance3
+{
+    return [[NSUserDefaults standardUserDefaults] floatForKey:TreadTrackerUserDefineDistance3PrefKey];
+}
+
+
++ (void) setUserDefinedDistance3:(float)setting
+{
+    [[NSUserDefaults standardUserDefaults]
+     setFloat:setting
+     forKey:TreadTrackerUserDefineDistance3PrefKey];
+    return;
+}
+
+
++ (float) getUserDefinedDistance4
+{
+    return [[NSUserDefaults standardUserDefaults] floatForKey:TreadTrackerUserDefineDistance4PrefKey];
+}
+
+
++ (void) setUserDefinedDistance4:(float)setting
+{
+    [[NSUserDefaults standardUserDefaults]
+     setFloat:setting
+     forKey:TreadTrackerUserDefineDistance4PrefKey];
+    return;
+}
 
 @end

@@ -8,12 +8,17 @@
 
 #import "StandardDistancesViewController.h"
 #import "AddDistanceViewController.h"
+#import "UserDistanceSetting.h"
 
 
 @implementation StandardDistancesViewController
 
 @synthesize distanceString;
 @synthesize addDistanceViewController;
+@synthesize userDefinedDistance1Button;
+@synthesize userDefinedDistance2Button;
+@synthesize userDefinedDistance3Button;
+@synthesize userDefinedDistance4Button;
 
 - (id)initWithDistance:(AddDistanceViewController *)vc
 {
@@ -56,11 +61,38 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    if([UserDistanceSetting getUserDefinedDistance1])
+    {
+        [userDefinedDistance1Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]] 
+                                    forState:UIControlStateNormal];
+    }
+   
+    if([UserDistanceSetting getUserDefinedDistance2])
+    {
+        [userDefinedDistance2Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]] 
+                                    forState:UIControlStateNormal];
+    }
+
+    if([UserDistanceSetting getUserDefinedDistance3])
+    {
+        [userDefinedDistance3Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]] 
+                                    forState:UIControlStateNormal];
+    }
+
+    if([UserDistanceSetting getUserDefinedDistance4])
+    {
+        [userDefinedDistance4Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]] 
+                                    forState:UIControlStateNormal];
+    }
+
 }
 
 - (void)viewDidUnload
 {
+    [self setUserDefinedDistance1Button:nil];
+    [self setUserDefinedDistance2Button:nil];
+    [self setUserDefinedDistance3Button:nil];
+    [self setUserDefinedDistance4Button:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -131,4 +163,40 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+
+- (IBAction)userDefinedDistance1ButtonPressed:(id)sender 
+{
+    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance1];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)userDefinedDistance2ButtonPressed:(id)sender 
+{
+    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance2];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)userDefinedDistance3ButtonPressed:(id)sender 
+{
+    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance3];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)userDefinedDistance4ButtonPressed:(id)sender 
+{
+    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance4];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (void)dealloc {
+    [userDefinedDistance1Button release];
+    [userDefinedDistance2Button release];
+    [userDefinedDistance3Button release];
+    [userDefinedDistance4Button release];
+    [super dealloc];
+}
 @end

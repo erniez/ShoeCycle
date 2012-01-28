@@ -9,6 +9,7 @@
 #import "ShoeDetailViewController.h"
 #import "ShoeStore.h"
 #import "ImageStore.h"
+#import "UserDistanceSetting.h"
 
 @implementation ShoeDetailViewController
 @synthesize brandField, testBrandString, testNameString, shoe;
@@ -98,8 +99,10 @@
     [super viewWillAppear:animated];
     [brandField setText:shoe.brand];
     [name setText:shoe.desc];
-    [maxDistance setText:[NSString stringWithFormat:@"%@",shoe.maxDistance]];
-    [startDistance setText:[NSString stringWithFormat:@"%@",shoe.startDistance]];
+//    [maxDistance setText:[NSString stringWithFormat:@"%@",shoe.maxDistance]];
+    [maxDistance setText:[UserDistanceSetting displayDistance:[shoe.maxDistance floatValue]]];
+//    [startDistance setText:[NSString stringWithFormat:@"%@",shoe.startDistance]];
+    [startDistance setText:[UserDistanceSetting displayDistance:[shoe.startDistance floatValue]]];
     
     self.expirationDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
@@ -132,9 +135,9 @@
     [super viewWillDisappear:animated];
     shoe.brand = brandField.text;
     shoe.desc = name.text;
-    shoe.maxDistance = [NSNumber numberWithFloat:[maxDistance.text floatValue]];
+    shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:maxDistance.text]];
     NSLog(@"Leaving maxDistance %@",shoe.maxDistance);
-    shoe.startDistance = [NSNumber numberWithFloat:[startDistance.text floatValue]];
+    shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:startDistance.text]];
     shoe.expirationDate = self.expirationDate;
     NSLog(@"Leaving Date = %@",shoe.expirationDate);
     
@@ -210,7 +213,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    NSLog(@"Made it to textFieldShouldReturn");
     return YES;
 }
 
