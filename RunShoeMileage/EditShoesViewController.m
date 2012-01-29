@@ -105,8 +105,8 @@
 
 - (void)dealloc
 {	
-    [self.testNameArray release];
-	[self.testBrandArray release];
+ //   [self.testNameArray release];
+//	[self.testBrandArray release];
 	
 	[super dealloc];
 }
@@ -280,6 +280,7 @@
     
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
+    [toolBar release];
     [camera release];
     [spacer release];
     [trash release];

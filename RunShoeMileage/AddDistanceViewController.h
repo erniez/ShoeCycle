@@ -49,6 +49,10 @@
 @property (nonatomic, retain) History *hist;
 @property (nonatomic, retain) IBOutlet UIProgressView *totalDistanceProgress;
 @property (nonatomic, retain) NSDate *addRunDate;
+@property (retain, nonatomic) IBOutlet UILabel *startDateLabel;
+@property (retain, nonatomic) IBOutlet UILabel *expirationDateLabel;
+@property (retain, nonatomic) IBOutlet UITextField *daysLeftField;
+@property (retain, nonatomic) IBOutlet UIProgressView *wearProgress;
 
 
 - (void)actionSheetCancel:(id)sender;

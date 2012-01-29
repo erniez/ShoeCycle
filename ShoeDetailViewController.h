@@ -26,6 +26,9 @@
     NSDateFormatter *expirationDateFormatter;
     UIActionSheet *actionSheet;
     NSDate *expirationDate;
+    NSDate *startDate;
+    NSDate *currentDate;
+    UITextField *currentDateField;
     Shoe *shoe;
     UIToolbar *toolbar;
 
@@ -37,7 +40,11 @@
 @property (nonatomic, retain) NSDateFormatter *expirationDateFormatter; 
 @property (nonatomic, retain) Shoe *shoe;
 @property (nonatomic, retain) NSDate *expirationDate;
+@property (nonatomic, retain) NSDate *startDate;
+@property (nonatomic, retain) NSDate *currentDate;
 @property (nonatomic, retain) UIToolbar	*toolbar;
+@property (retain, nonatomic) IBOutlet UITextField *startDateField;
+@property (retain, nonatomic) UITextField *currentDateField;
 
 - (IBAction)takePicture:(id)sender;
 - (id)initForNewItem:(BOOL)isNew;

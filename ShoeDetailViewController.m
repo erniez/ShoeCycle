@@ -13,8 +13,9 @@
 
 @implementation ShoeDetailViewController
 @synthesize brandField, testBrandString, testNameString, shoe;
-@synthesize expPickerView, expirationDateFormatter, expirationDate;
+@synthesize expPickerView, expirationDateFormatter, expirationDate, startDate, currentDate;
 @synthesize toolbar;
+@synthesize startDateField, currentDateField;
 
 - (id)initForNewItem:(BOOL)isNew
 {
@@ -110,7 +111,9 @@
     expirationDateField.delegate = self;
     self.expirationDate = shoe.expirationDate;
     [expirationDateField setText:[self.expirationDateFormatter stringFromDate:shoe.expirationDate]];
-    NSLog(@"Arriving Date = %@",shoe.expirationDate);
+    self.startDate = shoe.startDate;
+    [startDateField setText:[self.expirationDateFormatter stringFromDate:shoe.startDate]];
+    NSLog(@"Will Appear Date = %@",shoe.expirationDate);
     
     NSString *imageKey = [shoe imageKey];
     
@@ -138,7 +141,9 @@
     shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:maxDistance.text]];
     NSLog(@"Leaving maxDistance %@",shoe.maxDistance);
     shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:startDistance.text]];
-    shoe.expirationDate = self.expirationDate;
+    shoe.expirationDate = expirationDate;
+    shoe.startDate = self.startDate;
+    NSLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
     NSLog(@"Leaving Date = %@",shoe.expirationDate);
     
 }
@@ -174,6 +179,7 @@
     [self setBrandField:nil];
     [imageView release];
     imageView = nil;
+    [self setStartDateField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -194,6 +200,7 @@
     [brandField release];
     [imageView release];
     [toolbar release];
+    [startDateField release];
     [super dealloc];
 }
 
@@ -330,6 +337,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     [[self view] endEditing:YES];           // clear any editors that may be visible (clicking from distance to date)
     
+    NSLog(@"callDP sender = %@", sender);
+    currentDateField = sender;
+    
     actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
     [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
@@ -357,13 +367,23 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    NSLog(@"leaving CallDP");
 }
 
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField == expirationDateField) {
-        [self callDP:nil];
+        self.currentDate = expirationDate;
+        [self callDP:expirationDateField];
+        NSLog(@"Writing Expiration Date to local variable = %@",expirationDate);
+        return NO;
+    }
+    
+    if (textField == startDateField) {
+        self.currentDate = startDate;
+        [self callDP:startDateField];
+        NSLog(@"Writing Start Date to local variable = %@",startDate);
         return NO;
     }
     
@@ -374,9 +394,19 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (void)actionSheetCancel:(id)sender
 {
 
-    self.expirationDate = self.expPickerView.date;
-    NSLog(@"Expiration Date = %@",self.expirationDate);
-    [expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
+//    self.currentDate = self.expPickerView.date;
+    if (currentDate == startDate) {
+        self.startDate = self.expPickerView.date;
+    }
+    
+    if (currentDate == expirationDate) {
+        self.expirationDate = self.expPickerView.date;
+    }
+    
+    NSLog(@"Current Date = %@",self.currentDate);
+    NSLog(@"Start Date = %@",self.startDate);
+//    [expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
+    [currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     
 }

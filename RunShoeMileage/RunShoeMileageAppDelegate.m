@@ -69,9 +69,10 @@
     
  //   distanceUnit = [[NSUserDefaults standardUserDefaults] integerForKey:TreadTrackerDistanceUnitPrefKey];
  //   NSLog(@"distanceUnit = %d",distanceUnit);
-    NSLog(@"View Did Finish Launching");
+
 
     [self.window makeKeyAndVisible];
+    NSLog(@"View Did Finish Launching");
     return YES;
 }
 

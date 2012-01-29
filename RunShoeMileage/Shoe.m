@@ -2,7 +2,7 @@
 //  Shoe.m
 //  RunShoeMileage
 //
-//  Created by Ernie on 1/19/12.
+//  Created by Ernie on 1/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 
 
 @implementation Shoe
+
 @dynamic brand;
 @dynamic desc;
 @dynamic expirationDate;
@@ -21,7 +22,9 @@
 @dynamic thumbnail;
 @dynamic thumbnailData;
 @dynamic totalDistance;
+@dynamic startDate;
 @dynamic history;
+
 
 - (void)awakeFromFetch
 {
@@ -79,5 +82,6 @@
 {
     return CGSizeMake(w, h);
 }
+
 
 @end

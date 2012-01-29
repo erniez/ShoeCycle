@@ -2,7 +2,7 @@
 //  Shoe.h
 //  RunShoeMileage
 //
-//  Created by Ernie on 1/19/12.
+//  Created by Ernie on 1/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -11,9 +11,8 @@
 
 @class History;
 
-@interface Shoe : NSManagedObject {
-@private
-}
+@interface Shoe : NSManagedObject
+
 @property (nonatomic, retain) NSString * brand;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSDate * expirationDate;
@@ -21,9 +20,10 @@
 @property (nonatomic, retain) NSNumber * maxDistance;
 @property (nonatomic, retain) NSNumber * orderingValue;
 @property (nonatomic, retain) NSNumber * startDistance;
-@property (nonatomic, retain) UIImage *thumbnail;
+@property (nonatomic, retain) UIImage * thumbnail;
 @property (nonatomic, retain) NSData * thumbnailData;
 @property (nonatomic, retain) NSNumber * totalDistance;
+@property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSSet *history;
 @end
 

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
-		1B2E8CA214C90DC900F0917C /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA114C90DC900F0917C /* Shoe.m */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */; };
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
@@ -17,6 +16,7 @@
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
+		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
 		1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */; };
 		1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183D14A35D240033EFC3 /* SetupViewController.m */; };
 		1BC5184014A35D240033EFC3 /* SetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC5183E14A35D240033EFC3 /* SetupViewController.xib */; };
@@ -41,8 +41,6 @@
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		1B23E02B14B5257F00B51A6E /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
-		1B2E8CA014C90DC900F0917C /* Shoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shoe.h; sourceTree = "<group>"; };
-		1B2E8CA114C90DC900F0917C /* Shoe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shoe.m; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunHistoryViewController.h; sourceTree = "<group>"; };
@@ -54,6 +52,8 @@
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
 		1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardDistancesViewController.m; sourceTree = "<group>"; };
 		1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StandardDistancesViewController.xib; sourceTree = "<group>"; };
+		1BC08E7914D42171007A4344 /* Shoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shoe.h; sourceTree = "<group>"; };
+		1BC08E7A14D42171007A4344 /* Shoe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shoe.m; sourceTree = "<group>"; };
 		1BC5183614A35CF80033EFC3 /* EditShoesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditShoesViewController.h; sourceTree = "<group>"; };
 		1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditShoesViewController.m; sourceTree = "<group>"; };
 		1BC5183C14A35D240033EFC3 /* SetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupViewController.h; sourceTree = "<group>"; };
@@ -129,8 +129,6 @@
 		1BCF6443148AF7E7004C0E6A /* RunShoeMileage */ = {
 			isa = PBXGroup;
 			children = (
-				1B2E8CA014C90DC900F0917C /* Shoe.h */,
-				1B2E8CA114C90DC900F0917C /* Shoe.m */,
 				1BCF644C148AF7E7004C0E6A /* RunShoeMileageAppDelegate.h */,
 				1BCF644D148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m */,
 				1BCF644F148AF7E7004C0E6A /* MainWindow.xib */,
@@ -160,6 +158,8 @@
 				1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */,
 				1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */,
 				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
+				1BC08E7914D42171007A4344 /* Shoe.h */,
+				1BC08E7A14D42171007A4344 /* Shoe.m */,
 			);
 			path = RunShoeMileage;
 			sourceTree = "<group>";
@@ -257,10 +257,10 @@
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
-				1B2E8CA214C90DC900F0917C /* Shoe.m in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
+				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

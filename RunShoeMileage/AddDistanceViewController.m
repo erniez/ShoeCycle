@@ -16,8 +16,13 @@
 
 extern NSInteger distanceUnit;
 float const milesToKilometers;
+float runTotal;
 
 @implementation AddDistanceViewController
+@synthesize startDateLabel;
+@synthesize expirationDateLabel;
+@synthesize daysLeftField;
+@synthesize wearProgress;
 @synthesize nameField;
 @synthesize runDateField;
 @synthesize maxDistanceLabel;
@@ -90,25 +95,67 @@ float const milesToKilometers;
     }
     
     self.distShoe = [shoes objectAtIndex:0];
-    NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
-    float runTotal = 0;
-    int i = 0;
-    do {
-        History *tempHist = [runs objectAtIndex:i];
-        runTotal = runTotal +  [tempHist.runDistance floatValue];
-        NSLog (@"runDistance = %.2f",[tempHist.runDistance floatValue]);
-        i++;
-    } while (i < [distShoe.history count]);
-    NSLog(@"run total = %.2f",runTotal);
+    runTotal = [distShoe.startDistance floatValue];
+    if ([distShoe.history count]) {
+        NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
+        int i = 0;
+        do {
+            History *tempHist = [runs objectAtIndex:i];
+            runTotal = runTotal +  [tempHist.runDistance floatValue];
+            NSLog (@"runDistance = %.2f",[tempHist.runDistance floatValue]);
+            i++;
+        } while (i < [distShoe.history count]);
+        NSLog(@"run total = %.2f",runTotal);
+        [runs release];
+    }
     
     nameField.text = [NSString stringWithFormat:@"%@: %@",distShoe.brand, distShoe.desc];
-    totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
+    totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
     [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %.0f",[distShoe.maxDistance floatValue]]];
+  
+    self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    runDateField.delegate = self;
+    //    NSLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
+    self.addRunDate = [NSDate date];
+    NSLog(@"run date = %@",addRunDate);
+    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
+
+    [startDateLabel setText:[NSString stringWithFormat:@"Start: %@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
+    [expirationDateLabel setText:[NSString stringWithFormat:@"Exp: %@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
     [imageView setImage:[distShoe thumbnail]];
     
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                        fromDate:[NSDate date]
+                                                          toDate:distShoe.expirationDate
+                                                         options:0];
+    
+    NSDateComponents *componentsTotal = [gregorianCalendar components:NSDayCalendarUnit
+                                                        fromDate:distShoe.startDate
+                                                          toDate:distShoe.expirationDate
+                                                         options:0];
+
+    
+    [gregorianCalendar release];
+    [daysLeftField setText:[NSString stringWithFormat:@"%d Days Left",[components day]]];
+    NSLog(@"Components Total = %d",[componentsTotal day]);
+    int daysTotal = [componentsTotal day];
+    int daysLeftToWear = [components day];
+    float wear = 0;
+    wear = (float)daysLeftToWear/(float)daysTotal;
+    wearProgress.progress = 1 - wear;
+//    NSLog(@"Wear Progress = %@",wearProgress.progress);
+    NSLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
+
+    NSLog(@"Wear = %.4f",wear);
+    
+
+    NSLog(@"Leaving View Will Appear");
 //    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
     [totalDistanceField setText:[UserDistanceSetting displayDistance:runTotal]];
-    
+
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -144,14 +191,6 @@ float const milesToKilometers;
     NSLog(@"View Did Load addDistanceViewController");
     
 //    [totalDistanceField setText:[NSString stringWithFormat:@"%.1f",shoe.totalDistance]];
-    self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
-	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    runDateField.delegate = self;
-//    NSLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
-    self.addRunDate = [NSDate date];
-     NSLog(@"run date = %@",addRunDate);
-    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 
 //    [self setTotalDistanceField:nil];
 }
@@ -186,6 +225,10 @@ float const milesToKilometers;
     [self setMaxDistanceLabel:nil];
     [imageView release];
     imageView = nil;
+    [self setStartDateLabel:nil];
+    [self setExpirationDateLabel:nil];
+    [self setDaysLeftField:nil];
+    [self setWearProgress:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -209,6 +252,10 @@ float const milesToKilometers;
     [maxDistanceLabel release];
     [imageView release];
     [addRunDate release];
+    [startDateLabel release];
+    [expirationDateLabel release];
+    [daysLeftField release];
+    [wearProgress release];
     [super dealloc];
 }
 
@@ -259,23 +306,24 @@ float const milesToKilometers;
     NSLog(@"%@",hist.runDistance);
     NSLog(@"Top of runDistance: %@",displayDistance);
     
-    distShoe.totalDistance = [NSNumber numberWithFloat:(addDistance + [distShoe.totalDistance floatValue])];
+//    distShoe.totalDistance = [NSNumber numberWithFloat:(addDistance + [distShoe.totalDistance floatValue])];
     
-    NSLog(@"totalDistance = %@",distShoe.totalDistance);
+//    NSLog(@"totalDistance = %@",distShoe.totalDistance);
     
     /*    float displayValue = [distShoe.totalDistance floatValue];
      if ([UserDistanceSetting getDistanceUnit]) {
      displayValue = displayValue * milesToKilometers;
      } */
     
-    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
+    runTotal = runTotal + addDistance;
+    [totalDistanceField setText:[UserDistanceSetting displayDistance:runTotal]];
     
 //    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
     
     enterDistanceField.text = nil;
     standardDistance = 0;
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
-    totalDistanceProgress.progress = distShoe.totalDistance.floatValue/distShoe.maxDistance.floatValue;
+    totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
     
     [runDistances release];
     
