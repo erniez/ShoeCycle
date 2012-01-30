@@ -35,7 +35,7 @@ static ShoeStore *defaultStore = nil;
 
 - (id)init
 {
-    // If we already have an instance of PossessionStore ...
+    // If we already have an instance of ShoeStore ...
     if (defaultStore) {
         // ... then return the existing one
         return defaultStore;

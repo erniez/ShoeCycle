@@ -45,7 +45,33 @@ NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefi
         runDistance = runDistance * milesToKilometers;
     }
     
-    return [NSString stringWithFormat:@"%.2f",runDistance];
+    float testForDecimal = runDistance - (int)runDistance;      // if there is no decimal, the code below will truncate the whole number zeroes
+    if (!testForDecimal) {
+        return [NSString stringWithFormat:@"%i",(int)runDistance];
+    }
+    
+    {
+        NSString *returnString = [NSString stringWithFormat:@"%.2f", runDistance];
+ //       ret = @"1.234";
+        int index = (int)[returnString length] - 1;
+        BOOL trim = FALSE;
+        while (
+               ([returnString characterAtIndex:index] == '0' || 
+                [returnString characterAtIndex:index] == '.')
+               &&
+               index > 0)
+        {
+            index--;
+            trim = TRUE;
+        }
+        if (trim) {
+            returnString = [returnString substringToIndex: index +1];
+        }    
+        return returnString;
+    }
+    
+    
+ //   return [NSString stringWithFormat:@"%#5.2g",runDistance];
 
 }
 

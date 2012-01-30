@@ -95,6 +95,7 @@ float runTotal;
     }
     
     self.distShoe = [shoes objectAtIndex:0];
+    
     runTotal = [distShoe.startDistance floatValue];
     if ([distShoe.history count]) {
         NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
@@ -111,7 +112,7 @@ float runTotal;
     
     nameField.text = [NSString stringWithFormat:@"%@: %@",distShoe.brand, distShoe.desc];
     totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
-    [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %.0f",[distShoe.maxDistance floatValue]]];
+    [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %@",[UserDistanceSetting displayDistance:[distShoe.maxDistance floatValue]]]];
   
     self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
