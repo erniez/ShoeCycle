@@ -24,13 +24,15 @@
     UIPopoverController *imagePickerPopover;
     UIDatePicker *expPickerView;
     NSDateFormatter *expirationDateFormatter;
-    UIActionSheet *actionSheet;
+    UIActionSheet *dateActionSheet;
+    UIActionSheet *pictureActionSheet;
     NSDate *expirationDate;
     NSDate *startDate;
     NSDate *currentDate;
     UITextField *currentDateField;
     Shoe *shoe;
     UIToolbar *toolbar;
+    id pictureButton;
 
 }
 @property (nonatomic, retain) IBOutlet UITextField *brandField;

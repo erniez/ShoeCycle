@@ -230,36 +230,70 @@
 
 - (IBAction)takePicture:(id)sender
 {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    pictureActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Picture Method"
+                                              delegate:self 
+                                     cancelButtonTitle:@"Cancel" 
+                                destructiveButtonTitle:nil
+                                     otherButtonTitles:@"Camera", @"Library", nil];
     
-    // If our device has a camera, we want to take a picture, otherwise we just pick from photo library
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    } else {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }
+    [pictureActionSheet setActionSheetStyle:UIActionSheetStyleDefault];
+
+    [pictureActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
-    [imagePicker setDelegate:self];
+    [pictureActionSheet setDelegate:self];
     
-    // Place image picker on the screen
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        // Create a new popover controller that will display the imagePicker
-        imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+    pictureButton = sender;
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet == pictureActionSheet) {
+        NSLog(@"Picture Actionsheet Button = %i",buttonIndex);
+        [pictureActionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
         
-        [imagePickerPopover setDelegate:self];
-        
-        // Display the popover controller, sender is the camera bar button item
-        [imagePickerPopover presentPopoverFromBarButtonItem:sender
-                                   permittedArrowDirections:UIPopoverArrowDirectionAny
-                                                   animated:YES];
-    } else {
-        // Place image picker on the screen
-        [self presentModalViewController:imagePicker animated:YES];
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+         
+        switch (buttonIndex) {
+            case 0 :
+                [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+                break;
+            case 1 :
+                [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                break;
+            default:
+                [imagePicker release];
+                return;
+        }
+         // If our device has a camera, we want to take a picture, otherwise we just pick from photo library
+/*         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+         [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+         } else {
+         [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+         }
+*/         
+         [imagePicker setDelegate:self];
+         
+         // Place image picker on the screen
+         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+         // Create a new popover controller that will display the imagePicker
+         imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+         
+         [imagePickerPopover setDelegate:self];
+         
+         // Display the popover controller, sender is the camera bar button item
+         [imagePickerPopover presentPopoverFromBarButtonItem:pictureButton
+                                    permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                    animated:YES];
+         } else {
+         // Place image picker on the screen
+         [self presentModalViewController:imagePicker animated:YES];
+         }
+         
+         
+         // The image picker will be retained by ItemDetailViewController until it has been dismissed
+         [imagePicker release];        
     }
-    
-    
-    // The image picker will be retained by ItemDetailViewController until it has been dismissed
-    [imagePicker release];
 }
 
 
@@ -340,9 +374,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     NSLog(@"callDP sender = %@", sender);
     currentDateField = sender;
     
-    actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    dateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
-    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [dateActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
     
     CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
     
@@ -351,7 +385,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     expPickerView.datePickerMode = UIDatePickerModeDate;
 //    [expPickerView addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
     
-    [actionSheet addSubview:expPickerView];
+    [dateActionSheet addSubview:expPickerView];
     
     UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
     closeButton.momentary = YES; 
@@ -359,14 +393,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
     closeButton.tintColor = [UIColor blackColor];
     [closeButton addTarget:self action:@selector(actionSheetCancel:) forControlEvents:UIControlEventValueChanged];
-    [actionSheet addSubview:closeButton];
+    [dateActionSheet addSubview:closeButton];
     [closeButton release];
     
     
     //[actionSheet showInView:self.view];
-    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [dateActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
-    [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    [dateActionSheet setBounds:CGRectMake(0, 0, 320, 485)];
     NSLog(@"leaving CallDP");
 }
 
@@ -395,19 +429,21 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
 
 //    self.currentDate = self.expPickerView.date;
-    if (currentDate == startDate) {
-        self.startDate = self.expPickerView.date;
-    }
+//    if (sender==dateActionSheet) {
+        if (currentDate == startDate) {
+            self.startDate = self.expPickerView.date;
+        }
     
-    if (currentDate == expirationDate) {
-        self.expirationDate = self.expPickerView.date;
-    }
+        if (currentDate == expirationDate) {
+            self.expirationDate = self.expPickerView.date;
+        }
     
-    NSLog(@"Current Date = %@",self.currentDate);
-    NSLog(@"Start Date = %@",self.startDate);
-//    [expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
-    [currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
-    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+        NSLog(@"actionSheetCancel - Current Date = %@",self.currentDate);
+        NSLog(@"Start Date = %@",self.startDate);
+//      [expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
+        [currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
+        [dateActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+//    }
     
 }
 
