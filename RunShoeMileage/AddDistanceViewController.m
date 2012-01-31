@@ -94,7 +94,12 @@ float runTotal;
     return;
     }
     
-    self.distShoe = [shoes objectAtIndex:0];
+    if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
+        distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
+    }
+    else {
+        distShoe = [shoes objectAtIndex:0];
+    }
     
     runTotal = [distShoe.startDistance floatValue];
     if ([distShoe.history count]) {
@@ -178,7 +183,12 @@ float runTotal;
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
     if ([shoes count]) {
-        distShoe = [shoes objectAtIndex:0];
+        if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
+            distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
+        }
+        else {
+            distShoe = [shoes objectAtIndex:0];
+        }
     }
     
     nameField.text = distShoe.brand;

@@ -15,11 +15,7 @@
 //<UIApplicationDelegate>
 <UITableViewDelegate>
 {
-//    NSArray *testBrandArray;
-//    NSArray *testNameArray;
-//    ShoesTestData *testData;
-//    NSArray *shoes;
-    
+    int currentShoe;
 }
 
 @property (nonatomic, retain) NSArray *testBrandArray; 

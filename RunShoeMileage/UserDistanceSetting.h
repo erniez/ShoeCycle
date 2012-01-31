@@ -34,4 +34,9 @@
 
 + (void) setUserDefinedDistance4:(float)setting;
 
++ (int) getSelectedShoe;
+
++ (void) setSelectedShoe:(int)shoeIndex;
+
+
 @end

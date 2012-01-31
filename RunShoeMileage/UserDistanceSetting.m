@@ -16,6 +16,7 @@ NSString * const TreadTrackerUserDefineDistance1PrefKey = @"TreadTrackerUserDefi
 NSString * const TreadTrackerUserDefineDistance2PrefKey = @"TreadTrackerUserDefineDistance2PrefKey";
 NSString * const TreadTrackerUserDefineDistance3PrefKey = @"TreadTrackerUserDefineDistance3PrefKey";
 NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefineDistance4PrefKey";
+NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePrefKey";
 
 // static NSInteger distanceUnit;
 
@@ -143,6 +144,21 @@ NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefi
     [[NSUserDefaults standardUserDefaults]
      setFloat:setting
      forKey:TreadTrackerUserDefineDistance4PrefKey];
+    return;
+}
+
++ (int) getSelectedShoe
+{
+    return [[NSUserDefaults standardUserDefaults] floatForKey:TreadTrackerSelecredShoePrefKey];
+}
+
+
++ (void) setSelectedShoe:(int)shoeIndex
+{
+    [[NSUserDefaults standardUserDefaults]
+     setInteger:shoeIndex
+     forKey:TreadTrackerSelecredShoePrefKey];
+    NSLog(@"setSelectedShoe Index = %i",shoeIndex);
     return;
 }
 

@@ -11,6 +11,7 @@
 #import "RunShoeMileageAppDelegate.h"
 #import "ShoeStore.h"
 #import "Shoe.h"
+#import "UserDistanceSetting.h"
 
 @implementation EditShoesViewController
 @synthesize testBrandArray, testNameArray;
@@ -126,9 +127,15 @@
 {
     [super viewWillAppear:animated];
     [[self tableView] reloadData];
+    currentShoe = [UserDistanceSetting getSelectedShoe];
 //    NSLog(@"Shoe Count = %d", [shoes count]);
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+}
 /*
 - (void)viewDidLoad
 {
@@ -186,21 +193,26 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
 	if (cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"] autorelease];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UITableViewCell"] autorelease];
 	}
     
 // pwc    cell.textLabel.text = [testData.testBrandArray objectAtIndex:indexPath.row];
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
+    NSLog(@"index path = %i",indexPath.row);
+    
     Shoe *s = [shoes objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = s.brand;
-    cell.detailTextLabel.text = s.desc;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@",s.brand,s.desc];
+    cell.detailTextLabel.text = nil;
+    if (indexPath.row == currentShoe) {
+        cell.detailTextLabel.text = @"Selected";
+    }
 
 // pwc    cell.detailTextLabel.text = [testData.testNameArray objectAtIndex:indexPath.row];      
 	
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton ;
     
     NSLog(@"Made it to tableView exit");
     
@@ -209,26 +221,23 @@
 } 
 
 
-- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     ShoeDetailViewController *detailViewController = [[[ShoeDetailViewController alloc] init] autorelease];
-    
-//    detailViewController.testBrandString = [testData.testBrandArray objectAtIndex:indexPath.row];
-//    detailViewController.testNameString = [testData.testNameArray objectAtIndex:indexPath.row];
-    
-//    Shoe *s = [shoes objectAtIndex:indexPath.row];
-    
+       
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-    
-//    detailViewController.testBrandString = s.brand;
-//    detailViewController.testNameString = s.desc;
-
+        
     [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
-    
-//    NSLog(@"didSelectRow Brand = %@",s.brand);
 
-    
     [[self navigationController] pushViewController:detailViewController animated:YES];
+}
+
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    currentShoe = indexPath.row;
+    [UserDistanceSetting setSelectedShoe:currentShoe];
+    [[self tableView] reloadData];
 }
 
 
