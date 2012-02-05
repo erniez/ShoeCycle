@@ -175,6 +175,8 @@ float runTotal;
 {
     [super viewDidLoad];
     
+    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"addDistanceBackground"]]];
+    
     enterDistanceField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
         enterDistanceField.keyboardType = UIKeyboardTypeDecimalPad;
