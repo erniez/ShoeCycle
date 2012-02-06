@@ -14,7 +14,7 @@
 <UITextFieldDelegate, UIActionSheetDelegate>
 {    
     UITextField *enterDistanceField;
-    UITextField *totalDistanceField;
+ //   UITextField *totalDistanceLabel;
     
     UIDatePicker *pickerView;
 	UIBarButtonItem *doneButton;	// this button appears only when the date picker is open
@@ -38,7 +38,8 @@
 }
 @property (nonatomic, retain) IBOutlet UILabel *maxDistanceLabel;
 @property (nonatomic, retain) IBOutlet UITextField *enterDistanceField;
-@property (nonatomic, retain) IBOutlet UITextField *totalDistanceField;
+@property (nonatomic, retain) IBOutlet UILabel *totalDistanceLabel;
+@property (nonatomic, retain) IBOutlet UILabel *distanceUnitLabel;
 @property (nonatomic, retain) IBOutlet UIDatePicker *pickerView; 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, retain) IBOutlet UITextField *runDateField;
@@ -51,7 +52,7 @@
 @property (nonatomic, retain) NSDate *addRunDate;
 @property (retain, nonatomic) IBOutlet UILabel *startDateLabel;
 @property (retain, nonatomic) IBOutlet UILabel *expirationDateLabel;
-@property (retain, nonatomic) IBOutlet UITextField *daysLeftField;
+@property (retain, nonatomic) IBOutlet UILabel*daysLeftLabel;
 @property (retain, nonatomic) IBOutlet UIProgressView *wearProgress;
 
 

@@ -21,13 +21,13 @@ float runTotal;
 @implementation AddDistanceViewController
 @synthesize startDateLabel;
 @synthesize expirationDateLabel;
-@synthesize daysLeftField;
+@synthesize daysLeftLabel;
 @synthesize wearProgress;
 @synthesize nameField;
 @synthesize runDateField;
 @synthesize maxDistanceLabel;
 @synthesize enterDistanceField;
-@synthesize totalDistanceField;
+@synthesize totalDistanceLabel, distanceUnitLabel;
 @synthesize pickerView, doneButton,runDateFormatter; // standardDistanceString;
 @synthesize distShoe, addRunDate, hist;
 @synthesize totalDistanceProgress;
@@ -116,6 +116,10 @@ float runTotal;
     }
     
     nameField.text = [NSString stringWithFormat:@"%@: %@",distShoe.brand, distShoe.desc];
+    distanceUnitLabel.text = @"Miles";
+    if ([UserDistanceSetting getDistanceUnit]) {
+        distanceUnitLabel.text = @"Km";
+    }
     totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
     [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %@",[UserDistanceSetting displayDistance:[distShoe.maxDistance floatValue]]]];
   
@@ -128,8 +132,8 @@ float runTotal;
     NSLog(@"run date = %@",addRunDate);
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 
-    [startDateLabel setText:[NSString stringWithFormat:@"Start: %@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
-    [expirationDateLabel setText:[NSString stringWithFormat:@"Exp: %@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
+    [startDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
+    [expirationDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
     [imageView setImage:[distShoe thumbnail]];
     
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -145,7 +149,7 @@ float runTotal;
 
     
     [gregorianCalendar release];
-    [daysLeftField setText:[NSString stringWithFormat:@"%d Days Left",[components day]]];
+    [daysLeftLabel setText:[NSString stringWithFormat:@"%d",[components day]]];
     NSLog(@"Components Total = %d",[componentsTotal day]);
     int daysTotal = [componentsTotal day];
     int daysLeftToWear = [components day];
@@ -160,7 +164,7 @@ float runTotal;
 
     NSLog(@"Leaving View Will Appear");
 //    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
-    [totalDistanceField setText:[UserDistanceSetting displayDistance:runTotal]];
+    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
 
 }
 
@@ -175,7 +179,7 @@ float runTotal;
 {
     [super viewDidLoad];
     
-    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"addDistanceBackground"]]];
+//    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
     
     enterDistanceField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
@@ -199,7 +203,7 @@ float runTotal;
         displayValue = displayValue * milesToKilometers;
     } */
     
-    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
+    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
       
     NSLog(@"View Did Load addDistanceViewController");
     
@@ -229,7 +233,7 @@ float runTotal;
 {
     [enterDistanceField release];
     [self setEnterDistanceField:nil];
-    [self setTotalDistanceField:nil];
+    [self setTotalDistanceLabel:nil];
     [runDateField release];
     [runDateField release];
     [self setRunDateField:nil];
@@ -240,7 +244,7 @@ float runTotal;
     imageView = nil;
     [self setStartDateLabel:nil];
     [self setExpirationDateLabel:nil];
-    [self setDaysLeftField:nil];
+    [self setDaysLeftLabel:nil];
     [self setWearProgress:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -255,7 +259,7 @@ float runTotal;
 
 - (void)dealloc {
     [enterDistanceField release];
-    [totalDistanceField release];
+    [totalDistanceLabel release];
     [runDateField release];
     [runDateField release];
     [runDateField release];
@@ -267,7 +271,7 @@ float runTotal;
     [addRunDate release];
     [startDateLabel release];
     [expirationDateLabel release];
-    [daysLeftField release];
+    [daysLeftLabel release];
     [wearProgress release];
     [super dealloc];
 }
@@ -329,7 +333,7 @@ float runTotal;
      } */
     
     runTotal = runTotal + addDistance;
-    [totalDistanceField setText:[UserDistanceSetting displayDistance:runTotal]];
+    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
     
 //    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
     
