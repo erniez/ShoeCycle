@@ -42,17 +42,22 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
 
 + (NSString *) displayDistance:(float)runDistance
 {
+    NSLog(@"displayDistance = %f", runDistance);
     if ([UserDistanceSetting getDistanceUnit]) {
         runDistance = runDistance * milesToKilometers;
     }
     
+    NSString *returnString = [NSString stringWithFormat:@"%.2f", runDistance]; // Need to chop off anything below two decimal points
+    runDistance = [returnString floatValue];                                   // or else numbers will display wrong (zeroes will drop)
+    
     float testForDecimal = runDistance - (int)runDistance;      // if there is no decimal, the code below will truncate the whole number zeroes
-    if (!testForDecimal) {
+    if (testForDecimal == 0) {
+        NSLog(@"Made it inside whole number decision");
         return [NSString stringWithFormat:@"%i",(int)runDistance];
     }
     
     {
-        NSString *returnString = [NSString stringWithFormat:@"%.2f", runDistance];
+
  //       ret = @"1.234";
         int index = (int)[returnString length] - 1;
         BOOL trim = FALSE;

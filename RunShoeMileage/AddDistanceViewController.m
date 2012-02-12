@@ -40,10 +40,15 @@ float runTotal;
                            bundle:nil];
     if (self) {
         // Get tab bar item
+        int offset = 7;
+        UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
         UITabBarItem *tbi = [self tabBarItem];
         
         // Give it a label
-        [tbi setTitle:@"Add Distance"];
+        UIImage *image = [UIImage imageNamed:@"tabbar-add.png"];
+ //       [tbi setTitle:@"Add Distance"];
+        tbi.imageInsets = imageInset;
+        [tbi setImage:image];
         
         standardDistance = 0;
     }
@@ -108,10 +113,10 @@ float runTotal;
         do {
             History *tempHist = [runs objectAtIndex:i];
             runTotal = runTotal +  [tempHist.runDistance floatValue];
-            NSLog (@"runDistance = %.2f",[tempHist.runDistance floatValue]);
+            NSLog (@"runDistance = %f",[tempHist.runDistance floatValue]);
             i++;
         } while (i < [distShoe.history count]);
-        NSLog(@"run total = %.2f",runTotal);
+        NSLog(@"run total = %f",runTotal);
         [runs release];
     }
     
@@ -121,8 +126,8 @@ float runTotal;
         distanceUnitLabel.text = @"Km";
     }
     totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
-    [maxDistanceLabel setText:[NSString stringWithFormat:@"Max: %@",[UserDistanceSetting displayDistance:[distShoe.maxDistance floatValue]]]];
-  
+    [maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[distShoe.maxDistance floatValue]]]];
+    NSLog(@"run total2 = %f",runTotal);
     self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -131,7 +136,7 @@ float runTotal;
     self.addRunDate = [NSDate date];
     NSLog(@"run date = %@",addRunDate);
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
-
+    NSLog(@"run total3 = %f",runTotal);
     [startDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
     [expirationDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
     [imageView setImage:[distShoe thumbnail]];
@@ -164,6 +169,7 @@ float runTotal;
 
     NSLog(@"Leaving View Will Appear");
 //    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
+    NSLog(@"run total last = %f",runTotal);
     [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
 
 }
@@ -302,6 +308,9 @@ float runTotal;
     addDistance = [UserDistanceSetting enterDistance:[enterDistanceField text]]; 
     if (standardDistance) {
         addDistance = standardDistance;
+    }
+    if (!addDistance) {
+        return;
     }
     NSLog(@"addDistance = %.2f",addDistance);
     testDate = self.addRunDate;

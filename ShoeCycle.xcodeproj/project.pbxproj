@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0457E314E76EA000D2ECF1 /* addDistanceBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457E114E76EA000D2ECF1 /* addDistanceBackground.png */; };
+		1B0457E414E76EA000D2ECF1 /* addDistanceBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457E214E76EA000D2ECF1 /* addDistanceBackground@2x.png */; };
+		1B0457E714E76EE300D2ECF1 /* button-add-run.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457E514E76EE300D2ECF1 /* button-add-run.png */; };
+		1B0457E814E76EE300D2ECF1 /* button-add-run@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457E614E76EE300D2ECF1 /* button-add-run@2x.png */; };
+		1B0457F314E7706F00D2ECF1 /* button-distance.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457E914E7706F00D2ECF1 /* button-distance.png */; };
+		1B0457F414E7706F00D2ECF1 /* button-distance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457EA14E7706F00D2ECF1 /* button-distance@2x.png */; };
+		1B0457F514E7706F00D2ECF1 /* button-history.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457EB14E7706F00D2ECF1 /* button-history.png */; };
+		1B0457F614E7706F00D2ECF1 /* button-history@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457EC14E7706F00D2ECF1 /* button-history@2x.png */; };
+		1B0457F714E7706F00D2ECF1 /* tabbar-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457ED14E7706F00D2ECF1 /* tabbar-add.png */; };
+		1B0457F814E7706F00D2ECF1 /* tabbar-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457EE14E7706F00D2ECF1 /* tabbar-add@2x.png */; };
+		1B0457F914E7706F00D2ECF1 /* tabbar-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457EF14E7706F00D2ECF1 /* tabbar-gear.png */; };
+		1B0457FA14E7706F00D2ECF1 /* tabbar-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457F014E7706F00D2ECF1 /* tabbar-gear@2x.png */; };
+		1B0457FB14E7706F00D2ECF1 /* tabbar-shoe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457F114E7706F00D2ECF1 /* tabbar-shoe.png */; };
+		1B0457FC14E7706F00D2ECF1 /* tabbar-shoe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457F214E7706F00D2ECF1 /* tabbar-shoe@2x.png */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
 		1B2CC9F714D63A04004F26E2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B2CC9F614D63A04004F26E2 /* Icon.png */; };
@@ -14,11 +28,7 @@
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */; };
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
-		1B3EE44114DDFFB800ACA601 /* addDistanceBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3EE43F14DDFFB800ACA601 /* addDistanceBackground.png */; };
-		1B3EE44214DDFFB800ACA601 /* addDistanceBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3EE44014DDFFB800ACA601 /* addDistanceBackground@2x.png */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
-		1B3EE44B14DEFDAE00ACA601 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3EE44914DEFDAE00ACA601 /* background.png */; };
-		1B3EE44C14DEFDAE00ACA601 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3EE44A14DEFDAE00ACA601 /* background@2x.png */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
@@ -43,6 +53,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B0457E114E76EA000D2ECF1 /* addDistanceBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = addDistanceBackground.png; path = RunShoeMileage/images/addDistanceBackground.png; sourceTree = "<group>"; };
+		1B0457E214E76EA000D2ECF1 /* addDistanceBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "addDistanceBackground@2x.png"; path = "RunShoeMileage/images/addDistanceBackground@2x.png"; sourceTree = "<group>"; };
+		1B0457E514E76EE300D2ECF1 /* button-add-run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-add-run.png"; path = "RunShoeMileage/images/button-add-run.png"; sourceTree = "<group>"; };
+		1B0457E614E76EE300D2ECF1 /* button-add-run@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-add-run@2x.png"; path = "RunShoeMileage/images/button-add-run@2x.png"; sourceTree = "<group>"; };
+		1B0457E914E7706F00D2ECF1 /* button-distance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-distance.png"; path = "RunShoeMileage/images/button-distance.png"; sourceTree = "<group>"; };
+		1B0457EA14E7706F00D2ECF1 /* button-distance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-distance@2x.png"; path = "RunShoeMileage/images/button-distance@2x.png"; sourceTree = "<group>"; };
+		1B0457EB14E7706F00D2ECF1 /* button-history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-history.png"; path = "RunShoeMileage/images/button-history.png"; sourceTree = "<group>"; };
+		1B0457EC14E7706F00D2ECF1 /* button-history@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-history@2x.png"; path = "RunShoeMileage/images/button-history@2x.png"; sourceTree = "<group>"; };
+		1B0457ED14E7706F00D2ECF1 /* tabbar-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-add.png"; path = "RunShoeMileage/images/tabbar-add.png"; sourceTree = "<group>"; };
+		1B0457EE14E7706F00D2ECF1 /* tabbar-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-add@2x.png"; path = "RunShoeMileage/images/tabbar-add@2x.png"; sourceTree = "<group>"; };
+		1B0457EF14E7706F00D2ECF1 /* tabbar-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-gear.png"; path = "RunShoeMileage/images/tabbar-gear.png"; sourceTree = "<group>"; };
+		1B0457F014E7706F00D2ECF1 /* tabbar-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-gear@2x.png"; path = "RunShoeMileage/images/tabbar-gear@2x.png"; sourceTree = "<group>"; };
+		1B0457F114E7706F00D2ECF1 /* tabbar-shoe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-shoe.png"; path = "RunShoeMileage/images/tabbar-shoe.png"; sourceTree = "<group>"; };
+		1B0457F214E7706F00D2ECF1 /* tabbar-shoe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-shoe@2x.png"; path = "RunShoeMileage/images/tabbar-shoe@2x.png"; sourceTree = "<group>"; };
 		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
@@ -54,11 +78,7 @@
 		1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunHistoryViewController.h; sourceTree = "<group>"; };
 		1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunHistoryViewController.m; sourceTree = "<group>"; };
 		1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunHistoryViewController.xib; sourceTree = "<group>"; };
-		1B3EE43F14DDFFB800ACA601 /* addDistanceBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addDistanceBackground.png; sourceTree = "<group>"; };
-		1B3EE44014DDFFB800ACA601 /* addDistanceBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addDistanceBackground@2x.png"; sourceTree = "<group>"; };
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
-		1B3EE44914DEFDAE00ACA601 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
-		1B3EE44A14DEFDAE00ACA601 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
@@ -112,10 +132,20 @@
 		1B3EE43E14DDFF7A00ACA601 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				1B3EE44914DEFDAE00ACA601 /* background.png */,
-				1B3EE44A14DEFDAE00ACA601 /* background@2x.png */,
-				1B3EE43F14DDFFB800ACA601 /* addDistanceBackground.png */,
-				1B3EE44014DDFFB800ACA601 /* addDistanceBackground@2x.png */,
+				1B0457E914E7706F00D2ECF1 /* button-distance.png */,
+				1B0457EA14E7706F00D2ECF1 /* button-distance@2x.png */,
+				1B0457EB14E7706F00D2ECF1 /* button-history.png */,
+				1B0457EC14E7706F00D2ECF1 /* button-history@2x.png */,
+				1B0457ED14E7706F00D2ECF1 /* tabbar-add.png */,
+				1B0457EE14E7706F00D2ECF1 /* tabbar-add@2x.png */,
+				1B0457EF14E7706F00D2ECF1 /* tabbar-gear.png */,
+				1B0457F014E7706F00D2ECF1 /* tabbar-gear@2x.png */,
+				1B0457F114E7706F00D2ECF1 /* tabbar-shoe.png */,
+				1B0457F214E7706F00D2ECF1 /* tabbar-shoe@2x.png */,
+				1B0457E514E76EE300D2ECF1 /* button-add-run.png */,
+				1B0457E614E76EE300D2ECF1 /* button-add-run@2x.png */,
+				1B0457E114E76EA000D2ECF1 /* addDistanceBackground.png */,
+				1B0457E214E76EA000D2ECF1 /* addDistanceBackground@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -264,10 +294,20 @@
 				1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */,
 				1B2CC9F714D63A04004F26E2 /* Icon.png in Resources */,
 				1B2CC9FA14D63A08004F26E2 /* Icon@2x.png in Resources */,
-				1B3EE44114DDFFB800ACA601 /* addDistanceBackground.png in Resources */,
-				1B3EE44214DDFFB800ACA601 /* addDistanceBackground@2x.png in Resources */,
-				1B3EE44B14DEFDAE00ACA601 /* background.png in Resources */,
-				1B3EE44C14DEFDAE00ACA601 /* background@2x.png in Resources */,
+				1B0457E314E76EA000D2ECF1 /* addDistanceBackground.png in Resources */,
+				1B0457E414E76EA000D2ECF1 /* addDistanceBackground@2x.png in Resources */,
+				1B0457E714E76EE300D2ECF1 /* button-add-run.png in Resources */,
+				1B0457E814E76EE300D2ECF1 /* button-add-run@2x.png in Resources */,
+				1B0457F314E7706F00D2ECF1 /* button-distance.png in Resources */,
+				1B0457F414E7706F00D2ECF1 /* button-distance@2x.png in Resources */,
+				1B0457F514E7706F00D2ECF1 /* button-history.png in Resources */,
+				1B0457F614E7706F00D2ECF1 /* button-history@2x.png in Resources */,
+				1B0457F714E7706F00D2ECF1 /* tabbar-add.png in Resources */,
+				1B0457F814E7706F00D2ECF1 /* tabbar-add@2x.png in Resources */,
+				1B0457F914E7706F00D2ECF1 /* tabbar-gear.png in Resources */,
+				1B0457FA14E7706F00D2ECF1 /* tabbar-gear@2x.png in Resources */,
+				1B0457FB14E7706F00D2ECF1 /* tabbar-shoe.png in Resources */,
+				1B0457FC14E7706F00D2ECF1 /* tabbar-shoe@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
