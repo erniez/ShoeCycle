@@ -13,6 +13,7 @@
 #import "Shoe.h"
 #import "History.h"
 #import "UserDistanceSetting.h"
+#import "RunShoeMileageAppDelegate.h"
 
 extern NSInteger distanceUnit;
 float const milesToKilometers;
@@ -91,7 +92,7 @@ float runTotal;
     if ([shoes count] == 0) {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
                                                     message:nil
-                                                   delegate:nil
+                                                   delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert autorelease];
@@ -154,7 +155,11 @@ float runTotal;
 
     
     [gregorianCalendar release];
-    [daysLeftLabel setText:[NSString stringWithFormat:@"%d",[components day]]];
+    [daysLeftLabel setText:@"0"];
+    if ([components day] >= 0) {
+        [daysLeftLabel setText:[NSString stringWithFormat:@"%d",[components day]]];
+    }
+    
     NSLog(@"Components Total = %d",[componentsTotal day]);
     int daysTotal = [componentsTotal day];
     int daysLeftToWear = [components day];
@@ -429,8 +434,13 @@ float runTotal;
 //    [runDateField setText:[NSString stringWithFormat:[self.runDateFormatter stringFromDate:self.pickerView.date]]];
     self.addRunDate = self.pickerView.date;
     [runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
+}
 
-    
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    RunShoeMileageAppDelegate *appDelegate = (RunShoeMileageAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate switchToTab:1];
 }
 
 @end

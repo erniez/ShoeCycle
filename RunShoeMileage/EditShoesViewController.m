@@ -126,9 +126,9 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[self tableView] reloadData];
     currentShoe = [UserDistanceSetting getSelectedShoe];
-//    NSLog(@"Shoe Count = %d", [shoes count]);
+    [[self tableView] reloadData];
+    NSLog(@"******* View Will Appear currentShoe = %i", currentShoe);
 }
 
 
@@ -179,8 +179,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //    return [testData.testNameArray count];
+    int cnt = [[[ShoeStore defaultStore] allShoes] count];
     NSLog(@"Tableview Shoe Count = %d",[[[ShoeStore defaultStore] allShoes] count]);
-    return [[[ShoeStore defaultStore] allShoes] count];
+    if (currentShoe >= cnt) {
+        currentShoe = 0;
+        [UserDistanceSetting setSelectedShoe:currentShoe];
+    }
+    return cnt; //[[[ShoeStore defaultStore] allShoes] count];
 }
 
 
@@ -249,8 +254,14 @@
         Shoe *s = [shoes objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
         
+/*        if (currentShoe == [indexPath row]) {
+            currentShoe = 0;
+            [UserDistanceSetting setSelectedShoe:currentShoe];
+        }*/
+        
         // remove row from table with animation
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+        [[self tableView] reloadData];
     }
 }
 
@@ -268,7 +279,7 @@
     
 //    NSArray *otherShoes = [[NSArray alloc] initWithArray:[[ShoeStore defaultStore] allShoes]];
     
-    newShoe.brand = @"test123";
+//    newShoe.brand = @"test123";
     
 //    NSLog(@"Other Shoes Count = %d",[otherShoes count]);
 //    NSLog(@"All Shoe Count = %d",[shoes count]);

@@ -12,11 +12,14 @@ extern NSString * const TreadTrackerDistanceUnitPrefKey;
 
 @interface RunShoeMileageAppDelegate : NSObject <UIApplicationDelegate>
 { 
+    @public    
     UITabBarController *tabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) UITabBarController *tabBarController;
+
+- (void)switchToTab:(int)index;
 
 
 @end

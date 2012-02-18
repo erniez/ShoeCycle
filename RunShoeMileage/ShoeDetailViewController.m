@@ -143,7 +143,7 @@
     shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:startDistance.text]];
     shoe.expirationDate = expirationDate;
     shoe.startDate = self.startDate;
-    NSLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
+        NSLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
     NSLog(@"Leaving Date = %@",shoe.expirationDate);
     
 }
@@ -342,7 +342,25 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
 //    shoe.brand = brandField.text;
 //    shoe.desc = name.text;
+    int flag = 0;
+    NSComparisonResult result = [expirationDate compare:startDate];
+    NSLog(@"start date = %@, end date = %@",startDate,expirationDate);
+    NSLog(@"Mad it to the save data routine. Compare = %i", result);
     
+    if (result == NSOrderedAscending) {
+        UIAlertView *dateAlert = [[UIAlertView alloc] initWithTitle:@"Your End Date is earlier than you Start Date.  Please correct."
+                                                        message:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [dateAlert autorelease];
+        flag = 1;
+        [dateAlert show];
+    }
+    if (flag == 1) {
+        return;
+    }
+            
     NSLog(@"%@", shoe.brand);
     
     // This message gets forwarded to the parentViewController  

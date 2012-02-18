@@ -47,7 +47,7 @@
     int offset = 7;
     UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
     
-    // Give it a label
+    // Give it an image and center
     tbi.imageInsets = imageInset;
     UIImage *image = [UIImage imageNamed:@"tabbar-shoe.png"];
 //    [tbi setTitle:@"Add/Edit Shoes"];
@@ -131,4 +131,8 @@
     [super dealloc];
 }
 
+- (void)switchToTab:(int)index
+{
+    [tabBarController setSelectedIndex:index];
+}
 @end
