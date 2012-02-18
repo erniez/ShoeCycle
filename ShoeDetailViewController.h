@@ -47,6 +47,7 @@
 @property (nonatomic, retain) UIToolbar	*toolbar;
 @property (retain, nonatomic) IBOutlet UITextField *startDateField;
 @property (retain, nonatomic) UITextField *currentDateField;
+@property (retain, nonatomic) IBOutlet UITextField *maxDistance;
 
 - (IBAction)takePicture:(id)sender;
 - (id)initForNewItem:(BOOL)isNew;
@@ -55,6 +56,8 @@
 - (IBAction)backgroundTapped:(id)sender;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 - (IBAction)callDP:(id)sender;
+- (BOOL)validation;
+
 //- (void)changeDate:(id)sender;
 
 @end

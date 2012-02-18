@@ -14,6 +14,7 @@
 @implementation ShoeDetailViewController
 @synthesize brandField, testBrandString, testNameString, shoe;
 @synthesize expPickerView, expirationDateFormatter, expirationDate, startDate, currentDate;
+@synthesize maxDistance;
 @synthesize toolbar;
 @synthesize startDateField, currentDateField;
 
@@ -55,6 +56,9 @@
             [toolbar setItems:items animated:YES];
             
             [self.view addSubview:toolbar];
+            
+            self.maxDistance.text = @"350";
+            
                         
             [camera release];
             [spacer release];
@@ -135,6 +139,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+
     [super viewWillDisappear:animated];
     shoe.brand = brandField.text;
     shoe.desc = name.text;
@@ -340,9 +345,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (IBAction)save:(id)sender
 {
-//    shoe.brand = brandField.text;
-//    shoe.desc = name.text;
-    int flag = 0;
+    shoe.brand = brandField.text;
+    shoe.desc = name.text;
+/*    int flag = 0;
     NSComparisonResult result = [expirationDate compare:startDate];
     NSLog(@"start date = %@, end date = %@",startDate,expirationDate);
     NSLog(@"Mad it to the save data routine. Compare = %i", result);
@@ -359,7 +364,11 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     if (flag == 1) {
         return;
-    }
+    } */
+    
+ //   if (![self validation]) {
+ //       return;
+ //   }
             
     NSLog(@"%@", shoe.brand);
     
@@ -468,4 +477,28 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 }
 
 
+//=====================================================================
+//  Textfield validations
+//=====================================================================
+
+- (BOOL)validation
+{
+    int flag = 0;
+    NSComparisonResult result = [expirationDate compare:startDate];
+
+    if (result == NSOrderedAscending) {
+        UIAlertView *dateAlert = [[UIAlertView alloc] initWithTitle:@"Your End Date is earlier than you Start Date.  Please correct."
+                                                            message:nil
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [dateAlert autorelease];
+        flag = 1;
+        [dateAlert show];
+    }
+    if (flag == 1) {
+        return FALSE;
+    }
+    return TRUE;
+}
 @end

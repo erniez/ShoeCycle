@@ -274,12 +274,17 @@
 
 - (IBAction)addNewShoe:(id)sender
 {
+    NSTimeInterval secondsInSixMonths = 6 * 30.4 * 24 * 60 * 60;
+    
     Shoe *newShoe = [[ShoeStore defaultStore] createShoe];
     ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] initForNewItem:YES];
     
 //    NSArray *otherShoes = [[NSArray alloc] initWithArray:[[ShoeStore defaultStore] allShoes]];
     
 //    newShoe.brand = @"test123";
+    newShoe.maxDistance = [NSNumber numberWithFloat:350];
+    newShoe.startDate = [NSDate date];
+    newShoe.expirationDate = [newShoe.startDate dateByAddingTimeInterval:secondsInSixMonths]; // six months in seconds
     
 //    NSLog(@"Other Shoes Count = %d",[otherShoes count]);
 //    NSLog(@"All Shoe Count = %d",[shoes count]);
