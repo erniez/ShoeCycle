@@ -21,6 +21,9 @@
 		1B0457FA14E7706F00D2ECF1 /* tabbar-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457F014E7706F00D2ECF1 /* tabbar-gear@2x.png */; };
 		1B0457FB14E7706F00D2ECF1 /* tabbar-shoe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457F114E7706F00D2ECF1 /* tabbar-shoe.png */; };
 		1B0457FC14E7706F00D2ECF1 /* tabbar-shoe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B0457F214E7706F00D2ECF1 /* tabbar-shoe@2x.png */; };
+		1B046D4714F1B0E400850B10 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B046D4614F1B0E400850B10 /* Default@2x.png */; };
+		1B046D4B14F1B8E900850B10 /* plain-wallpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B046D4914F1B8E900850B10 /* plain-wallpaper.png */; };
+		1B046D4C14F1B8E900850B10 /* plain-wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B046D4A14F1B8E900850B10 /* plain-wallpaper@2x.png */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
 		1B2CC9F714D63A04004F26E2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B2CC9F614D63A04004F26E2 /* Icon.png */; };
@@ -38,6 +41,8 @@
 		1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */; };
 		1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183D14A35D240033EFC3 /* SetupViewController.m */; };
 		1BC5184014A35D240033EFC3 /* SetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC5183E14A35D240033EFC3 /* SetupViewController.xib */; };
+		1BC8647F14F31E7700F4D6DC /* add-shoe-wallpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC8647D14F31E7700F4D6DC /* add-shoe-wallpaper.png */; };
+		1BC8648014F31E7700F4D6DC /* add-shoe-wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC8647E14F31E7700F4D6DC /* add-shoe-wallpaper@2x.png */; };
 		1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */; };
 		1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEEBB814B69B0200672194 /* FileHelpers.m */; };
 		1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCF643D148AF7E7004C0E6A /* UIKit.framework */; };
@@ -69,6 +74,9 @@
 		1B0457F014E7706F00D2ECF1 /* tabbar-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-gear@2x.png"; path = "RunShoeMileage/images/tabbar-gear@2x.png"; sourceTree = "<group>"; };
 		1B0457F114E7706F00D2ECF1 /* tabbar-shoe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-shoe.png"; path = "RunShoeMileage/images/tabbar-shoe.png"; sourceTree = "<group>"; };
 		1B0457F214E7706F00D2ECF1 /* tabbar-shoe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-shoe@2x.png"; path = "RunShoeMileage/images/tabbar-shoe@2x.png"; sourceTree = "<group>"; };
+		1B046D4614F1B0E400850B10 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1B046D4914F1B8E900850B10 /* plain-wallpaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plain-wallpaper.png"; path = "RunShoeMileage/images/plain-wallpaper.png"; sourceTree = "<group>"; };
+		1B046D4A14F1B8E900850B10 /* plain-wallpaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plain-wallpaper@2x.png"; path = "RunShoeMileage/images/plain-wallpaper@2x.png"; sourceTree = "<group>"; };
 		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
@@ -95,6 +103,8 @@
 		1BC5183C14A35D240033EFC3 /* SetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupViewController.h; sourceTree = "<group>"; };
 		1BC5183D14A35D240033EFC3 /* SetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupViewController.m; sourceTree = "<group>"; };
 		1BC5183E14A35D240033EFC3 /* SetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupViewController.xib; sourceTree = "<group>"; };
+		1BC8647D14F31E7700F4D6DC /* add-shoe-wallpaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-shoe-wallpaper.png"; path = "RunShoeMileage/images/add-shoe-wallpaper.png"; sourceTree = "<group>"; };
+		1BC8647E14F31E7700F4D6DC /* add-shoe-wallpaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-shoe-wallpaper@2x.png"; path = "RunShoeMileage/images/add-shoe-wallpaper@2x.png"; sourceTree = "<group>"; };
 		1BCEEBAD14B678AB00672194 /* TreadTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TreadTracker.xcdatamodel; sourceTree = "<group>"; };
 		1BCEEBB714B69B0200672194 /* FileHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelpers.h; sourceTree = "<group>"; };
 		1BCEEBB814B69B0200672194 /* FileHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHelpers.m; sourceTree = "<group>"; };
@@ -136,6 +146,10 @@
 		1B3EE43E14DDFF7A00ACA601 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1BC8647D14F31E7700F4D6DC /* add-shoe-wallpaper.png */,
+				1BC8647E14F31E7700F4D6DC /* add-shoe-wallpaper@2x.png */,
+				1B046D4914F1B8E900850B10 /* plain-wallpaper.png */,
+				1B046D4A14F1B8E900850B10 /* plain-wallpaper@2x.png */,
 				1B0457E914E7706F00D2ECF1 /* button-distance.png */,
 				1B0457EA14E7706F00D2ECF1 /* button-distance@2x.png */,
 				1B0457EB14E7706F00D2ECF1 /* button-history.png */,
@@ -157,6 +171,7 @@
 		1BCF642E148AF7E5004C0E6A = {
 			isa = PBXGroup;
 			children = (
+				1B046D4614F1B0E400850B10 /* Default@2x.png */,
 				1B822C4514ECB03B00D4AFDF /* icon@2x.png */,
 				1B822C4214ECB03500D4AFDF /* icon.png */,
 				1B3EE43E14DDFF7A00ACA601 /* Images */,
@@ -316,6 +331,11 @@
 				1B0457FC14E7706F00D2ECF1 /* tabbar-shoe@2x.png in Resources */,
 				1B822C4314ECB03500D4AFDF /* icon.png in Resources */,
 				1B822C4614ECB03B00D4AFDF /* icon@2x.png in Resources */,
+				1B046D4714F1B0E400850B10 /* Default@2x.png in Resources */,
+				1B046D4B14F1B8E900850B10 /* plain-wallpaper.png in Resources */,
+				1B046D4C14F1B8E900850B10 /* plain-wallpaper@2x.png in Resources */,
+				1BC8647F14F31E7700F4D6DC /* add-shoe-wallpaper.png in Resources */,
+				1BC8648014F31E7700F4D6DC /* add-shoe-wallpaper@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

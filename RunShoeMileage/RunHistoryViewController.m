@@ -184,6 +184,7 @@
     
     cell.textLabel.text = [dateFormatter stringFromDate:hist.runDate];
     cell.detailTextLabel.text = [UserDistanceSetting displayDistance:[hist.runDistance floatValue]];
+    NSLog (@"hist.runDate = %@", hist.runDate);
     NSLog (@"hist.runDistance = %@",hist.runDistance);
     
     [numberFormatter release];

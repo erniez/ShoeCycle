@@ -103,7 +103,7 @@
 {
     [super viewWillAppear:animated];
     [brandField setText:shoe.brand];
-    [name setText:shoe.desc];
+    
 //    [maxDistance setText:[NSString stringWithFormat:@"%@",shoe.maxDistance]];
     [maxDistance setText:[UserDistanceSetting displayDistance:[shoe.maxDistance floatValue]]];
 //    [startDistance setText:[NSString stringWithFormat:@"%@",shoe.startDistance]];
@@ -142,7 +142,6 @@
 
     [super viewWillDisappear:animated];
     shoe.brand = brandField.text;
-    shoe.desc = name.text;
     shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:maxDistance.text]];
     NSLog(@"Leaving maxDistance %@",shoe.maxDistance);
     shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:startDistance.text]];
@@ -336,7 +335,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     // Put that image onto the screen in our image view
     [imageView setImage:image];
     
-    [shoe setThumbnailDataFromImage:image width:120 height:80];
+    [shoe setThumbnailDataFromImage:image width:143 height:96];
     
     // Take image picker off the screen - You must call this dismiss method
     [self dismissModalViewControllerAnimated:YES];
@@ -346,7 +345,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (IBAction)save:(id)sender
 {
     shoe.brand = brandField.text;
-    shoe.desc = name.text;
 /*    int flag = 0;
     NSComparisonResult result = [expirationDate compare:startDate];
     NSLog(@"start date = %@, end date = %@",startDate,expirationDate);

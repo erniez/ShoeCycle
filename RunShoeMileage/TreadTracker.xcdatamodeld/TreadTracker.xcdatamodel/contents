@@ -7,7 +7,6 @@
     </entity>
     <entity name="Shoe" representedClassName="Shoe">
         <attribute name="brand" optional="YES" attributeType="String"/>
-        <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="expirationDate" optional="YES" attributeType="Date"/>
         <attribute name="imageKey" optional="YES" attributeType="String"/>
         <attribute name="maxDistance" optional="YES" attributeType="Double" defaultValueString="0"/>

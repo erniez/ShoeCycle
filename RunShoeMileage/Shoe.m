@@ -13,7 +13,6 @@
 @implementation Shoe
 
 @dynamic brand;
-@dynamic desc;
 @dynamic expirationDate;
 @dynamic imageKey;
 @dynamic maxDistance;

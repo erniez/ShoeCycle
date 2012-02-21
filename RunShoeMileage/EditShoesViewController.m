@@ -46,43 +46,6 @@
         
         [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
         
-/*        Shoe *ts = [[Shoe alloc] init];  *** Test data no longer needed.
-        
-        ts = [[ShoeStore defaultStore] createShoe];
-        
-        ts.brand = @"Test Brand 1";
-        ts.desc = @"Test Description 1";
-        
-        NSLog(@"%@",ts.brand);
-        NSLog(@"%@",ts.desc);
-        
-        ts = [[ShoeStore defaultStore] createShoe];
-        
-        ts.brand = @"Test Brand 2";
-        ts.desc = @"Test Description 2";
-        
-        NSLog(@"%@",ts.brand);
-        NSLog(@"%@",ts.desc);
-
-        ts = [[ShoeStore defaultStore] createShoe];
-        
-        ts.brand = @"Test Brand 3";
-        ts.desc = @"Test Description 3";
-        
-        NSLog(@"%@",ts.brand);
-        NSLog(@"%@",ts.desc);*/
-        
-//        shoes = [[NSArray alloc] initWithArray:[[ShoeStore defaultStore] allShoes]];
-        
-//        Shoe *s = [shoes objectAtIndex:0];
-        
-//        NSLog(@"shoes array %@",s.brand);
-//        NSLog(@"shoes array %@",s.desc);
-        
-        
-
-//        testData = [[ShoesTestData  alloc] init];
- //       NSLog(@"test data count = %d",[testData.testNameArray count]);
     } 
     
     return self;
@@ -123,11 +86,18 @@
 
 #pragma mark - View lifecycle
 
+
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     currentShoe = [UserDistanceSetting getSelectedShoe];
     [[self tableView] reloadData];
+    self.tableView.backgroundColor = [UIColor clearColor]; 
+    self.tableView.backgroundView = nil;
+    self.tableView.opaque = NO;
+    self.tableView.contentMode = UIViewContentModeTop;
+    self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plain-wallpaper.png"]];
+
     NSLog(@"******* View Will Appear currentShoe = %i", currentShoe);
 }
 
@@ -209,7 +179,7 @@
     
     Shoe *s = [shoes objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@",s.brand,s.desc];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@",s.brand];
     cell.detailTextLabel.text = nil;
     if (indexPath.row == currentShoe) {
         cell.detailTextLabel.text = @"Selected";
@@ -284,8 +254,7 @@
 //    newShoe.brand = @"test123";
     newShoe.maxDistance = [NSNumber numberWithFloat:350];
     newShoe.startDate = [NSDate date];
-    newShoe.expirationDate = [newShoe.startDate dateByAddingTimeInterval:secondsInSixMonths]; // six months in seconds
-    
+    newShoe.expirationDate = [newShoe.startDate dateByAddingTimeInterval:secondsInSixMonths];    
 //    NSLog(@"Other Shoes Count = %d",[otherShoes count]);
 //    NSLog(@"All Shoe Count = %d",[shoes count]);
     

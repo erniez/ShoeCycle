@@ -80,6 +80,8 @@ float runTotal;
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    BOOL dateError = FALSE;
+    
 //    NSLog(@"standardDistanceString = %@", standardDistanceString);
     if (standardDistance != 0) {
         [enterDistanceField setText:[UserDistanceSetting displayDistance:standardDistance]];
@@ -121,7 +123,7 @@ float runTotal;
         [runs release];
     }
     
-    nameField.text = [NSString stringWithFormat:@"%@: %@",distShoe.brand, distShoe.desc];
+    nameField.text = [NSString stringWithFormat:@"%@",distShoe.brand];
     distanceUnitLabel.text = @"Miles";
     if ([UserDistanceSetting getDistanceUnit]) {
         distanceUnitLabel.text = @"Km";
@@ -138,9 +140,18 @@ float runTotal;
     NSLog(@"run date = %@",addRunDate);
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     NSLog(@"run total3 = %f",runTotal);
+    
+    NSComparisonResult result = [distShoe.expirationDate compare:distShoe.startDate];
+    
+    if (result == NSOrderedAscending) {
+        dateError = TRUE;
+    }
     [startDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
     [expirationDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
-    [imageView setImage:[distShoe thumbnail]];
+    if (dateError) {
+        [expirationDateLabel setText:@" "];
+        [startDateLabel setText:@"Your end date is earlier than your start date"];
+    }
     
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
@@ -171,6 +182,7 @@ float runTotal;
 
     NSLog(@"Wear = %.4f",wear);
     
+    [imageView setImage:[distShoe thumbnail]];
 
     NSLog(@"Leaving View Will Appear");
 //    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
@@ -304,7 +316,7 @@ float runTotal;
 {
     float addDistance;
     NSManagedObjectContext *context = [distShoe managedObjectContext];
-    NSDate *testDate;
+    NSDate *testDate; // temporary date that gets written to run history table
     
     // clear any editors that may be visible (clicking directly from distance number pad)
     [[self view] endEditing:YES];
@@ -337,19 +349,8 @@ float runTotal;
     NSLog(@"%@",hist.runDistance);
     NSLog(@"Top of runDistance: %@",displayDistance);
     
-//    distShoe.totalDistance = [NSNumber numberWithFloat:(addDistance + [distShoe.totalDistance floatValue])];
-    
-//    NSLog(@"totalDistance = %@",distShoe.totalDistance);
-    
-    /*    float displayValue = [distShoe.totalDistance floatValue];
-     if ([UserDistanceSetting getDistanceUnit]) {
-     displayValue = displayValue * milesToKilometers;
-     } */
-    
     runTotal = runTotal + addDistance;
     [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
-    
-//    [totalDistanceField setText:[NSString stringWithFormat:@"%.2f",[distShoe.totalDistance floatValue]]];
     
     enterDistanceField.text = nil;
     standardDistance = 0;

@@ -53,7 +53,7 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAwLjY0OTY0MDU3MDYgMC4zNzk5Nzg1MDYxAA</bytes>
 						</object>
-						<int key="IBUIContentMode">4</int>
+						<int key="IBUIContentMode">5</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -336,6 +336,10 @@
 						<string key="NSFrame">{{166, 13}, {143, 96}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="599192436"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MCAwLjU0NTA5ODA2NjMgMC43NDkwMTk2MjI4IDAuMjUAA</bytes>
+						</object>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
 							<integer value="260" key="IBUIAccessibilityTraits"/>
@@ -345,7 +349,7 @@
 					<object class="IBUILabel" id="129450791">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{13, 375}, {59, 21}}</string>
+						<string key="NSFrame">{{13, 375}, {221, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="326427112"/>
 						<bool key="IBUIOpaque">NO</bool>

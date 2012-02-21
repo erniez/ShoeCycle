@@ -14,7 +14,6 @@
 @interface Shoe : NSManagedObject
 
 @property (nonatomic, retain) NSString * brand;
-@property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSDate * expirationDate;
 @property (nonatomic, retain) NSString * imageKey;
 @property (nonatomic, retain) NSNumber * maxDistance;
