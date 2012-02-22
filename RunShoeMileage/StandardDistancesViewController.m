@@ -19,6 +19,7 @@
 @synthesize userDefinedDistance2Button;
 @synthesize userDefinedDistance3Button;
 @synthesize userDefinedDistance4Button;
+@synthesize halfMarathonButton;
 
 - (id)initWithDistance:(AddDistanceViewController *)vc
 {
@@ -85,6 +86,7 @@
                                     forState:UIControlStateNormal];
     }
 
+    halfMarathonButton.titleLabel.textAlignment = UITextAlignmentCenter;
 }
 
 - (void)viewDidUnload

@@ -43,6 +43,12 @@
 		1BC5184014A35D240033EFC3 /* SetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BC5183E14A35D240033EFC3 /* SetupViewController.xib */; };
 		1BC8647F14F31E7700F4D6DC /* add-shoe-wallpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC8647D14F31E7700F4D6DC /* add-shoe-wallpaper.png */; };
 		1BC8648014F31E7700F4D6DC /* add-shoe-wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC8647E14F31E7700F4D6DC /* add-shoe-wallpaper@2x.png */; };
+		1BC94F5814F491C2004CEE6F /* settings-wallpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC94F5614F491C2004CEE6F /* settings-wallpaper.png */; };
+		1BC94F5914F491C2004CEE6F /* settings-wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC94F5714F491C2004CEE6F /* settings-wallpaper@2x.png */; };
+		1BC94F5D14F499ED004CEE6F /* popular-distances-wallpaper.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC94F5B14F499ED004CEE6F /* popular-distances-wallpaper.png */; };
+		1BC94F5E14F499ED004CEE6F /* popular-distances-wallpaper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC94F5C14F499ED004CEE6F /* popular-distances-wallpaper@2x.png */; };
+		1BC94F6114F49A20004CEE6F /* button-fav.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC94F5F14F49A20004CEE6F /* button-fav.png */; };
+		1BC94F6214F49A20004CEE6F /* button-fav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC94F6014F49A20004CEE6F /* button-fav@2x.png */; };
 		1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */; };
 		1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEEBB814B69B0200672194 /* FileHelpers.m */; };
 		1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCF643D148AF7E7004C0E6A /* UIKit.framework */; };
@@ -105,6 +111,12 @@
 		1BC5183E14A35D240033EFC3 /* SetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupViewController.xib; sourceTree = "<group>"; };
 		1BC8647D14F31E7700F4D6DC /* add-shoe-wallpaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-shoe-wallpaper.png"; path = "RunShoeMileage/images/add-shoe-wallpaper.png"; sourceTree = "<group>"; };
 		1BC8647E14F31E7700F4D6DC /* add-shoe-wallpaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-shoe-wallpaper@2x.png"; path = "RunShoeMileage/images/add-shoe-wallpaper@2x.png"; sourceTree = "<group>"; };
+		1BC94F5614F491C2004CEE6F /* settings-wallpaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings-wallpaper.png"; path = "RunShoeMileage/images/settings-wallpaper.png"; sourceTree = "<group>"; };
+		1BC94F5714F491C2004CEE6F /* settings-wallpaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings-wallpaper@2x.png"; path = "RunShoeMileage/images/settings-wallpaper@2x.png"; sourceTree = "<group>"; };
+		1BC94F5B14F499ED004CEE6F /* popular-distances-wallpaper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popular-distances-wallpaper.png"; path = "RunShoeMileage/images/popular-distances-wallpaper.png"; sourceTree = "<group>"; };
+		1BC94F5C14F499ED004CEE6F /* popular-distances-wallpaper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "popular-distances-wallpaper@2x.png"; path = "RunShoeMileage/images/popular-distances-wallpaper@2x.png"; sourceTree = "<group>"; };
+		1BC94F5F14F49A20004CEE6F /* button-fav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-fav.png"; path = "RunShoeMileage/images/button-fav.png"; sourceTree = "<group>"; };
+		1BC94F6014F49A20004CEE6F /* button-fav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-fav@2x.png"; path = "RunShoeMileage/images/button-fav@2x.png"; sourceTree = "<group>"; };
 		1BCEEBAD14B678AB00672194 /* TreadTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TreadTracker.xcdatamodel; sourceTree = "<group>"; };
 		1BCEEBB714B69B0200672194 /* FileHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelpers.h; sourceTree = "<group>"; };
 		1BCEEBB814B69B0200672194 /* FileHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHelpers.m; sourceTree = "<group>"; };
@@ -146,6 +158,12 @@
 		1B3EE43E14DDFF7A00ACA601 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1BC94F5F14F49A20004CEE6F /* button-fav.png */,
+				1BC94F6014F49A20004CEE6F /* button-fav@2x.png */,
+				1BC94F5B14F499ED004CEE6F /* popular-distances-wallpaper.png */,
+				1BC94F5C14F499ED004CEE6F /* popular-distances-wallpaper@2x.png */,
+				1BC94F5614F491C2004CEE6F /* settings-wallpaper.png */,
+				1BC94F5714F491C2004CEE6F /* settings-wallpaper@2x.png */,
 				1BC8647D14F31E7700F4D6DC /* add-shoe-wallpaper.png */,
 				1BC8647E14F31E7700F4D6DC /* add-shoe-wallpaper@2x.png */,
 				1B046D4914F1B8E900850B10 /* plain-wallpaper.png */,
@@ -336,6 +354,12 @@
 				1B046D4C14F1B8E900850B10 /* plain-wallpaper@2x.png in Resources */,
 				1BC8647F14F31E7700F4D6DC /* add-shoe-wallpaper.png in Resources */,
 				1BC8648014F31E7700F4D6DC /* add-shoe-wallpaper@2x.png in Resources */,
+				1BC94F5814F491C2004CEE6F /* settings-wallpaper.png in Resources */,
+				1BC94F5914F491C2004CEE6F /* settings-wallpaper@2x.png in Resources */,
+				1BC94F5D14F499ED004CEE6F /* popular-distances-wallpaper.png in Resources */,
+				1BC94F5E14F499ED004CEE6F /* popular-distances-wallpaper@2x.png in Resources */,
+				1BC94F6114F49A20004CEE6F /* button-fav.png in Resources */,
+				1BC94F6214F49A20004CEE6F /* button-fav@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

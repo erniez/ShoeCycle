@@ -22,6 +22,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance2Button;
 @property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance3Button;
 @property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance4Button;
+@property (retain, nonatomic) IBOutlet UIButton *halfMarathonButton;
 
 - (id)initWithDistance:(AddDistanceViewController *)vc;
 
