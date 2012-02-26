@@ -408,6 +408,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     expPickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
     expPickerView.tag = 10;
     expPickerView.datePickerMode = UIDatePickerModeDate;
+    expPickerView.date = currentDate;
 //    [expPickerView addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
     
     [dateActionSheet addSubview:expPickerView];

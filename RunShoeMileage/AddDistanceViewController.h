@@ -53,10 +53,12 @@
 @property (retain, nonatomic) IBOutlet UILabel *startDateLabel;
 @property (retain, nonatomic) IBOutlet UILabel *expirationDateLabel;
 @property (retain, nonatomic) IBOutlet UILabel*daysLeftLabel;
+@property (retain, nonatomic) IBOutlet UILabel*daysLeftIdentificationLabel;
 @property (retain, nonatomic) IBOutlet UIProgressView *wearProgress;
 
 
 - (void)actionSheetCancel:(id)sender;
+- (void)calculateDaysLeftProgressBar;
 - (IBAction)backgroundTapped:(id)sender;
 - (IBAction)addDistanceButton:(id)sender;
 - (IBAction)callDP:(id)sender;

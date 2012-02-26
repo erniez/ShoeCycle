@@ -23,6 +23,7 @@ float runTotal;
 @synthesize startDateLabel;
 @synthesize expirationDateLabel;
 @synthesize daysLeftLabel;
+@synthesize daysLeftIdentificationLabel;
 @synthesize wearProgress;
 @synthesize nameField;
 @synthesize runDateField;
@@ -80,7 +81,6 @@ float runTotal;
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    BOOL dateError = FALSE;
     
 //    NSLog(@"standardDistanceString = %@", standardDistanceString);
     if (standardDistance != 0) {
@@ -141,46 +141,7 @@ float runTotal;
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     NSLog(@"run total3 = %f",runTotal);
     
-    NSComparisonResult result = [distShoe.expirationDate compare:distShoe.startDate];
-    
-    if (result == NSOrderedAscending) {
-        dateError = TRUE;
-    }
-    [startDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
-    [expirationDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
-    if (dateError) {
-        [expirationDateLabel setText:@" "];
-        [startDateLabel setText:@"Your end date is earlier than your start date"];
-    }
-    
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
-                                                        fromDate:[NSDate date]
-                                                          toDate:distShoe.expirationDate
-                                                         options:0];
-    
-    NSDateComponents *componentsTotal = [gregorianCalendar components:NSDayCalendarUnit
-                                                        fromDate:distShoe.startDate
-                                                          toDate:distShoe.expirationDate
-                                                         options:0];
-
-    
-    [gregorianCalendar release];
-    [daysLeftLabel setText:@"0"];
-    if ([components day] >= 0) {
-        [daysLeftLabel setText:[NSString stringWithFormat:@"%d",[components day]]];
-    }
-    
-    NSLog(@"Components Total = %d",[componentsTotal day]);
-    int daysTotal = [componentsTotal day];
-    int daysLeftToWear = [components day];
-    float wear = 0;
-    wear = (float)daysLeftToWear/(float)daysTotal;
-    wearProgress.progress = 1 - wear;
-//    NSLog(@"Wear Progress = %@",wearProgress.progress);
-    NSLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
-
-    NSLog(@"Wear = %.4f",wear);
+    [self calculateDaysLeftProgressBar];
     
     [imageView setImage:[distShoe thumbnail]];
 
@@ -227,6 +188,12 @@ float runTotal;
     } */
     
     [totalDistanceLabel setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
+    
+
+    // Need the following code to register to update date calculation if app has been in background for more than a day
+    // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
+
       
     NSLog(@"View Did Load addDistanceViewController");
     
@@ -296,6 +263,7 @@ float runTotal;
     [expirationDateLabel release];
     [daysLeftLabel release];
     [wearProgress release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self]; // must delloc from notification center or program will crash
     [super dealloc];
 }
 
@@ -442,6 +410,57 @@ float runTotal;
 {
     RunShoeMileageAppDelegate *appDelegate = (RunShoeMileageAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate switchToTab:1];
+}
+
+
+- (void)calculateDaysLeftProgressBar
+{
+    BOOL dateError = FALSE;
+    NSComparisonResult result = [distShoe.expirationDate compare:distShoe.startDate];
+    
+    if (result == NSOrderedAscending) {
+        dateError = TRUE;
+    }
+    [startDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
+    [expirationDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
+    if (dateError) {
+        [expirationDateLabel setText:@" "];
+        [startDateLabel setText:@"Your end date is earlier than your start date"];
+    }
+    
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                        fromDate:[NSDate date]
+                                                          toDate:distShoe.expirationDate
+                                                         options:0];
+    
+    NSDateComponents *componentsTotal = [gregorianCalendar components:NSDayCalendarUnit
+                                                             fromDate:distShoe.startDate
+                                                               toDate:distShoe.expirationDate
+                                                              options:0];
+    
+    
+    [gregorianCalendar release];
+    [daysLeftIdentificationLabel setText:@"Days Left"];
+    [daysLeftLabel setText:@"0"];
+    if (([components day]+1) >= 0) {
+        [daysLeftLabel setText:[NSString stringWithFormat:@"%d",([components day]+1)]];
+    }
+    if (([components day]+1) == 1) {
+        [daysLeftIdentificationLabel setText:@"Day Left"];
+    }
+    
+    NSLog(@"Components Total = %d",([components day]+1));
+    int daysTotal = [componentsTotal day];
+    int daysLeftToWear = ([components day]+1);
+    float wear = 0;
+    wear = (float)daysLeftToWear/(float)daysTotal;
+    wearProgress.progress = 1 - wear;
+    //    NSLog(@"Wear Progress = %@",wearProgress.progress);
+    NSLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
+    
+    NSLog(@"Wear = %.4f",wear);
+
 }
 
 @end
