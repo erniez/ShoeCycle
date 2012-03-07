@@ -92,7 +92,9 @@
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
+//    NSLog(@"entered shoeDetail didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
+//    NSLog(@"leaving shoeDetail didReceiveMemoryWarning");    
     
     // Release any cached data, images, etc that aren't in use.
 }
@@ -104,9 +106,7 @@
     [super viewWillAppear:animated];
     [brandField setText:shoe.brand];
     
-//    [maxDistance setText:[NSString stringWithFormat:@"%@",shoe.maxDistance]];
     [maxDistance setText:[UserDistanceSetting displayDistance:[shoe.maxDistance floatValue]]];
-//    [startDistance setText:[NSString stringWithFormat:@"%@",shoe.startDistance]];
     [startDistance setText:[UserDistanceSetting displayDistance:[shoe.startDistance floatValue]]];
     
     self.expirationDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -132,8 +132,6 @@
         [imageView setImage:nil];
     }
 
-   
-//    [brand setText:brandField];
 }
 
 
@@ -170,8 +168,6 @@
 
 - (void)viewDidUnload
 {
-//    [brand release];
-//    brand = nil;
     [name release];
     name = nil;
     [maxDistance release];
@@ -270,12 +266,6 @@
                 return;
         }
          // If our device has a camera, we want to take a picture, otherwise we just pick from photo library
-/*         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-         [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-         } else {
-         [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-         }
-*/         
          [imagePicker setDelegate:self];
          
          // Place image picker on the screen
@@ -345,30 +335,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (IBAction)save:(id)sender
 {
     shoe.brand = brandField.text;
-/*    int flag = 0;
-    NSComparisonResult result = [expirationDate compare:startDate];
-    NSLog(@"start date = %@, end date = %@",startDate,expirationDate);
-    NSLog(@"Mad it to the save data routine. Compare = %i", result);
-    
-    if (result == NSOrderedAscending) {
-        UIAlertView *dateAlert = [[UIAlertView alloc] initWithTitle:@"Your End Date is earlier than you Start Date.  Please correct."
-                                                        message:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [dateAlert autorelease];
-        flag = 1;
-        [dateAlert show];
-    }
-    if (flag == 1) {
-        return;
-    } */
-    
- //   if (![self validation]) {
- //       return;
- //   }
             
-    NSLog(@"%@", shoe.brand);
+//    NSLog(@"%@", shoe.brand);
     
     // This message gets forwarded to the parentViewController  
     [self dismissModalViewControllerAnimated:YES];
@@ -454,50 +422,21 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (void)actionSheetCancel:(id)sender
 {
 
-//    self.currentDate = self.expPickerView.date;
-//    if (sender==dateActionSheet) {
-//        if (currentDate == startDate) {
+
     if (currentDateField == startDateField){
             self.startDate = self.expPickerView.date;
         }
     
-//    if (currentDate == expirationDate) {
     if (currentDateField == expirationDateField) {
             self.expirationDate = self.expPickerView.date;
         }
     
-        NSLog(@"actionSheetCancel - Current Date = %@",self.currentDate);
-        NSLog(@"Start Date = %@",self.startDate);
-//      [expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
-        [currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
-        [dateActionSheet dismissWithClickedButtonIndex:0 animated:YES];
-//    }
+    NSLog(@"actionSheetCancel - Current Date = %@",self.currentDate);
+    NSLog(@"Start Date = %@",self.startDate);
+    [currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
+    [dateActionSheet dismissWithClickedButtonIndex:0 animated:YES];
     
 }
 
 
-//=====================================================================
-//  Textfield validations
-//=====================================================================
-
-- (BOOL)validation
-{
-    int flag = 0;
-    NSComparisonResult result = [expirationDate compare:startDate];
-
-    if (result == NSOrderedAscending) {
-        UIAlertView *dateAlert = [[UIAlertView alloc] initWithTitle:@"Your End Date is earlier than you Start Date.  Please correct."
-                                                            message:nil
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [dateAlert autorelease];
-        flag = 1;
-        [dateAlert show];
-    }
-    if (flag == 1) {
-        return FALSE;
-    }
-    return TRUE;
-}
 @end

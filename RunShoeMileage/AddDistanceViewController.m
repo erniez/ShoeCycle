@@ -72,7 +72,9 @@ float runTotal;
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
+    NSLog(@"entered addDistance didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
+    NSLog(@"leaving addDistance didReceiveMemoryWarning");    
     
     // Release any cached data, images, etc that aren't in use.
 }
@@ -131,14 +133,7 @@ float runTotal;
     totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
     [maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[distShoe.maxDistance floatValue]]]];
     NSLog(@"run total2 = %f",runTotal);
-    self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
-	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    runDateField.delegate = self;
-    //    NSLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
-    self.addRunDate = [NSDate date];
-    NSLog(@"run date = %@",addRunDate);
-    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
+
     NSLog(@"run total3 = %f",runTotal);
     
     [self calculateDaysLeftProgressBar];
@@ -187,8 +182,16 @@ float runTotal;
         displayValue = displayValue * milesToKilometers;
     } */
     
-    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
+//    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
     
+    self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
+	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    runDateField.delegate = self;
+    //    NSLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
+    self.addRunDate = [NSDate date];
+    NSLog(@"run date = %@",addRunDate);
+    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 
     // Need the following code to register to update date calculation if app has been in background for more than a day
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
@@ -206,8 +209,9 @@ float runTotal;
 - (void)viewWillDisappear:(BOOL)animated
 {
     standardDistance = 0;
-    [enterDistanceField setText:nil];
-    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
+//    [enterDistanceField setText:nil];
+//    NSLog(@"Is this what is overwriting my date field?");
+//    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -221,22 +225,29 @@ float runTotal;
 
 - (void)viewDidUnload
 {
-    [enterDistanceField release];
+    NSLog(@"entered addDistance viewDidUnload");
     [self setEnterDistanceField:nil];
+    [enterDistanceField release];
     [self setTotalDistanceLabel:nil];
-    [runDateField release];
-    [runDateField release];
     [self setRunDateField:nil];
+    [runDateField release];
     [self setNameField:nil];
+    [nameField release];
     [self setTotalDistanceProgress:nil];
     [self setMaxDistanceLabel:nil];
-    [imageView release];
     imageView = nil;
+    [imageView release];
     [self setStartDateLabel:nil];
+    [startDateLabel release];
     [self setExpirationDateLabel:nil];
+    [expirationDateLabel release];
     [self setDaysLeftLabel:nil];
+    [daysLeftLabel release];
     [self setWearProgress:nil];
+    [wearProgress release];
+    NSLog(@"entered addDistance viewDidUnload");
     [super viewDidUnload];
+    NSLog(@"leaving addDistance viewDidUnload");
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -250,8 +261,6 @@ float runTotal;
 - (void)dealloc {
     [enterDistanceField release];
     [totalDistanceLabel release];
-    [runDateField release];
-    [runDateField release];
     [runDateField release];
     [distShoe release];
     [nameField release];
@@ -428,9 +437,21 @@ float runTotal;
         [startDateLabel setText:@"Your end date is earlier than your start date"];
     }
     
+    //  Need to strip out hours and seconds to avoid rounding errors on date calculation
+    //  Define calendar to be used
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    // Set today's date to just yeay, month, day
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDate *date = [NSDate date];
+    NSDateComponents *todayNoHoursNoSeconds = [gregorianCalendar components:unitFlags fromDate:date];
+    
+    // convert back to NSDate
+    NSDate *today = [gregorianCalendar dateFromComponents:todayNoHoursNoSeconds];
+    
+    
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
-                                                        fromDate:[NSDate date]
+                                                        fromDate:today
                                                           toDate:distShoe.expirationDate
                                                          options:0];
     
@@ -441,19 +462,21 @@ float runTotal;
     
     
     [gregorianCalendar release];
+    
+    int daysTotal = [componentsTotal day];
+    int daysLeftToWear = ([components day]);
+    float wear = 0.0;
     [daysLeftIdentificationLabel setText:@"Days Left"];
     [daysLeftLabel setText:@"0"];
-    if (([components day]+1) >= 0) {
-        [daysLeftLabel setText:[NSString stringWithFormat:@"%d",([components day]+1)]];
+    if (daysLeftToWear >= 0) {
+        [daysLeftLabel setText:[NSString stringWithFormat:@"%d",daysLeftToWear]];
     }
-    if (([components day]+1) == 1) {
+    if (daysLeftToWear == 1) {
         [daysLeftIdentificationLabel setText:@"Day Left"];
     }
     
-    NSLog(@"Components Total = %d",([components day]+1));
-    int daysTotal = [componentsTotal day];
-    int daysLeftToWear = ([components day]+1);
-    float wear = 0;
+    NSLog(@"Components Total = %d",[components day]);
+    
     wear = (float)daysLeftToWear/(float)daysTotal;
     wearProgress.progress = 1 - wear;
     //    NSLog(@"Wear Progress = %@",wearProgress.progress);

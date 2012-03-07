@@ -79,8 +79,9 @@
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
+    NSLog(@"entered editShoes didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
-    
+    NSLog(@"leaving editShoed didReceiveMemoryWarning");    
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -140,6 +141,7 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 
 // ******************************************************************************************
 //  End of View Cycle

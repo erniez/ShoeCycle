@@ -50,9 +50,9 @@
     UIGraphicsBeginImageContext(newRect.size);
     
     // Round the corners
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:newRect
-                                                    cornerRadius:5.0];
-    [path addClip];
+//    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:newRect
+//                                                    cornerRadius:5.0];
+//    [path addClip];
     
     // Into what rectangle shall I composite the image?
     CGRect projectRect;

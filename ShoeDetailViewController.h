@@ -56,7 +56,6 @@
 - (IBAction)backgroundTapped:(id)sender;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 - (IBAction)callDP:(id)sender;
-- (BOOL)validation;
 
 //- (void)changeDate:(id)sender;
 
