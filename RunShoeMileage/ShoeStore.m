@@ -125,7 +125,7 @@ static ShoeStore *defaultStore = nil;
     } else {
         order = [[[allShoes lastObject] orderingValue] doubleValue] + 1.0;
     }
-    NSLog(@"Adding after %d intems, order = %.2f", [allShoes count], order);
+//    NSLog(@"Adding after %d intems, order = %.2f", [allShoes count], order);
     
     Shoe *p = [NSEntityDescription insertNewObjectForEntityForName:@"Shoe"
                                                   inManagedObjectContext:context];
@@ -176,7 +176,7 @@ static ShoeStore *defaultStore = nil;
     // The order value will be the midpoint between the lower and upper bounds
     NSNumber *n = [NSNumber numberWithDouble:(lowerBound + upperBound)/2.0];
     
-    NSLog(@"Moving to order %@",n);
+//    NSLog(@"Moving to order %@",n);
     [s setOrderingValue:n];
     
     // Release s (retain count = 1, only owner is now array)
@@ -190,7 +190,7 @@ static ShoeStore *defaultStore = nil;
     NSError *err = nil;
     BOOL successful = [context save:&err];
     if (!successful) {
-        NSLog(@"Error saving: %@", [err localizedDescription]);
+ //       NSLog(@"Error saving: %@", [err localizedDescription]);
     }
     return successful;
 }

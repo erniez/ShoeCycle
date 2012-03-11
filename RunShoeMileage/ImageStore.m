@@ -53,7 +53,7 @@ static ImageStore *defaultImageStore = nil;
 
 - (void) clearCache:(NSNotification *)note
 {
-    NSLog(@"flushing %d images out of the cache", [dictionary count]);
+ //   NSLog(@"flushing %d images out of the cache", [dictionary count]);
     [dictionary removeAllObjects];
 }
 
@@ -144,7 +144,7 @@ static ImageStore *defaultImageStore = nil;
         if (result){
             [dictionary setObject:result forKey:s];
         } else {
-            NSLog(@"Error: unable to find %@", pathInDocumentDirectory(s));
+//            NSLog(@"Error: unable to find %@", pathInDocumentDirectory(s));
         }
     }
     return result;

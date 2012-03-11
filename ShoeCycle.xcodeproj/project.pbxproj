@@ -33,6 +33,10 @@
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
+		1B5608BA150C491500C58E52 /* Icon-settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5608B6150C491500C58E52 /* Icon-settings.png */; };
+		1B5608BB150C491500C58E52 /* Icon-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5608B7150C491500C58E52 /* Icon-settings@2x.png */; };
+		1B5608BC150C491500C58E52 /* Icon-spot~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5608B8150C491500C58E52 /* Icon-spot~ipad.png */; };
+		1B5608BD150C491500C58E52 /* Icon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B5608B9150C491500C58E52 /* Icon~ipad.png */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
 		1B822C4314ECB03500D4AFDF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B822C4214ECB03500D4AFDF /* icon.png */; };
@@ -97,6 +101,10 @@
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
+		1B5608B6150C491500C58E52 /* Icon-settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-settings.png"; sourceTree = "<group>"; };
+		1B5608B7150C491500C58E52 /* Icon-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-settings@2x.png"; sourceTree = "<group>"; };
+		1B5608B8150C491500C58E52 /* Icon-spot~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-spot~ipad.png"; sourceTree = "<group>"; };
+		1B5608B9150C491500C58E52 /* Icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon~ipad.png"; sourceTree = "<group>"; };
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
 		1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardDistancesViewController.m; sourceTree = "<group>"; };
 		1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StandardDistancesViewController.xib; sourceTree = "<group>"; };
@@ -189,13 +197,17 @@
 		1BCF642E148AF7E5004C0E6A = {
 			isa = PBXGroup;
 			children = (
+				1BD976D614BB1C720012E958 /* Default.png */,
 				1B046D4614F1B0E400850B10 /* Default@2x.png */,
 				1B822C4514ECB03B00D4AFDF /* icon@2x.png */,
 				1B822C4214ECB03500D4AFDF /* icon.png */,
-				1B3EE43E14DDFF7A00ACA601 /* Images */,
+				1B5608B6150C491500C58E52 /* Icon-settings.png */,
+				1B5608B7150C491500C58E52 /* Icon-settings@2x.png */,
+				1B5608B8150C491500C58E52 /* Icon-spot~ipad.png */,
+				1B5608B9150C491500C58E52 /* Icon~ipad.png */,
 				1B2CC9F914D63A08004F26E2 /* Icon@2x.png */,
 				1B2CC9F614D63A04004F26E2 /* Icon.png */,
-				1BD976D614BB1C720012E958 /* Default.png */,
+				1B3EE43E14DDFF7A00ACA601 /* Images */,
 				1BCF6443148AF7E7004C0E6A /* RunShoeMileage */,
 				1BCF643C148AF7E7004C0E6A /* Frameworks */,
 				1BCF643A148AF7E7004C0E6A /* Products */,
@@ -360,6 +372,10 @@
 				1BC94F5E14F499ED004CEE6F /* popular-distances-wallpaper@2x.png in Resources */,
 				1BC94F6114F49A20004CEE6F /* button-fav.png in Resources */,
 				1BC94F6214F49A20004CEE6F /* button-fav@2x.png in Resources */,
+				1B5608BA150C491500C58E52 /* Icon-settings.png in Resources */,
+				1B5608BB150C491500C58E52 /* Icon-settings@2x.png in Resources */,
+				1B5608BC150C491500C58E52 /* Icon-spot~ipad.png in Resources */,
+				1B5608BD150C491500C58E52 /* Icon~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +455,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ShoeCycle;
 				WRAPPER_EXTENSION = app;
 			};
@@ -498,6 +515,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ShoeCycle;
 				WRAPPER_EXTENSION = app;
 			};
@@ -510,6 +528,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = ShoeCycle;
 				WRAPPER_EXTENSION = app;
 			};

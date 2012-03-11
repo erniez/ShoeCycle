@@ -117,7 +117,7 @@
     [expirationDateField setText:[self.expirationDateFormatter stringFromDate:shoe.expirationDate]];
     self.startDate = shoe.startDate;
     [startDateField setText:[self.expirationDateFormatter stringFromDate:shoe.startDate]];
-    NSLog(@"Will Appear Date = %@",shoe.expirationDate);
+//    NSLog(@"Will Appear Date = %@",shoe.expirationDate);
     
     NSString *imageKey = [shoe imageKey];
     
@@ -141,12 +141,12 @@
     [super viewWillDisappear:animated];
     shoe.brand = brandField.text;
     shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:maxDistance.text]];
-    NSLog(@"Leaving maxDistance %@",shoe.maxDistance);
+ //   NSLog(@"Leaving maxDistance %@",shoe.maxDistance);
     shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:startDistance.text]];
     shoe.expirationDate = expirationDate;
     shoe.startDate = self.startDate;
-        NSLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
-    NSLog(@"Leaving Date = %@",shoe.expirationDate);
+//        NSLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
+//    NSLog(@"Leaving Date = %@",shoe.expirationDate);
     
 }
 
@@ -249,7 +249,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (actionSheet == pictureActionSheet) {
-        NSLog(@"Picture Actionsheet Button = %i",buttonIndex);
+ //       NSLog(@"Picture Actionsheet Button = %i",buttonIndex);
         [pictureActionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
         
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -364,7 +364,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     [[self view] endEditing:YES];           // clear any editors that may be visible (clicking from distance to date)
     
-    NSLog(@"callDP sender = %@", sender);
+//    NSLog(@"callDP sender = %@", sender);
     currentDateField = sender;
     
     dateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -395,7 +395,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [dateActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     [dateActionSheet setBounds:CGRectMake(0, 0, 320, 485)];
-    NSLog(@"leaving CallDP");
+//    NSLog(@"leaving CallDP");
 }
 
 
@@ -404,14 +404,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     if (textField == expirationDateField) {
         self.currentDate = expirationDate;
         [self callDP:expirationDateField];
-        NSLog(@"Writing Expiration Date to local variable = %@",expirationDate);
+//        NSLog(@"Writing Expiration Date to local variable = %@",expirationDate);
         return NO;
     }
     
     if (textField == startDateField) {
         self.currentDate = startDate;
         [self callDP:startDateField];
-        NSLog(@"Writing Start Date to local variable = %@",startDate);
+//        NSLog(@"Writing Start Date to local variable = %@",startDate);
         return NO;
     }
     
@@ -431,8 +431,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             self.expirationDate = self.expPickerView.date;
         }
     
-    NSLog(@"actionSheetCancel - Current Date = %@",self.currentDate);
-    NSLog(@"Start Date = %@",self.startDate);
+//    NSLog(@"actionSheetCancel - Current Date = %@",self.currentDate);
+//    NSLog(@"Start Date = %@",self.startDate);
     [currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
     [dateActionSheet dismissWithClickedButtonIndex:0 animated:YES];
     

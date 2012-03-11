@@ -28,13 +28,13 @@
     if (self) {
         // Get tab bar item
         UITabBarItem *tbi = [self tabBarItem];
-        int offset = 7;
-        UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
+//        int offset = 7;
+//        UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
         
         // Give it a centered icon
-        tbi.imageInsets = imageInset;
+ //       tbi.imageInsets = imageInset;
         UIImage *image = [UIImage imageNamed:@"tabbar-gear.png"];
- //       [tbi setTitle:@"Setup"];
+        [tbi setTitle:@"Setup"];
         [tbi setImage:image];
     }
     
@@ -132,7 +132,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    NSLog(@"Made it to textFieldShouldReturn");
+//    NSLog(@"Made it to textFieldShouldReturn");
     return YES;
 }
 
@@ -161,26 +161,26 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    NSLog(@"Should End Editing: %@",textField.text);
+//    NSLog(@"Should End Editing: %@",textField.text);
     if (textField == userDefinedDistance1) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance1.text];
         [UserDistanceSetting setUserDefinedDistance1:distance];
-        NSLog(@"Favorite Distance 1 = %.2f",distance);
+//        NSLog(@"Favorite Distance 1 = %.2f",distance);
     }
     if (textField == userDefinedDistance2) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance2.text];
         [UserDistanceSetting setUserDefinedDistance2:distance];
-        NSLog(@"Favorite Distance 2 = %.2f",distance);
+//        NSLog(@"Favorite Distance 2 = %.2f",distance);
     }
     if (textField == userDefinedDistance3) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance3.text];
         [UserDistanceSetting setUserDefinedDistance3:distance];
-        NSLog(@"Favorite Distance 3 = %.2f",distance);
+//        NSLog(@"Favorite Distance 3 = %.2f",distance);
     }
     if (textField == userDefinedDistance4) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance4.text];
         [UserDistanceSetting setUserDefinedDistance4:distance];
-        NSLog(@"Favorite Distance 4 = %.2f",distance);
+//        NSLog(@"Favorite Distance 4 = %.2f",distance);
     }
 
     return YES;

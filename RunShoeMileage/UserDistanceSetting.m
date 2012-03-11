@@ -42,7 +42,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
 
 + (NSString *) displayDistance:(float)runDistance
 {
-    NSLog(@"displayDistance = %f", runDistance);
+//    NSLog(@"displayDistance = %f", runDistance);
     if ([UserDistanceSetting getDistanceUnit]) {
         runDistance = runDistance * milesToKilometers;
     }
@@ -52,7 +52,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     
     float testForDecimal = runDistance - (int)runDistance;      // if there is no decimal, the code below will truncate the whole number zeroes
     if (testForDecimal == 0) {
-        NSLog(@"Made it inside whole number decision");
+ //       NSLog(@"Made it inside whole number decision");
         return [NSString stringWithFormat:@"%i",(int)runDistance];
     }
     
@@ -163,7 +163,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     [[NSUserDefaults standardUserDefaults]
      setInteger:shoeIndex
      forKey:TreadTrackerSelecredShoePrefKey];
-    NSLog(@"setSelectedShoe Index = %i",shoeIndex);
+//    NSLog(@"setSelectedShoe Index = %i",shoeIndex);
     return;
 }
 

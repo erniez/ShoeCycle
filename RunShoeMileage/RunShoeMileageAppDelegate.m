@@ -44,13 +44,13 @@
     // I would need to create a seperate navigation controller class and override the init field if I don't
     // want the following two lines of code in the App Delegate.
     UITabBarItem *tbi = [navController tabBarItem];
-    int offset = 7;
-    UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
+//    int offset = 7;
+//    UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
     
     // Give it an image and center
-    tbi.imageInsets = imageInset;
+//    tbi.imageInsets = imageInset;
     UIImage *image = [UIImage imageNamed:@"tabbar-shoe.png"];
-//    [tbi setTitle:@"Add/Edit Shoes"];
+    [tbi setTitle:@"Add/Edit Shoes"];
     [tbi setImage:image];
 
     
@@ -77,7 +77,7 @@
 
 
     [self.window makeKeyAndVisible];
-    NSLog(@"View Did Finish Launching");
+//    NSLog(@"View Did Finish Launching");
     return YES;
 }
 
