@@ -95,9 +95,19 @@
     [self setUserDefinedDistance2Button:nil];
     [self setUserDefinedDistance3Button:nil];
     [self setUserDefinedDistance4Button:nil];
+    [self setHalfMarathonButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)dealloc {
+    [userDefinedDistance1Button release];
+    [userDefinedDistance2Button release];
+    [userDefinedDistance3Button release];
+    [userDefinedDistance4Button release];
+    [halfMarathonButton release];
+    [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -194,11 +204,4 @@
 }
 
 
-- (void)dealloc {
-    [userDefinedDistance1Button release];
-    [userDefinedDistance2Button release];
-    [userDefinedDistance3Button release];
-    [userDefinedDistance4Button release];
-    [super dealloc];
-}
 @end

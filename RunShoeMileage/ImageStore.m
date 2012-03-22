@@ -42,7 +42,7 @@ static ImageStore *defaultImageStore = nil;
         
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         [nc addObserver:self
-               selector:@selector(clearCache)
+               selector:@selector(clearCacheEZ:)
                    name:UIApplicationDidReceiveMemoryWarningNotification
                  object:nil];
     }
@@ -51,13 +51,14 @@ static ImageStore *defaultImageStore = nil;
 }
 
 
-- (void) clearCache:(NSNotification *)note
+- (void) clearCacheEZ:(NSNotification *)note  // had to change name due to Apple rejection
+                                              // failed the use of non-public API rule
 {
- //   NSLog(@"flushing %d images out of the cache", [dictionary count]);
+    NSLog(@"flushing %d images out of the cache", [dictionary count]);
     [dictionary removeAllObjects];
 }
 
-- (void)release
+- (oneway void)release
 {
     // no op
 }

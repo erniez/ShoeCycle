@@ -95,7 +95,7 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
-    [[ShoeStore defaultStore] saveChanges];
+    [[ShoeStore defaultStore] saveChangesEZ];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -120,13 +120,14 @@
      See also applicationDidEnterBackground:.
      */
     
-    [[ShoeStore defaultStore] saveChanges];
+    [[ShoeStore defaultStore] saveChangesEZ];
     
 }
 
 - (void)dealloc
 {
     [window release];
+    [tabBarController release];
 //    [navController release];
     [super dealloc];
 }

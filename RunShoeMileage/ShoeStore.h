@@ -20,7 +20,7 @@
 }
 
 + (ShoeStore *)defaultStore;
-- (BOOL)saveChanges;
+- (BOOL)saveChangesEZ;
 
 #pragma mark Shoes
 - (NSArray *)allShoes;

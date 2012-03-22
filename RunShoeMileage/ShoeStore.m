@@ -84,7 +84,7 @@ static ShoeStore *defaultStore = nil;
 }
 
 
-- (void)release
+- (oneway void)release
 {
     // Do nothing
 }
@@ -185,7 +185,7 @@ static ShoeStore *defaultStore = nil;
 }
 
 
-- (BOOL)saveChanges
+- (BOOL)saveChangesEZ
 {
     NSError *err = nil;
     BOOL successful = [context save:&err];

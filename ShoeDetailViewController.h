@@ -17,8 +17,8 @@
     IBOutlet UITextField *maxDistance;
     IBOutlet UITextField *expirationDateField;
     IBOutlet UITextField *startDistance;
-    UITextField *brandField;
     IBOutlet UIImageView *imageView;
+    UITextField *brandField;
     NSString *testBrandString;
     NSString *testNameString;
     UIPopoverController *imagePickerPopover;
@@ -36,8 +36,6 @@
 
 }
 @property (nonatomic, retain) IBOutlet UITextField *brandField;
-@property (nonatomic, retain) NSString *testBrandString;
-@property (nonatomic, retain) NSString *testNameString;
 @property (nonatomic, retain) IBOutlet UIDatePicker *expPickerView;
 @property (nonatomic, retain) NSDateFormatter *expirationDateFormatter; 
 @property (nonatomic, retain) Shoe *shoe;
@@ -48,6 +46,7 @@
 @property (retain, nonatomic) IBOutlet UITextField *startDateField;
 @property (retain, nonatomic) UITextField *currentDateField;
 @property (retain, nonatomic) IBOutlet UITextField *maxDistance;
+@property (retain, nonatomic) IBOutlet UITextField *expirationDateField;
 
 - (IBAction)takePicture:(id)sender;
 - (id)initForNewItem:(BOOL)isNew;

@@ -239,6 +239,8 @@
 
 - (void)dealloc {
     [tableHeaderView release];
+    [shoe release];
+    [runs release];
     [super dealloc];
 }
 @end

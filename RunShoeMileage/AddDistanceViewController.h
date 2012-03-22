@@ -17,7 +17,6 @@
  //   UITextField *totalDistanceLabel;
     
     UIDatePicker *pickerView;
-	UIBarButtonItem *doneButton;	// this button appears only when the date picker is open
     
     UITextField *runDateField;
     NSDate *addRunDate;
@@ -41,7 +40,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *totalDistanceLabel;
 @property (nonatomic, retain) IBOutlet UILabel *distanceUnitLabel;
 @property (nonatomic, retain) IBOutlet UIDatePicker *pickerView; 
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, retain) IBOutlet UITextField *runDateField;
 @property (nonatomic, retain) NSDateFormatter *runDateFormatter; 
 @property (nonatomic, retain) IBOutlet UITextField *nameField;
@@ -57,7 +55,7 @@
 @property (retain, nonatomic) IBOutlet UIProgressView *wearProgress;
 
 
-- (void)actionSheetCancel:(id)sender;
+- (void)actionSheetCancelEZ:(id)sender;
 - (void)calculateDaysLeftProgressBar;
 - (IBAction)backgroundTapped:(id)sender;
 - (IBAction)addDistanceButton:(id)sender;

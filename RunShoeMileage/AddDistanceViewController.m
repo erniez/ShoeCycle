@@ -30,7 +30,7 @@ float runTotal;
 @synthesize maxDistanceLabel;
 @synthesize enterDistanceField;
 @synthesize totalDistanceLabel, distanceUnitLabel;
-@synthesize pickerView, doneButton,runDateFormatter; // standardDistanceString;
+@synthesize pickerView, runDateFormatter; // standardDistanceString;
 @synthesize distShoe, addRunDate, hist;
 @synthesize totalDistanceProgress;
 
@@ -72,9 +72,9 @@ float runTotal;
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
-//    NSLog(@"entered addDistance didReceiveMemoryWarning");
+    NSLog(@"entered addDistance didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
-//    NSLog(@"leaving addDistance didReceiveMemoryWarning");    
+    NSLog(@"leaving addDistance didReceiveMemoryWarning");    
     
     // Release any cached data, images, etc that aren't in use.
 }
@@ -226,27 +226,64 @@ float runTotal;
 - (void)viewDidUnload
 {
 //    NSLog(@"entered addDistance viewDidUnload");
-    [self setEnterDistanceField:nil];
-    [enterDistanceField release];
-    [self setTotalDistanceLabel:nil];
-    [self setRunDateField:nil];
-    [runDateField release];
-    [self setNameField:nil];
-    [nameField release];
-    [self setTotalDistanceProgress:nil];
-    [self setMaxDistanceLabel:nil];
-    imageView = nil;
-    [imageView release];
-    [self setStartDateLabel:nil];
-    [startDateLabel release];
-    [self setExpirationDateLabel:nil];
-    [expirationDateLabel release];
-    [self setDaysLeftLabel:nil];
-    [daysLeftLabel release];
-    [self setWearProgress:nil];
-    [wearProgress release];
-//    NSLog(@"entered addDistance viewDidUnload");
     [super viewDidUnload];
+    
+    [enterDistanceField release];
+    enterDistanceField = nil;
+    
+    [totalDistanceLabel release];
+    totalDistanceLabel = nil;
+    
+    [runDateField release];
+    runDateField = nil;
+    
+    [nameField release];
+    nameField = nil;
+    
+    [totalDistanceProgress release];
+    totalDistanceProgress = nil;
+    
+    [maxDistanceLabel release];
+    maxDistanceLabel = nil;
+    
+    [imageView release];
+    imageView = nil;
+    
+    [startDateLabel release];
+    startDateLabel = nil;
+    
+    [expirationDateLabel release];
+    expirationDateLabel = nil;
+    
+    [daysLeftLabel release];
+    daysLeftLabel = nil;
+    
+    [wearProgress release];
+    wearProgress = nil;
+    
+    [distanceUnitLabel release];
+    distanceUnitLabel = nil;
+    
+//    [pickerView release];
+//    pickerView = nil;
+    
+    [runDateFormatter release];
+    runDateFormatter = nil;
+    
+    [distShoe release];
+    distShoe  = nil;
+    
+    [hist release];
+    hist = nil;
+    
+    [addRunDate release];
+    addRunDate = nil;
+    
+    [daysLeftIdentificationLabel release];
+    daysLeftIdentificationLabel = nil;
+    
+    //    NSLog(@"entered addDistance viewDidUnload");
+
 //    NSLog(@"leaving addDistance viewDidUnload");
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -258,20 +295,27 @@ float runTotal;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (void)dealloc {
     [enterDistanceField release];
     [totalDistanceLabel release];
     [runDateField release];
-    [distShoe release];
-    [nameField release];
+    [nameField release];    
     [totalDistanceProgress release];
     [maxDistanceLabel release];
     [imageView release];
-    [addRunDate release];
     [startDateLabel release];
     [expirationDateLabel release];
     [daysLeftLabel release];
     [wearProgress release];
+    [distanceUnitLabel release];
+ //   [pickerView release];
+    [runDateFormatter release];
+    [distShoe release];
+    [hist release];
+    [addRunDate release];
+    [daysLeftIdentificationLabel release];
+  
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // must delloc from notification center or program will crash
     [super dealloc];
 }
@@ -361,7 +405,7 @@ float runTotal;
     closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
     closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
     closeButton.tintColor = [UIColor blackColor];
-    [closeButton addTarget:self action:@selector(actionSheetCancel:) forControlEvents:UIControlEventValueChanged];
+    [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
     [actionSheet addSubview:closeButton];
     [closeButton release];
     
@@ -370,6 +414,8 @@ float runTotal;
     [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    [actionSheet release];
+    [pickerView release];
 }
 
 - (IBAction)standardDistancesButtonPressed:(id)sender
@@ -404,7 +450,7 @@ float runTotal;
 }
 
 
-- (void)actionSheetCancel:(id)sender
+- (void)actionSheetCancelEZ:(id)sender
 {
 //    NSLog(@"actionSHeetCancel");
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];

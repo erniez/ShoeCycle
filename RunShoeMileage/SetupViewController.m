@@ -54,7 +54,10 @@
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
+
+    NSLog(@"entering setupViewController Memory warning");
     [super didReceiveMemoryWarning];
+    NSLog(@"leaving setupViewController Memory warning");
     
     // Release any cached data, images, etc that aren't in use.
 }
@@ -103,11 +106,21 @@
 
 - (void)viewDidUnload
 {
-    [self setDistanceUnitControl:nil];
-    [self setUserDefinedDistance1:nil];
-    [self setUserDefinedDistance2:nil];
-    [self setUserDefinedDistance3:nil];
-    [self setUserDefinedDistance4:nil];
+    [distanceUnitControl release];
+    distanceUnitControl = nil;
+    
+    [userDefinedDistance1 release];
+    userDefinedDistance1 = nil;
+    
+    [userDefinedDistance2 release];
+    userDefinedDistance2 = nil;
+        
+    [userDefinedDistance3 release];
+    userDefinedDistance3 = nil;
+      
+    [userDefinedDistance4 release];
+    userDefinedDistance4 = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

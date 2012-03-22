@@ -14,7 +14,7 @@
 #import "UserDistanceSetting.h"
 
 @implementation EditShoesViewController
-@synthesize testBrandArray, testNameArray;
+//@synthesize testBrandArray, testNameArray;
 
 
 - (id)init
@@ -79,9 +79,9 @@
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
- //   NSLog(@"entered editShoes didReceiveMemoryWarning");
+//    NSLog(@"entered editShoes didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
-//    NSLog(@"leaving editShoed didReceiveMemoryWarning");    
+ //   NSLog(@"leaving editShoed didReceiveMemoryWarning");    
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -107,13 +107,11 @@
 {
     [super viewWillDisappear:YES];
 }
-/*
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-//    self.testBrandArray = [NSArray arrayWithObjects:@"Vibram", @"Brooks", @"Newton", nil];
-//    self.testNameArray = [NSArray arrayWithObjects:@"Five Fingers - Bikila", @"Ghost", @"Gravity", nil];  
 
     
 //    NSLog(@"Made it to viewDidLoad");
@@ -124,11 +122,9 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    self.testNameArray = nil;
-    self.testBrandArray = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-} */
+} 
 
 
 - (void)EditShoesViewControllerWillDismiss:(EditShoesViewController *)vc
@@ -153,6 +149,7 @@
 //    return [testData.testNameArray count];
     int cnt = [[[ShoeStore defaultStore] allShoes] count];
 //    NSLog(@"Tableview Shoe Count = %d",[[[ShoeStore defaultStore] allShoes] count]);
+    // Check to see if current shoe was deleted, then set current shoe to top shoe.
     if (currentShoe >= cnt) {
         currentShoe = 0;
         [UserDistanceSetting setSelectedShoe:currentShoe];
@@ -164,16 +161,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	
-// pwc   ShoesTestData *testData = [[ShoesTestData alloc] init];
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
 	if (cell == nil)
 	{
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UITableViewCell"] autorelease];
 	}
-    
-// pwc    cell.textLabel.text = [testData.testBrandArray objectAtIndex:indexPath.row];
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
@@ -185,16 +177,13 @@
     cell.detailTextLabel.text = nil;
     if (indexPath.row == currentShoe) {
         cell.detailTextLabel.text = @"Selected";
-    }
-
-// pwc    cell.detailTextLabel.text = [testData.testNameArray objectAtIndex:indexPath.row];      
+    }   
 	
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton ;
     
 //    NSLog(@"Made it to tableView exit");
     
 	return cell;
-
 } 
 
 
@@ -207,11 +196,14 @@
     [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
+    
+//    NSLog(@"********** Going to Detail View ***************");
 }
 
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    NSLog(@"Entering did select row at index path");
     currentShoe = indexPath.row;
     [UserDistanceSetting setSelectedShoe:currentShoe];
     [[self tableView] reloadData];
@@ -257,8 +249,6 @@
     newShoe.maxDistance = [NSNumber numberWithFloat:350];
     newShoe.startDate = [NSDate date];
     newShoe.expirationDate = [newShoe.startDate dateByAddingTimeInterval:secondsInSixMonths];    
-//    NSLog(@"Other Shoes Count = %d",[otherShoes count]);
-//    NSLog(@"All Shoe Count = %d",[shoes count]);
     
     [detailViewController setShoe:newShoe];
     

@@ -12,11 +12,11 @@
 #import "UserDistanceSetting.h"
 
 @implementation ShoeDetailViewController
-@synthesize brandField, testBrandString, testNameString, shoe;
+@synthesize brandField, shoe;
 @synthesize expPickerView, expirationDateFormatter, expirationDate, startDate, currentDate;
 @synthesize maxDistance;
 @synthesize toolbar;
-@synthesize startDateField, currentDateField;
+@synthesize startDateField, currentDateField, expirationDateField;
 
 - (id)initForNewItem:(BOOL)isNew
 {
@@ -112,7 +112,7 @@
     self.expirationDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.expirationDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    expirationDateField.delegate = self;
+//    expirationDateField.delegate = self;
     self.expirationDate = shoe.expirationDate;
     [expirationDateField setText:[self.expirationDateFormatter stringFromDate:shoe.expirationDate]];
     self.startDate = shoe.startDate;
@@ -147,6 +147,7 @@
     shoe.startDate = self.startDate;
 //        NSLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
 //    NSLog(@"Leaving Date = %@",shoe.expirationDate);
+//    NSLog(@"************** Leaving Detail View ************");
     
 }
 
@@ -168,19 +169,56 @@
 
 - (void)viewDidUnload
 {
-    [name release];
-    name = nil;
+    [super viewDidUnload];
+//    NSLog(@"entering ShoeDetailViewController viewDidUnload");
+    [shoe release];
+    shoe = nil;
+    
+//    [expPickerView release];
+//    expPickerView = nil;
+    
+//    [expirationDateFormatter release];
+//    expirationDateFormatter = nil;
+    
+    [expirationDate release];
+    expirationDate = nil;
+    
+    [startDate release];
+    startDate = nil;
+    
+    [currentDate release];
+    currentDate = nil;
+    
+//    [currentDateField release];
+//    currentDateField = nil;
+    
     [maxDistance release];
     maxDistance = nil;
-    [expirationDateField release];
-    expirationDateField = nil;
+    
+    [name release];
+    name = nil;
+    
+    [maxDistance release];
+    maxDistance = nil;
+    
+//    [expirationDateField release];
+//    expirationDateField = nil;
+    
     [startDistance release];
     startDistance = nil;
-    [self setBrandField:nil];
+    
+    [brandField release];
+    brandField = nil;
+    
     [imageView release];
     imageView = nil;
-    [self setStartDateField:nil];
-    [super viewDidUnload];
+    
+    [toolbar release];
+    toolbar = nil;
+    
+//    [startDateField release];
+//    startDateField = nil;
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -191,17 +229,46 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (void)dealloc {
-//    [brand release];
-    [name release];
+//    NSLog(@"entering ShoeDetailViewController dealloc");
+//    NSLog(@"IN exp date field retain count = %d",[expirationDateField retainCount]);
+//    NSLog(@"release shoe");
+    [shoe release];
+//    [expPickerView release];
+ //   NSLog(@"release expdateformatter");
+//    [expirationDateFormatter release];
+//    NSLog(@"release expiration date");
+    [expirationDate release];
+ //   NSLog(@"release start date");
+    [startDate release];
+//    NSLog(@"BEFORE current date field retain count = %d",[expirationDateField retainCount]);    
+//    NSLog(@"release current date");
+    [currentDate release];
+//    NSLog(@"release current date field");
+//    [currentDateField release]; ***** current date field is really pointing to either start or expiration date
+//    NSLog(@"AFTER current date field retain count = %d",[expirationDateField retainCount]);    
+//    NSLog(@"release maxdistance");
     [maxDistance release];
+//    NSLog(@"release name");
+    [name release];
+//    NSLog(@"release expiration date field");
+//    NSLog(@"BEFORE exp date field retain count = %d",[expirationDateField retainCount]);
     [expirationDateField release];
+//    NSLog(@"AFTER exp date field retain count = %d",[expirationDateField retainCount]);
+//    NSLog(@"release startdistance");
     [startDistance release];
+//    NSLog(@"release brand field");
     [brandField release];
+//    NSLog(@"release imageview");
     [imageView release];
+//    NSLog(@"release toolbar");
     [toolbar release];
+//    NSLog(@"release startdatefield");
     [startDateField release];
     [super dealloc];
+//    NSLog(@"Leaving ShoeDetailViewController dealloc");
+//    NSLog(@"OUT exp date field retain count = %d",[expirationDateField retainCount]);
 }
 
 /* ==============================================================
@@ -263,6 +330,7 @@
                 break;
             default:
                 [imagePicker release];
+                [pictureActionSheet release];
                 return;
         }
          // If our device has a camera, we want to take a picture, otherwise we just pick from photo library
@@ -286,7 +354,8 @@
          
          
          // The image picker will be retained by ItemDetailViewController until it has been dismissed
-         [imagePicker release];        
+        [imagePicker release];
+        [pictureActionSheet release];
     }
 }
 
@@ -386,7 +455,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
     closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
     closeButton.tintColor = [UIColor blackColor];
-    [closeButton addTarget:self action:@selector(actionSheetCancel:) forControlEvents:UIControlEventValueChanged];
+    [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
     [dateActionSheet addSubview:closeButton];
     [closeButton release];
     
@@ -395,6 +464,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [dateActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     [dateActionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    
+    [dateActionSheet release];
+    [expPickerView release];
+
 //    NSLog(@"leaving CallDP");
 }
 
@@ -419,7 +492,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 }
 
 
-- (void)actionSheetCancel:(id)sender
+- (void)actionSheetCancelEZ:(id)sender
 {
 
 
