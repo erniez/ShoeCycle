@@ -311,7 +311,7 @@
 		1BCF6430148AF7E5004C0E6A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 1BCF6433148AF7E5004C0E6A /* Build configuration list for PBXProject "ShoeCycle" */;
 			compatibilityVersion = "Xcode 3.2";
