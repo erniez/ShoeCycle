@@ -20,6 +20,7 @@ float const milesToKilometers;
 float runTotal;
 
 @implementation AddDistanceViewController
+
 @synthesize startDateLabel;
 @synthesize expirationDateLabel;
 @synthesize daysLeftLabel;
@@ -51,8 +52,6 @@ float runTotal;
         [tbi setTitle:@"Add Distance"];
 //        tbi.imageInsets = imageInset;
         [tbi setImage:image];
-        
-        standardDistance = 0;
     }
     
     return self;
@@ -85,9 +84,6 @@ float runTotal;
 {
     
 //    NSLog(@"standardDistanceString = %@", standardDistanceString);
-    if (standardDistance != 0) {
-        [enterDistanceField setText:[UserDistanceSetting displayDistance:standardDistance]];
-    }
 
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
@@ -149,9 +145,7 @@ float runTotal;
 
 - (void) viewDidAppear:(BOOL)animated
 {
-/*    if (standardDistanceString != nil) {
-        [enterDistanceField setText:standardDistanceString];
-    } */
+
 }
 
 - (void)viewDidLoad
@@ -208,10 +202,7 @@ float runTotal;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    standardDistance = 0;
-//    [enterDistanceField setText:nil];
-//    NSLog(@"Is this what is overwriting my date field?");
-//    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
+
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -344,9 +335,6 @@ float runTotal;
     
 
     addDistance = [UserDistanceSetting enterDistance:[enterDistanceField text]]; 
-    if (standardDistance) {
-        addDistance = standardDistance;
-    }
     if (!addDistance) {
         return;
     }
@@ -355,8 +343,6 @@ float runTotal;
     
     [[ShoeStore defaultStore] setRunDistance:addDistance];
     
-//    NSArray *allDistances = [[ShoeStore defaultStore] allRunDistances];
-//    NSManagedObject *runDist = [allDistances objectAtIndex:0];
     self.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
     [distShoe addHistoryObject:hist];
     hist.runDistance = [NSNumber numberWithFloat:addDistance];
@@ -364,8 +350,6 @@ float runTotal;
     hist.runDate = testDate;
    
     NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
-//    NSManagedObject *runDist = [runDistances objectAtIndex:0];
-//    NSString *displayDistance = [runDist valueForKey:@"runDistance"];
     
  //   NSLog(@"%@",hist.runDistance);
  //   NSLog(@"Top of runDistance: %@",displayDistance);
@@ -374,7 +358,6 @@ float runTotal;
     [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
     
     enterDistanceField.text = nil;
-    standardDistance = 0;
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
     

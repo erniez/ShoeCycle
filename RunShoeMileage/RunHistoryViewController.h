@@ -10,6 +10,7 @@
 #import "Shoe.h"
 
 @interface RunHistoryViewController : UITableViewController
+<UITableViewDelegate>
 {
     Shoe *shoe;
     NSMutableArray *runs;

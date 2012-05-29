@@ -11,6 +11,16 @@
 #import "UserDistanceSetting.h"
 
 
+// Standard Distance Constants
+const float k5kInMiles = 3.10685596;
+const float k10kInMiles = 6.21371192;
+const float kHalfMarathon = 13.109375;
+const float kMarathon = 26.21875;
+const float k5Miles = 5;
+const float k10Miles = 10;
+// end Standard Distance Constants
+
+
 @implementation StandardDistancesViewController
 
 @synthesize distanceString;
@@ -23,19 +33,16 @@
 
 - (id)initWithDistance:(AddDistanceViewController *)vc
 {
-    self = [super initWithNibName:nil bundle:nil];
+//    self = [super initWithNibName:nil bundle:nil];
     if (self) {
-//        vc.standardDistanceString = @"test init";
-//        self.distanceString = vc.standardDistanceString;
-//        self.distanceString = @"test init";
-        addDistanceViewController = vc;
+        // initialize with the AddDistanceViewController being passed in.
+        self.addDistanceViewController = vc;                    
         UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                        target:self
                                        action:@selector(cancel:)];
         [[self navigationItem] setLeftBarButtonItem:cancelItem];
         [cancelItem release];
-
     }
     return self;
 }
@@ -91,11 +98,13 @@
 
 - (void)viewDidUnload
 {
+    NSLog(@"Standard Distance viewDidUnload");
     [self setUserDefinedDistance1Button:nil];
     [self setUserDefinedDistance2Button:nil];
     [self setUserDefinedDistance3Button:nil];
     [self setUserDefinedDistance4Button:nil];
     [self setHalfMarathonButton:nil];
+    [self setAddDistanceViewController:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -107,6 +116,7 @@
     [userDefinedDistance3Button release];
     [userDefinedDistance4Button release];
     [halfMarathonButton release];
+    [addDistanceViewController release];
     [super dealloc];
 }
 
@@ -119,54 +129,43 @@
 
 - (IBAction) distance5kButtonPressed:(id)sender
 {
-    
-    addDistanceViewController->standardDistance = 3.10685596;
-    
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k5kInMiles]];
     [self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)distance10kButtonPressed:(id)sender
 {
-    addDistanceViewController->standardDistance = 6.21371192;
-
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k10kInMiles]];
     [self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)distance5MilesButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = 5.0;
-    
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k5Miles]];
     [self dismissModalViewControllerAnimated:YES];
-
 }
 
 
 - (IBAction)distanceTenMilesButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = 10.0;
-    
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k10Miles]];
     [self dismissModalViewControllerAnimated:YES];
-
 }
 
 
 - (IBAction)distanceHalfMarathonButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = 13.109375;
-    
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:kHalfMarathon]];
     [self dismissModalViewControllerAnimated:YES];
-
 }
 
 
 - (IBAction)distanceMarathonButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = 26.21875;
-    
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:kMarathon]];
     [self dismissModalViewControllerAnimated:YES];
-
 }
 
 
@@ -178,28 +177,28 @@
 
 - (IBAction)userDefinedDistance1ButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance1];
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]]];
     [self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)userDefinedDistance2ButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance2];
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]]];    
     [self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)userDefinedDistance3ButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance3];
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]]];    
     [self dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)userDefinedDistance4ButtonPressed:(id)sender 
 {
-    addDistanceViewController->standardDistance = [UserDistanceSetting getUserDefinedDistance4];
+    [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]]];    
     [self dismissModalViewControllerAnimated:YES];
 }
 

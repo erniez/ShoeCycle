@@ -31,10 +31,8 @@
     
     UILabel *maxDistanceLabel;
     IBOutlet UIImageView *imageView;
-    
-    @public
-    float standardDistance;
 }
+
 @property (nonatomic, retain) IBOutlet UILabel *maxDistanceLabel;
 @property (nonatomic, retain) IBOutlet UITextField *enterDistanceField;
 @property (nonatomic, retain) IBOutlet UILabel *totalDistanceLabel;
@@ -43,7 +41,6 @@
 @property (nonatomic, retain) IBOutlet UITextField *runDateField;
 @property (nonatomic, retain) NSDateFormatter *runDateFormatter; 
 @property (nonatomic, retain) IBOutlet UITextField *nameField;
-// @property (nonatomic, readwrite, retain) NSString *standardDistanceString; 
 @property (nonatomic, retain) Shoe *distShoe;
 @property (nonatomic, retain) History *hist;
 @property (nonatomic, retain) IBOutlet UIProgressView *totalDistanceProgress;

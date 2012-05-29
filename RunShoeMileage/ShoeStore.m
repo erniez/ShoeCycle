@@ -9,6 +9,7 @@
 #import "ShoeStore.h"
 #import "ImageStore.h"
 #import "Shoe.h"
+#import "History.h"
 #import "FileHelpers.h"
 
 static ShoeStore *defaultStore = nil;
@@ -190,7 +191,7 @@ static ShoeStore *defaultStore = nil;
     NSError *err = nil;
     BOOL successful = [context save:&err];
     if (!successful) {
- //       NSLog(@"Error saving: %@", [err localizedDescription]);
+        NSLog(@"Error saving: %@", [err localizedDescription]);
     }
     return successful;
 }
@@ -259,4 +260,12 @@ static ShoeStore *defaultStore = nil;
     }
     return allRunDistances;
 }
+
+
+- (void)removeHistory:(History *)h atShoe:(Shoe *)s
+{
+    [context deleteObject:h];
+    return;
+}
+
 @end

@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @class Shoe;
+@class History;
 
 @interface ShoeStore : NSObject
 {
@@ -30,5 +31,6 @@
 - (void)moveShoeAtIndex:(int)from toIndex:(int)to;
 - (void)fetchShoesIfNecessary;
 - (void)setRunDistance:(float)dist;
+- (void)removeHistory:(History *)h atShoe:(Shoe *)s;
 
 @end

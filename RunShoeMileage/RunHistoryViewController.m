@@ -9,6 +9,7 @@
 #import "RunHistoryViewController.h"
 #import "History.h"
 #import "UserDistanceSetting.h"
+#import "ShoeStore.h"
 
 
 
@@ -22,7 +23,8 @@
     self = [super initWithStyle:style];
     if (self) {
         UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]
-                                       initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                       initWithTitle:@"Return"
+                                       style:UIBarButtonItemStyleDone
                                        target:self
                                        action:@selector(cancel:)];
         [[self navigationItem] setLeftBarButtonItem:cancelItem];
@@ -49,26 +51,17 @@
     [super viewDidLoad];
   
     // Create and set the table header view.
-/*    if (tableHeaderView == nil) {
-//        [[NSBundle mainBundle] loadNibNamed:@"RunHistoryTableHeaderView" owner:self options:nil];
-        self.tableView.tableHeaderView = tableHeaderView;
-        NSLog(@"Made inside if statement of tableview header");
-//        self.tableView.allowsSelectionDuringEditing = YES;
-    } */
+
     UIView *containerView =
-    [[[UIView alloc]
-      initWithFrame:CGRectMake(0, 0, 300, 35)]
-     autorelease];
-    UILabel *headerLabel =
-    [[[UILabel alloc]
-      initWithFrame:CGRectMake(8, 5, 80, 21)]
-     autorelease];
+        [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 35)] autorelease];
+    UILabel *headerLabel = 
+        [[[UILabel alloc] initWithFrame:CGRectMake(8, 5, 80, 21)] autorelease];
+
     headerLabel.text = NSLocalizedString(@"Run Date", @"");
     headerLabel.textColor = [UIColor blackColor];
-//    headerLabel.shadowColor = [UIColor blackColor];
-//    headerLabel.shadowOffset = CGSizeMake(0, 1);
     headerLabel.font = [UIFont boldSystemFontOfSize:17];
     headerLabel.backgroundColor = [UIColor clearColor];
+    
     [containerView addSubview:headerLabel];
     
     UILabel *headerLabel2;
@@ -86,8 +79,6 @@
    
     }
     headerLabel2.textColor = [UIColor blackColor];
-    //    headerLabel.shadowColor = [UIColor blackColor];
-    //    headerLabel.shadowOffset = CGSizeMake(0, 1);
     headerLabel2.font = [UIFont boldSystemFontOfSize:17];
     headerLabel2.backgroundColor = [UIColor clearColor];
     [containerView addSubview:headerLabel2];
@@ -98,7 +89,8 @@
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
 }
 
 - (void)viewDidUnload
@@ -162,7 +154,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [shoe.history count];
+//    return [shoe.history count];
+    return [runs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -191,14 +184,35 @@
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
+                                            forRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"shoe.history mathched item: %@ ********", [shoe.history member:[runs objectAtIndex:[indexPath row]]]);
+        
+        [[ShoeStore defaultStore] removeHistory:[shoe.history member:[runs objectAtIndex:[indexPath row]]] atShoe:shoe];
+        
+        NSLog(@"runs = %@",runs);
+        [runs removeObjectAtIndex:[indexPath row]];
+ //       NSLog(@"index path = %d",[indexPath row]);
+//        NSLog(@"runs = %@",runs);
+        NSLog(@"history count after delete = %d",[shoe.history count]);
+        // remove row from table with animation
+//        [[ShoeStore defaultStore] saveChangesEZ];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+        [[self tableView] reloadData];
+    }
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
-}
-*/
+}*/
+
 
 
 /*

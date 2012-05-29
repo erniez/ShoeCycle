@@ -14,6 +14,7 @@
 {
     NSString *distanceString;
     AddDistanceViewController *addDistanceViewController;
+
 }
 
 @property (nonatomic, retain) NSString *distanceString;
