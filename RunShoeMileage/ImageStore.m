@@ -9,7 +9,7 @@
 #import "ImageStore.h"
 #import "FileHelpers.h"
 
-static ImageStore *defaultImageStore = nil;
+// static ImageStore *defaultImageStore = nil;
 
 @implementation ImageStore
 
@@ -22,6 +22,7 @@ static ImageStore *defaultImageStore = nil;
 
 + (ImageStore *)defaultImageStore
 {
+    static ImageStore *defaultImageStore = nil;
     if (!defaultImageStore) {
         // Create the singleton
         defaultImageStore = [[super allocWithZone:NULL] init];
@@ -32,10 +33,6 @@ static ImageStore *defaultImageStore = nil;
 
 - (id)init
 {
-    if (defaultImageStore) {
-        return defaultImageStore;
-    }
-    
     self = [super init];
     if (self) {
         dictionary = [[NSMutableDictionary alloc] init];
@@ -56,23 +53,6 @@ static ImageStore *defaultImageStore = nil;
 {
     NSLog(@"flushing %d images out of the cache", [dictionary count]);
     [dictionary removeAllObjects];
-}
-
-- (oneway void)release
-{
-    // no op
-}
-
-
-- (id)retain
-{
-    return self;
-}
-
-
-- (NSUInteger) retainCount
-{
-    return NSUIntegerMax;
 }
 
 

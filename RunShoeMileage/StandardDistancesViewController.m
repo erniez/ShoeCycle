@@ -42,7 +42,6 @@ const float k10Miles = 10;
                                        target:self
                                        action:@selector(cancel:)];
         [[self navigationItem] setLeftBarButtonItem:cancelItem];
-        [cancelItem release];
     }
     return self;
 }
@@ -110,15 +109,6 @@ const float k10Miles = 10;
     // e.g. self.myOutlet = nil;
 }
 
-- (void)dealloc {
-    [userDefinedDistance1Button release];
-    [userDefinedDistance2Button release];
-    [userDefinedDistance3Button release];
-    [userDefinedDistance4Button release];
-    [halfMarathonButton release];
-    [addDistanceViewController release];
-    [super dealloc];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

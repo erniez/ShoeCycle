@@ -95,7 +95,6 @@ float runTotal;
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-    [alert autorelease];
     [alert show];
     return;
     }
@@ -118,7 +117,6 @@ float runTotal;
             i++;
         } while (i < [distShoe.history count]);
  //       NSLog(@"run total = %f",runTotal);
-        [runs release];
     }
     
     nameField.text = [NSString stringWithFormat:@"%@",distShoe.brand];
@@ -178,7 +176,7 @@ float runTotal;
     
 //    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
     
-    self.runDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    self.runDateFormatter = [[NSDateFormatter alloc] init];
 	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
     runDateField.delegate = self;
@@ -219,58 +217,24 @@ float runTotal;
 //    NSLog(@"entered addDistance viewDidUnload");
     [super viewDidUnload];
     
-    [enterDistanceField release];
     enterDistanceField = nil;
-    
-    [totalDistanceLabel release];
     totalDistanceLabel = nil;
-    
-    [runDateField release];
     runDateField = nil;
-    
-    [nameField release];
     nameField = nil;
-    
-    [totalDistanceProgress release];
     totalDistanceProgress = nil;
-    
-    [maxDistanceLabel release];
     maxDistanceLabel = nil;
-    
-    [imageView release];
     imageView = nil;
-    
-    [startDateLabel release];
     startDateLabel = nil;
-    
-    [expirationDateLabel release];
     expirationDateLabel = nil;
-    
-    [daysLeftLabel release];
     daysLeftLabel = nil;
-    
-    [wearProgress release];
     wearProgress = nil;
-    
-    [distanceUnitLabel release];
     distanceUnitLabel = nil;
-    
 //    [pickerView release];
 //    pickerView = nil;
-    
-    [runDateFormatter release];
     runDateFormatter = nil;
-    
-    [distShoe release];
     distShoe  = nil;
-    
-    [hist release];
     hist = nil;
-    
-    [addRunDate release];
     addRunDate = nil;
-    
-    [daysLeftIdentificationLabel release];
     daysLeftIdentificationLabel = nil;
     
     //    NSLog(@"entered addDistance viewDidUnload");
@@ -287,28 +251,9 @@ float runTotal;
 }
 
 
-- (void)dealloc {
-    [enterDistanceField release];
-    [totalDistanceLabel release];
-    [runDateField release];
-    [nameField release];    
-    [totalDistanceProgress release];
-    [maxDistanceLabel release];
-    [imageView release];
-    [startDateLabel release];
-    [expirationDateLabel release];
-    [daysLeftLabel release];
-    [wearProgress release];
-    [distanceUnitLabel release];
- //   [pickerView release];
-    [runDateFormatter release];
-    [distShoe release];
-    [hist release];
-    [addRunDate release];
-    [daysLeftIdentificationLabel release];
-  
+- (void)dealloc 
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // must delloc from notification center or program will crash
-    [super dealloc];
 }
 
 
@@ -323,6 +268,7 @@ float runTotal;
     [textField resignFirstResponder];
     return YES;
 }
+
 
 - (IBAction)addDistanceButton:(id)sender 
 {
@@ -349,7 +295,7 @@ float runTotal;
 //    NSLog(@"setting history run distance = %@",hist.runDistance);
     hist.runDate = testDate;
    
-    NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
+//    NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
     
  //   NSLog(@"%@",hist.runDistance);
  //   NSLog(@"Top of runDistance: %@",displayDistance);
@@ -360,8 +306,6 @@ float runTotal;
     enterDistanceField.text = nil;
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
-    
-    [runDistances release];
     
 }
 
@@ -389,16 +333,12 @@ float runTotal;
     closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
     closeButton.tintColor = [UIColor blackColor];
     [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
-    [actionSheet addSubview:closeButton];
-    [closeButton release];
-    
+    [actionSheet addSubview:closeButton];    
     
     //[actionSheet showInView:self.view];
     [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
-    [actionSheet release];
-    [pickerView release];
 }
 
 - (IBAction)standardDistancesButtonPressed:(id)sender
@@ -413,8 +353,6 @@ float runTotal;
     
     [self presentModalViewController:navController animated:YES];
  
-    [modalViewController release];
-    [navController release];    
 }
 
 - (IBAction)runHistoryButtonPressed:(id)sender 
@@ -427,9 +365,7 @@ float runTotal;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
    
     [self presentModalViewController:navController animated:YES];
-    
-    [modalViewController release];
-    [navController release];    
+     
 }
 
 
@@ -488,9 +424,6 @@ float runTotal;
                                                              fromDate:distShoe.startDate
                                                                toDate:distShoe.expirationDate
                                                               options:0];
-    
-    
-    [gregorianCalendar release];
     
     int daysTotal = [componentsTotal day];
     int daysLeftToWear = ([components day]);

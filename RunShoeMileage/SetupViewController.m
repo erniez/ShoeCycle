@@ -106,24 +106,14 @@
 
 - (void)viewDidUnload
 {
-    [distanceUnitControl release];
     distanceUnitControl = nil;
-    
-    [userDefinedDistance1 release];
     userDefinedDistance1 = nil;
-    
-    [userDefinedDistance2 release];
     userDefinedDistance2 = nil;
-        
-    [userDefinedDistance3 release];
     userDefinedDistance3 = nil;
-      
-    [userDefinedDistance4 release];
     userDefinedDistance4 = nil;
     
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -204,15 +194,5 @@
 {
     [UserDistanceSetting setDistanceUnit:[sender selectedSegmentIndex]];
     [self refreshUserDefinedDistances];
-}
-
-
-- (void)dealloc {
-    [distanceUnitControl release];
-    [userDefinedDistance1 release];
-    [userDefinedDistance2 release];
-    [userDefinedDistance3 release];
-    [userDefinedDistance4 release];
-    [super dealloc];
 }
 @end

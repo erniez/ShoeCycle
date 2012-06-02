@@ -39,13 +39,10 @@
                                 target:self
                                 action:@selector(addNewShoe:)];
         [[self navigationItem] setRightBarButtonItem:bbi];
-        
-        [bbi release];
-        
+                
         [[self navigationItem] setTitle:@"Add/Edit Shoes"];
         
         [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
-        
     } 
     
     return self;
@@ -65,15 +62,6 @@
     }
     return self;
 } */
-
-
-- (void)dealloc
-{	
- //   [self.testNameArray release];
-//	[self.testBrandArray release];
-	
-	[super dealloc];
-}
 
 
 - (void)didReceiveMemoryWarning
@@ -164,7 +152,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
 	if (cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UITableViewCell"] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UITableViewCell"];
 	}
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
@@ -189,7 +177,7 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    ShoeDetailViewController *detailViewController = [[[ShoeDetailViewController alloc] init] autorelease];
+    ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] init];
        
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
         
@@ -266,18 +254,10 @@
     
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
-    [toolBar release];
-    [camera release];
-    [spacer release];
-    [trash release];
-    
     [self presentModalViewController:navController animated:YES];
     
 //    [self.tabBarController presentModalViewController:navController animated:YES];
 //    *** can't figure out how to present a modal view without covering tabBarController
 
-
-    [detailViewController release];
-    [navController release];
 }
 @end

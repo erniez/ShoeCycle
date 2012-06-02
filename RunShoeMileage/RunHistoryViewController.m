@@ -28,7 +28,6 @@
                                        target:self
                                        action:@selector(cancel:)];
         [[self navigationItem] setLeftBarButtonItem:cancelItem];
-        [cancelItem release];
         
         [[self navigationItem] setTitle:@"Run History"];
         
@@ -53,9 +52,9 @@
     // Create and set the table header view.
 
     UIView *containerView =
-        [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 35)] autorelease];
+        [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 35)];
     UILabel *headerLabel = 
-        [[[UILabel alloc] initWithFrame:CGRectMake(8, 5, 80, 21)] autorelease];
+        [[UILabel alloc] initWithFrame:CGRectMake(8, 5, 80, 21)];
 
     headerLabel.text = NSLocalizedString(@"Run Date", @"");
     headerLabel.textColor = [UIColor blackColor];
@@ -67,13 +66,13 @@
     UILabel *headerLabel2;
     if ([UserDistanceSetting getDistanceUnit]) {
         headerLabel2 =
-            [[[UILabel alloc] initWithFrame:CGRectMake(207, 5, 107, 21)] autorelease];
+            [[UILabel alloc] initWithFrame:CGRectMake(207, 5, 107, 21)];
 
         headerLabel2.text = NSLocalizedString(@"Distance(km)", @"");
         
     }
     else {
-        headerLabel2 = [[[UILabel alloc] initWithFrame:CGRectMake(186, 5, 130, 21)] autorelease];
+        headerLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(186, 5, 130, 21)];
         
         headerLabel2.text = NSLocalizedString(@"Distance(miles)", @"");
    
@@ -95,7 +94,6 @@
 
 - (void)viewDidUnload
 {
-    [tableHeaderView release];
     tableHeaderView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -112,10 +110,6 @@
 	NSMutableArray *sortedRuns = [[NSMutableArray alloc] initWithArray:[shoe.history allObjects]];
 	[sortedRuns sortUsingDescriptors:sortDescriptors];
 	self.runs = sortedRuns;
-    
-	[sortDescriptor release];
-	[sortDescriptors release];
-	[sortedRuns release];
 
     [self.tableView reloadData];
     
@@ -161,17 +155,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     NSDateFormatter *dateFormatter;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     History *hist = [runs objectAtIndex:indexPath.row];
     
-    dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
@@ -180,7 +174,6 @@
  //   NSLog (@"hist.runDate = %@", hist.runDate);
  //   NSLog (@"hist.runDistance = %@",hist.runDistance);
     
-    [numberFormatter release];
     return cell;
 }
 
@@ -250,11 +243,4 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-
-- (void)dealloc {
-    [tableHeaderView release];
-    [shoe release];
-    [runs release];
-    [super dealloc];
-}
 @end

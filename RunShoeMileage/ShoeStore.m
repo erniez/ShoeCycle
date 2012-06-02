@@ -12,13 +12,13 @@
 #import "History.h"
 #import "FileHelpers.h"
 
-static ShoeStore *defaultStore = nil;
-
 @implementation ShoeStore
 
 
 + (ShoeStore *)defaultStore
 {
+    static ShoeStore *defaultStore = nil;
+    
     if (!defaultStore) {
         // Create the singleton
         defaultStore = [[super allocWithZone:NULL] init];
@@ -36,64 +36,41 @@ static ShoeStore *defaultStore = nil;
 
 - (id)init
 {
-    // If we already have an instance of ShoeStore ...
-    if (defaultStore) {
-        // ... then return the existing one
-        return defaultStore;
-    }
-    
     self = [super init];
+    // If we already have an instance of ShoeStore ...
+    if (self) {
+  
+        // Read in TreadTracker.xcdatamodeld
+        model = [NSManagedObjectModel mergedModelFromBundles:nil];
+        // NSLog (@"model = %@", model);
     
-    // Read in TreadTracker.xcdatamodeld
-    model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
-    // NSLog (@"model = %@", model);
+        NSPersistentStoreCoordinator *psc =
+        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     
-    NSPersistentStoreCoordinator *psc =
-    [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+        // Where does the SQLite file go?
+        NSString *path = pathInDocumentDirectory(@"store.data");
+        NSURL *storeURL = [NSURL fileURLWithPath:path];
     
-    // Where does the SQLite file go?
-    NSString *path = pathInDocumentDirectory(@"store.data");
-    NSURL *storeURL = [NSURL fileURLWithPath:path];
+        NSError *error = nil;
     
-    NSError *error = nil;
+        if (![psc addPersistentStoreWithType:NSSQLiteStoreType
+                               configuration:nil
+                                         URL:storeURL
+                                     options:nil
+                                       error:&error]) {
+            [NSException raise:@"Open failed"
+                        format:@"Reason: %@", [error localizedDescription]];
+        }
     
-    if (![psc addPersistentStoreWithType:NSSQLiteStoreType
-                           configuration:nil
-                                     URL:storeURL
-                                 options:nil
-                                   error:&error]) {
-        [NSException raise:@"Open failed"
-                    format:@"Reason: %@", [error localizedDescription]];
+        // Create the manage object context
+        context = [[NSManagedObjectContext alloc] init];
+        [context setPersistentStoreCoordinator:psc];
+    
+        // The managed object context can manage undo, but we don't need it
+        [context setUndoManager:nil];
     }
-    
-    // Create the manage object context
-    context = [[NSManagedObjectContext alloc] init];
-    [context setPersistentStoreCoordinator:psc];
-    [psc release];
-    
-    // The managed object context can manage undo, but we don't need it
-    [context setUndoManager:nil];
 
     return self;
-}
-
-
-- (id)retain
-{
-    // Do nothing
-    return self;
-}
-
-
-- (oneway void)release
-{
-    // Do nothing
-}
-
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;
 }
 
 
@@ -146,9 +123,7 @@ static ShoeStore *defaultStore = nil;
     }
     // Get pointer to object being moved
     Shoe *s = [allShoes objectAtIndex:from];
-    
-    [s retain];
-    
+     
     // Remove s from array, it is automatically sent release
     [allShoes removeObjectAtIndex:from];
      
@@ -179,10 +154,6 @@ static ShoeStore *defaultStore = nil;
     
 //    NSLog(@"Moving to order %@",n);
     [s setOrderingValue:n];
-    
-    // Release s (retain count = 1, only owner is now array)
-    
-    [s release];
 }
 
 
@@ -200,7 +171,7 @@ static ShoeStore *defaultStore = nil;
 - (void)fetchShoesIfNecessary
 {
     if (!allShoes) {
-        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
         
         NSEntityDescription *e = [[model entitiesByName] objectForKey:@"Shoe"];
         [request setEntity:e];
@@ -244,7 +215,7 @@ static ShoeStore *defaultStore = nil;
 - (NSArray *)allRunDistances
 {
     if (!allRunDistances) {
-        NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
         
         NSEntityDescription *e = [[model entitiesByName] objectForKey:@"History"];
         

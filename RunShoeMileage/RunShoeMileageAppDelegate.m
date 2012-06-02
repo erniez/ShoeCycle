@@ -34,7 +34,7 @@
     EditShoesViewController *vc2 = [[EditShoesViewController alloc] init];
     SetupViewController *vc3 = [[SetupViewController alloc] init];
     
-    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:vc2] autorelease];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc2];
     
     // Make an array containing the view controllers
     NSArray *viewControllers = [NSArray arrayWithObjects: vc1, navController, vc3, nil];
@@ -54,9 +54,6 @@
     [tbi setImage:image];
 
     
-    [vc1 release];
-    [vc2 release];
-    [vc3 release];
 
     
     // Attach the array to the tabBarController
@@ -66,7 +63,7 @@
 //    AddDistanceViewController *addDistanceViewController = [[AddDistanceViewController alloc] init];
 //    [[self window] setRootViewController:addDistanceViewController];
     [[self window] setRootViewController:tabBarController];
-    [tabBarController release];
+
     
    // [addDistanceViewController release];
  //   
@@ -124,13 +121,6 @@
     
 }
 
-- (void)dealloc
-{
-    [window release];
-    [tabBarController release];
-//    [navController release];
-    [super dealloc];
-}
 
 - (void)switchToTab:(int)index
 {

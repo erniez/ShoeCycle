@@ -29,13 +29,11 @@
                                          target:self 
                                          action:@selector(save:)];
             [[self navigationItem] setRightBarButtonItem:doneItem];
-            [doneItem release];
             UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]
                                            initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                            target:self
                                            action:@selector(cancel:)];
             [[self navigationItem] setLeftBarButtonItem:cancelItem];
-            [cancelItem release];
             UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:@selector(takePicture:)];
             UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
             
@@ -58,10 +56,6 @@
             [self.view addSubview:toolbar];
             
             self.maxDistance.text = @"350";
-            
-                        
-            [camera release];
-            [spacer release];
         }
     }
     
@@ -84,7 +78,6 @@
     if (self) {
         UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(takePicture:)];
         self.navigationItem.rightBarButtonItem = rightButton;
-        [rightButton release];
     }
     return self;
 }
@@ -108,8 +101,8 @@
     
     [maxDistance setText:[UserDistanceSetting displayDistance:[shoe.maxDistance floatValue]]];
     [startDistance setText:[UserDistanceSetting displayDistance:[shoe.startDistance floatValue]]];
-    
-    self.expirationDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+
+    self.expirationDateFormatter = [[NSDateFormatter alloc] init];
 	[self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.expirationDateFormatter setTimeStyle:NSDateFormatterNoStyle];
 //    expirationDateField.delegate = self;
@@ -171,7 +164,6 @@
 {
     [super viewDidUnload];
 //    NSLog(@"entering ShoeDetailViewController viewDidUnload");
-    [shoe release];
     shoe = nil;
     
 //    [expPickerView release];
@@ -180,40 +172,23 @@
 //    [expirationDateFormatter release];
 //    expirationDateFormatter = nil;
     
-    [expirationDate release];
     expirationDate = nil;
-    
-    [startDate release];
     startDate = nil;
-    
-    [currentDate release];
     currentDate = nil;
     
 //    [currentDateField release];
 //    currentDateField = nil;
     
-    [maxDistance release];
     maxDistance = nil;
-    
-    [name release];
     name = nil;
-    
-    [maxDistance release];
     maxDistance = nil;
     
 //    [expirationDateField release];
 //    expirationDateField = nil;
     
-    [startDistance release];
     startDistance = nil;
-    
-    [brandField release];
     brandField = nil;
-    
-    [imageView release];
     imageView = nil;
-    
-    [toolbar release];
     toolbar = nil;
     
 //    [startDateField release];
@@ -229,47 +204,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
-- (void)dealloc {
-//    NSLog(@"entering ShoeDetailViewController dealloc");
-//    NSLog(@"IN exp date field retain count = %d",[expirationDateField retainCount]);
-//    NSLog(@"release shoe");
-    [shoe release];
-//    [expPickerView release];
- //   NSLog(@"release expdateformatter");
-//    [expirationDateFormatter release];
-//    NSLog(@"release expiration date");
-    [expirationDate release];
- //   NSLog(@"release start date");
-    [startDate release];
-//    NSLog(@"BEFORE current date field retain count = %d",[expirationDateField retainCount]);    
-//    NSLog(@"release current date");
-    [currentDate release];
-//    NSLog(@"release current date field");
-//    [currentDateField release]; ***** current date field is really pointing to either start or expiration date
-//    NSLog(@"AFTER current date field retain count = %d",[expirationDateField retainCount]);    
-//    NSLog(@"release maxdistance");
-    [maxDistance release];
-//    NSLog(@"release name");
-    [name release];
-//    NSLog(@"release expiration date field");
-//    NSLog(@"BEFORE exp date field retain count = %d",[expirationDateField retainCount]);
-    [expirationDateField release];
-//    NSLog(@"AFTER exp date field retain count = %d",[expirationDateField retainCount]);
-//    NSLog(@"release startdistance");
-    [startDistance release];
-//    NSLog(@"release brand field");
-    [brandField release];
-//    NSLog(@"release imageview");
-    [imageView release];
-//    NSLog(@"release toolbar");
-    [toolbar release];
-//    NSLog(@"release startdatefield");
-    [startDateField release];
-    [super dealloc];
-//    NSLog(@"Leaving ShoeDetailViewController dealloc");
-//    NSLog(@"OUT exp date field retain count = %d",[expirationDateField retainCount]);
-}
 
 /* ==============================================================
  End View Lifecycle
@@ -329,8 +263,6 @@
                 [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
                 break;
             default:
-                [imagePicker release];
-                [pictureActionSheet release];
                 return;
         }
          // If our device has a camera, we want to take a picture, otherwise we just pick from photo library
@@ -351,11 +283,6 @@
          // Place image picker on the screen
          [self presentModalViewController:imagePicker animated:YES];
          }
-         
-         
-         // The image picker will be retained by ItemDetailViewController until it has been dismissed
-        [imagePicker release];
-        [pictureActionSheet release];
     }
 }
 
@@ -382,7 +309,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
     
     // Use that unique ID to set our possessions imageKey
-    [shoe setImageKey:(NSString *)newUniqueIDString];
+    [shoe setImageKey:(__bridge NSString *)newUniqueIDString];
     
     // We used "Create" in the functions to make objects, we need to release them
     CFRelease(newUniqueIDString);
@@ -457,16 +384,12 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     closeButton.tintColor = [UIColor blackColor];
     [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
     [dateActionSheet addSubview:closeButton];
-    [closeButton release];
     
     
     //[actionSheet showInView:self.view];
     [dateActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
     [dateActionSheet setBounds:CGRectMake(0, 0, 320, 485)];
-    
-    [dateActionSheet release];
-    [expPickerView release];
 
 //    NSLog(@"leaving CallDP");
 }
