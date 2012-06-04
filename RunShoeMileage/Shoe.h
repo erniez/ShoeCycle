@@ -13,17 +13,17 @@
 
 @interface Shoe : NSManagedObject
 
-@property (nonatomic, retain) NSString * brand;
-@property (nonatomic, retain) NSDate * expirationDate;
-@property (nonatomic, retain) NSString * imageKey;
-@property (nonatomic, retain) NSNumber * maxDistance;
-@property (nonatomic, retain) NSNumber * orderingValue;
-@property (nonatomic, retain) NSNumber * startDistance;
-@property (nonatomic, retain) UIImage * thumbnail;
-@property (nonatomic, retain) NSData * thumbnailData;
-@property (nonatomic, retain) NSNumber * totalDistance;
-@property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSSet *history;
+@property (nonatomic, strong) NSString * brand;
+@property (nonatomic, strong) NSDate * expirationDate;
+@property (nonatomic, strong) NSString * imageKey;
+@property (nonatomic, strong) NSNumber * maxDistance;
+@property (nonatomic, strong) NSNumber * orderingValue;
+@property (nonatomic, strong) NSNumber * startDistance;
+@property (nonatomic, strong) UIImage * thumbnail;
+@property (nonatomic, strong) NSData * thumbnailData;
+@property (nonatomic, strong) NSNumber * totalDistance;
+@property (nonatomic, strong) NSDate * startDate;
+@property (nonatomic, strong) NSSet *history;
 @end
 
 @interface Shoe (CoreDataGeneratedAccessors)

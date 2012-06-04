@@ -14,15 +14,16 @@
 
 }
 
-@property (retain, nonatomic) IBOutlet UISegmentedControl *distanceUnitControl;
-@property (retain, nonatomic) IBOutlet UITextField *userDefinedDistance1;
-@property (retain, nonatomic) IBOutlet UITextField *userDefinedDistance2;
-@property (retain, nonatomic) IBOutlet UITextField *userDefinedDistance3;
-@property (retain, nonatomic) IBOutlet UITextField *userDefinedDistance4;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *distanceUnitControl;
+@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance1;
+@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance2;
+@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance3;
+@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance4;
 
 - (IBAction)changeDistanceUnits:(id)sender;
 - (IBAction)backgroundTapped:(id)sender;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 - (void)refreshUserDefinedDistances;
+- (IBAction)aboutButton:(id)sender;
 
 @end

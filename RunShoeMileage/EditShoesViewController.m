@@ -19,10 +19,6 @@
 
 - (id)init
 {
-    // Call the class designated initializer
- //   self = [super initWithNibName:nil
-//                           bundle:nil];
-//    NSLog(@"Made it to init");
     self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
@@ -32,7 +28,7 @@
         // Give it a label
         [tbi setTitle:@"Add/Edit Shoes"];
 ***  Moved this block of Code to the appDelegate. The title text was not appearing in the tab for some reason */
-//         NSLog(@"Made it to init Self");
+        EZLog(@"Made it to init Self");
         
         UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -67,9 +63,9 @@
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
-//    NSLog(@"entered editShoes didReceiveMemoryWarning");
+    EZLog(@"entered editShoes didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
- //   NSLog(@"leaving editShoed didReceiveMemoryWarning");    
+    EZLog(@"leaving editShoed didReceiveMemoryWarning");    
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -87,7 +83,7 @@
     self.tableView.contentMode = UIViewContentModeTop;
     self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plain-wallpaper.png"]];
 
-//    NSLog(@"******* View Will Appear currentShoe = %i", currentShoe);
+    EZLog(@"******* View Will Appear currentShoe = %i", currentShoe);
 }
 
 
@@ -102,7 +98,7 @@
 
 
     
-//    NSLog(@"Made it to viewDidLoad");
+    EZLog(@"Made it to viewDidLoad");
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -134,9 +130,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return [testData.testNameArray count];
     int cnt = [[[ShoeStore defaultStore] allShoes] count];
-//    NSLog(@"Tableview Shoe Count = %d",[[[ShoeStore defaultStore] allShoes] count]);
+    EZLog(@"Tableview Shoe Count = %d",[[[ShoeStore defaultStore] allShoes] count]);
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
     if (currentShoe >= cnt) {
         currentShoe = 0;
@@ -157,7 +152,7 @@
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
-//    NSLog(@"index path = %i",indexPath.row);
+    EZLog(@"index path = %i",indexPath.row);
     
     Shoe *s = [shoes objectAtIndex:indexPath.row];
     
@@ -169,7 +164,7 @@
 	
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton ;
     
-//    NSLog(@"Made it to tableView exit");
+    EZLog(@"Made it to tableView exit");
     
 	return cell;
 } 
@@ -185,13 +180,13 @@
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
     
-//    NSLog(@"********** Going to Detail View ***************");
+    EZLog(@"********** Going to Detail View ***************");
 }
 
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@"Entering did select row at index path");
+    EZLog(@"Entering did select row at index path");
     currentShoe = indexPath.row;
     [UserDistanceSetting setSelectedShoe:currentShoe];
     [[self tableView] reloadData];

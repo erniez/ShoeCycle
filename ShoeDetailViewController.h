@@ -35,18 +35,18 @@
     id pictureButton;
 
 }
-@property (nonatomic, retain) IBOutlet UITextField *brandField;
-@property (nonatomic, retain) IBOutlet UIDatePicker *expPickerView;
-@property (nonatomic, retain) NSDateFormatter *expirationDateFormatter; 
-@property (nonatomic, retain) Shoe *shoe;
-@property (nonatomic, retain) NSDate *expirationDate;
-@property (nonatomic, retain) NSDate *startDate;
-@property (nonatomic, retain) NSDate *currentDate;
-@property (nonatomic, retain) UIToolbar	*toolbar;
-@property (retain, nonatomic) IBOutlet UITextField *startDateField;
-@property (retain, nonatomic) UITextField *currentDateField;
-@property (retain, nonatomic) IBOutlet UITextField *maxDistance;
-@property (retain, nonatomic) IBOutlet UITextField *expirationDateField;
+@property (nonatomic, strong) IBOutlet UITextField *brandField;
+@property (nonatomic, strong) IBOutlet UIDatePicker *expPickerView;
+@property (nonatomic, strong) NSDateFormatter *expirationDateFormatter; 
+@property (nonatomic, strong) Shoe *shoe;
+@property (nonatomic, strong) NSDate *expirationDate;
+@property (nonatomic, strong) NSDate *startDate;
+@property (nonatomic, strong) NSDate *currentDate;
+@property (nonatomic, strong) UIToolbar	*toolbar;
+@property (strong, nonatomic) IBOutlet UITextField *startDateField;
+@property (strong, nonatomic) UITextField *currentDateField;
+@property (strong, nonatomic) IBOutlet UITextField *maxDistance;
+@property (strong, nonatomic) IBOutlet UITextField *expirationDateField;
 
 - (IBAction)takePicture:(id)sender;
 - (id)initForNewItem:(BOOL)isNew;

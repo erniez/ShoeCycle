@@ -55,9 +55,9 @@
 {
     // Releases the view if it doesn't have a superview.
 
-    NSLog(@"entering setupViewController Memory warning");
+    EZLog(@"entering setupViewController Memory warning");
     [super didReceiveMemoryWarning];
-    NSLog(@"leaving setupViewController Memory warning");
+    EZLog(@"leaving setupViewController Memory warning");
     
     // Release any cached data, images, etc that aren't in use.
 }
@@ -135,7 +135,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-//    NSLog(@"Made it to textFieldShouldReturn");
     return YES;
 }
 
@@ -161,29 +160,35 @@
 
 }
 
+- (IBAction)aboutButton:(id)sender 
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About ShoeCycle"
+                                                    message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 1.1"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    return;
+}
+
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-//    NSLog(@"Should End Editing: %@",textField.text);
     if (textField == userDefinedDistance1) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance1.text];
         [UserDistanceSetting setUserDefinedDistance1:distance];
-//        NSLog(@"Favorite Distance 1 = %.2f",distance);
     }
     if (textField == userDefinedDistance2) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance2.text];
         [UserDistanceSetting setUserDefinedDistance2:distance];
-//        NSLog(@"Favorite Distance 2 = %.2f",distance);
     }
     if (textField == userDefinedDistance3) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance3.text];
         [UserDistanceSetting setUserDefinedDistance3:distance];
-//        NSLog(@"Favorite Distance 3 = %.2f",distance);
     }
     if (textField == userDefinedDistance4) {
         float distance = [UserDistanceSetting enterDistance:userDefinedDistance4.text];
         [UserDistanceSetting setUserDefinedDistance4:distance];
-//        NSLog(@"Favorite Distance 4 = %.2f",distance);
     }
 
     return YES;

@@ -23,10 +23,10 @@
     self = [super initWithStyle:style];
     if (self) {
         UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]
-                                       initWithTitle:@"Return"
-                                       style:UIBarButtonItemStyleDone
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                        target:self
                                        action:@selector(cancel:)];
+
         [[self navigationItem] setLeftBarButtonItem:cancelItem];
         
         [[self navigationItem] setTitle:@"Run History"];
@@ -171,8 +171,8 @@
     
     cell.textLabel.text = [dateFormatter stringFromDate:hist.runDate];
     cell.detailTextLabel.text = [UserDistanceSetting displayDistance:[hist.runDistance floatValue]];
- //   NSLog (@"hist.runDate = %@", hist.runDate);
- //   NSLog (@"hist.runDistance = %@",hist.runDistance);
+    EZLog (@"hist.runDate = %@", hist.runDate);
+    EZLog (@"hist.runDistance = %@",hist.runDistance);
     
     return cell;
 }
@@ -182,19 +182,19 @@
                                             forRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"shoe.history mathched item: %@ ********", [shoe.history member:[runs objectAtIndex:[indexPath row]]]);
+        EZLog(@"shoe.history mathched item: %@ ********", [shoe.history member:[runs objectAtIndex:[indexPath row]]]);
         
         [[ShoeStore defaultStore] removeHistory:[shoe.history member:[runs objectAtIndex:[indexPath row]]] atShoe:shoe];
         
-        NSLog(@"runs = %@",runs);
+        EZLog(@"runs = %@",runs);
         [runs removeObjectAtIndex:[indexPath row]];
- //       NSLog(@"index path = %d",[indexPath row]);
-//        NSLog(@"runs = %@",runs);
-        NSLog(@"history count after delete = %d",[shoe.history count]);
+        EZLog(@"index path = %d",[indexPath row]);
+        EZLog(@"runs = %@",runs);
+        EZLog(@"history count after delete = %d",[shoe.history count]);
         // remove row from table with animation
-//        [[ShoeStore defaultStore] saveChangesEZ];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         [[self tableView] reloadData];
+        [[ShoeStore defaultStore] saveChangesEZ];       // Save context
     }
 }
 

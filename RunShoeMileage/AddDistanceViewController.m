@@ -71,9 +71,9 @@ float runTotal;
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
-    NSLog(@"entered addDistance didReceiveMemoryWarning");
+    EZLog(@"entered addDistance didReceiveMemoryWarning");
     [super didReceiveMemoryWarning];
-    NSLog(@"leaving addDistance didReceiveMemoryWarning");    
+    EZLog(@"leaving addDistance didReceiveMemoryWarning");    
     
     // Release any cached data, images, etc that aren't in use.
 }
@@ -82,12 +82,9 @@ float runTotal;
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    
-//    NSLog(@"standardDistanceString = %@", standardDistanceString);
-
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
-//    NSLog(@"History count = %d",[distShoe.history count]);
+    EZLog(@"History count = %d",[distShoe.history count]);
     
     if ([shoes count] == 0) {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
@@ -113,10 +110,10 @@ float runTotal;
         do {
             History *tempHist = [runs objectAtIndex:i];
             runTotal = runTotal +  [tempHist.runDistance floatValue];
- //           NSLog (@"runDistance = %f",[tempHist.runDistance floatValue]);
+            EZLog (@"runDistance = %f",[tempHist.runDistance floatValue]);
             i++;
         } while (i < [distShoe.history count]);
- //       NSLog(@"run total = %f",runTotal);
+        EZLog(@"run total = %f",runTotal);
     }
     
     nameField.text = [NSString stringWithFormat:@"%@",distShoe.brand];
@@ -126,17 +123,16 @@ float runTotal;
     }
     totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
     [maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[distShoe.maxDistance floatValue]]]];
- //   NSLog(@"run total2 = %f",runTotal);
+    EZLog(@"run total2 = %f",runTotal);
 
-//    NSLog(@"run total3 = %f",runTotal);
+    EZLog(@"run total3 = %f",runTotal);
     
     [self calculateDaysLeftProgressBar];
     
     [imageView setImage:[distShoe thumbnail]];
 
-//    NSLog(@"Leaving View Will Appear");
-//    [totalDistanceField setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
-//    NSLog(@"run total last = %f",runTotal);
+    EZLog(@"Leaving View Will Appear");
+    EZLog(@"run total last = %f",runTotal);
     [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
 
 }
@@ -169,20 +165,14 @@ float runTotal;
     }
     
     nameField.text = distShoe.brand;
-/*    float displayValue = [distShoe.totalDistance floatValue];
-    if ([UserDistanceSetting getDistanceUnit]) {
-        displayValue = displayValue * milesToKilometers;
-    } */
-    
-//    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:[distShoe.totalDistance floatValue]]];
     
     self.runDateFormatter = [[NSDateFormatter alloc] init];
 	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
     runDateField.delegate = self;
-    //    NSLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
+    EZLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
     self.addRunDate = [NSDate date];
- //   NSLog(@"run date = %@",addRunDate);
+    EZLog(@"run date = %@",addRunDate);
     [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 
     // Need the following code to register to update date calculation if app has been in background for more than a day
@@ -190,11 +180,8 @@ float runTotal;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
 
       
-//    NSLog(@"View Did Load addDistanceViewController");
-    
-//    [totalDistanceField setText:[NSString stringWithFormat:@"%.1f",shoe.totalDistance]];
+    EZLog(@"View Did Load addDistanceViewController");
 
-//    [self setTotalDistanceField:nil];
 }
 
 
@@ -214,7 +201,7 @@ float runTotal;
 
 - (void)viewDidUnload
 {
-//    NSLog(@"entered addDistance viewDidUnload");
+    EZLog(@"entered addDistance viewDidUnload");
     [super viewDidUnload];
     
     enterDistanceField = nil;
@@ -236,10 +223,8 @@ float runTotal;
     hist = nil;
     addRunDate = nil;
     daysLeftIdentificationLabel = nil;
-    
-    //    NSLog(@"entered addDistance viewDidUnload");
 
-//    NSLog(@"leaving addDistance viewDidUnload");
+    EZLog(@"leaving addDistance viewDidUnload");
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -284,7 +269,7 @@ float runTotal;
     if (!addDistance) {
         return;
     }
-//    NSLog(@"addDistance = %.2f",addDistance);
+    EZLog(@"addDistance = %.2f",addDistance);
     testDate = self.addRunDate;
     
     [[ShoeStore defaultStore] setRunDistance:addDistance];
@@ -292,13 +277,12 @@ float runTotal;
     self.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
     [distShoe addHistoryObject:hist];
     hist.runDistance = [NSNumber numberWithFloat:addDistance];
-//    NSLog(@"setting history run distance = %@",hist.runDistance);
+    EZLog(@"setting history run distance = %@",hist.runDistance);
     hist.runDate = testDate;
    
 //    NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
     
- //   NSLog(@"%@",hist.runDistance);
- //   NSLog(@"Top of runDistance: %@",displayDistance);
+    EZLog(@"%@",hist.runDistance);
     
     runTotal = runTotal + addDistance;
     [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
@@ -371,10 +355,9 @@ float runTotal;
 
 - (void)actionSheetCancelEZ:(id)sender
 {
-//    NSLog(@"actionSHeetCancel");
+    EZLog(@"actionSHeetCancel");
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-//    NSLog(@"%@",[self.runDateFormatter stringFromDate:self.pickerView.date]);
-//    [runDateField setText:[NSString stringWithFormat:[self.runDateFormatter stringFromDate:self.pickerView.date]]];
+    EZLog(@"%@",[self.runDateFormatter stringFromDate:self.pickerView.date]);
     self.addRunDate = self.pickerView.date;
     [runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
 }
@@ -437,14 +420,14 @@ float runTotal;
         [daysLeftIdentificationLabel setText:@"Day Left"];
     }
     
-//    NSLog(@"Components Total = %d",[components day]);
+    EZLog(@"Components Total = %d",[components day]);
     
     wear = (float)daysLeftToWear/(float)daysTotal;
     wearProgress.progress = 1 - wear;
-    //    NSLog(@"Wear Progress = %@",wearProgress.progress);
-//    NSLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
+    EZLog(@"Wear Progress = %@",wearProgress.progress);
+    EZLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
     
-//    NSLog(@"Wear = %.4f",wear);
+    EZLog(@"Wear = %.4f",wear);
 
 }
 

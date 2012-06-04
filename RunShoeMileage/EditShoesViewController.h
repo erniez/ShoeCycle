@@ -18,8 +18,6 @@
     int currentShoe;
 }
 
-//@property (nonatomic, retain) NSArray *testBrandArray; 
-//@property (nonatomic, retain) NSArray *testNameArray; 
 
 - (IBAction)addNewShoe:(id)sender;
 

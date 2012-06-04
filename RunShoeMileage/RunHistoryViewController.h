@@ -18,8 +18,8 @@
     UIView *tableHeaderView;
 }
 
-@property (nonatomic, retain) Shoe *shoe;
-@property (nonatomic, retain) NSMutableArray *runs;
-@property (nonatomic, retain) IBOutlet UIView *tableHeaderView;
+@property (nonatomic, strong) Shoe *shoe;
+@property (nonatomic, strong) NSMutableArray *runs;
+@property (nonatomic, strong) IBOutlet UIView *tableHeaderView;
 
 @end

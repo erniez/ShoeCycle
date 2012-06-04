@@ -14,8 +14,8 @@
 @interface History : NSManagedObject {
 
 }
-@property (nonatomic, retain) NSDate *runDate;
-@property (nonatomic, retain) NSNumber *runDistance;
-@property (nonatomic, retain) Shoe *shoe;
+@property (nonatomic, strong) NSDate *runDate;
+@property (nonatomic, strong) NSNumber *runDistance;
+@property (nonatomic, strong) Shoe *shoe;
 
 @end

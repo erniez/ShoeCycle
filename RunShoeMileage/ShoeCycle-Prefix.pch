@@ -12,3 +12,8 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+// Change if(1) to if(0) to enable logging
+#define EZLog if(1); else NSLog      
+
+

@@ -97,7 +97,7 @@ const float k10Miles = 10;
 
 - (void)viewDidUnload
 {
-    NSLog(@"Standard Distance viewDidUnload");
+    EZLog(@"Standard Distance viewDidUnload");
     [self setUserDefinedDistance1Button:nil];
     [self setUserDefinedDistance2Button:nil];
     [self setUserDefinedDistance3Button:nil];

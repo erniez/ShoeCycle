@@ -16,8 +16,8 @@ extern NSString * const TreadTrackerDistanceUnitPrefKey;
     UITabBarController *tabBarController;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) UITabBarController *tabBarController;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) UITabBarController *tabBarController;
 
 - (void)switchToTab:(int)index;
 

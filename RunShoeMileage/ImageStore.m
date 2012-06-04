@@ -51,7 +51,7 @@
 - (void) clearCacheEZ:(NSNotification *)note  // had to change name due to Apple rejection
                                               // failed the use of non-public API rule
 {
-    NSLog(@"flushing %d images out of the cache", [dictionary count]);
+    EZLog(@"flushing %d images out of the cache", [dictionary count]);
     [dictionary removeAllObjects];
 }
 
@@ -125,7 +125,7 @@
         if (result){
             [dictionary setObject:result forKey:s];
         } else {
-//            NSLog(@"Error: unable to find %@", pathInDocumentDirectory(s));
+            NSLog(@"Error: unable to find %@", pathInDocumentDirectory(s));
         }
     }
     return result;

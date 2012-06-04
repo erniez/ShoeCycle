@@ -17,13 +17,13 @@
 
 }
 
-@property (nonatomic, retain) NSString *distanceString;
-@property (nonatomic, retain) AddDistanceViewController *addDistanceViewController;
-@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance1Button;
-@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance2Button;
-@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance3Button;
-@property (retain, nonatomic) IBOutlet UIButton *userDefinedDistance4Button;
-@property (retain, nonatomic) IBOutlet UIButton *halfMarathonButton;
+@property (nonatomic, strong) NSString *distanceString;
+@property (nonatomic, strong) AddDistanceViewController *addDistanceViewController;
+@property (strong, nonatomic) IBOutlet UIButton *userDefinedDistance1Button;
+@property (strong, nonatomic) IBOutlet UIButton *userDefinedDistance2Button;
+@property (strong, nonatomic) IBOutlet UIButton *userDefinedDistance3Button;
+@property (strong, nonatomic) IBOutlet UIButton *userDefinedDistance4Button;
+@property (strong, nonatomic) IBOutlet UIButton *halfMarathonButton;
 
 - (id)initWithDistance:(AddDistanceViewController *)vc;
 

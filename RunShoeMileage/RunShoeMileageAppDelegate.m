@@ -53,28 +53,12 @@
     [tbi setTitle:@"Add/Edit Shoes"];
     [tbi setImage:image];
 
-    
-
-    
     // Attach the array to the tabBarController
     [tabBarController setViewControllers:viewControllers];
     
-    // Load AddDistanceViewController
-//    AddDistanceViewController *addDistanceViewController = [[AddDistanceViewController alloc] init];
-//    [[self window] setRootViewController:addDistanceViewController];
     [[self window] setRootViewController:tabBarController];
-
-    
-   // [addDistanceViewController release];
- //   
-  //  [window addSubview:navController.view];
-    
- //   distanceUnit = [[NSUserDefaults standardUserDefaults] integerForKey:TreadTrackerDistanceUnitPrefKey];
- //   NSLog(@"distanceUnit = %d",distanceUnit);
-
-
     [self.window makeKeyAndVisible];
-//    NSLog(@"View Did Finish Launching");
+    EZLog(@"View Did Finish Launching");
     return YES;
 }
 

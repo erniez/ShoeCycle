@@ -42,7 +42,7 @@
   
         // Read in TreadTracker.xcdatamodeld
         model = [NSManagedObjectModel mergedModelFromBundles:nil];
-        // NSLog (@"model = %@", model);
+        EZLog (@"model = %@", model);
     
         NSPersistentStoreCoordinator *psc =
         [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
@@ -103,7 +103,7 @@
     } else {
         order = [[[allShoes lastObject] orderingValue] doubleValue] + 1.0;
     }
-//    NSLog(@"Adding after %d intems, order = %.2f", [allShoes count], order);
+    EZLog(@"Adding after %d intems, order = %.2f", [allShoes count], order);
     
     Shoe *p = [NSEntityDescription insertNewObjectForEntityForName:@"Shoe"
                                                   inManagedObjectContext:context];
@@ -152,7 +152,7 @@
     // The order value will be the midpoint between the lower and upper bounds
     NSNumber *n = [NSNumber numberWithDouble:(lowerBound + upperBound)/2.0];
     
-//    NSLog(@"Moving to order %@",n);
+    EZLog(@"Moving to order %@",n);
     [s setOrderingValue:n];
 }
 

@@ -33,23 +33,23 @@
     IBOutlet UIImageView *imageView;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel *maxDistanceLabel;
-@property (nonatomic, retain) IBOutlet UITextField *enterDistanceField;
-@property (nonatomic, retain) IBOutlet UILabel *totalDistanceLabel;
-@property (nonatomic, retain) IBOutlet UILabel *distanceUnitLabel;
-@property (nonatomic, retain) IBOutlet UIDatePicker *pickerView; 
-@property (nonatomic, retain) IBOutlet UITextField *runDateField;
-@property (nonatomic, retain) NSDateFormatter *runDateFormatter; 
-@property (nonatomic, retain) IBOutlet UITextField *nameField;
-@property (nonatomic, retain) Shoe *distShoe;
-@property (nonatomic, retain) History *hist;
-@property (nonatomic, retain) IBOutlet UIProgressView *totalDistanceProgress;
-@property (nonatomic, retain) NSDate *addRunDate;
-@property (retain, nonatomic) IBOutlet UILabel *startDateLabel;
-@property (retain, nonatomic) IBOutlet UILabel *expirationDateLabel;
-@property (retain, nonatomic) IBOutlet UILabel*daysLeftLabel;
-@property (retain, nonatomic) IBOutlet UILabel*daysLeftIdentificationLabel;
-@property (retain, nonatomic) IBOutlet UIProgressView *wearProgress;
+@property (nonatomic, strong) IBOutlet UILabel *maxDistanceLabel;
+@property (nonatomic, strong) IBOutlet UITextField *enterDistanceField;
+@property (nonatomic, strong) IBOutlet UILabel *totalDistanceLabel;
+@property (nonatomic, strong) IBOutlet UILabel *distanceUnitLabel;
+@property (nonatomic, strong) IBOutlet UIDatePicker *pickerView; 
+@property (nonatomic, strong) IBOutlet UITextField *runDateField;
+@property (nonatomic, strong) NSDateFormatter *runDateFormatter; 
+@property (nonatomic, strong) IBOutlet UITextField *nameField;
+@property (nonatomic, strong) Shoe *distShoe;
+@property (nonatomic, strong) History *hist;
+@property (nonatomic, strong) IBOutlet UIProgressView *totalDistanceProgress;
+@property (nonatomic, strong) NSDate *addRunDate;
+@property (strong, nonatomic) IBOutlet UILabel *startDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *expirationDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel*daysLeftLabel;
+@property (strong, nonatomic) IBOutlet UILabel*daysLeftIdentificationLabel;
+@property (strong, nonatomic) IBOutlet UIProgressView *wearProgress;
 
 
 - (void)actionSheetCancelEZ:(id)sender;
