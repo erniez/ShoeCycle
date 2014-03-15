@@ -41,6 +41,8 @@
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
 		1B822C4314ECB03500D4AFDF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B822C4214ECB03500D4AFDF /* icon.png */; };
 		1B822C4614ECB03B00D4AFDF /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B822C4514ECB03B00D4AFDF /* icon@2x.png */; };
+		1BB0745518D4F8280037E1F2 /* black_mamba@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BB0745318D4F8280037E1F2 /* black_mamba@2X.png */; };
+		1BB0745618D4F8280037E1F2 /* black_mamba.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BB0745418D4F8280037E1F2 /* black_mamba.png */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
 		1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */; };
 		1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183D14A35D240033EFC3 /* SetupViewController.m */; };
@@ -110,6 +112,8 @@
 		1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StandardDistancesViewController.xib; sourceTree = "<group>"; };
 		1B822C4214ECB03500D4AFDF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1B822C4514ECB03B00D4AFDF /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		1BB0745318D4F8280037E1F2 /* black_mamba@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black_mamba@2X.png"; sourceTree = "<group>"; };
+		1BB0745418D4F8280037E1F2 /* black_mamba.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_mamba.png; sourceTree = "<group>"; };
 		1BC08E7914D42171007A4344 /* Shoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shoe.h; sourceTree = "<group>"; };
 		1BC08E7A14D42171007A4344 /* Shoe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shoe.m; sourceTree = "<group>"; };
 		1BC5183614A35CF80033EFC3 /* EditShoesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditShoesViewController.h; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 		1B3EE43E14DDFF7A00ACA601 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1BB0745318D4F8280037E1F2 /* black_mamba@2X.png */,
+				1BB0745418D4F8280037E1F2 /* black_mamba.png */,
 				1BC94F5F14F49A20004CEE6F /* button-fav.png */,
 				1BC94F6014F49A20004CEE6F /* button-fav@2x.png */,
 				1BC94F5B14F499ED004CEE6F /* popular-distances-wallpaper.png */,
@@ -352,6 +358,7 @@
 				1B0457F314E7706F00D2ECF1 /* button-distance.png in Resources */,
 				1B0457F414E7706F00D2ECF1 /* button-distance@2x.png in Resources */,
 				1B0457F514E7706F00D2ECF1 /* button-history.png in Resources */,
+				1BB0745518D4F8280037E1F2 /* black_mamba@2X.png in Resources */,
 				1B0457F614E7706F00D2ECF1 /* button-history@2x.png in Resources */,
 				1B0457F714E7706F00D2ECF1 /* tabbar-add.png in Resources */,
 				1B0457F814E7706F00D2ECF1 /* tabbar-add@2x.png in Resources */,
@@ -364,6 +371,7 @@
 				1B046D4714F1B0E400850B10 /* Default@2x.png in Resources */,
 				1B046D4B14F1B8E900850B10 /* plain-wallpaper.png in Resources */,
 				1B046D4C14F1B8E900850B10 /* plain-wallpaper@2x.png in Resources */,
+				1BB0745618D4F8280037E1F2 /* black_mamba.png in Resources */,
 				1BC8647F14F31E7700F4D6DC /* add-shoe-wallpaper.png in Resources */,
 				1BC8648014F31E7700F4D6DC /* add-shoe-wallpaper@2x.png in Resources */,
 				1BC94F5814F491C2004CEE6F /* settings-wallpaper.png in Resources */,

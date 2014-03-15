@@ -6,6 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "AddDistanceViewController.h"
 #import "StandardDistancesViewController.h"
 #import "RunHistoryViewController.h"
@@ -17,6 +18,14 @@
 
 float const milesToKilometers;
 float runTotal;
+
+
+@interface AddDistanceViewController ()
+
+@property (weak, nonatomic) IBOutlet UIView *lightenView;
+
+@end
+
 
 @implementation AddDistanceViewController
 
@@ -130,7 +139,34 @@ float runTotal;
 {
     [super viewDidLoad];
     
-//    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
+    self.imageView.layer.borderColor = [UIColor orangeColor].CGColor;
+    self.imageView.layer.borderWidth = 2.0;
+    self.imageView.layer.cornerRadius = 5.0;
+    
+    UIView *arrowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+    arrowView.backgroundColor = [UIColor orangeColor];
+    arrowView.transform = CGAffineTransformMakeRotation(M_PI/4);
+    
+    UIView *arrowContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    arrowContainer.clipsToBounds = YES;
+    
+    CGFloat yPosition = self.imageView.frame.origin.y + self.imageView.bounds.size.height;
+    CGFloat xPosition = self.imageView.frame.origin.x +
+                        self.imageView.bounds.size.width/2 -
+                        arrowContainer.bounds.size.width/2;
+    
+    arrowView.center = CGPointMake(arrowContainer.bounds.size.width/2, -1);
+    [arrowContainer addSubview:arrowView];
+    
+    CGRect containerFrame = arrowContainer.frame;
+    containerFrame.origin.y = yPosition;
+    containerFrame.origin.x = xPosition;
+    arrowContainer.frame = containerFrame;
+    
+    [self.view addSubview:arrowContainer];
+    
+    self.lightenView.layer.cornerRadius = 5.0;
     
     self.enterDistanceField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {

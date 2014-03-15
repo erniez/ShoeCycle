@@ -13,6 +13,7 @@
                 <outlet property="enterDistanceField" destination="6" id="10"/>
                 <outlet property="expirationDateLabel" destination="52" id="69"/>
                 <outlet property="imageView" destination="64" id="65"/>
+                <outlet property="lightenView" destination="13p-YD-EAb" id="Ncy-U3-CPD"/>
                 <outlet property="maxDistanceLabel" destination="53" id="63"/>
                 <outlet property="nameField" destination="60" id="61"/>
                 <outlet property="runDateField" destination="21" id="47"/>
@@ -28,11 +29,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="top" image="addDistanceBackground.png" id="73">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="0.64964057060000002" blue="0.3799785061" alpha="1" colorSpace="calibratedRGB"/>
-                </imageView>
                 <progressView opaque="NO" contentMode="scaleToFill" progress="0.5" id="4">
                     <rect key="frame" x="13" y="296" width="220" height="2"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -42,12 +38,31 @@
                     <rect key="frame" x="13" y="357" width="220" height="2"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </progressView>
+                <view alpha="0.10000000000000002" contentMode="scaleToFill" id="13p-YD-EAb">
+                    <rect key="frame" x="13" y="150" width="296" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="6">
                     <rect key="frame" x="131" y="181" width="76" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AYV-iY-8Wy">
+                    <rect key="frame" x="25" y="161" width="47" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISTANCE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ubG-1m-b21">
+                    <rect key="frame" x="136" y="161" width="71" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8">
                     <rect key="frame" x="242" y="158" width="60" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -114,7 +129,7 @@
                     </connections>
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Running Shoe Name" textAlignment="center" minimumFontSize="17" id="60">
-                    <rect key="frame" x="167" y="128" width="144" height="16"/>
+                    <rect key="frame" x="166" y="128" width="143" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="textColor" red="1" green="0.61008487960000002" blue="0.15198030879999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
@@ -180,7 +195,6 @@
         </view>
     </objects>
     <resources>
-        <image name="addDistanceBackground.png" width="320" height="460"/>
         <image name="button-add-run.png" width="60" height="60"/>
         <image name="button-distance.png" width="113" height="40"/>
         <image name="button-history.png" width="98" height="40"/>
