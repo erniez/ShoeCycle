@@ -12,41 +12,28 @@
 @interface ShoeDetailViewController : UIViewController
 <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate>
 {
-//    IBOutlet UITextField *brand;
-    IBOutlet UITextField *name;
-    IBOutlet UITextField *maxDistance;
-    IBOutlet UITextField *expirationDateField;
-    IBOutlet UITextField *startDistance;
-    IBOutlet UIImageView *imageView;
-    UITextField *brandField;
-    NSString *testBrandString;
-    NSString *testNameString;
-    UIPopoverController *imagePickerPopover;
-    UIDatePicker *expPickerView;
-    NSDateFormatter *expirationDateFormatter;
-    UIActionSheet *dateActionSheet;
-    UIActionSheet *pictureActionSheet;
-    NSDate *expirationDate;
-    NSDate *startDate;
-    NSDate *currentDate;
-    UITextField *currentDateField;
-    Shoe *shoe;
-    UIToolbar *toolbar;
+    // TODO: Fix this mess.  Using popover in implementation which is a no-no.
     id pictureButton;
-
 }
-@property (nonatomic, strong) IBOutlet UITextField *brandField;
-@property (nonatomic, strong) IBOutlet UIDatePicker *expPickerView;
-@property (nonatomic, strong) NSDateFormatter *expirationDateFormatter; 
+
+@property (nonatomic, weak) IBOutlet UITextField *brandField;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) UIDatePicker *expPickerView;
+@property (nonatomic, weak) IBOutlet UITextField *startDistance;
+@property (nonatomic, strong) NSDateFormatter *expirationDateFormatter;
 @property (nonatomic, strong) Shoe *shoe;
 @property (nonatomic, strong) NSDate *expirationDate;
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *currentDate;
 @property (nonatomic, strong) UIToolbar	*toolbar;
-@property (strong, nonatomic) IBOutlet UITextField *startDateField;
+@property (weak, nonatomic) IBOutlet UITextField *startDateField;
 @property (strong, nonatomic) UITextField *currentDateField;
-@property (strong, nonatomic) IBOutlet UITextField *maxDistance;
-@property (strong, nonatomic) IBOutlet UITextField *expirationDateField;
+@property (weak, nonatomic) IBOutlet UITextField *maxDistance;
+@property (weak, nonatomic) IBOutlet UITextField *expirationDateField;
+@property (nonatomic, strong) UIActionSheet *dateActionSheet;
+@property (nonatomic, strong) UIActionSheet *pictureActionSheet;
+@property (nonatomic, strong) NSString *testBrandString;
+@property (nonatomic, strong) NSString *testNameString;
 
 - (IBAction)takePicture:(id)sender;
 - (id)initForNewItem:(BOOL)isNew;
@@ -55,7 +42,5 @@
 - (IBAction)backgroundTapped:(id)sender;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 - (IBAction)callDP:(id)sender;
-
-//- (void)changeDate:(id)sender;
 
 @end

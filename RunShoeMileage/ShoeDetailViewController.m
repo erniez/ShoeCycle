@@ -12,11 +12,6 @@
 #import "UserDistanceSetting.h"
 
 @implementation ShoeDetailViewController
-@synthesize brandField, shoe;
-@synthesize expPickerView, expirationDateFormatter, expirationDate, startDate, currentDate;
-@synthesize maxDistance;
-@synthesize toolbar;
-@synthesize startDateField, currentDateField, expirationDateField;
 
 - (id)initForNewItem:(BOOL)isNew
 {
@@ -39,21 +34,23 @@
             
             NSArray *items = [NSArray arrayWithObjects:camera, spacer, nil];
             
-            toolbar = [UIToolbar new];
-            toolbar.barStyle = UIBarStyleDefault;
+            self.toolbar = [UIToolbar new];
+            self.toolbar.barStyle = UIBarStyleDefault;
             
             // size up the toolbar and set its frame
-            [toolbar sizeToFit];
-            CGFloat toolbarHeight = [toolbar frame].size.height;
+            [self.toolbar sizeToFit];
+            CGFloat toolbarHeight = [self.toolbar bounds].size.height;
+            CGFloat navBarHeight = 44;
+            CGFloat statusBarHeight = 20;
             CGRect mainViewBounds = self.view.bounds;
-            [toolbar setFrame:CGRectMake(CGRectGetMinX(mainViewBounds),
-                                         CGRectGetMinY(mainViewBounds) + CGRectGetHeight(mainViewBounds) - (toolbarHeight * 2.0) + 2.0,
+            [self.toolbar setFrame:CGRectMake(CGRectGetMinX(mainViewBounds),
+                                         CGRectGetMinY(mainViewBounds) + CGRectGetHeight(mainViewBounds) - (toolbarHeight) - navBarHeight - statusBarHeight,
                                          CGRectGetWidth(mainViewBounds),
                                          toolbarHeight)];
             
-            [toolbar setItems:items animated:YES];
+            [self.toolbar setItems:items animated:YES];
             
-            [self.view addSubview:toolbar];
+            [self.view addSubview:self.toolbar];
             
             self.maxDistance.text = @"350";
         }
@@ -97,31 +94,31 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [brandField setText:shoe.brand];
+    [self.brandField setText:self.shoe.brand];
     
-    [maxDistance setText:[UserDistanceSetting displayDistance:[shoe.maxDistance floatValue]]];
-    [startDistance setText:[UserDistanceSetting displayDistance:[shoe.startDistance floatValue]]];
+    [self.maxDistance setText:[UserDistanceSetting displayDistance:[self.shoe.maxDistance floatValue]]];
+    [self.startDistance setText:[UserDistanceSetting displayDistance:[self.shoe.startDistance floatValue]]];
 
     self.expirationDateFormatter = [[NSDateFormatter alloc] init];
 	[self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.expirationDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    self.expirationDate = shoe.expirationDate;
-    [expirationDateField setText:[self.expirationDateFormatter stringFromDate:shoe.expirationDate]];
-    self.startDate = shoe.startDate;
-    [startDateField setText:[self.expirationDateFormatter stringFromDate:shoe.startDate]];
-    EZLog(@"Will Appear Date = %@",shoe.expirationDate);
+    self.expirationDate = self.shoe.expirationDate;
+    [self.expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.shoe.expirationDate]];
+    self.startDate = self.shoe.startDate;
+    [self.startDateField setText:[self.expirationDateFormatter stringFromDate:self.shoe.startDate]];
+    EZLog(@"Will Appear Date = %@",self.shoe.expirationDate);
     
-    NSString *imageKey = [shoe imageKey];
+    NSString *imageKey = [self.shoe imageKey];
     
     if (imageKey) {
         // Get image for image key from image store
         UIImage *imageToDisplay = [[ImageStore defaultImageStore] imageForKey:imageKey];
         
         // Use that image to put on the screen in imageView
-        [imageView setImage:imageToDisplay];
+        [self.imageView setImage:imageToDisplay];
     } else {
         // Clear the imageView
-        [imageView setImage:nil];
+        [self.imageView setImage:nil];
     }
 
 }
@@ -131,14 +128,14 @@
 {
 
     [super viewWillDisappear:animated];
-    shoe.brand = brandField.text;
-    shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:maxDistance.text]];
-    EZLog(@"Leaving maxDistance %@",shoe.maxDistance);
-    shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:startDistance.text]];
-    shoe.expirationDate = expirationDate;
-    shoe.startDate = self.startDate;
+    self.shoe.brand = self.brandField.text;
+    self.shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.maxDistance.text]];
+    EZLog(@"Leaving maxDistance %@",self.shoe.maxDistance);
+    self.shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.startDistance.text]];
+    self.shoe.expirationDate = self.expirationDate;
+    self.shoe.startDate = self.startDate;
     EZLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
-    EZLog(@"Leaving Date = %@",shoe.expirationDate);
+    EZLog(@"Leaving Date = %@",self.shoe.expirationDate);
     EZLog(@"************** Leaving Detail View ************");
     
 }
@@ -146,55 +143,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    maxDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.maxDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        maxDistance.keyboardType = UIKeyboardTypeDecimalPad;
+        self.maxDistance.keyboardType = UIKeyboardTypeDecimalPad;
     }
-    startDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.startDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        startDistance.keyboardType = UIKeyboardTypeDecimalPad;
+        self.startDistance.keyboardType = UIKeyboardTypeDecimalPad;
     }
  
 
     // Do any additional setup after loading the view from its nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    EZLog(@"entering ShoeDetailViewController viewDidUnload");
-    shoe = nil;
-    
-//    [expPickerView release];
-//    expPickerView = nil;
-    
-//    [expirationDateFormatter release];
-//    expirationDateFormatter = nil;
-    
-    expirationDate = nil;
-    startDate = nil;
-    currentDate = nil;
-    
-//    [currentDateField release];
-//    currentDateField = nil;
-    
-    maxDistance = nil;
-    name = nil;
-    maxDistance = nil;
-    
-//    [expirationDateField release];
-//    expirationDateField = nil;
-    
-    startDistance = nil;
-    brandField = nil;
-    imageView = nil;
-    toolbar = nil;
-    
-//    [startDateField release];
-//    startDateField = nil;
-    
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -230,17 +189,17 @@
 
 - (IBAction)takePicture:(id)sender
 {
-    pictureActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Picture Method"
+    self.pictureActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Picture Method"
                                               delegate:self 
                                      cancelButtonTitle:@"Cancel" 
                                 destructiveButtonTitle:nil
                                      otherButtonTitles:@"Camera", @"Library", nil];
     
-    [pictureActionSheet setActionSheetStyle:UIActionSheetStyleDefault];
+    [self.pictureActionSheet setActionSheetStyle:UIActionSheetStyleDefault];
 
-    [pictureActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [self.pictureActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
-    [pictureActionSheet setDelegate:self];
+    [self.pictureActionSheet setDelegate:self];
     
     pictureButton = sender;
 }
@@ -248,9 +207,9 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (actionSheet == pictureActionSheet) {
+    if (actionSheet == self.pictureActionSheet) {
         
-        [pictureActionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+        [self.pictureActionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
         
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
          
@@ -270,7 +229,7 @@
          // Place image picker on the screen
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
          // Create a new popover controller that will display the imagePicker
-         imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+         UIPopoverController *imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
          
          [imagePickerPopover setDelegate:self];
          
@@ -291,7 +250,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker 
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSString *oldKey = [shoe imageKey];
+    NSString *oldKey = [self.shoe imageKey];
     
     
     // Did the possession already have an image?
@@ -310,19 +269,19 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
     
     // Use that unique ID to set our possessions imageKey
-    [shoe setImageKey:(__bridge NSString *)newUniqueIDString];
+    [self.shoe setImageKey:(__bridge NSString *)newUniqueIDString];
     
     // We used "Create" in the functions to make objects, we need to release them
     CFRelease(newUniqueIDString);
     CFRelease(newUniqueID);
     
     // Store  image in the ImageStore with this key
-    [[ImageStore defaultImageStore] setImage:image withWidth:210 withHeight:140 forKey:[shoe imageKey]];
+    [[ImageStore defaultImageStore] setImage:image withWidth:210 withHeight:140 forKey:[self.shoe imageKey]];
 
     // Put that image onto the screen in our image view
-    [imageView setImage:image];
+    [self.imageView setImage:image];
     
-    [shoe setThumbnailDataFromImage:image width:143 height:96];
+    [self.shoe setThumbnailDataFromImage:image width:143 height:96];
     
     // Take image picker off the screen - You must call this dismiss method
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -331,9 +290,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (IBAction)save:(id)sender
 {
-    shoe.brand = brandField.text;
+    self.shoe.brand = self.brandField.text;
             
-    EZLog(@"%@", shoe.brand);
+    EZLog(@"%@", self.shoe.brand);
     
     // This message gets forwarded to the parentViewController  
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -348,7 +307,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     // If the user cancelled, then remove the Possession from the store
     // This message gets forwarded to the parentViewController
 
-    [[ShoeStore defaultStore] removeShoe:shoe];
+    [[ShoeStore defaultStore] removeShoe:self.shoe];
     [self dismissViewControllerAnimated:YES completion:nil];
     
 //    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
@@ -362,20 +321,20 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [[self view] endEditing:YES];           // clear any editors that may be visible (clicking from distance to date)
     
     EZLog(@"callDP sender = %@", sender);
-    currentDateField = sender;
+    self.currentDateField = sender;
     
-    dateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    self.dateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
-    [dateActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [self.dateActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
     
     CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
     
-    expPickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
-    expPickerView.tag = 10;
-    expPickerView.datePickerMode = UIDatePickerModeDate;
-    expPickerView.date = currentDate;
+    self.expPickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
+    self.expPickerView.tag = 10;
+    self.expPickerView.datePickerMode = UIDatePickerModeDate;
+    self.expPickerView.date = self.currentDate;
     
-    [dateActionSheet addSubview:expPickerView];
+    [self.dateActionSheet addSubview:self.expPickerView];
     
     UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
     closeButton.momentary = YES; 
@@ -383,11 +342,11 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
     closeButton.tintColor = [UIColor blackColor];
     [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
-    [dateActionSheet addSubview:closeButton];
+    [self.dateActionSheet addSubview:closeButton];
     
-    [dateActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [self.dateActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
-    [dateActionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    [self.dateActionSheet setBounds:CGRectMake(0, 0, 320, 485)];
 
     EZLog(@"leaving CallDP");
 }
@@ -395,15 +354,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (textField == expirationDateField) {
-        self.currentDate = expirationDate;
-        [self callDP:expirationDateField];
+    if (textField == self.expirationDateField) {
+        self.currentDate = self.expirationDate;
+        [self callDP:self.expirationDateField];
         return NO;
     }
     
-    if (textField == startDateField) {
-        self.currentDate = startDate;
-        [self callDP:startDateField];
+    if (textField == self.startDateField) {
+        self.currentDate = self.startDate;
+        [self callDP:self.startDateField];
         return NO;
     }
     
@@ -413,21 +372,18 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (void)actionSheetCancelEZ:(id)sender
 {
-
-
-    if (currentDateField == startDateField){
+    if (self.currentDateField == self.startDateField){
             self.startDate = self.expPickerView.date;
         }
     
-    if (currentDateField == expirationDateField) {
+    if (self.currentDateField == self.expirationDateField) {
             self.expirationDate = self.expPickerView.date;
         }
     
     EZLog(@"actionSheetCancel - Current Date = %@",self.currentDate);
     EZLog(@"Start Date = %@",self.startDate);
-    [currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
-    [dateActionSheet dismissWithClickedButtonIndex:0 animated:YES];
-    
+    [self.currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
+    [self.dateActionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 
