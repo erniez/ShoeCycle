@@ -129,7 +129,7 @@ float runTotal;
     
     [self calculateDaysLeftProgressBar];
     
-    [imageView setImage:[distShoe thumbnail]];
+    [self.imageView setImage:[distShoe thumbnail]];
 
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
@@ -197,37 +197,6 @@ float runTotal;
     
 }
 
-
-
-- (void)viewDidUnload
-{
-    EZLog(@"entered addDistance viewDidUnload");
-    [super viewDidUnload];
-    
-    enterDistanceField = nil;
-    totalDistanceLabel = nil;
-    runDateField = nil;
-    nameField = nil;
-    totalDistanceProgress = nil;
-    maxDistanceLabel = nil;
-    imageView = nil;
-    startDateLabel = nil;
-    expirationDateLabel = nil;
-    daysLeftLabel = nil;
-    wearProgress = nil;
-    distanceUnitLabel = nil;
-//    [pickerView release];
-//    pickerView = nil;
-    runDateFormatter = nil;
-    distShoe  = nil;
-    hist = nil;
-    addRunDate = nil;
-    daysLeftIdentificationLabel = nil;
-
-    EZLog(@"leaving addDistance viewDidUnload");
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -298,9 +267,9 @@ float runTotal;
     
     [[self view] endEditing:YES];           // clear any editors that may be visible (clicking from distance to date)
     
-    actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
-    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [self.actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
     
     CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
     
@@ -309,7 +278,7 @@ float runTotal;
     pickerView.datePickerMode = UIDatePickerModeDate;
 //    [pickerView addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
     
-    [actionSheet addSubview:pickerView];
+    [self.actionSheet addSubview:pickerView];
     
     UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
     closeButton.momentary = YES; 
@@ -317,12 +286,12 @@ float runTotal;
     closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
     closeButton.tintColor = [UIColor blackColor];
     [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
-    [actionSheet addSubview:closeButton];    
+    [self.actionSheet addSubview:closeButton];
     
     //[actionSheet showInView:self.view];
-    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [self.actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
-    [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    [self.actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
 }
 
 - (IBAction)standardDistancesButtonPressed:(id)sender
@@ -333,10 +302,7 @@ float runTotal;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
 
-    
-    
-    [self presentModalViewController:navController animated:YES];
- 
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (IBAction)runHistoryButtonPressed:(id)sender 
@@ -348,15 +314,14 @@ float runTotal;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
    
-    [self presentModalViewController:navController animated:YES];
-     
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 
 - (void)actionSheetCancelEZ:(id)sender
 {
     EZLog(@"actionSHeetCancel");
-    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+    [self.actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     EZLog(@"%@",[self.runDateFormatter stringFromDate:self.pickerView.date]);
     self.addRunDate = self.pickerView.date;
     [runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
