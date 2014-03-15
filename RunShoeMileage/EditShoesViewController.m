@@ -249,7 +249,7 @@
     
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
-    [self presentModalViewController:navController animated:YES];
+    [self presentViewController:navController animated:YES completion:nil];
     
 //    [self.tabBarController presentModalViewController:navController animated:YES];
 //    *** can't figure out how to present a modal view without covering tabBarController

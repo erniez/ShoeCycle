@@ -92,7 +92,7 @@ const float k10Miles = 10;
                                     forState:UIControlStateNormal];
     }
 
-    halfMarathonButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    halfMarathonButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)viewDidUnload
@@ -120,76 +120,76 @@ const float k10Miles = 10;
 - (IBAction) distance5kButtonPressed:(id)sender
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k5kInMiles]];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)distance10kButtonPressed:(id)sender
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k10kInMiles]];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)distance5MilesButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k5Miles]];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)distanceTenMilesButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:k10Miles]];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)distanceHalfMarathonButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:kHalfMarathon]];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)distanceMarathonButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:kMarathon]];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (void)cancel:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)userDefinedDistance1ButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]]];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)userDefinedDistance2ButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]]];    
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)userDefinedDistance3ButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]]];    
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)userDefinedDistance4ButtonPressed:(id)sender 
 {
     [addDistanceViewController.enterDistanceField setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]]];    
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

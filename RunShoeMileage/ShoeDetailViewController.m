@@ -278,9 +278,11 @@
          [imagePickerPopover presentPopoverFromBarButtonItem:pictureButton
                                     permittedArrowDirections:UIPopoverArrowDirectionAny
                                                     animated:YES];
-         } else {
-         // Place image picker on the screen
-         [self presentModalViewController:imagePicker animated:YES];
+         }
+         else
+         {
+             // Place image picker on the screen
+             [self presentViewController:imagePicker animated:YES completion:nil];
          }
     }
 }
@@ -323,7 +325,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [shoe setThumbnailDataFromImage:image width:143 height:96];
     
     // Take image picker off the screen - You must call this dismiss method
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -334,7 +336,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     EZLog(@"%@", shoe.brand);
     
     // This message gets forwarded to the parentViewController  
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 //    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
 //        [delegate itemDetailViewControllerWillDismiss:self];
@@ -347,7 +349,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     // This message gets forwarded to the parentViewController
 
     [[ShoeStore defaultStore] removeShoe:shoe];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 //    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
  //       [delegate itemDetailViewControllerWillDismiss:self];

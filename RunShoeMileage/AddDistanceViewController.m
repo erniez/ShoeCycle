@@ -389,7 +389,7 @@ float runTotal;
     
     wear = (float)daysLeftToWear/(float)daysTotal;
     wearProgress.progress = 1 - wear;
-    EZLog(@"Wear Progress = %@",wearProgress.progress);
+    EZLog(@"Wear Progress = %0.2f",wearProgress.progress);
     EZLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
     
     EZLog(@"Wear = %.4f",wear);
