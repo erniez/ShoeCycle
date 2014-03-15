@@ -15,26 +15,10 @@
 #import "UserDistanceSetting.h"
 #import "RunShoeMileageAppDelegate.h"
 
-extern NSInteger distanceUnit;
 float const milesToKilometers;
 float runTotal;
 
 @implementation AddDistanceViewController
-
-@synthesize startDateLabel;
-@synthesize expirationDateLabel;
-@synthesize daysLeftLabel;
-@synthesize daysLeftIdentificationLabel;
-@synthesize wearProgress;
-@synthesize nameField;
-@synthesize runDateField;
-@synthesize maxDistanceLabel;
-@synthesize enterDistanceField;
-@synthesize totalDistanceLabel, distanceUnitLabel;
-@synthesize pickerView, runDateFormatter; // standardDistanceString;
-@synthesize distShoe, addRunDate, hist;
-@synthesize totalDistanceProgress;
-
 
 - (id)init
 {
@@ -84,7 +68,7 @@ float runTotal;
 {
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
-    EZLog(@"History count = %d",[distShoe.history count]);
+    EZLog(@"History count = %d",[self.distShoe.history count]);
     
     if ([shoes count] == 0) {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
@@ -97,43 +81,43 @@ float runTotal;
     }
     
     if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
-        distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
+        self.distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
     }
     else {
-        distShoe = [shoes objectAtIndex:0];
+        self.distShoe = [shoes objectAtIndex:0];
     }
     
-    runTotal = [distShoe.startDistance floatValue];
-    if ([distShoe.history count]) {
-        NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
+    runTotal = [self.distShoe.startDistance floatValue];
+    if ([self.distShoe.history count]) {
+        NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[self.distShoe.history allObjects]];
         NSInteger i = 0;
         do {
             History *tempHist = [runs objectAtIndex:i];
             runTotal = runTotal +  [tempHist.runDistance floatValue];
             EZLog (@"runDistance = %f",[tempHist.runDistance floatValue]);
             i++;
-        } while (i < [distShoe.history count]);
+        } while (i < [self.distShoe.history count]);
         EZLog(@"run total = %f",runTotal);
     }
     
-    nameField.text = [NSString stringWithFormat:@"%@",distShoe.brand];
-    distanceUnitLabel.text = @"Miles";
+    self.nameField.text = [NSString stringWithFormat:@"%@",self.distShoe.brand];
+    self.distanceUnitLabel.text = @"Miles";
     if ([UserDistanceSetting getDistanceUnit]) {
-        distanceUnitLabel.text = @"Km";
+       self. distanceUnitLabel.text = @"Km";
     }
-    totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
-    [maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[distShoe.maxDistance floatValue]]]];
+    self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
+    [self.maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[self.distShoe.maxDistance floatValue]]]];
     EZLog(@"run total2 = %f",runTotal);
 
     EZLog(@"run total3 = %f",runTotal);
     
     [self calculateDaysLeftProgressBar];
     
-    [self.imageView setImage:[distShoe thumbnail]];
+    [self.imageView setImage:[self.distShoe thumbnail]];
 
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
-    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+    [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
 
 }
 
@@ -148,32 +132,32 @@ float runTotal;
     
 //    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]]];
     
-    enterDistanceField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.enterDistanceField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        enterDistanceField.keyboardType = UIKeyboardTypeDecimalPad;
+        self.enterDistanceField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
     if ([shoes count]) {
         if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
-            distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
+            self.distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
         }
         else {
-            distShoe = [shoes objectAtIndex:0];
+            self.distShoe = [shoes objectAtIndex:0];
         }
     }
     
-    nameField.text = distShoe.brand;
+    self.nameField.text = self.distShoe.brand;
     
     self.runDateFormatter = [[NSDateFormatter alloc] init];
 	[self.runDateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[self.runDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    runDateField.delegate = self;
+    self.runDateField.delegate = self;
     EZLog(@"%@",[self.runDateFormatter stringFromDate:[NSDate date]]);
     self.addRunDate = [NSDate date];
-    EZLog(@"run date = %@",addRunDate);
-    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
+    EZLog(@"run date = %@",self.addRunDate);
+    [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
 
     // Need the following code to register to update date calculation if app has been in background for more than a day
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
@@ -227,14 +211,14 @@ float runTotal;
 - (IBAction)addDistanceButton:(id)sender 
 {
     float addDistance;
-    NSManagedObjectContext *context = [distShoe managedObjectContext];
+    NSManagedObjectContext *context = [self.distShoe managedObjectContext];
     NSDate *testDate; // temporary date that gets written to run history table
     
     // clear any editors that may be visible (clicking directly from distance number pad)
     [[self view] endEditing:YES];
     
 
-    addDistance = [UserDistanceSetting enterDistance:[enterDistanceField text]]; 
+    addDistance = [UserDistanceSetting enterDistance:[self.enterDistanceField text]];
     if (!addDistance) {
         return;
     }
@@ -244,21 +228,21 @@ float runTotal;
     [[ShoeStore defaultStore] setRunDistance:addDistance];
     
     self.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
-    [distShoe addHistoryObject:hist];
-    hist.runDistance = [NSNumber numberWithFloat:addDistance];
-    EZLog(@"setting history run distance = %@",hist.runDistance);
-    hist.runDate = testDate;
+    [self.distShoe addHistoryObject:self.hist];
+    self.hist.runDistance = [NSNumber numberWithFloat:addDistance];
+    EZLog(@"setting history run distance = %@",self.hist.runDistance);
+    self.hist.runDate = testDate;
    
 //    NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
     
-    EZLog(@"%@",hist.runDistance);
+    EZLog(@"%@",self.hist.runDistance);
     
     runTotal = runTotal + addDistance;
-    [totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+    [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
     
-    enterDistanceField.text = nil;
-    [runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
-    totalDistanceProgress.progress = runTotal/distShoe.maxDistance.floatValue;
+    self.enterDistanceField.text = nil;
+    [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
+    self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     
 }
 
@@ -273,12 +257,12 @@ float runTotal;
     
     CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
     
-    pickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
-    pickerView.tag = 10;
-    pickerView.datePickerMode = UIDatePickerModeDate;
+    self.pickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
+    self.pickerView.tag = 10;
+    self.pickerView.datePickerMode = UIDatePickerModeDate;
 //    [pickerView addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
     
-    [self.actionSheet addSubview:pickerView];
+    [self.actionSheet addSubview:self.pickerView];
     
     UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
     closeButton.momentary = YES; 
@@ -310,7 +294,7 @@ float runTotal;
     [[self view] endEditing:YES];           // clear any editors that may be visible
     
     RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] initWithStyle:UITableViewStylePlain];
-    modalViewController.shoe = distShoe;
+    modalViewController.shoe = self.distShoe;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
    
@@ -324,7 +308,7 @@ float runTotal;
     [self.actionSheet dismissWithClickedButtonIndex:0 animated:YES];
     EZLog(@"%@",[self.runDateFormatter stringFromDate:self.pickerView.date]);
     self.addRunDate = self.pickerView.date;
-    [runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
+    [self.runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
 }
 
 
@@ -338,16 +322,16 @@ float runTotal;
 - (void)calculateDaysLeftProgressBar
 {
     BOOL dateError = FALSE;
-    NSComparisonResult result = [distShoe.expirationDate compare:distShoe.startDate];
+    NSComparisonResult result = [self.distShoe.expirationDate compare:self.distShoe.startDate];
     
     if (result == NSOrderedAscending) {
         dateError = TRUE;
     }
-    [startDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.startDate]]];
-    [expirationDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:distShoe.expirationDate]]];
+    [self.startDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:self.distShoe.startDate]]];
+    [self.expirationDateLabel setText:[NSString stringWithFormat:@"%@",[self.runDateFormatter stringFromDate:self.distShoe.expirationDate]]];
     if (dateError) {
-        [expirationDateLabel setText:@" "];
-        [startDateLabel setText:@"Your end date is earlier than your start date"];
+        [self.expirationDateLabel setText:@" "];
+        [self.startDateLabel setText:@"Your end date is earlier than your start date"];
     }
     
     //  Need to strip out hours and seconds to avoid rounding errors on date calculation
@@ -365,31 +349,31 @@ float runTotal;
     
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
                                                         fromDate:today
-                                                          toDate:distShoe.expirationDate
+                                                          toDate:self.distShoe.expirationDate
                                                          options:0];
     
     NSDateComponents *componentsTotal = [gregorianCalendar components:NSDayCalendarUnit
-                                                             fromDate:distShoe.startDate
-                                                               toDate:distShoe.expirationDate
+                                                             fromDate:self.distShoe.startDate
+                                                               toDate:self.distShoe.expirationDate
                                                               options:0];
     
     NSInteger daysTotal = [componentsTotal day];
     NSInteger daysLeftToWear = ([components day]);
     float wear = 0.0;
-    [daysLeftIdentificationLabel setText:@"Days Left"];
-    [daysLeftLabel setText:@"0"];
+    [self.daysLeftIdentificationLabel setText:@"Days Left"];
+    [self.daysLeftLabel setText:@"0"];
     if (daysLeftToWear >= 0) {
-        [daysLeftLabel setText:[NSString stringWithFormat:@"%d",daysLeftToWear]];
+        [self.daysLeftLabel setText:[NSString stringWithFormat:@"%d",daysLeftToWear]];
     }
     if (daysLeftToWear == 1) {
-        [daysLeftIdentificationLabel setText:@"Day Left"];
+        [self.daysLeftIdentificationLabel setText:@"Day Left"];
     }
     
     EZLog(@"Components Total = %d",[components day]);
     
     wear = (float)daysLeftToWear/(float)daysTotal;
-    wearProgress.progress = 1 - wear;
-    EZLog(@"Wear Progress = %0.2f",wearProgress.progress);
+    self.wearProgress.progress = 1 - wear;
+    EZLog(@"Wear Progress = %0.2f",self.wearProgress.progress);
     EZLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
     
     EZLog(@"Wear = %.4f",wear);
