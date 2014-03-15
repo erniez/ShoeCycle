@@ -55,7 +55,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     }
     
     {
-        int index = (int)[returnString length] - 1;
+        NSInteger index = (int)[returnString length] - 1;
         BOOL trim = FALSE;
         while (
                ([returnString characterAtIndex:index] == '0' || 

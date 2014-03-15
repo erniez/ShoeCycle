@@ -15,7 +15,7 @@
 //<UIApplicationDelegate>
 <UITableViewDelegate>
 {
-    int currentShoe;
+    NSInteger currentShoe;
 }
 
 

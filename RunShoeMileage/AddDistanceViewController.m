@@ -106,7 +106,7 @@ float runTotal;
     runTotal = [distShoe.startDistance floatValue];
     if ([distShoe.history count]) {
         NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
-        int i = 0;
+        NSInteger i = 0;
         do {
             History *tempHist = [runs objectAtIndex:i];
             runTotal = runTotal +  [tempHist.runDistance floatValue];
@@ -373,8 +373,8 @@ float runTotal;
                                                                toDate:distShoe.expirationDate
                                                               options:0];
     
-    int daysTotal = [componentsTotal day];
-    int daysLeftToWear = ([components day]);
+    NSInteger daysTotal = [componentsTotal day];
+    NSInteger daysLeftToWear = ([components day]);
     float wear = 0.0;
     [daysLeftIdentificationLabel setText:@"Days Left"];
     [daysLeftLabel setText:@"0"];

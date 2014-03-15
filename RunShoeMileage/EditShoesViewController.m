@@ -130,7 +130,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int cnt = [[[ShoeStore defaultStore] allShoes] count];
+    NSInteger cnt = [[[ShoeStore defaultStore] allShoes] count];
     EZLog(@"Tableview Shoe Count = %d",[[[ShoeStore defaultStore] allShoes] count]);
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
     if (currentShoe >= cnt) {
