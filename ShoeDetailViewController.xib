@@ -21,12 +21,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="top" ambiguous="YES" misplaced="YES" image="add-shoe-wallpaper.png" translatesAutoresizingMaskIntoConstraints="NO" id="46">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="376"/>
+                <imageView userInteractionEnabled="NO" contentMode="top" misplaced="YES" image="add-shoe-wallpaper.png" translatesAutoresizingMaskIntoConstraints="NO" id="46">
+                    <rect key="frame" x="0.0" y="64" width="320" height="389"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Vivo Barefoot" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                    <rect key="frame" x="115" y="29" width="183" height="30"/>
+                    <rect key="frame" x="115" y="93" width="183" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                     <textInputTraits key="textInputTraits"/>
@@ -35,7 +35,7 @@
                     </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                    <rect key="frame" x="212" y="99" width="86" height="30"/>
+                    <rect key="frame" x="212" y="163" width="86" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits"/>
@@ -44,7 +44,7 @@
                     </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="12">
-                    <rect key="frame" x="212" y="167" width="86" height="30"/>
+                    <rect key="frame" x="212" y="231" width="86" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits"/>
@@ -54,7 +54,7 @@
                     </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="40">
-                    <rect key="frame" x="115" y="167" width="86" height="30"/>
+                    <rect key="frame" x="115" y="231" width="86" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits"/>
@@ -64,7 +64,7 @@
                     </connections>
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                    <rect key="frame" x="115" y="99" width="86" height="30"/>
+                    <rect key="frame" x="115" y="163" width="86" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits"/>
@@ -73,16 +73,17 @@
                     </connections>
                 </textField>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
-                    <rect key="frame" x="55" y="217" width="209" height="139"/>
+                    <rect key="frame" x="55" y="281" width="209" height="139"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.0" green="0.68235296010000002" blue="0.93333339689999995" alpha="0.25" colorSpace="deviceRGB"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="46" firstAttribute="top" secondItem="1" secondAttribute="top" id="3SZ-Pv-Xc4"/>
+                <constraint firstItem="46" firstAttribute="top" secondItem="1" secondAttribute="top" constant="64" id="RgI-XK-vyg"/>
+                <constraint firstItem="46" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="gbN-Fn-uo3"/>
             </constraints>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <action selector="backgroundTapped:" destination="-1" eventType="touchUpInside" id="32"/>
             </connections>

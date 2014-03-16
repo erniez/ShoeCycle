@@ -40,11 +40,9 @@
             // size up the toolbar and set its frame
             [self.toolbar sizeToFit];
             CGFloat toolbarHeight = [self.toolbar bounds].size.height;
-            CGFloat navBarHeight = 44;
-            CGFloat statusBarHeight = 20;
             CGRect mainViewBounds = self.view.bounds;
             [self.toolbar setFrame:CGRectMake(CGRectGetMinX(mainViewBounds),
-                                         CGRectGetMinY(mainViewBounds) + CGRectGetHeight(mainViewBounds) - (toolbarHeight) - navBarHeight - statusBarHeight,
+                                         CGRectGetMinY(mainViewBounds) + CGRectGetHeight(mainViewBounds) - (toolbarHeight),
                                          CGRectGetWidth(mainViewBounds),
                                          toolbarHeight)];
             
@@ -143,6 +141,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     self.maxDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
         self.maxDistance.keyboardType = UIKeyboardTypeDecimalPad;

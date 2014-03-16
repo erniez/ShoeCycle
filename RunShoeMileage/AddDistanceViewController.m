@@ -77,6 +77,8 @@ float runTotal;
 {
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     EZLog(@"History count = %d",[self.distShoe.history count]);
     
     if ([shoes count] == 0) {
