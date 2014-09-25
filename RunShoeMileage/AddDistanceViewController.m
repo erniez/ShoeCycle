@@ -15,14 +15,16 @@
 #import "History.h"
 #import "UserDistanceSetting.h"
 #import "RunShoeMileageAppDelegate.h"
+#import "RunDatePickerViewController.h"
 
 float const milesToKilometers;
 float runTotal;
 
 
-@interface AddDistanceViewController ()
+@interface AddDistanceViewController () <RunDatePickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
+@property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 
 @end
 
@@ -79,7 +81,7 @@ float runTotal;
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    EZLog(@"History count = %d",[self.distShoe.history count]);
+    EZLog(@"History count = %li",[self.distShoe.history count]);
     
     if ([shoes count] == 0) {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
@@ -175,6 +177,8 @@ float runTotal;
         self.enterDistanceField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
+    self.enterDistanceField.delegate = self;
+    
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
     if ([shoes count]) {
@@ -214,9 +218,16 @@ float runTotal;
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [self callDP:nil];
-    return NO;
-    
+    if (textField == self.runDateField)
+    {
+        [self callDP:textField];
+        return NO;
+    }
+    else
+    {
+        [self dismissDatePickerIfShowing];
+        return YES;
+    }
 }
 
 
@@ -236,6 +247,7 @@ float runTotal;
 - (IBAction)backgroundTapped:(id)sender 
 {
     [[self view] endEditing:YES];
+    [self dismissDatePickerIfShowing];
 }
 
 
@@ -245,10 +257,21 @@ float runTotal;
     return YES;
 }
 
+- (void)dismissDatePickerIfShowing
+{
+    if (self.runDatePickerViewController)
+    {
+        [self dismissDatePicker:self.runDatePickerViewController];
+    }
+}
 
 - (IBAction)addDistanceButton:(id)sender 
 {
     float addDistance;
+    
+    [self dismissDatePickerIfShowing];
+
+    
     NSManagedObjectContext *context = [self.distShoe managedObjectContext];
     NSDate *testDate; // temporary date that gets written to run history table
     
@@ -287,33 +310,53 @@ float runTotal;
 
 - (IBAction)callDP:(id)sender {
     
-    [[self view] endEditing:YES];           // clear any editors that may be visible (clicking from distance to date)
+    [[self view] endEditing:YES];   // clear any editors that may be visible (clicking from distance to date)
     
-    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    
-    [self.actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    
-    CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
-    
-    self.pickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
-    self.pickerView.tag = 10;
-    self.pickerView.datePickerMode = UIDatePickerModeDate;
-//    [pickerView addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
-    
-    [self.actionSheet addSubview:self.pickerView];
-    
-    UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
-    closeButton.momentary = YES; 
-    closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
-    closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
-    closeButton.tintColor = [UIColor blackColor];
-    [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
-    [self.actionSheet addSubview:closeButton];
-    
-    //[actionSheet showInView:self.view];
-    [self.actionSheet showInView:[UIApplication sharedApplication].keyWindow];
-    
-    [self.actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    if (!self.runDatePickerViewController)
+    {
+        self.runDatePickerViewController = [[RunDatePickerViewController alloc] init];
+        CGRect dpFrame = self.runDatePickerViewController.view.frame;
+        dpFrame.origin.y = self.view.bounds.size.height;
+        dpFrame.size.height = 250;
+        self.runDatePickerViewController.view.frame = dpFrame;
+        
+        
+        [self addChildViewController:self.runDatePickerViewController];
+        [self.view addSubview:self.runDatePickerViewController.view];
+        [self.runDatePickerViewController didMoveToParentViewController:self];
+        
+        self.runDatePickerViewController.delegate = self;
+        
+        dpFrame.origin.y -= self.runDatePickerViewController.view.bounds.size.height;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.runDatePickerViewController.view.frame = dpFrame;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+
+}
+
+#pragma mark - RunDatePickerViewControllerDelegate
+
+- (void)dismissDatePicker:(RunDatePickerViewController *)datePicker
+{
+    [self willMoveToParentViewController:nil];
+    CGRect dpFrame = datePicker.view.frame;
+    dpFrame.origin.y = self.view.bounds.size.height;
+    [UIView animateWithDuration:0.5 animations:^{
+        datePicker.view.frame = dpFrame;
+    } completion:^(BOOL finished) {
+        [datePicker.view removeFromSuperview];
+        [datePicker removeFromParentViewController];
+        self.runDatePickerViewController = nil;
+    }];
+}
+
+- (void)runDatePickerValueDidChange:(NSDate *)newDate
+{
+    self.addRunDate = newDate;
+    [self.runDateField setText:[self.runDateFormatter stringFromDate:newDate]];
 }
 
 - (IBAction)standardDistancesButtonPressed:(id)sender
@@ -338,17 +381,6 @@ float runTotal;
    
     [self presentViewController:navController animated:YES completion:nil];
 }
-
-
-- (void)actionSheetCancelEZ:(id)sender
-{
-    EZLog(@"actionSHeetCancel");
-    [self.actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-    EZLog(@"%@",[self.runDateFormatter stringFromDate:self.pickerView.date]);
-    self.addRunDate = self.pickerView.date;
-    [self.runDateField setText:[self.runDateFormatter stringFromDate:self.pickerView.date]];
-}
-
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

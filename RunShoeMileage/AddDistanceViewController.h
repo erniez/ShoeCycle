@@ -31,10 +31,8 @@
 @property (nonatomic, weak) IBOutlet UILabel*daysLeftLabel;
 @property (nonatomic, weak) IBOutlet UILabel*daysLeftIdentificationLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
-@property (nonatomic, strong) UIActionSheet *actionSheet;
+@property (nonatomic, strong) UIAlertController *actionSheet;
 
-
-- (void)actionSheetCancelEZ:(id)sender;
 - (void)calculateDaysLeftProgressBar;
 - (IBAction)backgroundTapped:(id)sender;
 - (IBAction)addDistanceButton:(id)sender;
