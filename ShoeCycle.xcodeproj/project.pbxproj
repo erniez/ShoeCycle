@@ -41,6 +41,7 @@
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
 		1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */; };
 		1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */; };
+		1B7D4B1E19D3C66A000094DE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1D19D3C66A000094DE /* Default-568h@2x.png */; };
 		1B822C4314ECB03500D4AFDF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B822C4214ECB03500D4AFDF /* icon.png */; };
 		1B822C4614ECB03B00D4AFDF /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B822C4514ECB03B00D4AFDF /* icon@2x.png */; };
 		1BB0745518D4F8280037E1F2 /* black_mamba@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BB0745318D4F8280037E1F2 /* black_mamba@2X.png */; };
@@ -115,6 +116,7 @@
 		1B7D4B1819D27F42000094DE /* RunDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunDatePickerViewController.h; sourceTree = "<group>"; };
 		1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDatePickerViewController.m; sourceTree = "<group>"; };
 		1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunDatePickerViewController.xib; sourceTree = "<group>"; };
+		1B7D4B1D19D3C66A000094DE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1B822C4214ECB03500D4AFDF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1B822C4514ECB03B00D4AFDF /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		1BB0745318D4F8280037E1F2 /* black_mamba@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black_mamba@2X.png"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		1BCF642E148AF7E5004C0E6A = {
 			isa = PBXGroup;
 			children = (
+				1B7D4B1D19D3C66A000094DE /* Default-568h@2x.png */,
 				1BD976D614BB1C720012E958 /* Default.png */,
 				1B046D4614F1B0E400850B10 /* Default@2x.png */,
 				1B822C4514ECB03B00D4AFDF /* icon@2x.png */,
@@ -387,6 +390,7 @@
 				1BC94F5914F491C2004CEE6F /* settings-wallpaper@2x.png in Resources */,
 				1BC94F5D14F499ED004CEE6F /* popular-distances-wallpaper.png in Resources */,
 				1BC94F5E14F499ED004CEE6F /* popular-distances-wallpaper@2x.png in Resources */,
+				1B7D4B1E19D3C66A000094DE /* Default-568h@2x.png in Resources */,
 				1BC94F6114F49A20004CEE6F /* button-fav.png in Resources */,
 				1BC94F6214F49A20004CEE6F /* button-fav@2x.png in Resources */,
 				1B5608BA150C491500C58E52 /* Icon-settings.png in Resources */,

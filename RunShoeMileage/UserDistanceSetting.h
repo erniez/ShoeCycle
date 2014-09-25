@@ -36,7 +36,7 @@
 
 + (int) getSelectedShoe;
 
-+ (void) setSelectedShoe:(int)shoeIndex;
++ (void) setSelectedShoe:(NSInteger)shoeIndex;
 
 
 @end

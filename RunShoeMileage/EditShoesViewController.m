@@ -131,7 +131,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger cnt = [[[ShoeStore defaultStore] allShoes] count];
-    EZLog(@"Tableview Shoe Count = %d",[[[ShoeStore defaultStore] allShoes] count]);
+    EZLog(@"Tableview Shoe Count = %ld",[[[ShoeStore defaultStore] allShoes] count]);
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
     if (currentShoe >= cnt) {
         currentShoe = 0;
@@ -152,7 +152,7 @@
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
-    EZLog(@"index path = %i",indexPath.row);
+    EZLog(@"index path = %li",indexPath.row);
     
     Shoe *s = [shoes objectAtIndex:indexPath.row];
     
@@ -162,7 +162,7 @@
         cell.detailTextLabel.text = @"Selected";
     }   
 	
-    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton ;
+    cell.accessoryType = UITableViewCellAccessoryDetailButton ;
     
     EZLog(@"Made it to tableView exit");
     

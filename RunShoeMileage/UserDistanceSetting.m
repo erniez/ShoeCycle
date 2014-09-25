@@ -150,7 +150,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
 }
 
 
-+ (void) setSelectedShoe:(int)shoeIndex
++ (void) setSelectedShoe:(NSInteger)shoeIndex
 {
     [[NSUserDefaults standardUserDefaults]
         setInteger:shoeIndex
