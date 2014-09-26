@@ -4,6 +4,10 @@
       "idiom" : "ipad",
       "scale" : "1x",
       "filename" : "Icon-spot~ipad.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x"
     }
   ],
   "info" : {

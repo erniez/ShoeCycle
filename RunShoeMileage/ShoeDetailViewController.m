@@ -10,6 +10,18 @@
 #import "ShoeStore.h"
 #import "ImageStore.h"
 #import "UserDistanceSetting.h"
+#import <QuartzCore/QuartzCore.h>
+
+
+@interface ShoeDetailViewController ()
+
+@property (weak, nonatomic) IBOutlet UIView *shoeBackgroundView;
+@property (weak, nonatomic) IBOutlet UIView *distanceBackroundView;
+@property (weak, nonatomic) IBOutlet UIView *wearBackgroundView;
+
+@property (nonatomic) BOOL isNew;
+
+@end
 
 @implementation ShoeDetailViewController
 
@@ -19,6 +31,7 @@
     
     if (self) {
         if (isNew) {
+            _isNew = isNew;
             UIBarButtonItem *doneItem = [[UIBarButtonItem alloc]
                                          initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                          target:self 
@@ -29,26 +42,6 @@
                                            target:self
                                            action:@selector(cancel:)];
             [[self navigationItem] setLeftBarButtonItem:cancelItem];
-            UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:@selector(takePicture:)];
-            UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
-            
-            NSArray *items = [NSArray arrayWithObjects:camera, spacer, nil];
-            
-            self.toolbar = [UIToolbar new];
-            self.toolbar.barStyle = UIBarStyleDefault;
-            
-            // size up the toolbar and set its frame
-            [self.toolbar sizeToFit];
-            CGFloat toolbarHeight = [self.toolbar bounds].size.height;
-            CGRect mainViewBounds = self.view.bounds;
-            [self.toolbar setFrame:CGRectMake(CGRectGetMinX(mainViewBounds),
-                                         CGRectGetMinY(mainViewBounds) + CGRectGetHeight(mainViewBounds) - (toolbarHeight),
-                                         CGRectGetWidth(mainViewBounds),
-                                         toolbarHeight)];
-            
-            [self.toolbar setItems:items animated:YES];
-            
-            [self.view addSubview:self.toolbar];
             
             self.maxDistance.text = @"350";
         }
@@ -118,6 +111,27 @@
         // Clear the imageView
         [self.imageView setImage:nil];
     }
+    
+    if (self.isNew)
+    {
+        UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:@selector(takePicture:)];
+        UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
+        
+        NSArray *items = [NSArray arrayWithObjects:camera, spacer, nil];
+        
+        self.toolbar = [UIToolbar new];
+        self.toolbar.barStyle = UIBarStyleDefault;
+        
+        // size up the toolbar and set its frame
+        [self.toolbar sizeToFit];
+        CGFloat toolbarHeight = [self.toolbar bounds].size.height;
+        self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height - toolbarHeight, self.view.bounds.size.height, toolbarHeight);
+        
+        [self.toolbar setItems:items animated:YES];
+        
+        [self.view addSubview:self.toolbar];
+    }
+
 
 }
 
@@ -150,9 +164,23 @@
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
         self.startDistance.keyboardType = UIKeyboardTypeDecimalPad;
     }
- 
+    
+    self.shoeBackgroundView.layer.borderColor = [UIColor colorWithRed:252.0/255.0 green:126.0/255.0 blue:0.0 alpha:1.0].CGColor;
+    [self configureInputFieldBackgroundViews:self.shoeBackgroundView];
+    
+    self.distanceBackroundView.layer.borderColor = [UIColor colorWithRed:124.0/255.0 green:186.0/255.0 blue:46.0/255.0 alpha:1.0].CGColor;
+    [self configureInputFieldBackgroundViews:self.distanceBackroundView];
+    
+    self.wearBackgroundView.layer.borderColor = [UIColor colorWithRed:0.0 green:166.0/255.0 blue:2380/255.0 alpha:1.0].CGColor;
+    [self configureInputFieldBackgroundViews:self.wearBackgroundView];
+}
 
-    // Do any additional setup after loading the view from its nib.
+- (void)configureInputFieldBackgroundViews:(UIView *)view
+{
+    view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.15];
+    view.layer.borderWidth = 1.0;
+    view.layer.cornerRadius = 7.0;
+    view.clipsToBounds = YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
