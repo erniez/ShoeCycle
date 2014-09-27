@@ -10,7 +10,8 @@
 #import "ShoeStore.h"
 #import "ImageStore.h"
 #import "UserDistanceSetting.h"
-#import <QuartzCore/QuartzCore.h>
+#import "UIColor+ShoeCycleColors.h"
+#import "UIUtilities.h"
 
 
 @interface ShoeDetailViewController ()
@@ -165,22 +166,14 @@
         self.startDistance.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
-    self.shoeBackgroundView.layer.borderColor = [UIColor colorWithRed:252.0/255.0 green:126.0/255.0 blue:0.0 alpha:1.0].CGColor;
-    [self configureInputFieldBackgroundViews:self.shoeBackgroundView];
+    self.shoeBackgroundView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.shoeBackgroundView];
     
-    self.distanceBackroundView.layer.borderColor = [UIColor colorWithRed:124.0/255.0 green:186.0/255.0 blue:46.0/255.0 alpha:1.0].CGColor;
-    [self configureInputFieldBackgroundViews:self.distanceBackroundView];
+    self.distanceBackroundView.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.distanceBackroundView];
     
-    self.wearBackgroundView.layer.borderColor = [UIColor colorWithRed:0.0 green:166.0/255.0 blue:2380/255.0 alpha:1.0].CGColor;
-    [self configureInputFieldBackgroundViews:self.wearBackgroundView];
-}
-
-- (void)configureInputFieldBackgroundViews:(UIView *)view
-{
-    view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.15];
-    view.layer.borderWidth = 1.0;
-    view.layer.cornerRadius = 7.0;
-    view.clipsToBounds = YES;
+    self.wearBackgroundView.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.wearBackgroundView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

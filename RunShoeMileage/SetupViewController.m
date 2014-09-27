@@ -9,8 +9,16 @@
 #import "SetupViewController.h"
 #import "RunShoeMileageAppDelegate.h"
 #import "UserDistanceSetting.h"
+#import "UIColor+ShoeCycleColors.h"
+#import "UIUtilities.h"
 
-//extern NSInteger distanceUnit;
+
+@interface SetupViewController ()
+
+@property (weak, nonatomic) IBOutlet UIView *unitsBackgroundView;
+@property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackgroundView;
+
+@end
 
 @implementation SetupViewController
 @synthesize distanceUnitControl;
@@ -95,8 +103,13 @@
     userDefinedDistance3.delegate = self;
     userDefinedDistance4.delegate = self;
 
+    [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     
-    // Do any additional setup after loading the view from its nib.
+    self.unitsBackgroundView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.unitsBackgroundView];
+    
+    self.favoriteDistancesBackgroundView.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.favoriteDistancesBackgroundView];
 }
 
 

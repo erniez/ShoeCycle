@@ -12,6 +12,7 @@
 #import "ShoeStore.h"
 #import "Shoe.h"
 #import "UserDistanceSetting.h"
+#import "UIUtilities.h"
 
 @implementation EditShoesViewController
 //@synthesize testBrandArray, testNameArray;
@@ -77,13 +78,9 @@
     [super viewWillAppear:animated];
     currentShoe = [UserDistanceSetting getSelectedShoe];
     [[self tableView] reloadData];
-    self.tableView.backgroundColor = [UIColor clearColor]; 
-    self.tableView.backgroundView = nil;
-    self.tableView.opaque = NO;
     self.tableView.contentMode = UIViewContentModeTop;
-    self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plain-wallpaper.png"]];
 
-    EZLog(@"******* View Will Appear currentShoe = %i", currentShoe);
+    EZLog(@"******* View Will Appear currentShoe = %li", currentShoe);
 }
 
 
@@ -96,7 +93,7 @@
 {
     [super viewDidLoad];
 
-
+    [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     
     EZLog(@"Made it to viewDidLoad");
 

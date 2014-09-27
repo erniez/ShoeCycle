@@ -9,6 +9,8 @@
 #import "StandardDistancesViewController.h"
 #import "AddDistanceViewController.h"
 #import "UserDistanceSetting.h"
+#import "UIColor+ShoeCycleColors.h"
+#import "UIUtilities.h"
 
 
 // Standard Distance Constants
@@ -20,6 +22,13 @@ const float k5Miles = 5;
 const float k10Miles = 10;
 // end Standard Distance Constants
 
+
+@interface StandardDistancesViewController ()
+
+@property (weak, nonatomic) IBOutlet UIView *popularDistancesBackground;
+@property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackground;
+
+@end
 
 @implementation StandardDistancesViewController
 
@@ -68,6 +77,15 @@ const float k10Miles = 10;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
+    
+    self.popularDistancesBackground.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.popularDistancesBackground];
+    
+    self.favoriteDistancesBackground.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.favoriteDistancesBackground];
+    
     if([UserDistanceSetting getUserDefinedDistance1])
     {
         [userDefinedDistance1Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]] 

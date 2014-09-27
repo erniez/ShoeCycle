@@ -17,6 +17,8 @@
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
 		1B76CA0B19D3CD6B0063F2F2 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
+		1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */; };
+		1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */; };
 		1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */; };
 		1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
@@ -55,6 +57,10 @@
 		1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardDistancesViewController.m; sourceTree = "<group>"; };
 		1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StandardDistancesViewController.xib; sourceTree = "<group>"; };
 		1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		1B76CA1019D5AD030063F2F2 /* UIColor+ShoeCycleColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ShoeCycleColors.h"; sourceTree = "<group>"; };
+		1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ShoeCycleColors.m"; sourceTree = "<group>"; };
+		1B76CA1419D5AEF10063F2F2 /* UIUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIUtilities.h; path = utilities/UIUtilities.h; sourceTree = "<group>"; };
+		1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIUtilities.m; path = utilities/UIUtilities.m; sourceTree = "<group>"; };
 		1B7D4B1819D27F42000094DE /* RunDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunDatePickerViewController.h; sourceTree = "<group>"; };
 		1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDatePickerViewController.m; sourceTree = "<group>"; };
 		1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunDatePickerViewController.xib; sourceTree = "<group>"; };
@@ -102,6 +108,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B76CA0C19D5ABEA0063F2F2 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				1B76CA1019D5AD030063F2F2 /* UIColor+ShoeCycleColors.h */,
+				1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		1B76CA1319D5AE890063F2F2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1B76CA1419D5AEF10063F2F2 /* UIUtilities.h */,
+				1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		1BCF642E148AF7E5004C0E6A = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +158,8 @@
 		1BCF6443148AF7E7004C0E6A /* RunShoeMileage */ = {
 			isa = PBXGroup;
 			children = (
+				1B76CA1319D5AE890063F2F2 /* Utilities */,
+				1B76CA0C19D5ABEA0063F2F2 /* Categories */,
 				1BCF644C148AF7E7004C0E6A /* RunShoeMileageAppDelegate.h */,
 				1BCF644D148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m */,
 				1BCF644F148AF7E7004C0E6A /* MainWindow.xib */,
@@ -255,9 +281,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */,
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* RunShoeMileageAppDelegate.m in Sources */,
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
+				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
