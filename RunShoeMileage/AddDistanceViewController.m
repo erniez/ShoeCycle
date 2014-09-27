@@ -16,6 +16,7 @@
 #import "UserDistanceSetting.h"
 #import "RunShoeMileageAppDelegate.h"
 #import "RunDatePickerViewController.h"
+#import "UIUtilities.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -131,7 +132,6 @@ float runTotal;
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
-
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -143,7 +143,7 @@ float runTotal;
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
+    [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     self.imageView.layer.borderColor = [UIColor orangeColor].CGColor;
     self.imageView.layer.borderWidth = 2.0;
     self.imageView.layer.cornerRadius = 5.0;

@@ -51,16 +51,6 @@
     return self;
 }
 
-/*
-- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle
-{
-    @throw [NSException exceptionWithName:@"Wrong initializer"
-                                   reason:@"Use initForNewItem:"
-                                 userInfo:nil];
-    return nil;
-}
-*/
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -174,6 +164,19 @@
     
     self.wearBackgroundView.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.wearBackgroundView];
+    
+    // Create dotted lines
+    CGRect lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.shoeBackgroundView.bounds.size.height);
+    UIView *lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleOrange]];
+    [self.shoeBackgroundView addSubview:lineView];
+    
+    lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.distanceBackroundView.bounds.size.height);
+    lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleGreen]];
+    [self.distanceBackroundView addSubview:lineView];
+    
+    lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.wearBackgroundView.bounds.size.height);
+    lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleBlue]];
+    [self.wearBackgroundView addSubview:lineView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

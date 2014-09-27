@@ -86,6 +86,15 @@ const float k10Miles = 10;
     self.favoriteDistancesBackground.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.favoriteDistancesBackground];
     
+    // Create dotted lines
+    CGRect lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.popularDistancesBackground.bounds.size.height);
+    UIView *lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleBlue]];
+    [self.popularDistancesBackground addSubview:lineView];
+    
+    lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.favoriteDistancesBackground.bounds.size.height);
+    lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleGreen]];
+    [self.favoriteDistancesBackground addSubview:lineView];
+    
     if([UserDistanceSetting getUserDefinedDistance1])
     {
         [userDefinedDistance1Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]] 

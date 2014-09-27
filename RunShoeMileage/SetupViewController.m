@@ -110,6 +110,15 @@
     
     self.favoriteDistancesBackgroundView.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.favoriteDistancesBackgroundView];
+    
+    // Create dotted lines
+    CGRect lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.unitsBackgroundView.bounds.size.height);
+    UIView *lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleOrange]];
+    [self.unitsBackgroundView addSubview:lineView];
+    
+    lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.favoriteDistancesBackgroundView.bounds.size.height);
+    lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleGreen]];
+    [self.favoriteDistancesBackgroundView addSubview:lineView];
 }
 
 
