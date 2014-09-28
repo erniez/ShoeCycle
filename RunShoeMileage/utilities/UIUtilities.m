@@ -54,7 +54,7 @@
 
 + (void)setShoeCyclePatternedBackgroundOnView:(UIView *)view
 {
-    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
+    view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"perfTile"]];
 }
 
 + (UIView *)getDottedLineForFrame:(CGRect)frame color:(UIColor *)color

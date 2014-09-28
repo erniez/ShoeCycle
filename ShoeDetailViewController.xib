@@ -8,14 +8,17 @@
             <connections>
                 <outlet property="brandField" destination="9" id="20"/>
                 <outlet property="distanceBackroundView" destination="ehS-sU-LGO" id="9ib-cP-Xd1"/>
+                <outlet property="distanceTitleLabel" destination="kEJ-70-IGE" id="3Oi-E6-QrV"/>
                 <outlet property="expirationDateField" destination="12" id="39"/>
                 <outlet property="imageView" destination="24" id="25"/>
                 <outlet property="maxDistance" destination="11" id="17"/>
                 <outlet property="shoeBackgroundView" destination="Wai-7M-dA2" id="7aS-C1-ZFF"/>
+                <outlet property="shoeTitleLabel" destination="ndh-6F-sfG" id="Ytc-Im-X2w"/>
                 <outlet property="startDateField" destination="40" id="44"/>
                 <outlet property="startDistance" destination="13" id="19"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="wearBackgroundView" destination="e9r-ti-zJm" id="1Zi-sS-Zsi"/>
+                <outlet property="wearTimeTitleLabel" destination="Ioa-pG-p7o" id="HHc-io-aYd"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,26 +31,68 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wai-7M-dA2" userLabel="Shoe Background">
                             <rect key="frame" x="14" y="9" width="293" height="59"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoe" translatesAutoresizingMaskIntoConstraints="NO" id="xmg-Fq-5Jd">
+                                    <rect key="frame" x="20" y="10" width="52" height="25"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndh-6F-sfG">
+                                    <rect key="frame" x="32" y="42" width="29" height="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="ndh-6F-sfG" secondAttribute="bottom" constant="5" id="4xc-Ox-ep8"/>
+                                <constraint firstItem="ndh-6F-sfG" firstAttribute="centerX" secondItem="xmg-Fq-5Jd" secondAttribute="centerX" id="8MQ-zG-CXI"/>
+                                <constraint firstItem="xmg-Fq-5Jd" firstAttribute="top" secondItem="Wai-7M-dA2" secondAttribute="top" constant="10" id="LBp-ra-ptW"/>
                                 <constraint firstAttribute="width" constant="293" id="an7-3Q-Ms9"/>
                                 <constraint firstAttribute="height" constant="59" id="fas-f9-Rb8"/>
+                                <constraint firstItem="xmg-Fq-5Jd" firstAttribute="leading" secondItem="Wai-7M-dA2" secondAttribute="leading" constant="20" id="iIz-ID-5aD"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehS-sU-LGO" userLabel="Distance Background">
                             <rect key="frame" x="14" y="76" width="293" height="59"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="steps" translatesAutoresizingMaskIntoConstraints="NO" id="1hP-p8-Oxo">
+                                    <rect key="frame" x="35" y="5" width="25" height="32"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISTANCE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEJ-70-IGE">
+                                    <rect key="frame" x="23" y="42" width="50" height="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="293" id="Bbj-Q6-bj7"/>
+                                <constraint firstItem="kEJ-70-IGE" firstAttribute="centerX" secondItem="1hP-p8-Oxo" secondAttribute="centerX" id="Mj8-qd-FNk"/>
+                                <constraint firstItem="1hP-p8-Oxo" firstAttribute="leading" secondItem="ehS-sU-LGO" secondAttribute="leading" constant="35" id="Sen-st-1TA"/>
+                                <constraint firstItem="1hP-p8-Oxo" firstAttribute="top" secondItem="ehS-sU-LGO" secondAttribute="top" constant="5" id="Z2F-rj-7OE"/>
                                 <constraint firstAttribute="height" constant="59" id="aZC-5A-JHe"/>
+                                <constraint firstAttribute="bottom" secondItem="kEJ-70-IGE" secondAttribute="bottom" constant="5" id="qjn-Ke-GpC"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9r-ti-zJm" userLabel="Wear Time Background">
                             <rect key="frame" x="14" y="144" width="293" height="59"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="dze-rS-X6i">
+                                    <rect key="frame" x="30" y="5" width="35" height="35"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WEAR TIME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ioa-pG-p7o">
+                                    <rect key="frame" x="22" y="42" width="57" height="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstItem="dze-rS-X6i" firstAttribute="leading" secondItem="e9r-ti-zJm" secondAttribute="leading" constant="30" id="0LL-cY-cVb"/>
+                                <constraint firstAttribute="bottom" secondItem="Ioa-pG-p7o" secondAttribute="bottom" constant="5" id="2L8-OP-DgG"/>
+                                <constraint firstItem="dze-rS-X6i" firstAttribute="top" secondItem="e9r-ti-zJm" secondAttribute="top" constant="5" id="H1G-8e-8dr"/>
                                 <constraint firstAttribute="width" constant="293" id="aaB-rw-qlI"/>
                                 <constraint firstAttribute="height" constant="59" id="goL-sP-aB1"/>
+                                <constraint firstItem="Ioa-pG-p7o" firstAttribute="centerX" secondItem="dze-rS-X6i" secondAttribute="centerX" constant="3" id="hgn-6g-9VR"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6P-4b-8Np">
@@ -218,7 +263,16 @@
             </connections>
             <point key="canvasLocation" x="140" y="165"/>
         </view>
+        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="vki-NG-poc">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </imageView>
     </objects>
+    <resources>
+        <image name="clock" width="35" height="35"/>
+        <image name="shoe" width="52" height="25"/>
+        <image name="steps" width="25" height="32"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

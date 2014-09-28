@@ -51,7 +51,7 @@
 - (void) clearCacheEZ:(NSNotification *)note  // had to change name due to Apple rejection
                                               // failed the use of non-public API rule
 {
-    EZLog(@"flushing %d images out of the cache", [dictionary count]);
+    EZLog(@"flushing %lu images out of the cache", (unsigned long)[dictionary count]);
     [dictionary removeAllObjects];
 }
 

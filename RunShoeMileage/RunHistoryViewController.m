@@ -188,9 +188,9 @@
         
         EZLog(@"runs = %@",runs);
         [runs removeObjectAtIndex:[indexPath row]];
-        EZLog(@"index path = %d",[indexPath row]);
+        EZLog(@"index path = %ld",(long)[indexPath row]);
         EZLog(@"runs = %@",runs);
-        EZLog(@"history count after delete = %d",[shoe.history count]);
+        EZLog(@"history count after delete = %lu",(unsigned long)[shoe.history count]);
         // remove row from table with animation
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         [[self tableView] reloadData];

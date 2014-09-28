@@ -24,6 +24,27 @@ float runTotal;
 
 @interface AddDistanceViewController () <RunDatePickerViewDelegate>
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockInnerConstraint;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UILabel *maxDistanceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *totalDistanceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *distanceUnitLabel;
+@property (nonatomic, strong) UIDatePicker *pickerView;
+@property (nonatomic, weak) IBOutlet UITextField *runDateField;
+@property (nonatomic, strong) NSDateFormatter *runDateFormatter;
+@property (nonatomic, weak) IBOutlet UITextField *nameField;
+@property (nonatomic, strong) Shoe *distShoe;
+@property (nonatomic, strong) History *hist;
+@property (nonatomic, weak) IBOutlet UIProgressView *totalDistanceProgress;
+@property (nonatomic, strong) NSDate *addRunDate;
+@property (nonatomic, weak) IBOutlet UILabel *startDateLabel;
+@property (nonatomic, weak) IBOutlet UILabel *expirationDateLabel;
+@property (nonatomic, weak) IBOutlet UILabel*daysLeftLabel;
+@property (nonatomic, weak) IBOutlet UILabel*daysLeftIdentificationLabel;
+@property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
+@property (nonatomic, strong) UIAlertController *actionSheet;
+
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 
@@ -79,7 +100,7 @@ float runTotal;
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+      
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -139,6 +160,12 @@ float runTotal;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([[UIScreen mainScreen] bounds].size.height > 500)
+    {
+        self.bottomBlockContstraint.constant = 110;
+        self.bottomBlockInnerConstraint.constant = 40;
+    }
     
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     self.imageView.layer.borderColor = [UIColor orangeColor].CGColor;

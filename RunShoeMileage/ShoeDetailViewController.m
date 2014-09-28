@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIView *shoeBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *distanceBackroundView;
 @property (weak, nonatomic) IBOutlet UIView *wearBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *shoeTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *wearTimeTitleLabel;
 
 @property (nonatomic) BOOL isNew;
 
@@ -155,6 +158,10 @@
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
         self.startDistance.keyboardType = UIKeyboardTypeDecimalPad;
     }
+    
+    self.shoeTitleLabel.textColor = [UIColor shoeCycleOrange];
+    self.distanceTitleLabel.textColor = [UIColor shoeCycleGreen];
+    self.wearTimeTitleLabel.textColor = [UIColor shoeCycleBlue];
     
     self.shoeBackgroundView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.shoeBackgroundView];
