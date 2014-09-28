@@ -29,6 +29,7 @@ const float k10Miles = 10;
 @property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackground;
 @property (weak, nonatomic) IBOutlet UILabel *popDistancesTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favDstancesTitleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *stepsImageView;
 
 @end
 
@@ -79,6 +80,11 @@ const float k10Miles = 10;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIImage *templateImage = [[UIImage imageNamed:@"steps"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.stepsImageView.image = templateImage;
+    self.stepsImageView.tintColor = [UIColor shoeCycleBlue];
+    
     
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     self.popDistancesTitleLabel.textColor = [UIColor shoeCycleBlue];

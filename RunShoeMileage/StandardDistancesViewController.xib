@@ -11,6 +11,7 @@
                 <outlet property="halfMarathonButton" destination="8" id="39"/>
                 <outlet property="popDistancesTitleLabel" destination="snF-re-Mui" id="kye-ys-Pwo"/>
                 <outlet property="popularDistancesBackground" destination="TXM-OM-8z6" id="gJd-xh-qQK"/>
+                <outlet property="stepsImageView" destination="U72-5h-wzN" id="Tbh-Px-hwF"/>
                 <outlet property="userDefinedDistance1Button" destination="21" id="29"/>
                 <outlet property="userDefinedDistance2Button" destination="23" id="30"/>
                 <outlet property="userDefinedDistance3Button" destination="25" id="31"/>
