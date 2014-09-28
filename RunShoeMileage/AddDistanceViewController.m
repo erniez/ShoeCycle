@@ -161,7 +161,7 @@ float runTotal;
 {
     [super viewDidLoad];
     
-    if ([[UIScreen mainScreen] bounds].size.height > 500)
+    if (![UIUtilities isIphone4ScreenSize])
     {
         self.bottomBlockContstraint.constant = 110;
         self.bottomBlockInnerConstraint.constant = 40;

@@ -16,6 +16,8 @@
                 <outlet property="shoeTitleLabel" destination="ndh-6F-sfG" id="Ytc-Im-X2w"/>
                 <outlet property="startDateField" destination="40" id="44"/>
                 <outlet property="startDistance" destination="13" id="19"/>
+                <outlet property="topSpaceConstraint" destination="3pp-yq-P8S" id="9sC-Cp-8oG"/>
+                <outlet property="verticalCenterConstraint" destination="Cea-ec-k2l" id="yYt-Rd-aFd"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="wearBackgroundView" destination="e9r-ti-zJm" id="1Zi-sS-Zsi"/>
                 <outlet property="wearTimeTitleLabel" destination="Ioa-pG-p7o" id="HHc-io-aYd"/>
@@ -253,10 +255,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="N6e-qp-AOC" firstAttribute="top" secondItem="1" secondAttribute="top" constant="64" id="3pp-yq-P8S"/>
                 <constraint firstAttribute="centerX" secondItem="N6e-qp-AOC" secondAttribute="centerX" id="5lD-lo-cAz"/>
                 <constraint firstAttribute="centerY" secondItem="N6e-qp-AOC" secondAttribute="centerY" id="Cea-ec-k2l"/>
             </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <action selector="backgroundTapped:" destination="-1" eventType="touchUpInside" id="32"/>

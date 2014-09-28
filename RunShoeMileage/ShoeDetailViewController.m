@@ -16,6 +16,8 @@
 
 @interface ShoeDetailViewController ()
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalCenterConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceConstraint;
 @property (weak, nonatomic) IBOutlet UIView *shoeBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *distanceBackroundView;
 @property (weak, nonatomic) IBOutlet UIView *wearBackgroundView;
@@ -149,7 +151,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
+    [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
+    if ([UIUtilities isIphone4ScreenSize])
+    {
+        self.topSpaceConstraint.constant = 67.0;
+        [self.view removeConstraint:self.verticalCenterConstraint];
+    }
+    else
+    {
+        [self.view removeConstraint:self.topSpaceConstraint];
+    }
+    
     self.maxDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
         self.maxDistance.keyboardType = UIKeyboardTypeDecimalPad;

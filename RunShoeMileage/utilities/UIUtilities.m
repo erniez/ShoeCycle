@@ -64,4 +64,14 @@
     return lineView;
 }
 
++ (BOOL)isIphone4ScreenSize
+{
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height < 500)
+    {
+        return YES;
+    }
+    return NO;
+}
+
 @end
