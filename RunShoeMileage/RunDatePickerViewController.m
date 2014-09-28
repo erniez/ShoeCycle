@@ -7,11 +7,13 @@
 //
 
 #import "RunDatePickerViewController.h"
-
+#import "UIColor+ShoeCycleColors.h"
 
 @interface RunDatePickerViewController ()
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @end
 
@@ -20,13 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
+    self.infoLabel.textColor = [UIColor shoeCycleOrange];
+    self.doneButton.tintColor = [UIColor shoeCycleOrange];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 - (IBAction)doneButtonTapped:(id)sender
 {

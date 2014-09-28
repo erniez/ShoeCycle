@@ -28,6 +28,7 @@
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 
 @property (nonatomic) BOOL isNew;
+@property (nonatomic) BOOL newShoeIsCancelled;
 
 @end
 
@@ -137,13 +138,20 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 
-    [super viewWillDisappear:animated];
-    self.shoe.brand = self.brandField.text;
-    self.shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.maxDistance.text]];
-    EZLog(@"Leaving maxDistance %@",self.shoe.maxDistance);
-    self.shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.startDistance.text]];
-    self.shoe.expirationDate = self.expirationDate;
-    self.shoe.startDate = self.startDate;
+    if (!self.newShoeIsCancelled)
+    {
+        [super viewWillDisappear:animated];
+        self.shoe.brand = self.brandField.text;
+        self.shoe.maxDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.maxDistance.text]];
+        EZLog(@"Leaving maxDistance %@",self.shoe.maxDistance);
+        self.shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.startDistance.text]];
+        self.shoe.expirationDate = self.expirationDate;
+        self.shoe.startDate = self.startDate;
+        
+        // Save changes, if any, unless cancelled (new shoe only)
+        [[ShoeStore defaultStore] saveChangesEZ];
+    }
+
     EZLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
     EZLog(@"Leaving Date = %@",self.shoe.expirationDate);
     EZLog(@"************** Leaving Detail View ************");
@@ -338,11 +346,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             
     EZLog(@"%@", self.shoe.brand);
     
+    [[ShoeStore defaultStore] saveChangesEZ];
+    
     // This message gets forwarded to the parentViewController  
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-//    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
-//        [delegate itemDetailViewControllerWillDismiss:self];
 }
 
 
@@ -352,12 +359,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     // This message gets forwarded to the parentViewController
 
     [[ShoeStore defaultStore] removeShoe:self.shoe];
+    self.newShoeIsCancelled = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-//    if ([delegate respondsToSelector:@selector(itemDetailViewControllerWillDismiss:)])
- //       [delegate itemDetailViewControllerWillDismiss:self];
 }
-
 
 - (IBAction)callDP:(id)sender
 {

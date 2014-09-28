@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunDatePickerViewController">
             <connections>
                 <outlet property="datePicker" destination="ywk-SZ-11z" id="tVx-DE-gUt"/>
+                <outlet property="doneButton" destination="Y6I-1z-Xwm" id="a8M-UI-JTo"/>
+                <outlet property="infoLabel" destination="sMg-dr-dEE" id="nJN-Ij-ypH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,7 +33,7 @@
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ywk-SZ-11z">
-                                <rect key="frame" x="0.0" y="46" width="320" height="162"/>
+                                <rect key="frame" x="0.0" y="38" width="320" height="162"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="uWv-r8-yXu"/>
                                 </constraints>
@@ -42,8 +44,8 @@
                                     <action selector="datePickerValueDidChange:" destination="-1" eventType="valueChanged" id="F79-3k-EpL"/>
                                 </connections>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick your run date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMg-dr-dEE">
-                                <rect key="frame" x="8" y="12" width="145" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick your date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMg-dr-dEE">
+                                <rect key="frame" x="8" y="12" width="116" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -52,7 +54,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Y6I-1z-Xwm" secondAttribute="trailing" constant="8" id="7bU-yv-vgY"/>
                             <constraint firstAttribute="centerX" secondItem="ywk-SZ-11z" secondAttribute="centerX" id="9MU-lU-fhU"/>
-                            <constraint firstItem="ywk-SZ-11z" firstAttribute="top" secondItem="Y6I-1z-Xwm" secondAttribute="bottom" constant="8" id="BKn-eW-egX"/>
+                            <constraint firstItem="ywk-SZ-11z" firstAttribute="top" secondItem="Y6I-1z-Xwm" secondAttribute="bottom" id="BKn-eW-egX"/>
                             <constraint firstItem="Y6I-1z-Xwm" firstAttribute="top" secondItem="Z7U-ed-IIM" secondAttribute="top" constant="8" id="p7B-pl-SFt"/>
                         </constraints>
                     </view>

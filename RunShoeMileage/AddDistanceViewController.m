@@ -195,6 +195,8 @@ float runTotal;
     [self.view addSubview:arrowContainer];
     
     self.lightenView.layer.cornerRadius = 5.0;
+    self.imageView.layer.cornerRadius = 5.0;
+    self.imageView.clipsToBounds = YES;
     
     self.enterDistanceField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
