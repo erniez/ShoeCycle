@@ -124,6 +124,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
     [self refreshUserDefinedDistances];
 }

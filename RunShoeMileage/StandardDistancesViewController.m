@@ -42,7 +42,7 @@ const float k10Miles = 10;
 
 - (id)initWithDistance:(AddDistanceViewController *)vc
 {
-//    self = [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // initialize with the AddDistanceViewController being passed in.
         self.addDistanceViewController = vc;                    

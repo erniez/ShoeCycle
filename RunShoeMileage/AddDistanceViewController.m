@@ -78,6 +78,8 @@ float runTotal;
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -132,11 +134,6 @@ float runTotal;
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-
 }
 
 - (void)viewDidLoad
@@ -207,12 +204,6 @@ float runTotal;
 
       
     EZLog(@"View Did Load addDistanceViewController");
-
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated
-{
 
 }
 
