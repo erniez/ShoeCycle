@@ -14,6 +14,8 @@
 
 @property (nonatomic, weak) id<RunDatePickerViewDelegate>delegate;
 
+- (void)setDate:(NSDate *)newDate;
+
 @end
 
 @protocol RunDatePickerViewDelegate <NSObject>

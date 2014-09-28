@@ -12,9 +12,10 @@
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
+#import "RunDatePickerViewController.h"
 
 
-@interface ShoeDetailViewController ()
+@interface ShoeDetailViewController () <RunDatePickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalCenterConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceConstraint;
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *shoeTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wearTimeTitleLabel;
+@property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 
 @property (nonatomic) BOOL isNew;
 
@@ -357,40 +359,63 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 }
 
 
-- (IBAction)callDP:(id)sender 
+- (IBAction)callDP:(id)sender
 {
+    [[self view] endEditing:YES];   // clear any editors that may be visible (clicking from distance to date)
     
-    [[self view] endEditing:YES];           // clear any editors that may be visible (clicking from distance to date)
-    
-    EZLog(@"callDP sender = %@", sender);
     self.currentDateField = sender;
     
-    self.dateActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    if (!self.runDatePickerViewController)
+    {
+        self.runDatePickerViewController = [[RunDatePickerViewController alloc] init];
+        CGRect dpFrame = self.runDatePickerViewController.view.frame;
+        dpFrame.origin.y = self.view.bounds.size.height;
+        dpFrame.size.height = 250;
+        self.runDatePickerViewController.view.frame = dpFrame;
+        
+        [self addChildViewController:self.runDatePickerViewController];
+        [self.view addSubview:self.runDatePickerViewController.view];
+        [self.runDatePickerViewController didMoveToParentViewController:self];
+        
+        self.runDatePickerViewController.delegate = self;
+        
+        dpFrame.origin.y -= self.runDatePickerViewController.view.bounds.size.height;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.runDatePickerViewController.view.frame = dpFrame;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
     
-    [self.dateActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    
-    CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
-    
-    self.expPickerView = [[UIDatePicker alloc] initWithFrame:pickerFrame];
-    self.expPickerView.tag = 10;
-    self.expPickerView.datePickerMode = UIDatePickerModeDate;
-    self.expPickerView.date = self.currentDate;
-    
-    [self.dateActionSheet addSubview:self.expPickerView];
-    
-    UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
-    closeButton.momentary = YES; 
-    closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
-    closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
-    closeButton.tintColor = [UIColor blackColor];
-    [closeButton addTarget:self action:@selector(actionSheetCancelEZ:) forControlEvents:UIControlEventValueChanged];
-    [self.dateActionSheet addSubview:closeButton];
-    
-    [self.dateActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-    
-    [self.dateActionSheet setBounds:CGRectMake(0, 0, 320, 485)];
+    [self.runDatePickerViewController setDate:self.currentDate];
+}
 
-    EZLog(@"leaving CallDP");
+#pragma mark - RunDatePickerViewControllerDelegate
+
+- (void)dismissDatePicker:(RunDatePickerViewController *)datePicker
+{
+    [self willMoveToParentViewController:nil];
+    CGRect dpFrame = datePicker.view.frame;
+    dpFrame.origin.y = self.view.bounds.size.height;
+    [UIView animateWithDuration:0.5 animations:^{
+        datePicker.view.frame = dpFrame;
+    } completion:^(BOOL finished) {
+        [datePicker.view removeFromSuperview];
+        [datePicker removeFromParentViewController];
+        self.runDatePickerViewController = nil;
+    }];
+}
+
+- (void)runDatePickerValueDidChange:(NSDate *)newDate
+{
+    if (self.currentDateField == self.startDateField){
+        self.startDate = newDate;
+    }
+    
+    if (self.currentDateField == self.expirationDateField) {
+        self.expirationDate = newDate;
+    }
+    [self.currentDateField setText:[self.expirationDateFormatter stringFromDate:newDate]];
 }
 
 
@@ -410,23 +435,5 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     return YES;    
 }
-
-
-- (void)actionSheetCancelEZ:(id)sender
-{
-    if (self.currentDateField == self.startDateField){
-            self.startDate = self.expPickerView.date;
-        }
-    
-    if (self.currentDateField == self.expirationDateField) {
-            self.expirationDate = self.expPickerView.date;
-        }
-    
-    EZLog(@"actionSheetCancel - Current Date = %@",self.currentDate);
-    EZLog(@"Start Date = %@",self.startDate);
-    [self.currentDateField setText:[self.expirationDateFormatter stringFromDate:self.expPickerView.date]];
-    [self.dateActionSheet dismissWithClickedButtonIndex:0 animated:YES];
-}
-
 
 @end

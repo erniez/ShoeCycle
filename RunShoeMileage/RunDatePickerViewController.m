@@ -11,6 +11,8 @@
 
 @interface RunDatePickerViewController ()
 
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+
 @end
 
 @implementation RunDatePickerViewController
@@ -35,6 +37,11 @@
 {
     NSDate *pickerDate = datePicker.date;
     [self.delegate runDatePickerValueDidChange:pickerDate];
+}
+
+- (void)setDate:(NSDate *)newDate
+{
+    self.datePicker.date = newDate;
 }
 
 @end
