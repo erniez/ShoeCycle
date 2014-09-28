@@ -17,6 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *unitsBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *unitsTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favDistancesTitleLabel;
 
 @end
 
@@ -77,6 +79,8 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
+    self.unitsTitleLabel.textColor = [UIColor shoeCycleOrange];
+    self.favDistancesTitleLabel.textColor = [UIColor shoeCycleGreen];
     
     userDefinedDistance1.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
