@@ -192,7 +192,7 @@
 - (IBAction)aboutButton:(id)sender 
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About ShoeCycle"
-                                                    message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 1.1"
+                                                    message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.0"
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
