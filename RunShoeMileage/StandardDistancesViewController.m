@@ -27,6 +27,8 @@ const float k10Miles = 10;
 
 @property (weak, nonatomic) IBOutlet UIView *popularDistancesBackground;
 @property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackground;
+@property (weak, nonatomic) IBOutlet UILabel *popDistancesTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favDstancesTitleLabel;
 
 @end
 
@@ -79,6 +81,8 @@ const float k10Miles = 10;
     [super viewDidLoad];
     
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
+    self.popDistancesTitleLabel.textColor = [UIColor shoeCycleBlue];
+    self.favDstancesTitleLabel.textColor = [UIColor shoeCycleGreen];
     
     self.popularDistancesBackground.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.popularDistancesBackground];

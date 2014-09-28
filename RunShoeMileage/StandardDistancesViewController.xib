@@ -6,8 +6,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StandardDistancesViewController">
             <connections>
+                <outlet property="favDstancesTitleLabel" destination="lpc-AQ-EBU" id="HXP-xj-utb"/>
                 <outlet property="favoriteDistancesBackground" destination="AI0-5u-tVs" id="Mk1-jT-3xI"/>
                 <outlet property="halfMarathonButton" destination="8" id="39"/>
+                <outlet property="popDistancesTitleLabel" destination="snF-re-Mui" id="kye-ys-Pwo"/>
                 <outlet property="popularDistancesBackground" destination="TXM-OM-8z6" id="gJd-xh-qQK"/>
                 <outlet property="userDefinedDistance1Button" destination="21" id="29"/>
                 <outlet property="userDefinedDistance2Button" destination="23" id="30"/>
@@ -25,7 +27,7 @@
                     <rect key="frame" x="14" y="76" width="292" height="155"/>
                     <subviews>
                         <button autoresizesSubviews="NO" opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                            <rect key="frame" x="103" y="8" width="86" height="35"/>
+                            <rect key="frame" x="103" y="8" width="86" height="36"/>
                             <color key="backgroundColor" white="0.5" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="5K" backgroundImage="button-fav">
@@ -40,7 +42,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                            <rect key="frame" x="197" y="8" width="86" height="35"/>
+                            <rect key="frame" x="197" y="8" width="86" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="10K" backgroundImage="button-fav">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,7 +70,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                            <rect key="frame" x="197" y="51" width="86" height="35"/>
+                            <rect key="frame" x="197" y="51" width="86" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="10 Miles" backgroundImage="button-fav">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -109,10 +111,37 @@
                                 <action selector="distanceMarathonButtonPressed:" destination="-1" eventType="touchUpInside" id="19"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aE-3H-t2a">
+                            <rect key="frame" x="0.0" y="8" width="90" height="140"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="steps" translatesAutoresizingMaskIntoConstraints="NO" id="U72-5h-wzN">
+                                    <rect key="frame" x="0.0" y="40" width="90" height="32"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POPULAR DISTANCES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snF-re-Mui">
+                                    <rect key="frame" x="0.0" y="77" width="90" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="U72-5h-wzN" firstAttribute="top" secondItem="4aE-3H-t2a" secondAttribute="top" constant="40" id="Hof-kL-NI6"/>
+                                <constraint firstItem="U72-5h-wzN" firstAttribute="leading" secondItem="4aE-3H-t2a" secondAttribute="leading" id="JLz-sn-hJO"/>
+                                <constraint firstItem="snF-re-Mui" firstAttribute="leading" secondItem="4aE-3H-t2a" secondAttribute="leading" id="K0N-x1-02W"/>
+                                <constraint firstItem="snF-re-Mui" firstAttribute="top" secondItem="U72-5h-wzN" secondAttribute="bottom" constant="5" id="VvV-Tc-dH2"/>
+                                <constraint firstItem="U72-5h-wzN" firstAttribute="width" secondItem="4aE-3H-t2a" secondAttribute="width" id="Wr9-MY-Y94"/>
+                                <constraint firstItem="snF-re-Mui" firstAttribute="width" secondItem="4aE-3H-t2a" secondAttribute="width" id="dJs-no-lND"/>
+                                <constraint firstAttribute="width" constant="90" id="m1k-Lg-3e5"/>
+                                <constraint firstAttribute="height" constant="140" id="uGu-zO-Uh5"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="0.42999999999999999" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="292" id="7Y6-e7-M2y"/>
+                        <constraint firstItem="4aE-3H-t2a" firstAttribute="leading" secondItem="TXM-OM-8z6" secondAttribute="leading" id="HYd-49-NSk"/>
+                        <constraint firstAttribute="centerY" secondItem="4aE-3H-t2a" secondAttribute="centerY" id="jgg-6y-WX5"/>
                         <constraint firstAttribute="height" constant="155" id="l0k-uF-vlq"/>
                     </constraints>
                 </view>
@@ -191,15 +220,42 @@
                                 <action selector="userDefinedDistance2ButtonPressed:" destination="-1" eventType="touchUpInside" id="35"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QA5-f3-zrF">
+                            <rect key="frame" x="0.0" y="9" width="90" height="100"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAVORITE DISTANCES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpc-AQ-EBU">
+                                    <rect key="frame" x="0.0" y="54" width="90" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heartPlus" translatesAutoresizingMaskIntoConstraints="NO" id="VAX-3C-PNp">
+                                    <rect key="frame" x="0.0" y="14" width="90" height="35"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="lpc-AQ-EBU" firstAttribute="leading" secondItem="QA5-f3-zrF" secondAttribute="leading" id="29S-ar-Av1"/>
+                                <constraint firstItem="lpc-AQ-EBU" firstAttribute="top" secondItem="VAX-3C-PNp" secondAttribute="bottom" constant="5" id="7OA-bc-byp"/>
+                                <constraint firstAttribute="width" constant="90" id="7fN-rW-CBA"/>
+                                <constraint firstAttribute="height" constant="100" id="ErG-TO-RKM"/>
+                                <constraint firstItem="VAX-3C-PNp" firstAttribute="width" secondItem="QA5-f3-zrF" secondAttribute="width" id="pB6-Xf-RSq"/>
+                                <constraint firstItem="VAX-3C-PNp" firstAttribute="leading" secondItem="QA5-f3-zrF" secondAttribute="leading" id="usf-mn-lns"/>
+                                <constraint firstItem="lpc-AQ-EBU" firstAttribute="width" secondItem="QA5-f3-zrF" secondAttribute="width" id="ykb-6V-tCb"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666669999997" alpha="0.42999999999999999" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="23" firstAttribute="leading" secondItem="21" secondAttribute="trailing" constant="8" id="7ch-fX-fzn"/>
                         <constraint firstAttribute="trailing" secondItem="27" secondAttribute="trailing" constant="10" id="Dol-IH-9MS"/>
                         <constraint firstItem="23" firstAttribute="centerY" secondItem="21" secondAttribute="centerY" id="FAs-wL-pgn"/>
+                        <constraint firstAttribute="centerY" secondItem="QA5-f3-zrF" secondAttribute="centerY" id="G4I-MK-YL7"/>
                         <constraint firstItem="21" firstAttribute="top" secondItem="AI0-5u-tVs" secondAttribute="top" constant="15" id="GDN-uN-vm7"/>
+                        <constraint firstItem="QA5-f3-zrF" firstAttribute="leading" secondItem="AI0-5u-tVs" secondAttribute="leading" id="MO4-ep-SEp"/>
                         <constraint firstAttribute="height" constant="118" id="PrO-7a-307"/>
                         <constraint firstItem="27" firstAttribute="centerY" secondItem="25" secondAttribute="centerY" id="XGi-Rj-E37"/>
+                        <constraint firstItem="VAX-3C-PNp" firstAttribute="top" secondItem="AI0-5u-tVs" secondAttribute="top" constant="23" id="eki-Xj-QIC"/>
                         <constraint firstAttribute="trailing" secondItem="23" secondAttribute="trailing" constant="10" id="gkV-2u-i5i"/>
                         <constraint firstItem="27" firstAttribute="leading" secondItem="25" secondAttribute="trailing" constant="9" id="kdt-WR-Tma"/>
                         <constraint firstAttribute="bottom" secondItem="27" secondAttribute="bottom" constant="15" id="vHT-yK-k4W"/>
@@ -215,10 +271,31 @@
                 <constraint firstItem="AI0-5u-tVs" firstAttribute="leading" secondItem="TXM-OM-8z6" secondAttribute="leading" id="tRb-mz-A7h"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-38" y="84"/>
         </view>
+        <visualEffectView opaque="NO" contentMode="scaleToFill" id="bRm-TJ-MJq">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dL7-gU-AAQ">
+                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            </view>
+            <blurEffect style="light"/>
+        </visualEffectView>
+        <visualEffectView opaque="NO" contentMode="scaleToFill" id="C88-UZ-n3X">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kLJ-RP-pKj">
+                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            </view>
+            <blurEffect style="light"/>
+        </visualEffectView>
     </objects>
     <resources>
         <image name="button-fav" width="86" height="35"/>
+        <image name="heartPlus" width="35" height="35"/>
+        <image name="steps" width="25" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
