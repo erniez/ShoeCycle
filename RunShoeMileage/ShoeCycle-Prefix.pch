@@ -17,4 +17,5 @@
 #define EZLog if(1); else NSLog      
 
 #undef LaunchImageSetup
+#undef SetupForScreenShots
 

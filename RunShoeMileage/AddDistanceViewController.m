@@ -244,7 +244,9 @@ float runTotal;
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
 
+#ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+#endif
     
     EZLog(@"View Did Load addDistanceViewController");
 
