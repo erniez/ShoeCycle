@@ -12,6 +12,7 @@
 #import "SetupViewController.h"
 #import "EditShoesNavController.h"
 #import "ShoeStore.h"
+#import <Crashlytics/Crashlytics.h>
 
 //NSString * const TreadTrackerDistanceUnitPrefKey = @"TreadTrackerDistanceUnitPrefKey";
 //NSInteger distanceUnit;
@@ -22,7 +23,6 @@
 // Change to make a difference for a test commit
 
 @synthesize window, tabBarController;
-//@synthesize navController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -55,10 +55,14 @@
 
     // Attach the array to the tabBarController
     [tabBarController setViewControllers:viewControllers];
-    
     [[self window] setRootViewController:tabBarController];
+    
+    // Start Crashlytics
+//    [[Crashlytics sharedInstance] setDebugMode:YES];
+    [Crashlytics startWithAPIKey:@"949e709fc52c311b695d5efc4d8c85064ad7a389"];
+    
     [self.window makeKeyAndVisible];
-    EZLog(@"View Did Finish Launching");
+  
     return YES;
 }
 

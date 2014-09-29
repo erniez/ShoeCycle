@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0751F919D88D9C00171D48 /* Crashlytics.framework */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B0751F919D88D9C00171D48 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */,
+				1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */,
 				1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */,
 				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
 				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
@@ -147,6 +150,7 @@
 		1BCF643C148AF7E7004C0E6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B0751F919D88D9C00171D48 /* Crashlytics.framework */,
 				1BD2FAED14B5D343006A4542 /* CoreData.framework */,
 				1BCF643D148AF7E7004C0E6A /* UIKit.framework */,
 				1BCF643F148AF7E7004C0E6A /* Foundation.framework */,
@@ -222,6 +226,7 @@
 				1BCF6435148AF7E6004C0E6A /* Sources */,
 				1BCF6436148AF7E6004C0E6A /* Frameworks */,
 				1BCF6437148AF7E6004C0E6A /* Resources */,
+				1B0751F819D88D4600171D48 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -275,6 +280,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B0751F819D88D4600171D48 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "./Crashlytics.framework/run 949e709fc52c311b695d5efc4d8c85064ad7a389 de82ccc4f8380a0a5562095ca78ceb5ad2c290eb09fbf08396ba0030e368862b";
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1BCF6435148AF7E6004C0E6A /* Sources */ = {
@@ -353,6 +374,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -419,6 +444,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -436,6 +465,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
