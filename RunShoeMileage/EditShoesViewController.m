@@ -79,8 +79,6 @@
     currentShoe = [UserDistanceSetting getSelectedShoe];
     [[self tableView] reloadData];
     self.tableView.contentMode = UIViewContentModeTop;
-
-    EZLog(@"******* View Will Appear currentShoe = %li", currentShoe);
 }
 
 
@@ -128,7 +126,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger cnt = [[[ShoeStore defaultStore] allShoes] count];
-    EZLog(@"Tableview Shoe Count = %ld",[[[ShoeStore defaultStore] allShoes] count]);
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
     if (currentShoe >= cnt) {
         currentShoe = 0;
@@ -148,8 +145,6 @@
 	}
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-    
-    EZLog(@"index path = %li",indexPath.row);
     
     Shoe *s = [shoes objectAtIndex:indexPath.row];
     
@@ -212,7 +207,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    [[ShoeStore defaultStore] moveShoeAtIndex:[fromIndexPath row] toIndex:[toIndexPath row]];
+    [[ShoeStore defaultStore] moveShoeAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }
 
 

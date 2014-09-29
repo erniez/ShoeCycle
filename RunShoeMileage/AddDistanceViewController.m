@@ -105,8 +105,6 @@ float runTotal;
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    EZLog(@"History count = %li",[self.distShoe.history count]);
-    
     if ([shoes count] == 0) {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
                                                     message:nil
@@ -116,6 +114,21 @@ float runTotal;
     [alert show];
     return;
     }
+
+// Change sttings in prefix file to create a suitable screenshot for the first screen.
+#ifdef LaunchImageSetup
+    self.runDateField.text = @"";
+    self.totalDistanceLabel.text = @"";
+    self.expirationDateLabel.text = @"";
+    self.startDateLabel.text = @"";
+    self.daysLeftLabel.text = @"";
+    self.maxDistanceLabel.text = @"";
+    self.wearProgress.progress = 0.0;
+    self.totalDistanceProgress.progress = 0.0;
+    self.nameField.text = @"";
+    self.distanceUnitLabel.text = @"";
+    return;
+#endif
     
     if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
         self.distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
@@ -231,7 +244,8 @@ float runTotal;
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
 
-      
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
     EZLog(@"View Did Load addDistanceViewController");
 
 }
@@ -426,10 +440,10 @@ float runTotal;
     
     //  Need to strip out hours and seconds to avoid rounding errors on date calculation
     //  Define calendar to be used
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
     // Set today's date to just yeay, month, day
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
     NSDate *date = [NSDate date];
     NSDateComponents *todayNoHoursNoSeconds = [gregorianCalendar components:unitFlags fromDate:date];
     
@@ -437,12 +451,12 @@ float runTotal;
     NSDate *today = [gregorianCalendar dateFromComponents:todayNoHoursNoSeconds];
     
     
-    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+    NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay
                                                         fromDate:today
                                                           toDate:self.distShoe.expirationDate
                                                          options:0];
     
-    NSDateComponents *componentsTotal = [gregorianCalendar components:NSDayCalendarUnit
+    NSDateComponents *componentsTotal = [gregorianCalendar components:NSCalendarUnitDay
                                                              fromDate:self.distShoe.startDate
                                                                toDate:self.distShoe.expirationDate
                                                               options:0];
@@ -453,18 +467,18 @@ float runTotal;
     [self.daysLeftIdentificationLabel setText:@"Days Left"];
     [self.daysLeftLabel setText:@"0"];
     if (daysLeftToWear >= 0) {
-        [self.daysLeftLabel setText:[NSString stringWithFormat:@"%d",daysLeftToWear]];
+        [self.daysLeftLabel setText:[NSString stringWithFormat:@"%ld",(long)daysLeftToWear]];
     }
     if (daysLeftToWear == 1) {
         [self.daysLeftIdentificationLabel setText:@"Day Left"];
     }
     
-    EZLog(@"Components Total = %d",[components day]);
+    EZLog(@"Components Total = %ld",(long)[components day]);
     
     wear = (float)daysLeftToWear/(float)daysTotal;
     self.wearProgress.progress = 1 - wear;
     EZLog(@"Wear Progress = %0.2f",self.wearProgress.progress);
-    EZLog(@"Wear Days = %d and %d",daysLeftToWear, daysTotal);
+    EZLog(@"Wear Days = %ld and %ld",(long)daysLeftToWear, (long)daysTotal);
     
     EZLog(@"Wear = %.4f",wear);
 

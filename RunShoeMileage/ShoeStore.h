@@ -28,7 +28,7 @@
 - (NSArray *)allRunDistances;
 - (Shoe *)createShoe;
 - (void)removeShoe:(Shoe *)s;
-- (void)moveShoeAtIndex:(int)from toIndex:(int)to;
+- (void)moveShoeAtIndex:(NSInteger)from toIndex:(NSInteger)to;
 - (void)fetchShoesIfNecessary;
 - (void)setRunDistance:(float)dist;
 - (void)removeHistory:(History *)h atShoe:(Shoe *)s;

@@ -43,5 +43,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LaunchImageSetup</key>
+	<true/>
 </dict>
 </plist>

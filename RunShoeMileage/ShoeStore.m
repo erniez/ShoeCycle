@@ -103,7 +103,7 @@
     } else {
         order = [[[allShoes lastObject] orderingValue] doubleValue] + 1.0;
     }
-    EZLog(@"Adding after %d intems, order = %.2f", [allShoes count], order);
+    EZLog(@"Adding after %lu intems, order = %.2f", (unsigned long)[allShoes count], order);
     
     Shoe *p = [NSEntityDescription insertNewObjectForEntityForName:@"Shoe"
                                                   inManagedObjectContext:context];
@@ -116,7 +116,7 @@
 }
 
 
-- (void)moveShoeAtIndex:(int)from toIndex:(int)to
+- (void)moveShoeAtIndex:(NSInteger)from toIndex:(NSInteger)to
 {
     if (from == to) {
         return;
