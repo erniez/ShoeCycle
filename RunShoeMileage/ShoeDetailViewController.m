@@ -245,64 +245,30 @@
 
 - (IBAction)takePicture:(id)sender
 {
-    self.pictureActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Picture Method"
-                                              delegate:self 
-                                     cancelButtonTitle:@"Cancel" 
-                                destructiveButtonTitle:nil
-                                     otherButtonTitles:@"Camera", @"Library", nil];
+    UIAlertController *pictureAlertController = [UIAlertController alertControllerWithTitle:@"Choose Picture Method" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [self.pictureActionSheet setActionSheetStyle:UIActionSheetStyleDefault];
-
-    [self.pictureActionSheet showInView:self.view];
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self presentImagePickerControllerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    }];
     
-    [self.pictureActionSheet setDelegate:self];
+    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self presentImagePickerControllerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }];
     
-    pictureButton = sender;
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    [pictureAlertController addAction:cameraAction];
+    [pictureAlertController addAction:libraryAction];
+    [pictureAlertController addAction:cancelAction];
+    
+    [self presentViewController:pictureAlertController animated:YES completion:nil];
 }
 
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)presentImagePickerControllerForSourceType:(UIImagePickerControllerSourceType)sourceType
 {
-    if (actionSheet == self.pictureActionSheet) {
-        
-//        [self.pictureActionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
-        if (!self.imagePickerController)
-        {
-            self.imagePickerController = [[UIImagePickerController alloc] init];
-        }
-        
-         
-        switch (buttonIndex) {
-            case 0 :
-                [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
-                break;
-            case 1 :
-                [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-                break;
-            default:
-                return;
-        }
-         // If our device has a camera, we want to take a picture, otherwise we just pick from photo library
-         [self.imagePickerController setDelegate:self];
-         
-         // Place image picker on the screen
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-         // Create a new popover controller that will display the imagePicker
-         UIPopoverController *imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
-         
-         [imagePickerPopover setDelegate:self];
-         
-         // Display the popover controller, sender is the camera bar button item
-         [imagePickerPopover presentPopoverFromBarButtonItem:pictureButton
-                                    permittedArrowDirections:UIPopoverArrowDirectionAny
-                                                    animated:YES];
-         }
-         else
-         {
-             // Place image picker on the screen
-             [self presentViewController:self.imagePickerController animated:YES completion:nil];
-         }
-    }
+    self.imagePickerController.sourceType = sourceType;
+    [self.imagePickerController setDelegate:self];
+    [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
 
 
@@ -445,6 +411,17 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     
     return YES;    
+}
+
+#pragma Getters / Setters
+
+- (UIImagePickerController *)imagePickerController
+{
+    if (!_imagePickerController)
+    {
+        _imagePickerController = [[UIImagePickerController alloc] init];
+    }
+    return _imagePickerController;
 }
 
 @end

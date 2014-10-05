@@ -10,7 +10,7 @@
 #import "Shoe.h"
 
 @interface ShoeDetailViewController : UIViewController
-<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate>
+<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
 {
     // TODO: Fix this mess.  Using popover in implementation which is a no-no.
     id pictureButton;
@@ -30,8 +30,6 @@
 @property (strong, nonatomic) UITextField *currentDateField;
 @property (weak, nonatomic) IBOutlet UITextField *maxDistance;
 @property (weak, nonatomic) IBOutlet UITextField *expirationDateField;
-@property (nonatomic, strong) UIActionSheet *dateActionSheet;
-@property (nonatomic, strong) UIActionSheet *pictureActionSheet;
 @property (nonatomic, strong) NSString *testBrandString;
 @property (nonatomic, strong) NSString *testNameString;
 
