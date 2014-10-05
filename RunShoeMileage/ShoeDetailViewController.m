@@ -26,6 +26,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wearTimeTitleLabel;
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
+// Have to retain the imagePicker as its own property, or else it will crash when you rotate after taking a picture.
+// The crash is caused by notification sender sending the imagePicker a rotation notification, and it not being around
+// to process it, getting an unrecogized selector error.
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @property (nonatomic) BOOL isNew;
 @property (nonatomic) BOOL newShoeIsCancelled;
@@ -249,7 +253,7 @@
     
     [self.pictureActionSheet setActionSheetStyle:UIActionSheetStyleDefault];
 
-    [self.pictureActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [self.pictureActionSheet showInView:self.view];
     
     [self.pictureActionSheet setDelegate:self];
     
@@ -261,27 +265,30 @@
 {
     if (actionSheet == self.pictureActionSheet) {
         
-        [self.pictureActionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+//        [self.pictureActionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+        if (!self.imagePickerController)
+        {
+            self.imagePickerController = [[UIImagePickerController alloc] init];
+        }
         
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
          
         switch (buttonIndex) {
             case 0 :
-                [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+                [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
                 break;
             case 1 :
-                [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
                 break;
             default:
                 return;
         }
          // If our device has a camera, we want to take a picture, otherwise we just pick from photo library
-         [imagePicker setDelegate:self];
+         [self.imagePickerController setDelegate:self];
          
          // Place image picker on the screen
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
          // Create a new popover controller that will display the imagePicker
-         UIPopoverController *imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+         UIPopoverController *imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
          
          [imagePickerPopover setDelegate:self];
          
@@ -293,7 +300,7 @@
          else
          {
              // Place image picker on the screen
-             [self presentViewController:imagePicker animated:YES completion:nil];
+             [self presentViewController:self.imagePickerController animated:YES completion:nil];
          }
     }
 }
