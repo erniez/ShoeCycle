@@ -13,6 +13,15 @@
 #import "Shoe.h"
 #import "UserDistanceSetting.h"
 #import "UIUtilities.h"
+#import "UIColor+ShoeCycleColors.h"
+
+
+@interface EditShoesViewController ()
+
+@property (nonatomic, strong) UIView *helpBubble;
+
+@end
+
 
 @implementation EditShoesViewController
 //@synthesize testBrandArray, testNameArray;
@@ -51,16 +60,6 @@
     return [self init];
 }
 
-/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-} */
-
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -72,15 +71,26 @@
 
 #pragma mark - View lifecycle
 
-
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     currentShoe = [UserDistanceSetting getSelectedShoe];
     [[self tableView] reloadData];
     self.tableView.contentMode = UIViewContentModeTop;
+    [self.helpBubble removeFromSuperview];
+    self.helpBubble = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSInteger shoeCount = [[[ShoeStore defaultStore] allShoes] count];
+    if (shoeCount == 0)
+    {
+        [self showHelpBubble];
+    }
+    
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -97,14 +107,6 @@
 
     // Do any additional setup after loading the view from its nib.
 }
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-} 
-
 
 - (void)EditShoesViewControllerWillDismiss:(EditShoesViewController *)vc
 {
@@ -131,7 +133,7 @@
         currentShoe = 0;
         [UserDistanceSetting setSelectedShoe:currentShoe];
     }
-    return cnt; //[[[ShoeStore defaultStore] allShoes] count];
+    return cnt;
 }
 
 
@@ -193,14 +195,16 @@
         Shoe *s = [shoes objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
         
-/*        if (currentShoe == [indexPath row]) {
-            currentShoe = 0;
-            [UserDistanceSetting setSelectedShoe:currentShoe];
-        }*/
-        
         // remove row from table with animation
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         [[self tableView] reloadData];
+        
+        // show help bubble again if there are no more shoes.
+        if ([shoes count] == 0)
+        {
+            [self performSelector:@selector(showHelpBubble) withObject:nil afterDelay:1.0];
+        }
+        [ss saveChangesEZ];
     }
 }
 
@@ -217,10 +221,7 @@
     
     Shoe *newShoe = [[ShoeStore defaultStore] createShoe];
     ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] initForNewItem:YES];
-    
-//    NSArray *otherShoes = [[NSArray alloc] initWithArray:[[ShoeStore defaultStore] allShoes]];
-    
-//    newShoe.brand = @"test123";
+
     newShoe.maxDistance = [NSNumber numberWithFloat:350];
     newShoe.startDate = [NSDate date];
     newShoe.expirationDate = [newShoe.startDate dateByAddingTimeInterval:secondsInSixMonths];    
@@ -246,5 +247,55 @@
 //    [self.tabBarController presentModalViewController:navController animated:YES];
 //    *** can't figure out how to present a modal view without covering tabBarController
 
+}
+
+- (void)showHelpBubble
+{
+    if (!self.helpBubble)
+    {
+        UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(190, 20, 120, 90)];
+        UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        [helpLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+        helpLabel.numberOfLines = 0;
+        helpLabel.text = @"Please press \"+\" button to add a shoe.";
+        helpLabel.textColor = [UIColor whiteColor];
+        containerView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
+        containerView.layer.borderWidth = 2.0;
+        containerView.layer.cornerRadius = 5.0;
+        
+        helpLabel.center = CGPointMake(containerView.bounds.size.width/2, containerView.bounds.size.height/2);
+        [containerView addSubview:helpLabel];
+        
+        containerView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+        
+        [self.view addSubview:containerView];
+        
+        UIView *arrowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+        arrowView.backgroundColor = [UIColor shoeCycleOrange];
+        arrowView.transform = CGAffineTransformMakeRotation(M_PI/4);
+        
+        UIView *arrowContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 10)];
+        arrowContainer.clipsToBounds = YES;
+        
+        CGFloat yPosition = -9;
+        CGFloat xPosition = containerView.bounds.size.width - 24;
+        
+        arrowView.center = CGPointMake(arrowContainer.bounds.size.width/2, arrowContainer.bounds.size.height);
+        [arrowContainer addSubview:arrowView];
+        
+        CGRect containerFrame = arrowContainer.frame;
+        containerFrame.origin.y = yPosition;
+        containerFrame.origin.x = xPosition;
+        arrowContainer.frame = containerFrame;
+        
+        [containerView addSubview:arrowContainer];
+        
+        self.helpBubble = containerView;
+        
+        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.4 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.helpBubble.transform = CGAffineTransformIdentity;
+        } completion:nil];
+
+    }
 }
 @end
