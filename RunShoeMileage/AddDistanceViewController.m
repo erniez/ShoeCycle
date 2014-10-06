@@ -43,10 +43,10 @@ float runTotal;
 @property (nonatomic, weak) IBOutlet UILabel*daysLeftLabel;
 @property (nonatomic, weak) IBOutlet UILabel*daysLeftIdentificationLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
-@property (nonatomic, strong) UIAlertController *actionSheet;
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
+@property (nonatomic) BOOL noShoesInStore;
 
 @end
 
@@ -105,14 +105,14 @@ float runTotal;
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    if ([shoes count] == 0) {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You first need to add a shoe before you can add a distance."
-                                                    message:nil
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    return;
+    if ([shoes count] == 0)
+    {
+        self.noShoesInStore = YES;
+        return;
+    }
+    else    // need the ELSE condition for when the user adds their initial shoe.
+    {
+        self.noShoesInStore = NO;
     }
 
 // Change sttings in prefix file to create a suitable screenshot for the first screen.
@@ -168,6 +168,24 @@ float runTotal;
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (self.noShoesInStore)
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"No shoes are being tracked:" message:@"You first need to add a shoe before you can add a distance." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            RunShoeMileageAppDelegate *appDelegate = (RunShoeMileageAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate switchToTab:1];
+        }];
+        
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    
 }
 
 - (void)viewDidLoad
@@ -417,13 +435,6 @@ float runTotal;
    
     [self presentViewController:navController animated:YES completion:nil];
 }
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    RunShoeMileageAppDelegate *appDelegate = (RunShoeMileageAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate switchToTab:1];
-}
-
 
 - (void)calculateDaysLeftProgressBar
 {

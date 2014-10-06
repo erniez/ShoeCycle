@@ -189,15 +189,14 @@
 
 }
 
-- (IBAction)aboutButton:(id)sender 
+- (IBAction)aboutButton:(id)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About ShoeCycle"
-                                                    message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.0"
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    return;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.1" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 

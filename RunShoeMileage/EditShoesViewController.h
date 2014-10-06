@@ -11,16 +11,11 @@
 #import "ShoesTestData.h"
 #import "Shoe.h"
 
-@interface EditShoesViewController : UITableViewController
-//<UIApplicationDelegate>
-<UITableViewDelegate>
+@interface EditShoesViewController : UITableViewController<UITableViewDelegate>
 {
     NSInteger currentShoe;
 }
 
-
 - (IBAction)addNewShoe:(id)sender;
-
-//- (void)actionSheetCancel:(id)sender;
 
 @end

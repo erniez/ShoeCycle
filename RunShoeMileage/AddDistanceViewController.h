@@ -10,8 +10,7 @@
 #import "Shoe.h"
 @class History;
 
-@interface AddDistanceViewController : UIViewController
-<UITextFieldDelegate, UIActionSheetDelegate>
+@interface AddDistanceViewController : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *enterDistanceField;
 
