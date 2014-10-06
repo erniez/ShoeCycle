@@ -191,7 +191,7 @@
 
 - (IBAction)aboutButton:(id)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.01" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.1" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];
