@@ -17,6 +17,7 @@
 #import "RunShoeMileageAppDelegate.h"
 #import "RunDatePickerViewController.h"
 #import "UIUtilities.h"
+#import "HealthKitManager.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -266,7 +267,12 @@ float runTotal;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
     
-    EZLog(@"View Did Load addDistanceViewController");
+    HealthKitManager *healthManager = [HealthKitManager sharedManager];
+    if (healthManager)
+    {
+        [healthManager initializeHealthKitForShoeCycle];
+    }
+    
 
 }
 
@@ -359,6 +365,7 @@ float runTotal;
     [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     
+    [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate];  
 }
 
 

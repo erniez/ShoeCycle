@@ -6,7 +6,7 @@
 //
 //
 
-#import <HealthKit/HealthKit.h>
+
 #import "HealthKitManager.h"
 
 
@@ -14,7 +14,7 @@
 
 @property (nonatomic) BOOL isHealthKitAvailable;
 @property (atomic, strong) HKHealthStore *healthStore;
-@property (nonatomic) HKAuthorizationStatus *authorizationStatus;
+@property (nonatomic) HKAuthorizationStatus authorizationStatus;
 @property (atomic, strong) HKQuantityType *runQuantityType;
 
 @end
@@ -50,7 +50,23 @@ dispatch_once(&onceToken, ^{
 - (void)initializeHealthKitForShoeCycle
 {
     self.runQuantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
-    self.runQuantityType = [HKObjectType quantityTypeForIdentifier:HKWorkoutTypeIdentifier];
     self.authorizationStatus = [self.healthStore authorizationStatusForType:self.runQuantityType];
+    if (!self.authorizationStatus)
+    {
+        [self.healthStore requestAuthorizationToShareTypes:[NSSet setWithObject:self.runQuantityType] readTypes:[NSSet setWithObject:self.runQuantityType]  completion:^(BOOL success, NSError *error) {
+            self.authorizationStatus = success;
+        }];
+    }
+}
+
+- (void)saveRunDistance:(double)runDistance date:(NSDate *)runDate
+{
+    if ([[HealthKitManager sharedManager] authorizationStatus] == HKAuthorizationStatusSharingAuthorized)
+    {
+        HKQuantityType *runType = [[HealthKitManager sharedManager] runQuantityType];
+        HKQuantity *runDistanceQuantity = [HKQuantity quantityWithUnit:[HKUnit mileUnit] doubleValue:runDistance];
+        HKQuantitySample *runSample = [HKQuantitySample quantitySampleWithType:runType quantity:runDistanceQuantity startDate:runDate endDate:runDate];
+        [self.healthStore saveObject:runSample withCompletion:nil];
+    }
 }
 @end
