@@ -271,6 +271,24 @@ float runTotal;
     if (healthManager)
     {
         [healthManager initializeHealthKitForShoeCycle];
+        [healthManager fetchRunStepSourcesWithCompletion:^(HKSourceQuery *query, NSSet *sources, NSError *error) {
+            BOOL dataExists = NO;
+            for (HKSource *source in sources)
+            {
+                if ([source.bundleIdentifier isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
+                {
+                    dataExists = YES;
+                    [healthManager fetchShoeCylceRunStepQuantities:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+                        NSLog(@"Quantities: %@", results);
+                        for (HKQuantitySample *sample in results)
+                        {
+                            NSLog(@"Metadata: %@", sample.metadata);
+                            NSLog(@"ShoeCycle Identifier: %@", sample.metadata[@"ShoeCycleShoeIdentifier"]);
+                        }
+                    }];
+                }
+            }
+        }];
     }
     
 
@@ -365,7 +383,10 @@ float runTotal;
     [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     
-    [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate];  
+    NSURL *shoeIdenitfier = self.distShoe.objectID.URIRepresentation;
+    NSString *shoeIDString = shoeIdenitfier.absoluteString;
+    NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
+    [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
 }
 
 

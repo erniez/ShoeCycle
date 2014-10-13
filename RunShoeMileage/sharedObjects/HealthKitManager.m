@@ -59,14 +59,28 @@ dispatch_once(&onceToken, ^{
     }
 }
 
-- (void)saveRunDistance:(double)runDistance date:(NSDate *)runDate
+- (void)saveRunDistance:(double)runDistance date:(NSDate *)runDate metadata:(NSDictionary *)metadata
 {
     if ([[HealthKitManager sharedManager] authorizationStatus] == HKAuthorizationStatusSharingAuthorized)
     {
-        HKQuantityType *runType = [[HealthKitManager sharedManager] runQuantityType];
         HKQuantity *runDistanceQuantity = [HKQuantity quantityWithUnit:[HKUnit mileUnit] doubleValue:runDistance];
-        HKQuantitySample *runSample = [HKQuantitySample quantitySampleWithType:runType quantity:runDistanceQuantity startDate:runDate endDate:runDate];
+        HKQuantitySample *runSample = [HKQuantitySample quantitySampleWithType:self.runQuantityType quantity:runDistanceQuantity startDate:runDate endDate:runDate metadata:metadata];
         [self.healthStore saveObject:runSample withCompletion:nil];
     }
 }
+
+- (void)fetchRunStepSourcesWithCompletion:(void(^)(HKSourceQuery *query, NSSet *sources, NSError *error))completion
+{
+    HKSourceQuery *sourceQuery = [[HKSourceQuery alloc] initWithSampleType:self.runQuantityType samplePredicate:nil completionHandler:completion];
+    [self.healthStore executeQuery:sourceQuery];
+}
+
+- (void)fetchShoeCylceRunStepQuantities:(void(^)(HKSampleQuery *query, NSArray *results, NSError *error))resultsHandler
+{
+    NSPredicate *shoeCycleQuantities = [HKQuery predicateForObjectsFromSource:[HKSource defaultSource]];
+    HKSampleQuery *sampleQuery = [[HKSampleQuery alloc] initWithSampleType:self.runQuantityType predicate:shoeCycleQuantities limit:0 sortDescriptors:nil resultsHandler:resultsHandler];
+    
+    [self.healthStore executeQuery:sampleQuery];
+}
+
 @end
