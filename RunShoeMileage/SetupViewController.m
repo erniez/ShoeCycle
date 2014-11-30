@@ -15,20 +15,23 @@
 
 @interface SetupViewController ()
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *distanceUnitControl;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance1;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance2;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance3;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance4;
+
 @property (weak, nonatomic) IBOutlet UIView *unitsBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *unitsTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favDistancesTitleLabel;
+@property (weak, nonatomic) IBOutlet UIView *enableHealthKitBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *enableHealthKitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *enableHealthKitInfoLabel;
 
 @end
 
 @implementation SetupViewController
-@synthesize distanceUnitControl;
-@synthesize userDefinedDistance1;
-@synthesize userDefinedDistance2;
-@synthesize userDefinedDistance3;
-@synthesize userDefinedDistance4;
-
 
 - (id)init
 {
@@ -81,31 +84,33 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
     self.unitsTitleLabel.textColor = [UIColor shoeCycleOrange];
     self.favDistancesTitleLabel.textColor = [UIColor shoeCycleGreen];
+    self.enableHealthKitLabel.textColor = [UIColor shoeCycleBlue];
+    self.enableHealthKitInfoLabel.textColor = [UIColor shoeCycleOrange];
     
-    userDefinedDistance1.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance1.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance1.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance1.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
-    userDefinedDistance2.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance2.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance2.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance2.keyboardType = UIKeyboardTypeDecimalPad;
     }
 
-    userDefinedDistance3.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance3.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance3.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance3.keyboardType = UIKeyboardTypeDecimalPad;
     }
 
-    userDefinedDistance4.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance4.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance4.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance4.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
-    userDefinedDistance1.delegate = self;
-    userDefinedDistance2.delegate = self;
-    userDefinedDistance3.delegate = self;
-    userDefinedDistance4.delegate = self;
+    self.userDefinedDistance1.delegate = self;
+    self.userDefinedDistance2.delegate = self;
+    self.userDefinedDistance3.delegate = self;
+    self.userDefinedDistance4.delegate = self;
 
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     
@@ -114,6 +119,9 @@
     
     self.favoriteDistancesBackgroundView.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.favoriteDistancesBackgroundView];
+    
+    self.enableHealthKitBackgroundView.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.enableHealthKitBackgroundView];
     
     // Create dotted lines
     CGRect lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.unitsBackgroundView.bounds.size.height);
@@ -129,17 +137,17 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
+    [self.distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
     [self refreshUserDefinedDistances];
 }
 
 - (void)viewDidUnload
 {
-    distanceUnitControl = nil;
-    userDefinedDistance1 = nil;
-    userDefinedDistance2 = nil;
-    userDefinedDistance3 = nil;
-    userDefinedDistance4 = nil;
+    self.distanceUnitControl = nil;
+    self.userDefinedDistance1 = nil;
+    self.userDefinedDistance2 = nil;
+    self.userDefinedDistance3 = nil;
+    self.userDefinedDistance4 = nil;
     
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -175,23 +183,23 @@
 - (void)refreshUserDefinedDistances
 {
     if ([UserDistanceSetting getUserDefinedDistance1]) {
-        [userDefinedDistance1 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]]];
+        [self.userDefinedDistance1 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]]];
     }
     if ([UserDistanceSetting getUserDefinedDistance2]) {
-        [userDefinedDistance2 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]]];
+        [self.userDefinedDistance2 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]]];
     }
     if ([UserDistanceSetting getUserDefinedDistance3]) {
-        [userDefinedDistance3 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]]];
+        [self.userDefinedDistance3 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]]];
     }
     if ([UserDistanceSetting getUserDefinedDistance4]) {
-        [userDefinedDistance4 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]]];
+        [self.userDefinedDistance4 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]]];
     }
 
 }
 
 - (IBAction)aboutButton:(id)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.1" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.2" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];
@@ -202,20 +210,20 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    if (textField == userDefinedDistance1) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance1.text];
+    if (textField == self.userDefinedDistance1) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance1.text];
         [UserDistanceSetting setUserDefinedDistance1:distance];
     }
-    if (textField == userDefinedDistance2) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance2.text];
+    if (textField == self.userDefinedDistance2) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance2.text];
         [UserDistanceSetting setUserDefinedDistance2:distance];
     }
-    if (textField == userDefinedDistance3) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance3.text];
+    if (textField == self.userDefinedDistance3) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance3.text];
         [UserDistanceSetting setUserDefinedDistance3:distance];
     }
-    if (textField == userDefinedDistance4) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance4.text];
+    if (textField == self.userDefinedDistance4) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance4.text];
         [UserDistanceSetting setUserDefinedDistance4:distance];
     }
 
@@ -228,4 +236,10 @@
     [UserDistanceSetting setDistanceUnit:[sender selectedSegmentIndex]];
     [self refreshUserDefinedDistances];
 }
+
+- (IBAction)enableHealthKitValueDidChange:(id)sender
+{
+    
+}
+
 @end

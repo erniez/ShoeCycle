@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupViewController">
             <connections>
                 <outlet property="distanceUnitControl" destination="4" id="6"/>
+                <outlet property="enableHealthKitBackgroundView" destination="ahD-L8-E0Z" id="exX-Vq-3z5"/>
+                <outlet property="enableHealthKitInfoLabel" destination="ipj-l9-CSJ" id="WkF-Ns-PzO"/>
+                <outlet property="enableHealthKitLabel" destination="rXC-ny-0cm" id="Dya-jE-lkR"/>
                 <outlet property="favDistancesTitleLabel" destination="JhN-7N-03I" id="6by-aH-xks"/>
                 <outlet property="favoriteDistancesBackgroundView" destination="oFk-w8-mL2" id="XYl-RA-LTY"/>
                 <outlet property="unitsBackgroundView" destination="l2s-Yl-Ylu" id="SQ5-v6-s8i"/>
@@ -39,10 +42,10 @@
                                 <action selector="changeDistanceUnits:" destination="-1" eventType="valueChanged" id="5"/>
                             </connections>
                         </segmentedControl>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="gear" translatesAutoresizingMaskIntoConstraints="NO" id="Cfw-NR-vMI">
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gear" translatesAutoresizingMaskIntoConstraints="NO" id="Cfw-NR-vMI">
                             <rect key="frame" x="25" y="8" width="35" height="35"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="UNITS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC4-0R-oBz">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNITS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PC4-0R-oBz">
                             <rect key="frame" x="27" y="48" width="31" height="12"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -145,6 +148,42 @@
                         <constraint firstItem="9" firstAttribute="top" secondItem="oFk-w8-mL2" secondAttribute="top" constant="20" id="zS5-qC-Gq2"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahD-L8-E0Z">
+                    <rect key="frame" x="13" y="261" width="294" height="100"/>
+                    <subviews>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kvR-pp-NbS">
+                            <rect key="frame" x="237" y="9" width="51" height="31"/>
+                            <connections>
+                                <action selector="enableHealthKitValueDidChange:" destination="-1" eventType="valueChanged" id="Z9Q-yU-q37"/>
+                            </connections>
+                        </switch>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable HealthKit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXC-ny-0cm">
+                            <rect key="frame" x="8" y="13" width="154" height="24"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTE: Turning this option on will write directly to the Walk + Run Section of the Health App." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ipj-l9-CSJ">
+                            <rect key="frame" x="8" y="45" width="278" height="51"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.31" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="ipj-l9-CSJ" firstAttribute="top" secondItem="rXC-ny-0cm" secondAttribute="bottom" constant="8" id="0sy-HE-2gR"/>
+                        <constraint firstAttribute="width" constant="294" id="5My-Sw-foh"/>
+                        <constraint firstItem="rXC-ny-0cm" firstAttribute="leading" secondItem="ahD-L8-E0Z" secondAttribute="leading" constant="8" id="FbW-Ur-pkh"/>
+                        <constraint firstAttribute="centerX" secondItem="ipj-l9-CSJ" secondAttribute="centerX" id="HU7-Al-N37"/>
+                        <constraint firstAttribute="trailing" secondItem="kvR-pp-NbS" secondAttribute="trailing" constant="8" id="JzQ-p5-hXl"/>
+                        <constraint firstAttribute="height" constant="100" id="Ors-vm-FUL"/>
+                        <constraint firstItem="kvR-pp-NbS" firstAttribute="top" secondItem="ahD-L8-E0Z" secondAttribute="top" constant="9" id="enA-f0-vwx"/>
+                        <constraint firstItem="rXC-ny-0cm" firstAttribute="top" secondItem="ahD-L8-E0Z" secondAttribute="top" constant="13" id="q2p-3g-uOI"/>
+                        <constraint firstItem="ipj-l9-CSJ" firstAttribute="trailing" secondItem="kvR-pp-NbS" secondAttribute="trailing" id="uzd-ri-55g"/>
+                        <constraint firstItem="rXC-ny-0cm" firstAttribute="leading" secondItem="ipj-l9-CSJ" secondAttribute="leading" id="xrE-4Z-vKQ"/>
+                    </constraints>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23">
                     <rect key="frame" x="124" y="374" width="72" height="37"/>
                     <constraints>
@@ -164,7 +203,9 @@
             <constraints>
                 <constraint firstItem="oFk-w8-mL2" firstAttribute="top" secondItem="l2s-Yl-Ylu" secondAttribute="bottom" constant="23" id="6DE-tg-Ul1"/>
                 <constraint firstAttribute="centerX" secondItem="l2s-Yl-Ylu" secondAttribute="centerX" id="F3T-y0-cgo"/>
+                <constraint firstAttribute="centerX" secondItem="ahD-L8-E0Z" secondAttribute="centerX" id="HDc-1j-d26"/>
                 <constraint firstItem="l2s-Yl-Ylu" firstAttribute="top" secondItem="1" secondAttribute="top" constant="35" id="Ol2-aV-L5B"/>
+                <constraint firstItem="ahD-L8-E0Z" firstAttribute="top" secondItem="oFk-w8-mL2" secondAttribute="bottom" constant="17" id="VYy-F9-FaQ"/>
                 <constraint firstAttribute="bottom" secondItem="23" secondAttribute="bottom" constant="69" id="XV3-Nk-TOP"/>
                 <constraint firstAttribute="centerX" secondItem="oFk-w8-mL2" secondAttribute="centerX" id="bgv-ep-lAJ"/>
                 <constraint firstAttribute="centerX" secondItem="23" secondAttribute="centerX" id="mF3-f4-DUJ"/>
@@ -174,6 +215,7 @@
             <connections>
                 <action selector="backgroundTapped:" destination="-1" eventType="touchUpInside" id="17"/>
             </connections>
+            <point key="canvasLocation" x="184" y="375"/>
         </view>
         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eOw-RR-FG8">
             <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
