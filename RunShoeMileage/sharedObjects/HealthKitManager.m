@@ -41,23 +41,55 @@ dispatch_once(&onceToken, ^{
         if (_isHealthKitAvailable)
         {
             _healthStore = [[HKHealthStore alloc] init];
+            _runQuantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
             
         }
     }
     return self;
 }
 
-- (void)initializeHealthKitForShoeCycleWithCompletion:(void (^)(BOOL success, NSError *))completion
+- (HKAuthorizationStatus)authorizationStatus
 {
-    self.runQuantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
+    return [self.healthStore authorizationStatusForType:self.runQuantityType];
+}
+
+- (void)initializeHealthKitForShoeCycleWithCompletion:(void (^)(BOOL success, UIAlertController *alertController))completion
+{
     self.authorizationStatus = [self.healthStore authorizationStatusForType:self.runQuantityType];
-    if (!self.authorizationStatus)
+    if (!self.authorizationStatus || self.authorizationStatus == HKAuthorizationStatusSharingDenied)
     {
         [self.healthStore requestAuthorizationToShareTypes:[NSSet setWithObject:self.runQuantityType] readTypes:[NSSet setWithObject:self.runQuantityType]  completion:^(BOOL success, NSError *error) {
-            self.authorizationStatus = success;
+            
+            UIAlertController *alertController;
+            
+            // Check the authorization status again, in case the user changed it.
+            self.authorizationStatus = [self.healthStore authorizationStatusForType:self.runQuantityType];
+            if (error)
+            {
+                switch (error.code)
+                {
+                    case HKErrorUserCanceled:
+                        error = [NSError errorWithDomain:@"appError" code:0 userInfo:@{NSLocalizedDescriptionKey : @"In order to send data to the Health App, you must give permission. Please try again."}];
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+            if (self.authorizationStatus == HKAuthorizationStatusSharingDenied && success)
+            {
+                error = [NSError errorWithDomain:@"appError" code:0 userInfo:@{NSLocalizedDescriptionKey : @"Please enable HealthKit through your \"Settings\" app within the Privacy Section"}];
+                success = NO;
+            }
+            if (error)
+            {
+                alertController = [UIAlertController alertControllerWithTitle:@"Error Accessing HealthKit:" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
+                [alertController addAction:cancelAction];
+            }
             if (completion)
             {
-                completion(success, error);
+                completion(success, alertController);
             }
         }];
     }

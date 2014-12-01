@@ -48,6 +48,7 @@ float runTotal;
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 @property (nonatomic) BOOL noShoesInStore;
+@property (nonatomic) BOOL writeToHealthKit;
 
 @end
 
@@ -75,8 +76,6 @@ float runTotal;
     return self;
 }
 
-
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -84,16 +83,6 @@ float runTotal;
         // Custom initialization
     }
     return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    EZLog(@"entered addDistance didReceiveMemoryWarning");
-    [super didReceiveMemoryWarning];
-    EZLog(@"leaving addDistance didReceiveMemoryWarning");    
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -169,6 +158,12 @@ float runTotal;
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+    self.writeToHealthKit = [UserDistanceSetting getHealthKitEnabled] && [self checkForHealthKit];
+}
+
+- (BOOL)checkForHealthKit
+{
+    return [[HealthKitManager sharedManager] authorizationStatus];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -266,32 +261,6 @@ float runTotal;
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
-    
-//    HealthKitManager *healthManager = [HealthKitManager sharedManager];
-//    if (healthManager)
-//    {
-//        [healthManager initializeHealthKitForShoeCycle];
-//        [healthManager fetchRunStepSourcesWithCompletion:^(HKSourceQuery *query, NSSet *sources, NSError *error) {
-//            BOOL dataExists = NO;
-//            for (HKSource *source in sources)
-//            {
-//                if ([source.bundleIdentifier isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
-//                {
-//                    dataExists = YES;
-//                    [healthManager fetchShoeCylceRunStepQuantities:^(HKSampleQuery *query, NSArray *results, NSError *error) {
-//                        NSLog(@"Quantities: %@", results);
-//                        for (HKQuantitySample *sample in results)
-//                        {
-//                            NSLog(@"Metadata: %@", sample.metadata);
-//                            NSLog(@"ShoeCycle Identifier: %@", sample.metadata[@"ShoeCycleShoeIdentifier"]);
-//                        }
-//                    }];
-//                }
-//            }
-//        }];
-//    }
-    
-
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -383,10 +352,13 @@ float runTotal;
     [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     
-    NSURL *shoeIdenitfier = self.distShoe.objectID.URIRepresentation;
-    NSString *shoeIDString = shoeIdenitfier.absoluteString;
-    NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
-    [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
+    if ([UserDistanceSetting getHealthKitEnabled])
+    {
+        NSURL *shoeIdenitfier = self.distShoe.objectID.URIRepresentation;
+        NSString *shoeIDString = shoeIdenitfier.absoluteString;
+        NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
+        [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
+    }
 }
 
 

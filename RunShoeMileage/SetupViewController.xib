@@ -10,6 +10,7 @@
                 <outlet property="enableHealthKitBackgroundView" destination="ahD-L8-E0Z" id="exX-Vq-3z5"/>
                 <outlet property="enableHealthKitInfoLabel" destination="ipj-l9-CSJ" id="WkF-Ns-PzO"/>
                 <outlet property="enableHealthKitLabel" destination="rXC-ny-0cm" id="Dya-jE-lkR"/>
+                <outlet property="enableHealthKitSwitch" destination="kvR-pp-NbS" id="sYX-RN-AMT"/>
                 <outlet property="favDistancesTitleLabel" destination="JhN-7N-03I" id="6by-aH-xks"/>
                 <outlet property="favoriteDistancesBackgroundView" destination="oFk-w8-mL2" id="XYl-RA-LTY"/>
                 <outlet property="unitsBackgroundView" destination="l2s-Yl-Ylu" id="SQ5-v6-s8i"/>

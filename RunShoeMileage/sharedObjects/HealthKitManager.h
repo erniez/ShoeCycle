@@ -14,7 +14,7 @@
 @property (nonatomic, readonly) BOOL isHealthKitAvailable;
 @property (nonatomic, readonly) HKAuthorizationStatus authorizationStatus;
 
-- (void)initializeHealthKitForShoeCycleWithCompletion:(void(^)(BOOL success, NSError *error))completion;
+- (void)initializeHealthKitForShoeCycleWithCompletion:(void(^)(BOOL success, UIAlertController *alertController))completion;
 - (void)saveRunDistance:(double)runDistance date:(NSDate *)runDate metadata:(NSDictionary *)metadata;
 - (void)fetchRunStepSourcesWithCompletion:(void(^)(HKSourceQuery *query, NSSet *sources, NSError *error))completion;
 - (void)fetchShoeCylceRunStepQuantities:(void(^)(HKSampleQuery *query, NSArray *results, NSError *error))resultsHandler;

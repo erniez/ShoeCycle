@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIView *enableHealthKitBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitInfoLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *enableHealthKitSwitch;
 
 @end
 
@@ -140,18 +141,7 @@
     [super viewWillAppear:animated];
     [self.distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
     [self refreshUserDefinedDistances];
-}
-
-- (void)viewDidUnload
-{
-    self.distanceUnitControl = nil;
-    self.userDefinedDistance1 = nil;
-    self.userDefinedDistance2 = nil;
-    self.userDefinedDistance3 = nil;
-    self.userDefinedDistance4 = nil;
-    
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    [self.enableHealthKitSwitch setOn:[UserDistanceSetting getHealthKitEnabled] animated:NO];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -245,29 +235,25 @@
 
     [UserDistanceSetting setHealthKitEnabled:enableSwitch.isOn];
     
-    if (healthManager.authorizationStatus == HKAuthorizationStatusSharingAuthorized)
+    if (healthManager.authorizationStatus != HKAuthorizationStatusSharingAuthorized && enableSwitch.isOn)
     {
-        return;
-    }
-    else
-    {
-        [healthManager initializeHealthKitForShoeCycleWithCompletion:^(BOOL success, NSError *error) {
+        [healthManager initializeHealthKitForShoeCycleWithCompletion:^(BOOL success, UIAlertController *alertController) {
             if (success)
             {
                 return;
             }
             else
             {
-                if (error)
+                if (alertController)
                 {
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error Accessing HealthKit:" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
-                    [alertController addAction:cancelAction];
                     [self presentViewController:alertController animated:YES completion:nil];
                 }
                 // User denied us access so we need to reset the switch
                 [UserDistanceSetting setHealthKitEnabled:NO];
-                [enableSwitch setOn:NO animated:YES];
+                // Not guaranteed to be on main thread.
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [enableSwitch setOn:NO animated:YES];
+                });
             }
         }];
     }
