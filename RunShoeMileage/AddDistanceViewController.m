@@ -18,6 +18,7 @@
 #import "RunDatePickerViewController.h"
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
+#import "UIColor+ShoeCycleColors.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -25,6 +26,7 @@ float runTotal;
 
 @interface AddDistanceViewController () <RunDatePickerViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *addDistanceButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockInnerConstraint;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -46,6 +48,8 @@ float runTotal;
 @property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
+@property (weak, nonatomic) IBOutlet UILabel *connectedToHealthKitAlert;
+
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 @property (nonatomic) BOOL noShoesInStore;
 @property (nonatomic) BOOL writeToHealthKit;
@@ -159,6 +163,14 @@ float runTotal;
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
     self.writeToHealthKit = [UserDistanceSetting getHealthKitEnabled] && [self checkForHealthKit];
+    if (self.writeToHealthKit)
+    {
+        self.connectedToHealthKitAlert.hidden = NO;
+    }
+    else
+    {
+        self.connectedToHealthKitAlert.hidden = YES;
+    }
 }
 
 - (BOOL)checkForHealthKit
@@ -352,7 +364,7 @@ float runTotal;
     [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     
-    if ([UserDistanceSetting getHealthKitEnabled])
+    if (self.writeToHealthKit)
     {
         NSURL *shoeIdenitfier = self.distShoe.objectID.URIRepresentation;
         NSString *shoeIDString = shoeIdenitfier.absoluteString;

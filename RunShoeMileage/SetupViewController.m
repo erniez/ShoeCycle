@@ -142,6 +142,7 @@
     [self.distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
     [self refreshUserDefinedDistances];
     [self.enableHealthKitSwitch setOn:[UserDistanceSetting getHealthKitEnabled] animated:NO];
+    [self updateEnableHealthKitInfoLabel];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -240,7 +241,7 @@
         [healthManager initializeHealthKitForShoeCycleWithCompletion:^(BOOL success, UIAlertController *alertController) {
             if (success)
             {
-                return;
+                [self updateEnableHealthKitInfoLabel];
             }
             else
             {
@@ -257,6 +258,21 @@
             }
         }];
     }
+    else
+    {
+        [self updateEnableHealthKitInfoLabel];
+    }
 }
 
+- (void)updateEnableHealthKitInfoLabel
+{
+    if ([UserDistanceSetting getHealthKitEnabled])
+    {
+        self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App. The ❤️ means that you're connected.";
+    }
+    else
+    {
+        self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App.";
+    }
+}
 @end
