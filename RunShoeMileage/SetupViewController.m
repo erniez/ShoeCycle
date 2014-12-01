@@ -11,6 +11,7 @@
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
+#import "HealthKitManager.h"
 
 
 @interface SetupViewController ()
@@ -239,7 +240,37 @@
 
 - (IBAction)enableHealthKitValueDidChange:(id)sender
 {
+    UISwitch *enableSwitch = sender;
+    HealthKitManager *healthManager = [HealthKitManager sharedManager];
+
+    [UserDistanceSetting setHealthKitEnabled:enableSwitch.isOn];
     
+    if (healthManager.authorizationStatus == HKAuthorizationStatusSharingAuthorized)
+    {
+        return;
+    }
+    else
+    {
+        [healthManager initializeHealthKitForShoeCycleWithCompletion:^(BOOL success, NSError *error) {
+            if (success)
+            {
+                return;
+            }
+            else
+            {
+                if (error)
+                {
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error Accessing HealthKit:" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
+                    [alertController addAction:cancelAction];
+                    [self presentViewController:alertController animated:YES completion:nil];
+                }
+                // User denied us access so we need to reset the switch
+                [UserDistanceSetting setHealthKitEnabled:NO];
+                [enableSwitch setOn:NO animated:YES];
+            }
+        }];
+    }
 }
 
 @end

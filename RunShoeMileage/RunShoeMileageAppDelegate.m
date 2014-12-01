@@ -13,14 +13,10 @@
 #import "EditShoesNavController.h"
 #import "ShoeStore.h"
 #import <Crashlytics/Crashlytics.h>
+#import "UserDistanceSetting.h"
 
-//NSString * const TreadTrackerDistanceUnitPrefKey = @"TreadTrackerDistanceUnitPrefKey";
-//NSInteger distanceUnit;
-//float const milesToKilometers = 1.609344;
 
 @implementation RunShoeMileageAppDelegate
-
-// Change to make a difference for a test commit
 
 @synthesize window, tabBarController;
 
@@ -109,9 +105,9 @@
     
 }
 
-
 - (void)switchToTab:(int)index
 {
     [tabBarController setSelectedIndex:index];
 }
+
 @end

@@ -47,7 +47,7 @@ dispatch_once(&onceToken, ^{
     return self;
 }
 
-- (void)initializeHealthKitForShoeCycle
+- (void)initializeHealthKitForShoeCycleWithCompletion:(void (^)(BOOL success, NSError *))completion
 {
     self.runQuantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
     self.authorizationStatus = [self.healthStore authorizationStatusForType:self.runQuantityType];
@@ -55,6 +55,10 @@ dispatch_once(&onceToken, ^{
     {
         [self.healthStore requestAuthorizationToShareTypes:[NSSet setWithObject:self.runQuantityType] readTypes:[NSSet setWithObject:self.runQuantityType]  completion:^(BOOL success, NSError *error) {
             self.authorizationStatus = success;
+            if (completion)
+            {
+                completion(success, error);
+            }
         }];
     }
 }

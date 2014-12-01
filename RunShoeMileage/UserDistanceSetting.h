@@ -38,5 +38,8 @@
 
 + (void) setSelectedShoe:(NSInteger)shoeIndex;
 
++ (BOOL)getHealthKitEnabled;
+
++ (void)setHealthKitEnabled:(BOOL)isEnabled;
 
 @end

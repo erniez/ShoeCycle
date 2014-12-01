@@ -267,29 +267,29 @@ float runTotal;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
     
-    HealthKitManager *healthManager = [HealthKitManager sharedManager];
-    if (healthManager)
-    {
-        [healthManager initializeHealthKitForShoeCycle];
-        [healthManager fetchRunStepSourcesWithCompletion:^(HKSourceQuery *query, NSSet *sources, NSError *error) {
-            BOOL dataExists = NO;
-            for (HKSource *source in sources)
-            {
-                if ([source.bundleIdentifier isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
-                {
-                    dataExists = YES;
-                    [healthManager fetchShoeCylceRunStepQuantities:^(HKSampleQuery *query, NSArray *results, NSError *error) {
-                        NSLog(@"Quantities: %@", results);
-                        for (HKQuantitySample *sample in results)
-                        {
-                            NSLog(@"Metadata: %@", sample.metadata);
-                            NSLog(@"ShoeCycle Identifier: %@", sample.metadata[@"ShoeCycleShoeIdentifier"]);
-                        }
-                    }];
-                }
-            }
-        }];
-    }
+//    HealthKitManager *healthManager = [HealthKitManager sharedManager];
+//    if (healthManager)
+//    {
+//        [healthManager initializeHealthKitForShoeCycle];
+//        [healthManager fetchRunStepSourcesWithCompletion:^(HKSourceQuery *query, NSSet *sources, NSError *error) {
+//            BOOL dataExists = NO;
+//            for (HKSource *source in sources)
+//            {
+//                if ([source.bundleIdentifier isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
+//                {
+//                    dataExists = YES;
+//                    [healthManager fetchShoeCylceRunStepQuantities:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+//                        NSLog(@"Quantities: %@", results);
+//                        for (HKQuantitySample *sample in results)
+//                        {
+//                            NSLog(@"Metadata: %@", sample.metadata);
+//                            NSLog(@"ShoeCycle Identifier: %@", sample.metadata[@"ShoeCycleShoeIdentifier"]);
+//                        }
+//                    }];
+//                }
+//            }
+//        }];
+//    }
     
 
 }

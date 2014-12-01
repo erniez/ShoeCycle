@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const TreadTrackerDistanceUnitPrefKey;
 
 @interface RunShoeMileageAppDelegate : NSObject <UIApplicationDelegate>
 { 
