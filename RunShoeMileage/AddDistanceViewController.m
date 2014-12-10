@@ -370,7 +370,10 @@ float runTotal;
         NSString *shoeIDString = shoeIdenitfier.absoluteString;
         NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
         [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
+        [self pulseLabel:self.connectedToHealthKitAlert];
     }
+    
+    [self pulseLabel:self.totalDistanceLabel];
 }
 
 
@@ -507,6 +510,17 @@ float runTotal;
     
     EZLog(@"Wear = %.4f",wear);
 
+}
+
+- (void)pulseLabel:(UILabel *)label
+{
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
+        label.transform = CGAffineTransformMakeScale(1.5, 1.5);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.25 animations:^{
+            label.transform = CGAffineTransformIdentity;
+        } completion:nil];
+    }];
 }
 
 @end

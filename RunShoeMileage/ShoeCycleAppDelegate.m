@@ -56,7 +56,12 @@
     [Crashlytics startWithAPIKey:kCrashlyticsAPIKey];
     
     [self.window makeKeyAndVisible];
-  
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kDoNotShowNewFeaturesKey])
+    {
+        [self displayNewFeaturesInfoOnViewController:vc1];
+    }
+    
     return YES;
 }
 
@@ -106,6 +111,18 @@
 - (void)switchToTab:(int)index
 {
     [tabBarController setSelectedIndex:index];
+}
+
+- (void)displayNewFeaturesInfoOnViewController:(UIViewController *)viewController
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Feature!" message:kNewFeaturesInfov2_1String preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *readConfirmation = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kDoNotShowNewFeaturesKey];
+    }];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction: readConfirmation];
+    [alert addAction:done];
+    [viewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end
