@@ -14,7 +14,7 @@
 #import "Shoe.h"
 #import "History.h"
 #import "UserDistanceSetting.h"
-#import "RunShoeMileageAppDelegate.h"
+#import "ShoeCycleAppDelegate.h"
 #import "RunDatePickerViewController.h"
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
@@ -186,7 +186,7 @@ float runTotal;
     {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"No shoes are being tracked:" message:@"You first need to add a shoe before you can add a distance." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            RunShoeMileageAppDelegate *appDelegate = (RunShoeMileageAppDelegate *)[[UIApplication sharedApplication] delegate];
+            ShoeCycleAppDelegate *appDelegate = (ShoeCycleAppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate switchToTab:1];
         }];
         

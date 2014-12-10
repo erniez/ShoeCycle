@@ -7,7 +7,7 @@
 //
 
 #import "SetupViewController.h"
-#import "RunShoeMileageAppDelegate.h"
+#import "ShoeCycleAppDelegate.h"
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"

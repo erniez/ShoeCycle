@@ -6,7 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "RunShoeMileageAppDelegate.h"
+#import "ShoeCycleAppDelegate.h"
 #import "AddDistanceViewController.h"
 #import "EditShoesViewController.h"
 #import "SetupViewController.h"
@@ -14,9 +14,10 @@
 #import "ShoeStore.h"
 #import <Crashlytics/Crashlytics.h>
 #import "UserDistanceSetting.h"
+#import "GlobalStingConstants.h"
 
 
-@implementation RunShoeMileageAppDelegate
+@implementation ShoeCycleAppDelegate
 
 @synthesize window, tabBarController;
 
@@ -40,11 +41,8 @@
     // I would need to create a seperate navigation controller class and override the init field if I don't
     // want the following two lines of code in the App Delegate.
     UITabBarItem *tbi = [navController tabBarItem];
-//    int offset = 7;
-//    UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
     
     // Give it an image and center
-//    tbi.imageInsets = imageInset;
     UIImage *image = [UIImage imageNamed:@"tabbar-shoe.png"];
     [tbi setTitle:@"Add/Edit Shoes"];
     [tbi setImage:image];
@@ -55,7 +53,7 @@
     
     // Start Crashlytics
 //    [[Crashlytics sharedInstance] setDebugMode:YES];
-    [Crashlytics startWithAPIKey:@"949e709fc52c311b695d5efc4d8c85064ad7a389"];
+    [Crashlytics startWithAPIKey:kCrashlyticsAPIKey];
     
     [self.window makeKeyAndVisible];
   

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RunShoeMileageAppDelegate : NSObject <UIApplicationDelegate>
+@interface ShoeCycleAppDelegate : NSObject <UIApplicationDelegate>
 { 
     @public    
     UITabBarController *tabBarController;
