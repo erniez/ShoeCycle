@@ -191,7 +191,9 @@
 
 - (IBAction)aboutButton:(id)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.2" preferredStyle:UIAlertControllerStyleAlert];
+    NSString *appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *aboutMessage = [NSString stringWithFormat:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is %@", appVersionString];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:aboutMessage preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];

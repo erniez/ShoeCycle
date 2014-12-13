@@ -66,14 +66,11 @@ float runTotal;
                            bundle:nil];
     if (self) {
         // Get tab bar item
-//        int offset = 7;
-//        UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
         UITabBarItem *tbi = [self tabBarItem];
         
         // Give it a label
         UIImage *image = [UIImage imageNamed:@"tabbar-add.png"];
         [tbi setTitle:@"Add Distance"];
-//        tbi.imageInsets = imageInset;
         [tbi setImage:image];
     }
     
@@ -352,8 +349,6 @@ float runTotal;
     self.hist.runDistance = [NSNumber numberWithFloat:addDistance];
     EZLog(@"setting history run distance = %@",self.hist.runDistance);
     self.hist.runDate = testDate;
-   
-//    NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
     
     EZLog(@"%@",self.hist.runDistance);
     
@@ -509,7 +504,6 @@ float runTotal;
     EZLog(@"Wear Days = %ld and %ld",(long)daysLeftToWear, (long)daysTotal);
     
     EZLog(@"Wear = %.4f",wear);
-
 }
 
 - (void)pulseLabel:(UILabel *)label
