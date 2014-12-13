@@ -7,28 +7,33 @@
 //
 
 #import "SetupViewController.h"
-#import "RunShoeMileageAppDelegate.h"
+#import "ShoeCycleAppDelegate.h"
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
+#import "HealthKitManager.h"
 
 
 @interface SetupViewController ()
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *distanceUnitControl;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance1;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance2;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance3;
+@property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance4;
 
 @property (weak, nonatomic) IBOutlet UIView *unitsBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *unitsTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favDistancesTitleLabel;
+@property (weak, nonatomic) IBOutlet UIView *enableHealthKitBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *enableHealthKitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *enableHealthKitInfoLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *enableHealthKitSwitch;
 
 @end
 
 @implementation SetupViewController
-@synthesize distanceUnitControl;
-@synthesize userDefinedDistance1;
-@synthesize userDefinedDistance2;
-@synthesize userDefinedDistance3;
-@synthesize userDefinedDistance4;
-
 
 - (id)init
 {
@@ -81,31 +86,33 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
     self.unitsTitleLabel.textColor = [UIColor shoeCycleOrange];
     self.favDistancesTitleLabel.textColor = [UIColor shoeCycleGreen];
+    self.enableHealthKitLabel.textColor = [UIColor shoeCycleBlue];
+    self.enableHealthKitInfoLabel.textColor = [UIColor shoeCycleOrange];
     
-    userDefinedDistance1.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance1.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance1.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance1.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
-    userDefinedDistance2.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance2.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance2.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance2.keyboardType = UIKeyboardTypeDecimalPad;
     }
 
-    userDefinedDistance3.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance3.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance3.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance3.keyboardType = UIKeyboardTypeDecimalPad;
     }
 
-    userDefinedDistance4.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.userDefinedDistance4.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
-        userDefinedDistance4.keyboardType = UIKeyboardTypeDecimalPad;
+        self.userDefinedDistance4.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
-    userDefinedDistance1.delegate = self;
-    userDefinedDistance2.delegate = self;
-    userDefinedDistance3.delegate = self;
-    userDefinedDistance4.delegate = self;
+    self.userDefinedDistance1.delegate = self;
+    self.userDefinedDistance2.delegate = self;
+    self.userDefinedDistance3.delegate = self;
+    self.userDefinedDistance4.delegate = self;
 
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     
@@ -114,6 +121,9 @@
     
     self.favoriteDistancesBackgroundView.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.favoriteDistancesBackgroundView];
+    
+    self.enableHealthKitBackgroundView.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.enableHealthKitBackgroundView];
     
     // Create dotted lines
     CGRect lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.unitsBackgroundView.bounds.size.height);
@@ -129,20 +139,10 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
+    [self.distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
     [self refreshUserDefinedDistances];
-}
-
-- (void)viewDidUnload
-{
-    distanceUnitControl = nil;
-    userDefinedDistance1 = nil;
-    userDefinedDistance2 = nil;
-    userDefinedDistance3 = nil;
-    userDefinedDistance4 = nil;
-    
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    [self.enableHealthKitSwitch setOn:[UserDistanceSetting getHealthKitEnabled] animated:NO];
+    [self updateEnableHealthKitInfoLabel];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -175,23 +175,25 @@
 - (void)refreshUserDefinedDistances
 {
     if ([UserDistanceSetting getUserDefinedDistance1]) {
-        [userDefinedDistance1 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]]];
+        [self.userDefinedDistance1 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]]];
     }
     if ([UserDistanceSetting getUserDefinedDistance2]) {
-        [userDefinedDistance2 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]]];
+        [self.userDefinedDistance2 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]]];
     }
     if ([UserDistanceSetting getUserDefinedDistance3]) {
-        [userDefinedDistance3 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]]];
+        [self.userDefinedDistance3 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]]];
     }
     if ([UserDistanceSetting getUserDefinedDistance4]) {
-        [userDefinedDistance4 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]]];
+        [self.userDefinedDistance4 setText:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]]];
     }
 
 }
 
 - (IBAction)aboutButton:(id)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is 2.1" preferredStyle:UIAlertControllerStyleAlert];
+    NSString *appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *aboutMessage = [NSString stringWithFormat:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is %@", appVersionString];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:aboutMessage preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:cancelAction];
@@ -202,20 +204,20 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    if (textField == userDefinedDistance1) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance1.text];
+    if (textField == self.userDefinedDistance1) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance1.text];
         [UserDistanceSetting setUserDefinedDistance1:distance];
     }
-    if (textField == userDefinedDistance2) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance2.text];
+    if (textField == self.userDefinedDistance2) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance2.text];
         [UserDistanceSetting setUserDefinedDistance2:distance];
     }
-    if (textField == userDefinedDistance3) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance3.text];
+    if (textField == self.userDefinedDistance3) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance3.text];
         [UserDistanceSetting setUserDefinedDistance3:distance];
     }
-    if (textField == userDefinedDistance4) {
-        float distance = [UserDistanceSetting enterDistance:userDefinedDistance4.text];
+    if (textField == self.userDefinedDistance4) {
+        float distance = [UserDistanceSetting enterDistance:self.userDefinedDistance4.text];
         [UserDistanceSetting setUserDefinedDistance4:distance];
     }
 
@@ -227,5 +229,52 @@
 {
     [UserDistanceSetting setDistanceUnit:[sender selectedSegmentIndex]];
     [self refreshUserDefinedDistances];
+}
+
+- (IBAction)enableHealthKitValueDidChange:(id)sender
+{
+    UISwitch *enableSwitch = sender;
+    HealthKitManager *healthManager = [HealthKitManager sharedManager];
+
+    [UserDistanceSetting setHealthKitEnabled:enableSwitch.isOn];
+    
+    if (healthManager.authorizationStatus != HKAuthorizationStatusSharingAuthorized && enableSwitch.isOn)
+    {
+        [healthManager initializeHealthKitForShoeCycleWithCompletion:^(BOOL success, UIAlertController *alertController) {
+            if (success)
+            {
+                [self updateEnableHealthKitInfoLabel];
+            }
+            else
+            {
+                if (alertController)
+                {
+                    [self presentViewController:alertController animated:YES completion:nil];
+                }
+                // User denied us access so we need to reset the switch
+                [UserDistanceSetting setHealthKitEnabled:NO];
+                // Not guaranteed to be on main thread.
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [enableSwitch setOn:NO animated:YES];
+                });
+            }
+        }];
+    }
+    else
+    {
+        [self updateEnableHealthKitInfoLabel];
+    }
+}
+
+- (void)updateEnableHealthKitInfoLabel
+{
+    if ([UserDistanceSetting getHealthKitEnabled])
+    {
+        self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App. The ❤️ means that you're connected.";
+    }
+    else
+    {
+        self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App.";
+    }
 }
 @end

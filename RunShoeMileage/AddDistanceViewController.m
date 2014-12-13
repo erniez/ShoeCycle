@@ -14,9 +14,11 @@
 #import "Shoe.h"
 #import "History.h"
 #import "UserDistanceSetting.h"
-#import "RunShoeMileageAppDelegate.h"
+#import "ShoeCycleAppDelegate.h"
 #import "RunDatePickerViewController.h"
 #import "UIUtilities.h"
+#import "HealthKitManager.h"
+#import "UIColor+ShoeCycleColors.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -24,6 +26,7 @@ float runTotal;
 
 @interface AddDistanceViewController () <RunDatePickerViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *addDistanceButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockInnerConstraint;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -45,8 +48,11 @@ float runTotal;
 @property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
+@property (weak, nonatomic) IBOutlet UILabel *connectedToHealthKitAlert;
+
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 @property (nonatomic) BOOL noShoesInStore;
+@property (nonatomic) BOOL writeToHealthKit;
 
 @end
 
@@ -60,21 +66,16 @@ float runTotal;
                            bundle:nil];
     if (self) {
         // Get tab bar item
-//        int offset = 7;
-//        UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
         UITabBarItem *tbi = [self tabBarItem];
         
         // Give it a label
         UIImage *image = [UIImage imageNamed:@"tabbar-add.png"];
         [tbi setTitle:@"Add Distance"];
-//        tbi.imageInsets = imageInset;
         [tbi setImage:image];
     }
     
     return self;
 }
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,16 +84,6 @@ float runTotal;
         // Custom initialization
     }
     return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    EZLog(@"entered addDistance didReceiveMemoryWarning");
-    [super didReceiveMemoryWarning];
-    EZLog(@"leaving addDistance didReceiveMemoryWarning");    
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -168,6 +159,20 @@ float runTotal;
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+    self.writeToHealthKit = [UserDistanceSetting getHealthKitEnabled] && [self checkForHealthKit];
+    if (self.writeToHealthKit)
+    {
+        self.connectedToHealthKitAlert.hidden = NO;
+    }
+    else
+    {
+        self.connectedToHealthKitAlert.hidden = YES;
+    }
+}
+
+- (BOOL)checkForHealthKit
+{
+    return [[HealthKitManager sharedManager] authorizationStatus];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -178,7 +183,7 @@ float runTotal;
     {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"No shoes are being tracked:" message:@"You first need to add a shoe before you can add a distance." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            RunShoeMileageAppDelegate *appDelegate = (RunShoeMileageAppDelegate *)[[UIApplication sharedApplication] delegate];
+            ShoeCycleAppDelegate *appDelegate = (ShoeCycleAppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate switchToTab:1];
         }];
         
@@ -265,9 +270,6 @@ float runTotal;
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
-    
-    EZLog(@"View Did Load addDistanceViewController");
-
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -347,8 +349,6 @@ float runTotal;
     self.hist.runDistance = [NSNumber numberWithFloat:addDistance];
     EZLog(@"setting history run distance = %@",self.hist.runDistance);
     self.hist.runDate = testDate;
-   
-//    NSMutableArray *runDistances = [[NSMutableArray alloc] initWithArray:[distShoe.history allObjects]];
     
     EZLog(@"%@",self.hist.runDistance);
     
@@ -359,6 +359,16 @@ float runTotal;
     [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
     self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     
+    if (self.writeToHealthKit)
+    {
+        NSURL *shoeIdenitfier = self.distShoe.objectID.URIRepresentation;
+        NSString *shoeIDString = shoeIdenitfier.absoluteString;
+        NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
+        [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
+        [self pulseLabel:self.connectedToHealthKitAlert];
+    }
+    
+    [self pulseLabel:self.totalDistanceLabel];
 }
 
 
@@ -494,7 +504,17 @@ float runTotal;
     EZLog(@"Wear Days = %ld and %ld",(long)daysLeftToWear, (long)daysTotal);
     
     EZLog(@"Wear = %.4f",wear);
+}
 
+- (void)pulseLabel:(UILabel *)label
+{
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
+        label.transform = CGAffineTransformMakeScale(1.5, 1.5);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.25 animations:^{
+            label.transform = CGAffineTransformIdentity;
+        } completion:nil];
+    }];
 }
 
 @end

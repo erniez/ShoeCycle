@@ -17,7 +17,6 @@
 - (void)calculateDaysLeftProgressBar;
 - (IBAction)backgroundTapped:(id)sender;
 - (IBAction)addDistanceButton:(id)sender;
-- (IBAction)callDP:(id)sender;
 - (IBAction)standardDistancesButtonPressed:(id)sender;
 - (IBAction)runHistoryButtonPressed:(id)sender;
 

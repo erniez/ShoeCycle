@@ -8,7 +8,7 @@
 
 #import "EditShoesViewController.h"
 #import "ShoeDetailViewController.h"
-#import "RunShoeMileageAppDelegate.h"
+#import "ShoeCycleAppDelegate.h"
 #import "ShoeStore.h"
 #import "Shoe.h"
 #import "UserDistanceSetting.h"
