@@ -43,11 +43,8 @@
     if (self) {
         // Get tab bar item
         UITabBarItem *tbi = [self tabBarItem];
-//        int offset = 7;
-//        UIEdgeInsets imageInset = UIEdgeInsetsMake(offset, 0, -offset, 0);
         
         // Give it a centered icon
- //       tbi.imageInsets = imageInset;
         UIImage *image = [UIImage imageNamed:@"tabbar-gear.png"];
         [tbi setTitle:@"Setup"];
         [tbi setImage:image];

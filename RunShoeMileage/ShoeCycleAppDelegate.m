@@ -57,6 +57,8 @@
     
     [self.window makeKeyAndVisible];
     
+    [self monitorVersion];
+    
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kDoNotShowNewFeaturesKey])
     {
         [self displayNewFeaturesInfoOnViewController:vc1];
@@ -123,6 +125,27 @@
     [alert addAction: readConfirmation];
     [alert addAction:done];
     [viewController presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)monitorVersion
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *currentVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *storedCurrentVersionString = [defaults stringForKey:kCurrentVersionNumber];
+    if (storedCurrentVersionString)
+    {
+        if ([currentVersionString floatValue] > [storedCurrentVersionString floatValue])
+        {
+            [defaults setObject:storedCurrentVersionString forKey:kPreviousVersionNumber];
+            [defaults setObject:currentVersionString forKey:kCurrentVersionNumber];
+            [defaults synchronize];
+        }
+    }
+    else
+    {
+        [defaults setObject:currentVersionString forKey:kCurrentVersionNumber];
+        [defaults synchronize];
+    }
 }
 
 @end
