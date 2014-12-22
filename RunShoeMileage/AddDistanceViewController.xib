@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddDistanceViewController">
             <connections>
+                <outlet property="addDistanceButton" destination="8" id="o6C-jU-wuf"/>
                 <outlet property="bottomBlockContstraint" destination="x7N-Ku-2NN" id="9MS-LS-9U0"/>
                 <outlet property="bottomBlockInnerConstraint" destination="wE6-Ra-jsI" id="QTe-Rw-aVu"/>
+                <outlet property="connectedToHealthKitAlert" destination="KJ8-cP-K90" id="OgW-5z-EHP"/>
                 <outlet property="daysLeftIdentificationLabel" destination="75" id="84"/>
                 <outlet property="daysLeftLabel" destination="81" id="82"/>
                 <outlet property="distanceUnitLabel" destination="79" id="80"/>
@@ -44,9 +46,13 @@
                         <constraint firstAttribute="height" constant="5" id="Vjd-gZ-8CP"/>
                     </constraints>
                 </progressView>
-                <view alpha="0.10000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13p-YD-EAb">
+                <view alpha="0.10000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13p-YD-EAb" userLabel="LightenView">
                     <rect key="frame" x="13" y="170" width="296" height="94"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="94" id="bot-T0-JP3"/>
+                        <constraint firstAttribute="width" constant="296" id="g75-dD-JpB"/>
+                    </constraints>
                 </view>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                     <rect key="frame" x="131" y="201" width="76" height="30"/>
@@ -98,6 +104,16 @@
                     <rect key="frame" x="204" y="427" width="30" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="❤️" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJ8-cP-K90">
+                    <rect key="frame" x="276" y="240" width="24" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="CDd-2V-jKs"/>
+                        <constraint firstAttribute="width" constant="24" id="wSG-GF-At7"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54">
@@ -229,10 +245,13 @@
                 <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" id="Men-aY-Bc3"/>
                 <constraint firstItem="8" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="13" id="PbL-CB-I53"/>
                 <constraint firstItem="53" firstAttribute="centerY" secondItem="79" secondAttribute="centerY" id="TJW-EK-apj"/>
+                <constraint firstItem="KJ8-cP-K90" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="2" id="UcG-vD-dOD"/>
                 <constraint firstItem="75" firstAttribute="top" secondItem="81" secondAttribute="bottom" constant="-5" id="V1V-Io-2B4"/>
                 <constraint firstItem="67" firstAttribute="leading" secondItem="7fq-28-cJu" secondAttribute="leading" id="VUT-2a-zIb"/>
                 <constraint firstItem="4" firstAttribute="trailing" secondItem="7H0-I3-FA9" secondAttribute="trailing" constant="-1" id="YIO-zo-80P"/>
                 <constraint firstItem="lk0-sU-SAs" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Yom-o7-Lgs"/>
+                <constraint firstItem="13p-YD-EAb" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="13" id="b5J-c0-sxz"/>
+                <constraint firstItem="KJ8-cP-K90" firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="bhZ-5b-efD"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="5" secondAttribute="leading" id="ctZ-dH-Yib"/>
                 <constraint firstItem="77" firstAttribute="centerX" secondItem="79" secondAttribute="centerX" constant="0.5" id="f0D-e0-D0I"/>
                 <constraint firstItem="4" firstAttribute="centerY" secondItem="77" secondAttribute="centerY" id="f7m-zH-AgE"/>
@@ -242,6 +261,7 @@
                 <constraint firstItem="67" firstAttribute="centerY" secondItem="52" secondAttribute="centerY" id="l8Z-Is-RjA"/>
                 <constraint firstItem="7H0-I3-FA9" firstAttribute="trailing" secondItem="53" secondAttribute="trailing" id="nL1-dq-YyE"/>
                 <constraint firstAttribute="trailing" secondItem="75" secondAttribute="trailing" constant="10" id="nXK-Vg-obT"/>
+                <constraint firstItem="13p-YD-EAb" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="5" id="oep-Pe-7Dr"/>
                 <constraint firstItem="64" firstAttribute="centerX" secondItem="60" secondAttribute="centerX" id="orH-GT-iRy"/>
                 <constraint firstItem="79" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="-7" id="qlF-w0-YDr"/>
                 <constraint firstItem="60" firstAttribute="top" secondItem="64" secondAttribute="bottom" constant="19" id="r1Q-5u-LXy"/>

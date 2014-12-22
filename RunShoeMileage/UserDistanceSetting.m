@@ -17,6 +17,7 @@ NSString * const TreadTrackerUserDefineDistance2PrefKey = @"TreadTrackerUserDefi
 NSString * const TreadTrackerUserDefineDistance3PrefKey = @"TreadTrackerUserDefineDistance3PrefKey";
 NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefineDistance4PrefKey";
 NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePrefKey";
+NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
 
 // static NSInteger distanceUnit;
 
@@ -36,7 +37,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     [[NSUserDefaults standardUserDefaults]
      setInteger:setting
      forKey:TreadTrackerDistanceUnitPrefKey];
-    return;
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
@@ -96,7 +97,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     [[NSUserDefaults standardUserDefaults]
      setFloat:setting
      forKey:TreadTrackerUserDefineDistance1PrefKey];
-    return;
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
@@ -111,7 +112,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     [[NSUserDefaults standardUserDefaults]
      setFloat:setting
      forKey:TreadTrackerUserDefineDistance2PrefKey];
-    return;
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
@@ -126,7 +127,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     [[NSUserDefaults standardUserDefaults]
      setFloat:setting
      forKey:TreadTrackerUserDefineDistance3PrefKey];
-    return;
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
@@ -141,7 +142,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     [[NSUserDefaults standardUserDefaults]
      setFloat:setting
      forKey:TreadTrackerUserDefineDistance4PrefKey];
-    return;
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (int) getSelectedShoe
@@ -155,7 +156,18 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
     [[NSUserDefaults standardUserDefaults]
         setInteger:shoeIndex
             forKey:TreadTrackerSelecredShoePrefKey];
-    return;
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)getHealthKitEnabled
+{
+    // nil BOOLs are returned as NO, so no need to set a default value here.
+    return [[NSUserDefaults standardUserDefaults] boolForKey:ShoeCycleHealthKitEnabledKey];
+}
+
++ (void)setHealthKitEnabled:(BOOL)isEnabled
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isEnabled forKey:ShoeCycleHealthKitEnabledKey];
 }
 
 @end

@@ -10,15 +10,6 @@
 
 @interface SetupViewController : UIViewController
 <UITextFieldDelegate>
-{
-
-}
-
-@property (strong, nonatomic) IBOutlet UISegmentedControl *distanceUnitControl;
-@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance1;
-@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance2;
-@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance3;
-@property (strong, nonatomic) IBOutlet UITextField *userDefinedDistance4;
 
 - (IBAction)changeDistanceUnits:(id)sender;
 - (IBAction)backgroundTapped:(id)sender;
