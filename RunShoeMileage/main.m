@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RunShoeMileageAppDelegate.h"
+#import "ShoeCycleAppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([RunShoeMileageAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([ShoeCycleAppDelegate class]));
     }
 }
 
