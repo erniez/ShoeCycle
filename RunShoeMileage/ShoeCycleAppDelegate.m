@@ -61,7 +61,12 @@
     
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kDoNotShowNewFeaturesKey])
     {
-        [self displayNewFeaturesInfoOnViewController:vc1];
+        NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+        if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
+        {
+            [self displayNewFeaturesInfoOnViewController:vc1];
+        }
+        
     }
     
     return YES;
