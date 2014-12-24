@@ -24,7 +24,7 @@ float const milesToKilometers;
 float runTotal;
 
 
-@interface AddDistanceViewController () <RunDatePickerViewDelegate>
+@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addDistanceButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
@@ -321,7 +321,7 @@ float runTotal;
     }
 }
 
-- (IBAction)addDistanceButton:(id)sender 
+- (IBAction)addDistanceButton:(id)sender
 {
     float addDistance;
     
@@ -401,6 +401,48 @@ float runTotal;
 
 }
 
+- (IBAction)testStravaIntegrationButtonTapped:(id)sender
+{
+    UIWebView *webview = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    UIViewController *webContainer = [[UIViewController alloc] init];
+    webContainer.view.frame = self.view.bounds;
+    [webContainer.view addSubview:webview];
+    webContainer.view.backgroundColor = [UIColor redColor];
+    NSURLRequest *testRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.strava.com/oauth/authorize?client_id=4002&response_type=code&redirect_uri=http://shoecycleapp.com/callback&scope=write"]];
+    webview.delegate = self;
+    [self presentViewController:webContainer animated:YES completion:^{
+        [webview loadRequest:testRequest];
+    }];
+    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSURL *returnURL = [request URL];
+    NSString *URLString = [returnURL absoluteString];
+    if ([URLString containsString:@"shoecycleapp.com/callback"] && ![URLString containsString:@"redirect_uri"]) {
+        if ([URLString containsString:@"code"]) {
+            NSString *code = [[URLString componentsSeparatedByString:@"code="] lastObject];
+            NSLog(@"CALLBACK!\nCode: %@",code);
+        }
+    }
+    return YES;
+}
 #pragma mark - RunDatePickerViewControllerDelegate
 
 - (void)dismissDatePicker:(RunDatePickerViewController *)datePicker
