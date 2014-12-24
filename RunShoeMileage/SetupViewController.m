@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitInfoLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *enableHealthKitSwitch;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -230,6 +231,8 @@
 
 - (IBAction)enableHealthKitValueDidChange:(id)sender
 {
+    [[self view] endEditing:YES]; // get rid of any visible keyboards
+    
     UISwitch *enableSwitch = sender;
     HealthKitManager *healthManager = [HealthKitManager sharedManager];
 
