@@ -12,6 +12,8 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
+#import "ShoeCycle-Swift.h"
+#import "AFNetworking.h"
 
 
 @interface SetupViewController ()
@@ -31,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitInfoLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *enableHealthKitSwitch;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *stravaInteractionButton;
 
 @end
 
@@ -38,6 +41,7 @@
 
 - (id)init
 {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // Call the class designated initializer
     self = [super initWithNibName:nil
                            bundle:nil];
@@ -199,6 +203,12 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (IBAction)stravaInteractionButtonTapped:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
+    UINavigationController *nc = [storyboard instantiateInitialViewController];
+    [self presentViewController:nc animated:YES completion:nil];
+}
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {

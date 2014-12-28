@@ -14,6 +14,7 @@
                 <outlet property="favDistancesTitleLabel" destination="pIj-s8-f4G" id="XtC-BN-dlf"/>
                 <outlet property="favoriteDistancesBackgroundView" destination="Ln1-vh-RGs" id="dq1-z7-eGv"/>
                 <outlet property="scrollView" destination="yWP-ai-uel" id="rFu-o1-zeZ"/>
+                <outlet property="stravaInteractionButton" destination="A5f-AD-qSC" id="2n1-8s-JcC"/>
                 <outlet property="unitsBackgroundView" destination="PEU-Kt-Irh" id="mPb-03-Gud"/>
                 <outlet property="unitsTitleLabel" destination="f2B-ea-3hC" id="Qcy-dy-2Vc"/>
                 <outlet property="userDefinedDistance1" destination="DfB-vW-D0K" id="9fD-J5-mCO"/>
@@ -51,7 +52,7 @@
                                     <rect key="frame" x="25" y="8" width="35" height="35"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNITS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2B-ea-3hC">
-                                    <rect key="frame" x="27.5" y="48" width="30.5" height="12"/>
+                                    <rect key="frame" x="27" y="48" width="30.5" height="12"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
@@ -203,16 +204,27 @@
                                 <action selector="aboutButton:" destination="-1" eventType="touchUpInside" id="pjt-li-ZGV"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5f-AD-qSC">
+                            <rect key="frame" x="97" y="374" width="125" height="30"/>
+                            <state key="normal" title="Connect to Strava">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="stravaInteractionButtonTapped:" destination="-1" eventType="touchUpInside" id="Qxa-ma-3Gr"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="PEU-Kt-Irh" secondAttribute="centerX" id="0la-aZ-YIX"/>
                         <constraint firstItem="Ln1-vh-RGs" firstAttribute="top" secondItem="PEU-Kt-Irh" secondAttribute="bottom" constant="25" id="7au-fK-t8b"/>
                         <constraint firstItem="0Ra-d4-lhk" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="472" id="DXM-C0-tmG"/>
+                        <constraint firstItem="A5f-AD-qSC" firstAttribute="top" secondItem="gZY-Rb-Z6v" secondAttribute="bottom" constant="8" id="EuX-h2-2IP"/>
                         <constraint firstItem="0Ra-d4-lhk" firstAttribute="bottom" secondItem="yWP-ai-uel" secondAttribute="bottom" constant="-59" id="Rnt-HZ-jFY"/>
                         <constraint firstAttribute="centerX" secondItem="gZY-Rb-Z6v" secondAttribute="centerX" id="Ztx-Rd-b8x"/>
                         <constraint firstAttribute="centerX" secondItem="0Ra-d4-lhk" secondAttribute="centerX" id="fRl-gX-W66"/>
                         <constraint firstAttribute="centerX" secondItem="Ln1-vh-RGs" secondAttribute="centerX" id="fZG-Te-pWi"/>
+                        <constraint firstAttribute="centerX" secondItem="A5f-AD-qSC" secondAttribute="centerX" id="gwA-Q4-2Y9"/>
                         <constraint firstItem="gZY-Rb-Z6v" firstAttribute="top" secondItem="Ln1-vh-RGs" secondAttribute="bottom" constant="20" id="u7d-FB-iYS"/>
                         <constraint firstItem="PEU-Kt-Irh" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="35" id="uO2-Qx-6PO"/>
                     </constraints>
@@ -231,7 +243,7 @@
             </constraints>
             <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="81" y="458.5"/>
+            <point key="canvasLocation" x="-21" y="458"/>
         </view>
         <tapGestureRecognizer id="LD1-8x-HOa">
             <connections>

@@ -19,6 +19,7 @@
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
 #import "UIColor+ShoeCycleColors.h"
+#import "AFNetworking.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -433,11 +434,20 @@ float runTotal;
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    
     NSURL *returnURL = [request URL];
     NSString *URLString = [returnURL absoluteString];
     if ([URLString containsString:@"shoecycleapp.com/callback"] && ![URLString containsString:@"redirect_uri"]) {
         if ([URLString containsString:@"code"]) {
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             NSString *code = [[URLString componentsSeparatedByString:@"code="] lastObject];
+            NSString *authURL = @"https://www.strava.com/oauth/token";
+            NSDictionary *params = @{@"client_id" : @"4002", @"client_secret" : @"558112ea963c3427a387549a3361bd6677083ff9", @"code" : code};
+            [manager POST:authURL parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+                NSLog(@"SUCCESS!!!\n%@",responseObject);
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                NSLog(@"FAILURE!!!\n%@",error);
+            }];
             NSLog(@"CALLBACK!\nCode: %@",code);
         }
     }
