@@ -40,13 +40,13 @@ class StravaInteractionViewController: UIViewController, UIWebViewDelegate {
     func webView(webView: UIWebView,
         shouldStartLoadWithRequest request: NSURLRequest,
         navigationType: UIWebViewNavigationType) -> Bool {
-            let requestURL:NSURL = request.URL
+            let requestURL:NSURL = request.URL!
             let URLString:NSString = requestURL.absoluteString!
             if (URLString.containsString("shoecycleapp.com/callback") &&
                 !URLString.containsString("redirect_uri")) {
                     if  (URLString.containsString("code")) {
-                        let tempArray:NSArray = URLString.componentsSeparatedByString("code=")
-                        self.tempToken = tempArray.lastObject as NSString
+                        var tempArray:NSArray = URLString.componentsSeparatedByString("code=")
+                        self.tempToken = tempArray.lastObject as! NSString
                         println(URLString)
                         self.didReceiveTemporaryToken()
                     }
@@ -60,12 +60,12 @@ class StravaInteractionViewController: UIViewController, UIWebViewDelegate {
     }
     
     private func didReceiveTemporaryToken() {
-        let URLString:NSString = "https://www.strava.com/oauth/token"
+        let URLString:String = "https://www.strava.com/oauth/token"
         let params = ["client_id" : "4002", "client_secret" : "558112ea963c3427a387549a3361bd6677083ff9", "code" : self.tempToken];
         networkHTTPManager.POST(URLString, parameters: params, success: { (data:NSURLSessionDataTask!, results:AnyObject!) -> Void in
                 println("SUCCESS!!!")
                 println(results)
-                self.saveAccessToken(results["access_token"] as NSString)
+                self.saveAccessToken(results["access_token"] as! NSString)
             }) { (data:NSURLSessionDataTask!, error:NSError!) -> Void in
                 println("FAILURE!!!")
                 println(error)
