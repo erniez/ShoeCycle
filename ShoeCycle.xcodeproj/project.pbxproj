@@ -40,9 +40,9 @@
 		1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2FAED14B5D343006A4542 /* CoreData.framework */; };
 		1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDDEC5C148BDF8B009E5436 /* AddDistanceViewController.m */; };
 		1BDDEC5F148BDF8C009E5436 /* AddDistanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDDEC5D148BDF8B009E5436 /* AddDistanceViewController.xib */; };
+		1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */; };
 		1BE7C0591495B2B70002C332 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF644F148AF7E7004C0E6A /* MainWindow.xib */; };
 		BC2CB8357E1CF032AF778124 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5BF4F9997A411C66168D1A /* libPods.a */; };
-		EA7194161A4AFC4300C2517A /* StravaInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7194151A4AFC4300C2517A /* StravaInteractionViewController.swift */; };
 		EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -104,11 +104,11 @@
 		1BDDEC5B148BDF8B009E5436 /* AddDistanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDistanceViewController.h; sourceTree = "<group>"; };
 		1BDDEC5C148BDF8B009E5436 /* AddDistanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDistanceViewController.m; sourceTree = "<group>"; };
 		1BDDEC5D148BDF8B009E5436 /* AddDistanceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddDistanceViewController.xib; sourceTree = "<group>"; };
+		1BE34ADD1AFC4FE800CF83EE /* StravaInteractionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaInteractionViewController.h; sourceTree = "<group>"; };
+		1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaInteractionViewController.m; sourceTree = "<group>"; };
 		2B5BF4F9997A411C66168D1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4114D55CD2CD3D7AF6662B62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B77E182E37D566A2D3689CE6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		EA7194141A4AFC4200C2517A /* ShoeCycle-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShoeCycle-Bridging-Header.h"; sourceTree = "<group>"; };
-		EA7194151A4AFC4300C2517A /* StravaInteractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StravaInteractionViewController.swift; sourceTree = "<group>"; };
 		EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StravaStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,7 +162,8 @@
 				1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */,
 				1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */,
 				1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */,
-				EA7194151A4AFC4300C2517A /* StravaInteractionViewController.swift */,
+				1BE34ADD1AFC4FE800CF83EE /* StravaInteractionViewController.h */,
+				1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -257,7 +258,6 @@
 		1BCF6444148AF7E7004C0E6A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EA7194141A4AFC4200C2517A /* ShoeCycle-Bridging-Header.h */,
 				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
 				1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */,
 				1B2E8CA314C9105C00F0917C /* History.h */,
@@ -429,12 +429,12 @@
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
-				EA7194161A4AFC4300C2517A /* StravaInteractionViewController.swift in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
+				1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */,
 			);

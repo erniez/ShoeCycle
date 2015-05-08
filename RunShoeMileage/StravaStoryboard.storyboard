@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UuM-HF-MFn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UuM-HF-MFn">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -23,7 +23,7 @@
         <!--Strava Interaction View Controller-->
         <scene sceneID="cJu-kB-f5o">
             <objects>
-                <viewController id="jlX-ds-vr3" customClass="StravaInteractionViewController" customModule="ShoeCycle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jlX-ds-vr3" customClass="StravaInteractionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vYa-gd-Xnw"/>
                         <viewControllerLayoutGuide type="bottom" id="QTj-A7-28O"/>
@@ -36,7 +36,7 @@
                     <navigationItem key="navigationItem" id="aT7-0U-cs6">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1Uw-Ms-c3X">
                             <connections>
-                                <action selector="cancelButtonTapped:" destination="jlX-ds-vr3" id="bJO-zs-yZM"/>
+                                <action selector="cancelButtonTapped:" destination="jlX-ds-vr3" id="TaC-Aa-11L"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
