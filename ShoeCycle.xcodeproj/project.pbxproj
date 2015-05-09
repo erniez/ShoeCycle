@@ -43,6 +43,7 @@
 		1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */; };
 		1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE21AFDCFA600CF83EE /* StravaAPIManager.m */; };
 		1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */; };
+		1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */; };
 		1BE7C0591495B2B70002C332 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF644F148AF7E7004C0E6A /* MainWindow.xib */; };
 		BC2CB8357E1CF032AF778124 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5BF4F9997A411C66168D1A /* libPods.a */; };
 		EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */; };
@@ -112,6 +113,8 @@
 		1BE34AE21AFDCFA600CF83EE /* StravaAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAPIManager.m; sourceTree = "<group>"; };
 		1BE34AE61AFE71D800CF83EE /* StravaAthlete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaAthlete.h; path = API/Strava/ModelObjects/StravaAthlete.h; sourceTree = "<group>"; };
 		1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StravaAthlete.m; path = API/Strava/ModelObjects/StravaAthlete.m; sourceTree = "<group>"; };
+		1BE34AEC1AFE8F6000CF83EE /* NSDate+UTCConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+UTCConversion.h"; path = "Categories/NSDate+UTCConversion.h"; sourceTree = "<group>"; };
+		1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+UTCConversion.m"; path = "Categories/NSDate+UTCConversion.m"; sourceTree = "<group>"; };
 		2B5BF4F9997A411C66168D1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4114D55CD2CD3D7AF6662B62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B77E182E37D566A2D3689CE6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 			children = (
 				1B76CA1019D5AD030063F2F2 /* UIColor+ShoeCycleColors.h */,
 				1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */,
+				1BE34AEC1AFE8F6000CF83EE /* NSDate+UTCConversion.h */,
+				1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -453,6 +458,7 @@
 			files = (
 				1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */,
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
+				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
