@@ -46,6 +46,7 @@
 		1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */; };
 		1BE7C0591495B2B70002C332 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF644F148AF7E7004C0E6A /* MainWindow.xib */; };
 		BC2CB8357E1CF032AF778124 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5BF4F9997A411C66168D1A /* libPods.a */; };
+		EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */; };
 		EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,8 @@
 		2B5BF4F9997A411C66168D1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4114D55CD2CD3D7AF6662B62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B77E182E37D566A2D3689CE6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIURLStrings.h; path = API/APIURLStrings.h; sourceTree = "<group>"; };
+		EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIURLStrings.m; path = API/APIURLStrings.m; sourceTree = "<group>"; };
 		EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StravaStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,6 +288,8 @@
 		1BE34AE01AFDCF7900CF83EE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */,
+				EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */,
 				1BE34AE41AFE716700CF83EE /* Strava */,
 			);
 			name = API;
@@ -473,6 +478,7 @@
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,
+				EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,

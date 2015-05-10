@@ -10,6 +10,7 @@
 
 @interface NSDate (UTCConversion)
 
-+ (NSString *)getUTCTimeStamp:(NSDate *)localDate;
+- (NSString *)UTCTimeStamp;
++ (NSString *)UTCTimeStamp:(NSDate *)localDate;
 
 @end
