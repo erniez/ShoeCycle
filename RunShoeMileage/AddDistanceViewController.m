@@ -21,6 +21,7 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "AFNetworking.h"
 #import "StravaAPIManager.h"
+#import "StravaActivity.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -270,7 +271,10 @@ float runTotal;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
 
     StravaAPIManager *APIManager = [StravaAPIManager new];
-    [APIManager sendActivityToStrava];
+//    [APIManager sendActivityToStrava];
+    
+    StravaActivity *activity = [[StravaActivity alloc] initWithName:@"Test" distance:@(2500) startDate:[NSDate date]];
+    NSLog(@"UTC Date: %@", [activity start_date_local]);
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif

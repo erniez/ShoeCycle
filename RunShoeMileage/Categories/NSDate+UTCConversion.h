@@ -12,5 +12,6 @@
 
 - (NSString *)UTCTimeStamp;
 + (NSString *)UTCTimeStamp:(NSDate *)localDate;
++ (NSDate *)stringToDate:(NSString *)UTCDateString;
 
 @end
