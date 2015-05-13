@@ -14,7 +14,7 @@
 #import "ShoeStore.h"
 #import <Crashlytics/Crashlytics.h>
 #import "UserDistanceSetting.h"
-#import "GlobalStingConstants.h"
+#import "GlobalStringConstants.h"
 
 
 @implementation ShoeCycleAppDelegate

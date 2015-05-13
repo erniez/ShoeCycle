@@ -12,7 +12,6 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
-#import "ShoeCycle-Swift.h"
 #import "AFNetworking.h"
 
 

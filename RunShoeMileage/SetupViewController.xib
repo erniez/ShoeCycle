@@ -204,9 +204,9 @@
                                 <action selector="aboutButton:" destination="-1" eventType="touchUpInside" id="pjt-li-ZGV"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5f-AD-qSC">
-                            <rect key="frame" x="97" y="374" width="125" height="30"/>
-                            <state key="normal" title="Connect to Strava">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5f-AD-qSC">
+                            <rect key="frame" x="74" y="386" width="172" height="31"/>
+                            <state key="normal" image="ConnectWithStrava">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -219,7 +219,7 @@
                         <constraint firstAttribute="centerX" secondItem="PEU-Kt-Irh" secondAttribute="centerX" id="0la-aZ-YIX"/>
                         <constraint firstItem="Ln1-vh-RGs" firstAttribute="top" secondItem="PEU-Kt-Irh" secondAttribute="bottom" constant="25" id="7au-fK-t8b"/>
                         <constraint firstItem="0Ra-d4-lhk" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="472" id="DXM-C0-tmG"/>
-                        <constraint firstItem="A5f-AD-qSC" firstAttribute="top" secondItem="gZY-Rb-Z6v" secondAttribute="bottom" constant="8" id="EuX-h2-2IP"/>
+                        <constraint firstItem="A5f-AD-qSC" firstAttribute="top" secondItem="gZY-Rb-Z6v" secondAttribute="bottom" constant="20" id="EuX-h2-2IP"/>
                         <constraint firstItem="0Ra-d4-lhk" firstAttribute="bottom" secondItem="yWP-ai-uel" secondAttribute="bottom" constant="-59" id="Rnt-HZ-jFY"/>
                         <constraint firstAttribute="centerX" secondItem="gZY-Rb-Z6v" secondAttribute="centerX" id="Ztx-Rd-b8x"/>
                         <constraint firstAttribute="centerX" secondItem="0Ra-d4-lhk" secondAttribute="centerX" id="fRl-gX-W66"/>
@@ -252,6 +252,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="ConnectWithStrava" width="172" height="31"/>
         <image name="gear" width="35" height="35"/>
         <image name="heartPlus" width="35" height="35"/>
     </resources>

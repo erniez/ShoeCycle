@@ -42,4 +42,6 @@
 
 + (void)setHealthKitEnabled:(BOOL)isEnabled;
 
++ (BOOL)isStravaConnected;
+
 @end

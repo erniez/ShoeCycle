@@ -7,6 +7,7 @@
 //
 #import "StravaInteractionViewController.h"
 #import "AFNetworking.h"
+#import "GlobalStringConstants.h"
 
 @interface StravaInteractionViewController () <UIWebViewDelegate>
 
@@ -70,6 +71,6 @@
 
 - (void)saveAccessToken:(NSString *)accessToken
 {
-    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"ShoeCycleStravaAccessToken"];
+    [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:kStravaAccessToken];
 }
 @end

@@ -22,6 +22,8 @@
 #import "AFNetworking.h"
 #import "StravaAPIManager.h"
 #import "StravaActivity.h"
+#import "ConnectionIconContainerView.h"
+#import "UIView+Effects.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -51,11 +53,17 @@ float runTotal;
 @property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
-@property (weak, nonatomic) IBOutlet UILabel *connectedToHealthKitAlert;
+@property (weak, nonatomic) IBOutlet ConnectionIconContainerView *iconContainerView;
+
+// Have to use strong because I remove these views from superView in viewDidLoad.
+// I do this, because I am using the nib to set up the views, rather than programatically.
+@property (strong, nonatomic) IBOutlet UILabel *connectedToHealthKitAlert;
+@property (strong, nonatomic) IBOutlet UIImageView *connectedToStravaView;
 
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 @property (nonatomic) BOOL noShoesInStore;
 @property (nonatomic) BOOL writeToHealthKit;
+@property (nonatomic) BOOL writeToStrava;
 
 @end
 
@@ -163,14 +171,16 @@ float runTotal;
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
     self.writeToHealthKit = [UserDistanceSetting getHealthKitEnabled] && [self checkForHealthKit];
+    self.writeToStrava = [UserDistanceSetting isStravaConnected];
+    NSMutableArray *iconsToShow = [[NSMutableArray alloc] initWithCapacity:2];
     if (self.writeToHealthKit)
     {
-        self.connectedToHealthKitAlert.hidden = NO;
+        [iconsToShow addObject:self.connectedToHealthKitAlert];
     }
-    else
-    {
-        self.connectedToHealthKitAlert.hidden = YES;
+    if (self.writeToStrava) {
+        [iconsToShow addObject:self.connectedToStravaView];
     }
+    [self.iconContainerView setIconsToDisplay:[iconsToShow copy]];
 }
 
 - (BOOL)checkForHealthKit
@@ -199,6 +209,10 @@ float runTotal;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.connectedToHealthKitAlert removeFromSuperview];
+    [self.connectedToStravaView removeFromSuperview];
+    self.iconContainerView.backgroundColor = [UIColor clearColor];
     
     if (![UIUtilities isIphone4ScreenSize])
     {
@@ -269,12 +283,7 @@ float runTotal;
     // Need the following code to register to update date calculation if app has been in background for more than a day
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
-
-    StravaAPIManager *APIManager = [StravaAPIManager new];
-//    [APIManager sendActivityToStrava];
     
-    StravaActivity *activity = [[StravaActivity alloc] initWithName:@"Test" distance:@(2500) startDate:[NSDate date]];
-    NSLog(@"UTC Date: %@", [activity start_date_local]);
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
@@ -373,10 +382,14 @@ float runTotal;
         NSString *shoeIDString = shoeIdenitfier.absoluteString;
         NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
         [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
-        [self pulseLabel:self.connectedToHealthKitAlert];
     }
     
-    [self pulseLabel:self.totalDistanceLabel];
+    [self.iconContainerView.iconsToDisplay enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        [view pulseView];
+    }];
+    
+    [self.totalDistanceLabel pulseView];
+    [[ShoeStore defaultStore] saveChangesEZ];
 }
 
 
@@ -563,17 +576,6 @@ float runTotal;
     EZLog(@"Wear Days = %ld and %ld",(long)daysLeftToWear, (long)daysTotal);
     
     EZLog(@"Wear = %.4f",wear);
-}
-
-- (void)pulseLabel:(UILabel *)label
-{
-    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
-        label.transform = CGAffineTransformMakeScale(1.5, 1.5);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.25 animations:^{
-            label.transform = CGAffineTransformIdentity;
-        } completion:nil];
-    }];
 }
 
 @end

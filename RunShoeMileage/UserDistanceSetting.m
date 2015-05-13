@@ -7,6 +7,7 @@
 //
 
 #import "UserDistanceSetting.h"
+#import "GlobalStringConstants.h"
 
 float const milesToKilometers = 1.609344;
 float const kilometersToMiles = 0.621371;
@@ -168,6 +169,15 @@ NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
 + (void)setHealthKitEnabled:(BOOL)isEnabled
 {
     [[NSUserDefaults standardUserDefaults] setBool:isEnabled forKey:ShoeCycleHealthKitEnabledKey];
+}
+
++ (BOOL)isStravaConnected
+{
+    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:kStravaAccessToken];
+    if (token) {
+        return YES;
+    }
+    return NO;
 }
 
 @end
