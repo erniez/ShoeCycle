@@ -44,4 +44,6 @@
 
 + (BOOL)isStravaConnected;
 
++ (void)resetStravaConnection;
+
 @end

@@ -14,7 +14,10 @@
                 <outlet property="favDistancesTitleLabel" destination="pIj-s8-f4G" id="XtC-BN-dlf"/>
                 <outlet property="favoriteDistancesBackgroundView" destination="Ln1-vh-RGs" id="dq1-z7-eGv"/>
                 <outlet property="scrollView" destination="yWP-ai-uel" id="rFu-o1-zeZ"/>
-                <outlet property="stravaInteractionButton" destination="A5f-AD-qSC" id="2n1-8s-JcC"/>
+                <outlet property="stravaBackgroundView" destination="wGr-KZ-Fhd" id="AuS-bs-KsG"/>
+                <outlet property="stravaEnableSwitch" destination="FRq-LW-ZRd" id="Gng-cS-tkr"/>
+                <outlet property="stravaInfoLabel1" destination="MqS-F9-ANw" id="k5D-GP-YxP"/>
+                <outlet property="stravaInfoLabel2" destination="Xl0-nc-5Gc" id="pYk-Re-ctJ"/>
                 <outlet property="unitsBackgroundView" destination="PEU-Kt-Irh" id="mPb-03-Gud"/>
                 <outlet property="unitsTitleLabel" destination="f2B-ea-3hC" id="Qcy-dy-2Vc"/>
                 <outlet property="userDefinedDistance1" destination="DfB-vW-D0K" id="9fD-J5-mCO"/>
@@ -32,8 +35,8 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWP-ai-uel">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-Kt-Irh" userLabel="Units Background">
-                            <rect key="frame" x="13" y="35" width="295" height="68"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEU-Kt-Irh" userLabel="Units Background">
+                            <rect key="frame" x="13" y="35" width="294" height="68"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bfG-vq-778">
                                     <rect key="frame" x="100" y="20" width="186" height="29"/>
@@ -71,7 +74,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ln1-vh-RGs" userLabel="Favorites Background">
-                            <rect key="frame" x="13" y="128" width="294" height="118"/>
+                            <rect key="frame" x="13" y="123" width="294" height="118"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 1" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DfB-vW-D0K">
                                     <rect key="frame" x="104" y="21" width="87" height="30"/>
@@ -155,7 +158,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZY-Rb-Z6v" userLabel="Healthkit Background">
-                            <rect key="frame" x="13" y="266" width="294" height="100"/>
+                            <rect key="frame" x="13" y="261" width="294" height="100"/>
                             <subviews>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aeX-NU-M0z">
                                     <rect key="frame" x="237" y="9" width="51" height="31"/>
@@ -191,7 +194,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ra-d4-lhk">
-                            <rect key="frame" x="124" y="472" width="72" height="37"/>
+                            <rect key="frame" x="124" y="480" width="72" height="37"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="37" id="7mP-Cs-JRl"/>
                                 <constraint firstAttribute="width" constant="72" id="e9v-tY-oxb"/>
@@ -204,27 +207,62 @@
                                 <action selector="aboutButton:" destination="-1" eventType="touchUpInside" id="pjt-li-ZGV"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5f-AD-qSC">
-                            <rect key="frame" x="74" y="386" width="172" height="31"/>
-                            <state key="normal" image="ConnectWithStrava">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="stravaInteractionButtonTapped:" destination="-1" eventType="touchUpInside" id="Qxa-ma-3Gr"/>
-                            </connections>
-                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGr-KZ-Fhd" userLabel="Strava Background View">
+                            <rect key="frame" x="13" y="381" width="294" height="100"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqS-F9-ANw">
+                                    <rect key="frame" x="163" y="14" width="64" height="24"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FRq-LW-ZRd">
+                                    <rect key="frame" x="237" y="10" width="51" height="31"/>
+                                    <connections>
+                                        <action selector="enableStravaDidChange:" destination="-1" eventType="valueChanged" id="Grn-Dt-mLB"/>
+                                    </connections>
+                                </switch>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turning this option on will connect you with the Strava login screen" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xl0-nc-5Gc">
+                                    <rect key="frame" x="8" y="56" width="278" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StravaNameLogo" translatesAutoresizingMaskIntoConstraints="NO" id="owL-rh-WYh">
+                                    <rect key="frame" x="8" y="4" width="88" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="88" id="DNk-ur-vmI"/>
+                                        <constraint firstAttribute="height" constant="44" id="k7d-OW-tVy"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="294" id="EaU-Rh-hSd"/>
+                                <constraint firstItem="owL-rh-WYh" firstAttribute="centerY" secondItem="MqS-F9-ANw" secondAttribute="centerY" constant="0.5" id="SVD-oc-ono"/>
+                                <constraint firstItem="owL-rh-WYh" firstAttribute="leading" secondItem="wGr-KZ-Fhd" secondAttribute="leading" constant="8" id="WEN-RO-NW8"/>
+                                <constraint firstAttribute="height" constant="100" id="afU-rB-36P"/>
+                                <constraint firstItem="FRq-LW-ZRd" firstAttribute="centerY" secondItem="MqS-F9-ANw" secondAttribute="centerY" id="cX2-Cd-Yiv"/>
+                                <constraint firstItem="FRq-LW-ZRd" firstAttribute="top" secondItem="wGr-KZ-Fhd" secondAttribute="top" constant="10" id="dBd-92-lyb"/>
+                                <constraint firstAttribute="bottom" secondItem="Xl0-nc-5Gc" secondAttribute="bottom" constant="10" id="eqA-Qa-3iT"/>
+                                <constraint firstAttribute="trailing" secondItem="FRq-LW-ZRd" secondAttribute="trailing" constant="8" id="f7L-9e-sO4"/>
+                                <constraint firstItem="FRq-LW-ZRd" firstAttribute="trailing" secondItem="Xl0-nc-5Gc" secondAttribute="trailing" id="qGd-Kt-IiE"/>
+                                <constraint firstItem="owL-rh-WYh" firstAttribute="leading" secondItem="Xl0-nc-5Gc" secondAttribute="leading" id="r8w-L2-eZ2"/>
+                                <constraint firstItem="FRq-LW-ZRd" firstAttribute="leading" secondItem="MqS-F9-ANw" secondAttribute="trailing" constant="10" id="yMG-lB-Luj"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="PEU-Kt-Irh" secondAttribute="centerX" id="0la-aZ-YIX"/>
-                        <constraint firstItem="Ln1-vh-RGs" firstAttribute="top" secondItem="PEU-Kt-Irh" secondAttribute="bottom" constant="25" id="7au-fK-t8b"/>
-                        <constraint firstItem="0Ra-d4-lhk" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="472" id="DXM-C0-tmG"/>
-                        <constraint firstItem="A5f-AD-qSC" firstAttribute="top" secondItem="gZY-Rb-Z6v" secondAttribute="bottom" constant="20" id="EuX-h2-2IP"/>
+                        <constraint firstItem="wGr-KZ-Fhd" firstAttribute="top" secondItem="gZY-Rb-Z6v" secondAttribute="bottom" constant="20" id="6DW-nI-Xfv"/>
+                        <constraint firstItem="Ln1-vh-RGs" firstAttribute="top" secondItem="PEU-Kt-Irh" secondAttribute="bottom" constant="20" id="7au-fK-t8b"/>
+                        <constraint firstItem="0Ra-d4-lhk" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="480" id="DXM-C0-tmG"/>
+                        <constraint firstAttribute="centerX" secondItem="wGr-KZ-Fhd" secondAttribute="centerX" id="HSI-JJ-OmN"/>
                         <constraint firstItem="0Ra-d4-lhk" firstAttribute="bottom" secondItem="yWP-ai-uel" secondAttribute="bottom" constant="-59" id="Rnt-HZ-jFY"/>
                         <constraint firstAttribute="centerX" secondItem="gZY-Rb-Z6v" secondAttribute="centerX" id="Ztx-Rd-b8x"/>
                         <constraint firstAttribute="centerX" secondItem="0Ra-d4-lhk" secondAttribute="centerX" id="fRl-gX-W66"/>
                         <constraint firstAttribute="centerX" secondItem="Ln1-vh-RGs" secondAttribute="centerX" id="fZG-Te-pWi"/>
-                        <constraint firstAttribute="centerX" secondItem="A5f-AD-qSC" secondAttribute="centerX" id="gwA-Q4-2Y9"/>
                         <constraint firstItem="gZY-Rb-Z6v" firstAttribute="top" secondItem="Ln1-vh-RGs" secondAttribute="bottom" constant="20" id="u7d-FB-iYS"/>
                         <constraint firstItem="PEU-Kt-Irh" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="35" id="uO2-Qx-6PO"/>
                     </constraints>
@@ -252,7 +290,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="ConnectWithStrava" width="172" height="31"/>
+        <image name="StravaNameLogo" width="88" height="44"/>
         <image name="gear" width="35" height="35"/>
         <image name="heartPlus" width="35" height="35"/>
     </resources>

@@ -19,8 +19,8 @@ NSString * const TreadTrackerUserDefineDistance3PrefKey = @"TreadTrackerUserDefi
 NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefineDistance4PrefKey";
 NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePrefKey";
 NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
+NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
 
-// static NSInteger distanceUnit;
 
 @implementation UserDistanceSetting
 
@@ -180,4 +180,8 @@ NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
     return NO;
 }
 
++ (void)resetStravaConnection
+{
+    [[NSUserDefaults standardUserDefaults] setValue:nil forKey:kStravaAccessToken];
+}
 @end

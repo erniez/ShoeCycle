@@ -10,4 +10,6 @@
 
 @interface StravaInteractionViewController : UIViewController
 
+@property (nonatomic, copy) void(^completion)(BOOL success, NSError *error);
+
 @end

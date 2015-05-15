@@ -14,6 +14,8 @@
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic) NSString *tempToken;
 @property (nonatomic) AFHTTPSessionManager *httpSessionManager;
+@property (nonatomic) BOOL connectionSuccessful;
+@property (nonatomic) NSError *connectionError;
 
 @end
 
@@ -34,6 +36,11 @@
     [self.webView loadRequest:request];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -52,11 +59,14 @@
 
 - (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
 {
+    if (self.completion) {
+        self.completion(self.connectionSuccessful, self.connectionError);
+    }
     [self dismissViewControllerAnimated:self completion:nil];
 }
 
 
-#pragma mark - Private Function
+#pragma mark - Private Methods
 
 - (void)didReceiveTemporaryToken
 {
@@ -64,13 +74,27 @@
     NSDictionary *params = @{@"client_id" : @"4002", @"client_secret" : @"558112ea963c3427a387549a3361bd6677083ff9", @"code" : self.tempToken};
     [self.httpSessionManager POST:URLString parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         [self saveAccessToken:responseObject[@"access_token"]];
+        self.connectionSuccessful = YES;
+        [self postSuccessMessage];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        EZLog(@"Something Failed!!!");
+        self.connectionError = error;
+        [self cancelButtonTapped:nil];
     }];
 }
 
 - (void)saveAccessToken:(NSString *)accessToken
 {
     [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:kStravaAccessToken];
+}
+
+- (void)postSuccessMessage
+{
+    __weak typeof(self) weakSelf = self;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Success!" message:@"You have successfully connected to Strava!" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Return to Setup" style:UIAlertControllerStyleAlert handler:^(UIAlertAction *action) {
+        [weakSelf cancelButtonTapped:nil];
+    }];
+    [alertController addAction:doneAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 @end
