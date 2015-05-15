@@ -65,6 +65,8 @@ float runTotal;
 @property (nonatomic) BOOL writeToHealthKit;
 @property (nonatomic) BOOL writeToStrava;
 
+@property (nonatomic) NSArray *dataSource;
+
 @end
 
 
@@ -102,12 +104,15 @@ float runTotal;
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-      
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self loadDataSourceAndRefreshViews];
+}
+
+- (void)loadDataSourceAndRefreshViews
+{
+    self.dataSource = [[ShoeStore defaultStore] allShoes];
     
-    if ([shoes count] == 0)
+    if ([self.dataSource count] == 0)
     {
         self.noShoesInStore = YES;
         return;
@@ -116,8 +121,8 @@ float runTotal;
     {
         self.noShoesInStore = NO;
     }
-
-// Change sttings in prefix file to create a suitable screenshot for the first screen.
+    
+    // Change sttings in prefix file to create a suitable screenshot for the first screen.
 #ifdef LaunchImageSetup
     self.runDateField.text = @"";
     self.totalDistanceLabel.text = @"";
@@ -132,11 +137,11 @@ float runTotal;
     return;
 #endif
     
-    if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
-        self.distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
+    if (([self.dataSource count]-1) >= [UserDistanceSetting getSelectedShoe]){
+        self.distShoe = [self.dataSource objectAtIndex:[UserDistanceSetting getSelectedShoe]];
     }
     else {
-        self.distShoe = [shoes objectAtIndex:0];
+        self.distShoe = [self.dataSource objectAtIndex:0];
     }
     
     runTotal = [self.distShoe.startDistance floatValue];
@@ -155,18 +160,18 @@ float runTotal;
     self.nameField.text = [NSString stringWithFormat:@"%@",self.distShoe.brand];
     self.distanceUnitLabel.text = @"Miles";
     if ([UserDistanceSetting getDistanceUnit]) {
-       self. distanceUnitLabel.text = @"Km";
+        self. distanceUnitLabel.text = @"Km";
     }
     self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     [self.maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[self.distShoe.maxDistance floatValue]]]];
     EZLog(@"run total2 = %f",runTotal);
-
+    
     EZLog(@"run total3 = %f",runTotal);
     
     [self calculateDaysLeftProgressBar];
     
     [self.imageView setImage:[self.distShoe thumbnail]];
-
+    
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
@@ -283,6 +288,15 @@ float runTotal;
     // Need the following code to register to update date calculation if app has been in background for more than a day
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    UISwipeGestureRecognizer *swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
+    swipeDownRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    UISwipeGestureRecognizer *swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
+    swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+    self.imageView.userInteractionEnabled = YES;
+    [self.imageView addGestureRecognizer:swipeDownRecognizer];
+    [self.imageView addGestureRecognizer:swipeUpRecognizer];
+    
     
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -420,6 +434,20 @@ float runTotal;
         }];
     }
 
+}
+
+- (void)handleImageSwipe:(UISwipeGestureRecognizer *)recognizer
+{
+    NSInteger selectedShoeIndex = [UserDistanceSetting getSelectedShoe];
+    recognizer.direction == UISwipeGestureRecognizerDirectionUp ? selectedShoeIndex++ : selectedShoeIndex--;
+    if (selectedShoeIndex < 0) {
+        selectedShoeIndex = 0;
+    }
+    if (selectedShoeIndex > [self.dataSource count] - 1) {
+        selectedShoeIndex = [self.dataSource count] - 1;
+    }
+    [UserDistanceSetting setSelectedShoe:selectedShoeIndex];
+    [self loadDataSourceAndRefreshViews];
 }
 
 - (IBAction)testStravaIntegrationButtonTapped:(id)sender
