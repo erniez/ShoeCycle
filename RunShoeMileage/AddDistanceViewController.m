@@ -72,11 +72,9 @@ float runTotal;
 
 @implementation AddDistanceViewController
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    // Call the class designated initializer
-    self = [super initWithNibName:nil
-                           bundle:nil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Get tab bar item
         UITabBarItem *tbi = [self tabBarItem];
@@ -85,16 +83,6 @@ float runTotal;
         UIImage *image = [UIImage imageNamed:@"tabbar-add.png"];
         [tbi setTitle:@"Add Distance"];
         [tbi setImage:image];
-    }
-    
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -450,57 +438,6 @@ float runTotal;
     [self loadDataSourceAndRefreshViews];
 }
 
-- (IBAction)testStravaIntegrationButtonTapped:(id)sender
-{
-    UIWebView *webview = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    UIViewController *webContainer = [[UIViewController alloc] init];
-    webContainer.view.frame = self.view.bounds;
-    [webContainer.view addSubview:webview];
-    webContainer.view.backgroundColor = [UIColor redColor];
-    NSURLRequest *testRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.strava.com/oauth/authorize?client_id=4002&response_type=code&redirect_uri=http://shoecycleapp.com/callback&scope=write"]];
-    webview.delegate = self;
-    [self presentViewController:webContainer animated:YES completion:^{
-        [webview loadRequest:testRequest];
-    }];
-    
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    
-    NSURL *returnURL = [request URL];
-    NSString *URLString = [returnURL absoluteString];
-    if ([URLString containsString:@"shoecycleapp.com/callback"] && ![URLString containsString:@"redirect_uri"]) {
-        if ([URLString containsString:@"code"]) {
-            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            NSString *code = [[URLString componentsSeparatedByString:@"code="] lastObject];
-            NSString *authURL = @"https://www.strava.com/oauth/token";
-            NSDictionary *params = @{@"client_id" : @"4002", @"client_secret" : @"558112ea963c3427a387549a3361bd6677083ff9", @"code" : code};
-            [manager POST:authURL parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-                NSLog(@"SUCCESS!!!\n%@",responseObject);
-            } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                NSLog(@"FAILURE!!!\n%@",error);
-            }];
-            NSLog(@"CALLBACK!\nCode: %@",code);
-        }
-    }
-    return YES;
-}
 #pragma mark - RunDatePickerViewControllerDelegate
 
 - (void)dismissDatePicker:(RunDatePickerViewController *)datePicker
