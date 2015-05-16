@@ -52,13 +52,7 @@
 {
     [super viewDidLoad];
   
-    // Create and set the table header view.
-
-//    UIView *containerView =
-//        [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 35)];
-//    UILabel *headerLabel = 
-//        [[UILabel alloc] initWithFrame:CGRectMake(8, 5, 80, 21)];
-
+    // Configure the sticky table header view.
     self.runDateHeaderLabel.text = NSLocalizedString(@"Run Date", @"");
     self.runDateHeaderLabel.textColor = [UIColor blackColor];
     self.runDateHeaderLabel.font = [UIFont boldSystemFontOfSize:17];
@@ -70,11 +64,10 @@
     else {
         self.distanceHeaderLabel.text = NSLocalizedString(@"Distance(miles)", @"");
     }
+    
     self.distanceHeaderLabel.textColor = [UIColor blackColor];
     self.distanceHeaderLabel.font = [UIFont boldSystemFontOfSize:17];
     self.distanceHeaderLabel.backgroundColor = [UIColor clearColor];
-
-//    self.tableView.tableHeaderView = containerView;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -108,7 +101,7 @@
         NSInteger month = [components month];
         if (month != previousMonth || year != previousYear) {
             if ([runsForTheMonth count] > 0) {
-                [self.runsByTheMonth addObject:[runsForTheMonth copy]];
+                [self.runsByTheMonth addObject:[runsForTheMonth mutableCopy]];
             }
             [runsForTheMonth removeAllObjects];
         }
@@ -116,7 +109,7 @@
         previousYear = year;
         previousMonth = month;
     }
-    [self.runsByTheMonth addObject:[runsForTheMonth copy]];
+    [self.runsByTheMonth addObject:[runsForTheMonth mutableCopy]];
     
     [self.tableView reloadData];
     
@@ -141,6 +134,12 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
 }
 
 #pragma mark - Table view data source
@@ -186,16 +185,25 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         EZLog(@"shoe.history mathched item: %@ ********", [shoe.history member:[runs objectAtIndex:[indexPath row]]]);
-        
-        [[ShoeStore defaultStore] removeHistory:[shoe.history member:[runs objectAtIndex:[indexPath row]]] atShoe:shoe];
-        
+        NSMutableArray *runsForTheMonth = self.runsByTheMonth[indexPath.section];
+        History *shoeHistoryEntry = runsForTheMonth[indexPath.row];
+        [[ShoeStore defaultStore] removeHistory:[shoe.history member:shoeHistoryEntry] atShoe:shoe];
+        [runsForTheMonth removeObjectAtIndex:indexPath.row];
         EZLog(@"runs = %@",runs);
         [runs removeObjectAtIndex:[indexPath row]];
         EZLog(@"index path = %ld",(long)[indexPath row]);
         EZLog(@"runs = %@",runs);
         EZLog(@"history count after delete = %lu",(unsigned long)[shoe.history count]);
         // remove row from table with animation
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+        [tableView beginUpdates];
+        if ([runsForTheMonth count] == 0) {
+            [self.runsByTheMonth removeObjectAtIndex:indexPath.section];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        else {
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [tableView endUpdates];
         [[self tableView] reloadData];
         [[ShoeStore defaultStore] saveChangesEZ];       // Save context
     }
