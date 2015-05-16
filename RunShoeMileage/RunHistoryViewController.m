@@ -10,7 +10,18 @@
 #import "History.h"
 #import "UserDistanceSetting.h"
 #import "ShoeStore.h"
+#import "DateUtilities.h"
 
+
+@interface RunHistoryViewController ()  <UITableViewDelegate, UITableViewDataSource>
+
+@property (strong, nonatomic) IBOutlet UIView *view;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic) NSMutableArray *runsByTheMonth;
+@property (weak, nonatomic) IBOutlet UILabel *runDateHeaderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceHeaderLabel;
+
+@end
 
 
 @implementation RunHistoryViewController
@@ -18,9 +29,9 @@
 @synthesize shoe, runs;
 @synthesize tableHeaderView;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)init
 {
-    self = [super initWithStyle:style];
+    self = [super init];
     if (self) {
         UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemDone
@@ -35,14 +46,6 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -51,53 +54,33 @@
   
     // Create and set the table header view.
 
-    UIView *containerView =
-        [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 35)];
-    UILabel *headerLabel = 
-        [[UILabel alloc] initWithFrame:CGRectMake(8, 5, 80, 21)];
+//    UIView *containerView =
+//        [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 35)];
+//    UILabel *headerLabel = 
+//        [[UILabel alloc] initWithFrame:CGRectMake(8, 5, 80, 21)];
 
-    headerLabel.text = NSLocalizedString(@"Run Date", @"");
-    headerLabel.textColor = [UIColor blackColor];
-    headerLabel.font = [UIFont boldSystemFontOfSize:17];
-    headerLabel.backgroundColor = [UIColor clearColor];
-    
-    [containerView addSubview:headerLabel];
-    
-    UILabel *headerLabel2;
+    self.runDateHeaderLabel.text = NSLocalizedString(@"Run Date", @"");
+    self.runDateHeaderLabel.textColor = [UIColor blackColor];
+    self.runDateHeaderLabel.font = [UIFont boldSystemFontOfSize:17];
+    self.runDateHeaderLabel.backgroundColor = [UIColor clearColor];
+
     if ([UserDistanceSetting getDistanceUnit]) {
-        headerLabel2 =
-            [[UILabel alloc] initWithFrame:CGRectMake(207, 5, 107, 21)];
-
-        headerLabel2.text = NSLocalizedString(@"Distance(km)", @"");
-        
+        self.distanceHeaderLabel.text = NSLocalizedString(@"Distance(km)", @"");
     }
     else {
-        headerLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(186, 5, 130, 21)];
-        
-        headerLabel2.text = NSLocalizedString(@"Distance(miles)", @"");
-   
+        self.distanceHeaderLabel.text = NSLocalizedString(@"Distance(miles)", @"");
     }
-    headerLabel2.textColor = [UIColor blackColor];
-    headerLabel2.font = [UIFont boldSystemFontOfSize:17];
-    headerLabel2.backgroundColor = [UIColor clearColor];
-    [containerView addSubview:headerLabel2];
+    self.distanceHeaderLabel.textColor = [UIColor blackColor];
+    self.distanceHeaderLabel.font = [UIFont boldSystemFontOfSize:17];
+    self.distanceHeaderLabel.backgroundColor = [UIColor clearColor];
 
-    self.tableView.tableHeaderView = containerView;
+//    self.tableView.tableHeaderView = containerView;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-}
-
-- (void)viewDidUnload
-{
-    tableHeaderView = nil;
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,6 +94,30 @@
 	[sortedRuns sortUsingDescriptors:sortDescriptors];
 	self.runs = sortedRuns;
 
+    self.runsByTheMonth = [NSMutableArray new];
+    NSMutableArray *runsForTheMonth = [NSMutableArray new];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger previousMonth = 0;
+    NSInteger previousYear = 0;
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
+    
+    for (History *history in self.runs) {
+        NSDateComponents *components = [calendar components:unitFlags fromDate:history.runDate];
+        NSInteger year = [components year];
+        NSInteger month = [components month];
+        if (month != previousMonth || year != previousYear) {
+            if ([runsForTheMonth count] > 0) {
+                [self.runsByTheMonth addObject:[runsForTheMonth copy]];
+            }
+            [runsForTheMonth removeAllObjects];
+        }
+        [runsForTheMonth addObject:history];
+        previousYear = year;
+        previousMonth = month;
+    }
+    [self.runsByTheMonth addObject:[runsForTheMonth copy]];
+    
     [self.tableView reloadData];
     
 }
@@ -137,19 +144,15 @@
 }
 
 #pragma mark - Table view data source
-/*
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-} */
+    return [self.runsByTheMonth count];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-//    return [shoe.history count];
-    return [runs count];
+    return [self.runsByTheMonth[section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -163,7 +166,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
-    History *hist = [runs objectAtIndex:indexPath.row];
+    History *hist = self.runsByTheMonth[indexPath.section][indexPath.row];
     
     dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
@@ -198,45 +201,24 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}*/
-
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
-/*
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    // Navigation logic may go here. Create and push another view controller.
-    
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     
-}*/
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    headerView.backgroundColor = [UIColor lightGrayColor];
+    UILabel *monthLabel = [UILabel new];
+    History *history = self.runsByTheMonth[section][0];
+    monthLabel.text = [DateUtilities monthStringFromDate:history.runDate];
+    [monthLabel sizeToFit];
+    CGRect labelFrame = monthLabel.frame;
+    labelFrame.origin.x = 10;
+    labelFrame.origin.y = headerView.bounds.size.height/2 - monthLabel.bounds.size.height/2;
+    monthLabel.frame = labelFrame;
+    [headerView addSubview:monthLabel];
+    return headerView;
+}
 
 - (void)cancel:(id)sender
 {

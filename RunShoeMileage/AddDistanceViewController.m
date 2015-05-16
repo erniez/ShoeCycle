@@ -475,7 +475,7 @@ float runTotal;
 {
     [[self view] endEditing:YES];           // clear any editors that may be visible
     
-    RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] initWithStyle:UITableViewStylePlain];
+    RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] init];
     modalViewController.shoe = self.distShoe;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];

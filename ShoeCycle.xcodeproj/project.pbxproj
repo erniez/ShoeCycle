@@ -13,6 +13,7 @@
 		1B26F6C21B0241DD004095CF /* ConnectionIconContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */; };
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
 		1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */; };
+		1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C91B06F8F0004095CF /* DateUtilities.m */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */; };
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
@@ -66,6 +67,8 @@
 		1B26F6C31B02EFAD004095CF /* UIView+Effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Effects.h"; path = "Categories/UIView+Effects.h"; sourceTree = "<group>"; };
 		1B26F6C41B02EFAD004095CF /* UIView+Effects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Effects.m"; path = "Categories/UIView+Effects.m"; sourceTree = "<group>"; };
 		1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalStringConstants.m; sourceTree = "<group>"; };
+		1B26F6C81B06F8F0004095CF /* DateUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateUtilities.h; path = utilities/DateUtilities.h; sourceTree = "<group>"; };
+		1B26F6C91B06F8F0004095CF /* DateUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateUtilities.m; path = utilities/DateUtilities.m; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunHistoryViewController.h; sourceTree = "<group>"; };
@@ -228,6 +231,8 @@
 			children = (
 				1B76CA1419D5AEF10063F2F2 /* UIUtilities.h */,
 				1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */,
+				1B26F6C81B06F8F0004095CF /* DateUtilities.h */,
+				1B26F6C91B06F8F0004095CF /* DateUtilities.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,
 				EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */,
+				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
 				EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
