@@ -42,6 +42,7 @@
 		1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF644D148AF7E7004C0E6A /* ShoeCycleAppDelegate.m */; };
 		1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */; };
 		1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2FAED14B5D343006A4542 /* CoreData.framework */; };
+		1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDAF9081B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m */; };
 		1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDDEC5C148BDF8B009E5436 /* AddDistanceViewController.m */; };
 		1BDDEC5F148BDF8C009E5436 /* AddDistanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDDEC5D148BDF8B009E5436 /* AddDistanceViewController.xib */; };
 		1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */; };
@@ -117,6 +118,8 @@
 		1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDistanceSetting.h; sourceTree = "<group>"; };
 		1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDistanceSetting.m; sourceTree = "<group>"; };
 		1BD2FAED14B5D343006A4542 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1BDAF9071B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertController+CommonAlerts.h"; path = "Categories/UIAlertController+CommonAlerts.h"; sourceTree = "<group>"; };
+		1BDAF9081B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertController+CommonAlerts.m"; path = "Categories/UIAlertController+CommonAlerts.m"; sourceTree = "<group>"; };
 		1BDDEC5B148BDF8B009E5436 /* AddDistanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDistanceViewController.h; sourceTree = "<group>"; };
 		1BDDEC5C148BDF8B009E5436 /* AddDistanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDistanceViewController.m; sourceTree = "<group>"; };
 		1BDDEC5D148BDF8B009E5436 /* AddDistanceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddDistanceViewController.xib; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */,
 				1B26F6C31B02EFAD004095CF /* UIView+Effects.h */,
 				1B26F6C41B02EFAD004095CF /* UIView+Effects.m */,
+				1BDAF9071B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.h */,
+				1BDAF9081B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */,
+				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,

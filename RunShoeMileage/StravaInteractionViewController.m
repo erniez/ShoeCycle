@@ -8,6 +8,14 @@
 #import "StravaInteractionViewController.h"
 #import "AFNetworking.h"
 #import "GlobalStringConstants.h"
+#import "APIURLStrings.h"
+#import "UIAlertController+CommonAlerts.h"
+#import "MBProgressHUD.h"
+
+static NSString * const kStravaClientID = @"4002";
+static NSString * const kStravaClientIDkey = @"client_id";
+static NSString * const kStravaSecret = @"558112ea963c3427a387549a3361bd6677083ff9";
+static NSString * const kStravaSecretKey = @"client_secret";
 
 @interface StravaInteractionViewController () <UIWebViewDelegate>
 
@@ -16,6 +24,7 @@
 @property (nonatomic) AFHTTPSessionManager *httpSessionManager;
 @property (nonatomic) BOOL connectionSuccessful;
 @property (nonatomic) NSError *connectionError;
+@property (nonatomic, getter=isShowingHUD) BOOL showingHUD;
 
 @end
 
@@ -26,7 +35,7 @@
     
     self.httpSessionManager = [[AFHTTPSessionManager alloc] init];
     
-    NSURL *targetURL = [NSURL URLWithString:@"https://www.strava.com/oauth/authorize?client_id=4002&response_type=code&redirect_uri=http://shoecycleapp.com/callback&scope=write"];
+    NSURL *targetURL = [NSURL URLWithString:kStravaOAuthURL];
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.delegate = self;
@@ -45,9 +54,11 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    [self showHUD];
+    
     NSURL *requestURL = request.URL;
     NSString *URLString = requestURL.absoluteString;
-    if ([URLString containsString:@"shoecycleapp.com/callback"] && ![URLString containsString:@"redirect_uri"]){
+    if ([URLString containsString:kStravaCallbackSubstringURL] && ![URLString containsString:@"redirect_uri"]){
         if ([URLString containsString:@"code"]) {
             NSArray *tempArray = [URLString componentsSeparatedByString:@"code="];
             self.tempToken = [tempArray lastObject];
@@ -59,26 +70,53 @@
 
 - (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
 {
-    if (self.completion) {
-        self.completion(self.connectionSuccessful, self.connectionError);
-    }
-    [self dismissViewControllerAnimated:self completion:nil];
+    [self hideHUD];
+    [self dismissViewControllerAnimated:self completion:^{
+        if (self.completion) {
+            self.completion(self.connectionSuccessful, self.connectionError);
+        }
+    }];
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self hideHUD];
+}
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self hideHUD];
+    UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"Network Connection Error" message:@"Sorry, you are not connected to the internet at this time. Please change your network settings or try again later."];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 #pragma mark - Private Methods
+
+- (void)showHUD
+{
+    if (!self.isShowingHUD) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.showingHUD = YES;
+    }
+}
+
+- (void)hideHUD
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    self.showingHUD = NO;
+}
 
 - (void)didReceiveTemporaryToken
 {
+    __weak typeof(self) weakSelf = self;
     NSString *URLString = @"https://www.strava.com/oauth/token";
-    NSDictionary *params = @{@"client_id" : @"4002", @"client_secret" : @"558112ea963c3427a387549a3361bd6677083ff9", @"code" : self.tempToken};
+    NSDictionary *params = @{kStravaClientIDkey : kStravaClientID, kStravaSecretKey : kStravaSecret, @"code" : self.tempToken};
     [self.httpSessionManager POST:URLString parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-        [self saveAccessToken:responseObject[@"access_token"]];
-        self.connectionSuccessful = YES;
-        [self postSuccessMessage];
+        [weakSelf saveAccessToken:responseObject[@"access_token"]];
+        weakSelf.connectionSuccessful = YES;
+        [weakSelf postSuccessMessage];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        self.connectionError = error;
-        [self cancelButtonTapped:nil];
+        weakSelf.connectionError = error;
+        [weakSelf cancelButtonTapped:nil];
     }];
 }
 

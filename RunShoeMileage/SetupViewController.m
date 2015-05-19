@@ -14,6 +14,7 @@
 #import "HealthKitManager.h"
 #import "AFNetworking.h"
 #import "StravaInteractionViewController.h"
+#import "UIAlertController+CommonAlerts.h"
 
 static NSString * const kStravaEnabledMessage = @"You are connected to Strava. Tap the switch to disconnect.";
 static NSString * const kStravaDisableMessage = @"Turning this option on will connect you with the Strava login screen.";
@@ -176,15 +177,9 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
                 [self postErrorAlert:error];
             }
             if (!success) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.stravaEnableSwitch setOn:NO animated:YES];
-                    [self enableStravaDidChange:self.stravaEnableSwitch];
-                });
+                [self resetStravaSwitchToOff];
             }
-            else if (!error)
-            {
-                
-            }
+            // If we're successful, there's no need to do anything.
         }];
     }
 }
@@ -314,10 +309,18 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 - (IBAction)enableStravaDidChange:(UISwitch *)stravaSwitch
 {
     if (stravaSwitch.isOn) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
-        UINavigationController *nc = [storyboard instantiateInitialViewController];
-        nc.delegate = self;
-        [self presentViewController:nc animated:YES completion:nil];
+        AFNetworkReachabilityStatus status = [[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus];
+        if ([[AFNetworkReachabilityManager sharedManager] isReachable] > 0 || 1) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
+            UINavigationController *nc = [storyboard instantiateInitialViewController];
+            nc.delegate = self;
+            [self presentViewController:nc animated:YES completion:nil];
+        }
+        else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"Network Connection Error" message:@"Sorry, you are not connected to the internet at this time. Please change your network settings or try again later."];
+            [self presentViewController:alertController animated:YES completion:nil];
+            [self resetStravaSwitchToOff];
+        }
     }
     else
     {
@@ -345,10 +348,18 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 
 - (void)postErrorAlert:(NSError *)error
 {
-    __weak typeof(self) weakSelf = self;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error!" message:@"There was a problem with your network connection. Please try again later." preferredStyle:UIAlertControllerStyleAlert];
+    NSLog(@"An error ocurred when trying to log user into Strava:/n%@",error);
     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertControllerStyleAlert handler:nil];
     [alertController addAction:doneAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)resetStravaSwitchToOff
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.stravaEnableSwitch setOn:NO animated:YES];
+        [self enableStravaDidChange:self.stravaEnableSwitch];
+    });
 }
 @end

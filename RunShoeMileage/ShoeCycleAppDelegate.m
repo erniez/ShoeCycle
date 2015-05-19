@@ -15,6 +15,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
+#import "AFNetworking.h"
 
 
 @implementation ShoeCycleAppDelegate
@@ -68,6 +69,8 @@
         }
         
     }
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     return YES;
 }

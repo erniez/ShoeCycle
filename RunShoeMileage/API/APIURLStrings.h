@@ -10,3 +10,5 @@
 
 extern NSString * const kStravaActivitiesURL;
 extern NSString * const kStravaAthleteURL;
+extern NSString * const kStravaOAuthURL;
+extern NSString * const kStravaCallbackSubstringURL;
