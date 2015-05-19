@@ -86,7 +86,7 @@ static NSString * const kStravaSecretKey = @"client_secret";
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self hideHUD];
-    UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"Network Connection Error" message:@"Sorry, you are not connected to the internet at this time. Please change your network settings or try again later."];
+    UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"Network Connection Error" message:[NSString stringWithFormat:@"Sorry, there was a problem with the network connection. Details: %@",error.localizedDescription]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 #pragma mark - Private Methods
