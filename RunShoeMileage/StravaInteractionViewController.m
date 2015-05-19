@@ -28,6 +28,7 @@ static NSString * const kStravaSecretKey = @"client_secret";
 
 @end
 
+
 @implementation StravaInteractionViewController
 
 - (void)viewDidLoad {
@@ -35,27 +36,26 @@ static NSString * const kStravaSecretKey = @"client_secret";
     
     self.httpSessionManager = [[AFHTTPSessionManager alloc] init];
     
-    NSURL *targetURL = [NSURL URLWithString:kStravaOAuthURL];
-    
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:targetURL];
-    [self.webView loadRequest:request];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    NSURL *targetURL = [NSURL URLWithString:kStravaOAuthURL];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:targetURL];
+    [self showHUD];
+    [self.webView loadRequest:request];
 }
 
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    [self showHUD];
-    
     NSURL *requestURL = request.URL;
     NSString *URLString = requestURL.absoluteString;
     if ([URLString containsString:kStravaCallbackSubstringURL] && ![URLString containsString:@"redirect_uri"]){
@@ -94,7 +94,14 @@ static NSString * const kStravaSecretKey = @"client_secret";
 - (void)showHUD
 {
     if (!self.isShowingHUD) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        hud.removeFromSuperViewOnHide = YES;
+        hud.graceTime = 0.1;
+        hud.minShowTime = 0.5;
+        hud.taskInProgress = YES;
+        [self.view addSubview:hud];
+        [hud show:YES];
+
         self.showingHUD = YES;
     }
 }
