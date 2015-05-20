@@ -46,4 +46,6 @@
 
 + (void)resetStravaConnection;
 
++ (float)convertMilesToMeters:(float)miles;
+
 @end

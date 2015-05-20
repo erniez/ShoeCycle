@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0751F919D88D9C00171D48 /* Crashlytics.framework */; };
+		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
 		1B26F6C21B0241DD004095CF /* ConnectionIconContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */; };
@@ -59,6 +60,8 @@
 /* Begin PBXFileReference section */
 		1AD896DEB33DD21A1E9004D0 /* Pods.adhocdistro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhocdistro.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhocdistro.xcconfig"; sourceTree = "<group>"; };
 		1B0751F919D88D9C00171D48 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
+		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
 		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
@@ -227,6 +230,8 @@
 				1B26F6C41B02EFAD004095CF /* UIView+Effects.m */,
 				1BDAF9071B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.h */,
 				1BDAF9081B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m */,
+				1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */,
+				1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 				1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
+				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,

@@ -11,6 +11,7 @@
 
 
 float const milesToKilometers = 1.609344;
+float const milesToMeters = 1609.34;
 float const kilometersToMiles = 0.621371;
 
 NSString * const TreadTrackerDistanceUnitPrefKey = @"TreadTrackerDistanceUnitPrefKey";
@@ -87,6 +88,10 @@ NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
     return distance;  // have to return value in miles
 }
 
++ (float)convertMilesToMeters:(float)miles
+{
+    return miles * milesToMeters;
+}
 
 + (float) getUserDefinedDistance1
 {

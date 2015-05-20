@@ -11,6 +11,7 @@
 #import "APIURLStrings.h"
 #import "UIAlertController+CommonAlerts.h"
 #import "MBProgressHUD.h"
+#import "UIColor+ShoeCycleColors.h"
 
 static NSString * const kStravaClientID = @"4002";
 static NSString * const kStravaClientIDkey = @"client_id";
@@ -98,6 +99,7 @@ static NSString * const kStravaSecretKey = @"client_secret";
         hud.removeFromSuperViewOnHide = YES;
         hud.graceTime = 0.1;
         hud.minShowTime = 0.5;
+        hud.activityIndicatorColor = [UIColor shoeCycleOrange];
         hud.taskInProgress = YES;
         [self.view addSubview:hud];
         [hud show:YES];

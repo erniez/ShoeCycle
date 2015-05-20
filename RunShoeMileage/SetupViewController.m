@@ -309,18 +309,10 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 - (IBAction)enableStravaDidChange:(UISwitch *)stravaSwitch
 {
     if (stravaSwitch.isOn) {
-        AFNetworkReachabilityStatus status = [[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus];
-        if ([[AFNetworkReachabilityManager sharedManager] isReachable] > 0 || 1) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
-            UINavigationController *nc = [storyboard instantiateInitialViewController];
-            nc.delegate = self;
-            [self presentViewController:nc animated:YES completion:nil];
-        }
-        else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"Network Connection Error" message:@"Sorry, you are not connected to the internet at this time. Please change your network settings or try again later."];
-            [self presentViewController:alertController animated:YES completion:nil];
-            [self resetStravaSwitchToOff];
-        }
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
+        UINavigationController *nc = [storyboard instantiateInitialViewController];
+        nc.delegate = self;
+        [self presentViewController:nc animated:YES completion:nil];
     }
     else
     {

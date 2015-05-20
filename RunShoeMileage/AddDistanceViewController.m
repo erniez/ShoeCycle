@@ -24,6 +24,9 @@
 #import "StravaActivity.h"
 #import "ConnectionIconContainerView.h"
 #import "UIView+Effects.h"
+#import "UIAlertController+CommonAlerts.h"
+#import "StravaActivity+DistanceConversion.h"
+#import "MBProgressHUD.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -343,55 +346,78 @@ float runTotal;
 - (IBAction)addDistanceButton:(id)sender
 {
     float addDistance;
-    
-    [self dismissDatePickerIfShowing];
-
-    
-    NSManagedObjectContext *context = [self.distShoe managedObjectContext];
-    NSDate *testDate; // temporary date that gets written to run history table
-    
-    // clear any editors that may be visible (clicking directly from distance number pad)
-    [[self view] endEditing:YES];
-    
-
     addDistance = [UserDistanceSetting enterDistance:[self.enterDistanceField text]];
     if (!addDistance) {
         return;
     }
-    EZLog(@"addDistance = %.2f",addDistance);
-    testDate = self.addRunDate;
     
-    [[ShoeStore defaultStore] setRunDistance:addDistance];
-    
-    self.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
-    [self.distShoe addHistoryObject:self.hist];
-    self.hist.runDistance = [NSNumber numberWithFloat:addDistance];
-    EZLog(@"setting history run distance = %@",self.hist.runDistance);
-    self.hist.runDate = testDate;
-    
-    EZLog(@"%@",self.hist.runDistance);
-    
-    runTotal = runTotal + addDistance;
-    [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
-    
-    self.enterDistanceField.text = nil;
-    [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
-    self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
-    
-    if (self.writeToHealthKit)
-    {
-        NSURL *shoeIdenitfier = self.distShoe.objectID.URIRepresentation;
-        NSString *shoeIDString = shoeIdenitfier.absoluteString;
-        NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
-        [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
+    __weak typeof(self) weakSelf = self;
+    void(^addDistanceHandler)(void) = ^{
+        
+        
+        [weakSelf dismissDatePickerIfShowing];
+        
+        NSManagedObjectContext *context = [weakSelf.distShoe managedObjectContext];
+        NSDate *testDate; // temporary date that gets written to run history table
+        
+        // clear any editors that may be visible (clicking directly from distance number pad)
+        [[weakSelf view] endEditing:YES];
+        
+
+        EZLog(@"addDistance = %.2f",addDistance);
+        testDate = weakSelf.addRunDate;
+        
+        [[ShoeStore defaultStore] setRunDistance:addDistance];
+        
+        weakSelf.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
+        [weakSelf.distShoe addHistoryObject:weakSelf.hist];
+        weakSelf.hist.runDistance = [NSNumber numberWithFloat:addDistance];
+        EZLog(@"setting history run distance = %@",weakSelf.hist.runDistance);
+        weakSelf.hist.runDate = testDate;
+        
+        EZLog(@"%@",weakSelf.hist.runDistance);
+        
+        runTotal = runTotal + addDistance;
+        [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+        
+        weakSelf.enterDistanceField.text = nil;
+        [weakSelf.runDateField setText:[weakSelf.runDateFormatter stringFromDate:[NSDate date]]];
+        weakSelf.totalDistanceProgress.progress = runTotal/weakSelf.distShoe.maxDistance.floatValue;
+        
+        if (weakSelf.writeToHealthKit)
+        {
+            NSURL *shoeIdenitfier = weakSelf.distShoe.objectID.URIRepresentation;
+            NSString *shoeIDString = shoeIdenitfier.absoluteString;
+            NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
+            [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
+        }
+        
+        [weakSelf.iconContainerView.iconsToDisplay enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+            [view pulseView];
+        }];
+        
+        [weakSelf.totalDistanceLabel pulseView];
+        [[ShoeStore defaultStore] saveChangesEZ];
+    };
+    if ([UserDistanceSetting isStravaConnected]) {
+        [self showHUD];
+        NSNumber *stravaDistance = [StravaActivity stravaDistanceFromAddDistance:addDistance];
+        StravaActivity *activity = [[StravaActivity alloc] initWithName:@"ShoeCycle Logged Run" distance:stravaDistance startDate:[NSDate date]];
+        [[StravaAPIManager new] sendActivityToStrava:activity completion:^(NSError *error) {
+            [self hideHUD];
+            if (error) {
+                UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"Network Connection Error" message:[NSString stringWithFormat:@"Sorry, there was a problem with the network connection. Details: %@",error.localizedDescription]];
+                [weakSelf presentViewController:alertController animated:YES completion:nil];
+            }
+            else {
+                addDistanceHandler();
+            }
+        }];
+        
     }
-    
-    [self.iconContainerView.iconsToDisplay enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        [view pulseView];
-    }];
-    
-    [self.totalDistanceLabel pulseView];
-    [[ShoeStore defaultStore] saveChangesEZ];
+    else {
+        addDistanceHandler();
+    }
 }
 
 
@@ -543,4 +569,21 @@ float runTotal;
     EZLog(@"Wear = %.4f",wear);
 }
 
+- (void)showHUD
+{
+    if (![MBProgressHUD HUDForView:self.view]) {
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        hud.graceTime = 0.1;
+        hud.minShowTime = 0.5;
+        hud.activityIndicatorColor = [UIColor shoeCycleOrange];
+        hud.taskInProgress = YES;
+        [self.view addSubview:hud];
+        [hud show:YES];
+    }
+}
+
+- (void)hideHUD
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
 @end
