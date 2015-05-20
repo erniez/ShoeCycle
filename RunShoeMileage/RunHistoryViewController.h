@@ -9,14 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Shoe.h"
 
-@interface RunHistoryViewController : UITableViewController
-<UITableViewDelegate>
-{
-    Shoe *shoe;
-    NSMutableArray *runs;
-    
-    UIView *tableHeaderView;
-}
+@interface RunHistoryViewController : UIViewController
 
 @property (nonatomic, strong) Shoe *shoe;
 @property (nonatomic, strong) NSMutableArray *runs;

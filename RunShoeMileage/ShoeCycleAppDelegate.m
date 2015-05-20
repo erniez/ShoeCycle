@@ -14,7 +14,8 @@
 #import "ShoeStore.h"
 #import <Crashlytics/Crashlytics.h>
 #import "UserDistanceSetting.h"
-#import "GlobalStingConstants.h"
+#import "GlobalStringConstants.h"
+#import "AFNetworking.h"
 
 
 @implementation ShoeCycleAppDelegate
@@ -27,7 +28,7 @@
     tabBarController = [[UITabBarController alloc] init];
     
     // Create viewControllers for the tabBar
-    AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] init];
+    AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] initWithNibName:@"AddDistanceViewController" bundle:nil];
     EditShoesViewController *vc2 = [[EditShoesViewController alloc] init];
     SetupViewController *vc3 = [[SetupViewController alloc] init];
     
@@ -68,6 +69,8 @@
         }
         
     }
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     return YES;
 }

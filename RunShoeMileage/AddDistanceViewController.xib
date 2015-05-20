@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddDistanceViewController">
@@ -10,11 +10,13 @@
                 <outlet property="bottomBlockContstraint" destination="x7N-Ku-2NN" id="9MS-LS-9U0"/>
                 <outlet property="bottomBlockInnerConstraint" destination="wE6-Ra-jsI" id="QTe-Rw-aVu"/>
                 <outlet property="connectedToHealthKitAlert" destination="KJ8-cP-K90" id="OgW-5z-EHP"/>
+                <outlet property="connectedToStravaView" destination="iRP-XX-KLN" id="ixp-Hb-pOm"/>
                 <outlet property="daysLeftIdentificationLabel" destination="75" id="84"/>
                 <outlet property="daysLeftLabel" destination="81" id="82"/>
                 <outlet property="distanceUnitLabel" destination="79" id="80"/>
                 <outlet property="enterDistanceField" destination="6" id="10"/>
                 <outlet property="expirationDateLabel" destination="52" id="69"/>
+                <outlet property="iconContainerView" destination="Rjo-7k-QZD" id="FrY-Rq-KA8"/>
                 <outlet property="imageView" destination="64" id="65"/>
                 <outlet property="lightenView" destination="13p-YD-EAb" id="Ncy-U3-CPD"/>
                 <outlet property="maxDistanceLabel" destination="53" id="63"/>
@@ -72,10 +74,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                    <rect key="frame" x="240" y="178" width="60" height="60"/>
+                    <rect key="frame" x="250" y="184" width="50" height="50"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="KrP-Zz-rMo"/>
-                        <constraint firstAttribute="height" constant="60" id="fRY-U3-znG"/>
+                        <constraint firstAttribute="width" constant="50" id="KrP-Zz-rMo"/>
+                        <constraint firstAttribute="height" constant="50" id="fRY-U3-znG"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="13"/>
                     <state key="normal" backgroundImage="button-add-run">
@@ -104,16 +106,6 @@
                     <rect key="frame" x="204" y="427" width="30" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="❤️" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJ8-cP-K90">
-                    <rect key="frame" x="276" y="240" width="24" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="CDd-2V-jKs"/>
-                        <constraint firstAttribute="width" constant="24" id="wSG-GF-At7"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54">
@@ -228,6 +220,33 @@
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lk0-sU-SAs">
                     <rect key="frame" x="20" y="33" width="120" height="120"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rjo-7k-QZD" userLabel="Icon Container" customClass="ConnectionIconContainerView">
+                    <rect key="frame" x="246" y="246" width="59" height="32"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="❤️" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJ8-cP-K90">
+                            <rect key="frame" x="33" y="7" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="kZq-Fr-z8x"/>
+                                <constraint firstAttribute="width" constant="22" id="tdE-K8-24d"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="stravaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="iRP-XX-KLN">
+                            <rect key="frame" x="7" y="6" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="22" id="3Lh-FN-KoV"/>
+                                <constraint firstAttribute="height" constant="22" id="Wwl-V3-qxB"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.24065150539999999" green="0.4974388824" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="J3I-P9-agh"/>
+                        <constraint firstAttribute="width" constant="59" id="em8-di-cbV"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -243,18 +262,18 @@
                 <constraint firstItem="4" firstAttribute="leading" secondItem="7H0-I3-FA9" secondAttribute="leading" constant="1" id="KB4-IG-DG8"/>
                 <constraint firstItem="5" firstAttribute="centerY" secondItem="81" secondAttribute="centerY" id="M3I-mG-Gj9"/>
                 <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" id="Men-aY-Bc3"/>
-                <constraint firstItem="8" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="13" id="PbL-CB-I53"/>
+                <constraint firstItem="8" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="19" id="PbL-CB-I53"/>
                 <constraint firstItem="53" firstAttribute="centerY" secondItem="79" secondAttribute="centerY" id="TJW-EK-apj"/>
-                <constraint firstItem="KJ8-cP-K90" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="2" id="UcG-vD-dOD"/>
                 <constraint firstItem="75" firstAttribute="top" secondItem="81" secondAttribute="bottom" constant="-5" id="V1V-Io-2B4"/>
                 <constraint firstItem="67" firstAttribute="leading" secondItem="7fq-28-cJu" secondAttribute="leading" id="VUT-2a-zIb"/>
                 <constraint firstItem="4" firstAttribute="trailing" secondItem="7H0-I3-FA9" secondAttribute="trailing" constant="-1" id="YIO-zo-80P"/>
                 <constraint firstItem="lk0-sU-SAs" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Yom-o7-Lgs"/>
                 <constraint firstItem="13p-YD-EAb" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="13" id="b5J-c0-sxz"/>
-                <constraint firstItem="KJ8-cP-K90" firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="bhZ-5b-efD"/>
+                <constraint firstItem="Rjo-7k-QZD" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="12" id="cSI-KX-41N"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="5" secondAttribute="leading" id="ctZ-dH-Yib"/>
                 <constraint firstItem="77" firstAttribute="centerX" secondItem="79" secondAttribute="centerX" constant="0.5" id="f0D-e0-D0I"/>
                 <constraint firstItem="4" firstAttribute="centerY" secondItem="77" secondAttribute="centerY" id="f7m-zH-AgE"/>
+                <constraint firstItem="8" firstAttribute="centerX" secondItem="Rjo-7k-QZD" secondAttribute="centerX" constant="-0.5" id="f9k-eQ-W1k"/>
                 <constraint firstItem="5" firstAttribute="trailing" secondItem="7fq-28-cJu" secondAttribute="trailing" constant="-1" id="fdW-QE-MGr"/>
                 <constraint firstItem="7fq-28-cJu" firstAttribute="trailing" secondItem="52" secondAttribute="trailing" id="jK8-3b-t1C"/>
                 <constraint firstAttribute="trailing" secondItem="64" secondAttribute="trailing" constant="20" id="kgO-f7-fHB"/>
@@ -283,6 +302,7 @@
         <image name="button-distance" width="113" height="40"/>
         <image name="button-history" width="98" height="40"/>
         <image name="logo" width="120" height="120"/>
+        <image name="stravaLogo" width="22" height="22"/>
         <image name="tickmarks" width="222" height="23"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

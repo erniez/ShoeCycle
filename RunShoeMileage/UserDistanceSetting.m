@@ -7,8 +7,11 @@
 //
 
 #import "UserDistanceSetting.h"
+#import "GlobalStringConstants.h"
+
 
 float const milesToKilometers = 1.609344;
+float const milesToMeters = 1609.34;
 float const kilometersToMiles = 0.621371;
 
 NSString * const TreadTrackerDistanceUnitPrefKey = @"TreadTrackerDistanceUnitPrefKey";
@@ -18,8 +21,8 @@ NSString * const TreadTrackerUserDefineDistance3PrefKey = @"TreadTrackerUserDefi
 NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefineDistance4PrefKey";
 NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePrefKey";
 NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
+NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
 
-// static NSInteger distanceUnit;
 
 @implementation UserDistanceSetting
 
@@ -85,6 +88,10 @@ NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
     return distance;  // have to return value in miles
 }
 
++ (float)convertMilesToMeters:(float)miles
+{
+    return miles * milesToMeters;
+}
 
 + (float) getUserDefinedDistance1
 {
@@ -170,4 +177,17 @@ NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
     [[NSUserDefaults standardUserDefaults] setBool:isEnabled forKey:ShoeCycleHealthKitEnabledKey];
 }
 
++ (BOOL)isStravaConnected
+{
+    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:kStravaAccessToken];
+    if (token) {
+        return YES;
+    }
+    return NO;
+}
+
++ (void)resetStravaConnection
+{
+    [[NSUserDefaults standardUserDefaults] setValue:nil forKey:kStravaAccessToken];
+}
 @end
