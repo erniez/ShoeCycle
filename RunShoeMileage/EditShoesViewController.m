@@ -14,6 +14,7 @@
 #import "UserDistanceSetting.h"
 #import "UIUtilities.h"
 #import "UIColor+ShoeCycleColors.h"
+#import "EditShoesCell.h"
 
 
 @interface EditShoesViewController ()
@@ -27,46 +28,13 @@
 //@synthesize testBrandArray, testNameArray;
 
 
-- (id)init
-{
-    self = [super initWithStyle:UITableViewStyleGrouped];
-    
-    if (self) {
-/*        // Get tab bar item
-        UITabBarItem *tbi = [self tabBarItem];
-        
-        // Give it a label
-        [tbi setTitle:@"Add/Edit Shoes"];
-***  Moved this block of Code to the appDelegate. The title text was not appearing in the tab for some reason */
-        EZLog(@"Made it to init Self");
-        
-        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
-                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                target:self
-                                action:@selector(addNewShoe:)];
-        [[self navigationItem] setRightBarButtonItem:bbi];
-                
-        [[self navigationItem] setTitle:@"Add/Edit Shoes"];
-        
-        [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
-    } 
-    
-    return self;
-}
-
-
 - (id) initWithStyle:(UITableViewStyle)style
 {
-    return [self init];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    EZLog(@"entered editShoes didReceiveMemoryWarning");
-    [super didReceiveMemoryWarning];
-    EZLog(@"leaving editShoed didReceiveMemoryWarning");    
-    // Release any cached data, images, etc that aren't in use.
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+      
+    }
+    return self;
 }
 
 #pragma mark - View lifecycle
@@ -101,11 +69,18 @@
 {
     [super viewDidLoad];
 
+    UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
+                            initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                            target:self
+                            action:@selector(addNewShoe:)];
+    [self.navigationItem setRightBarButtonItem:bbi];
+    [self.navigationItem setTitle:@"Add/Edit Shoes"];
+    [self.navigationItem setLeftBarButtonItem:[self editButtonItem]];
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     
-    EZLog(@"Made it to viewDidLoad");
-
-    // Do any additional setup after loading the view from its nib.
+    UINib *cellNib = [UINib nibWithNibName:@"EditShoesCell" bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"EditShoesCell"];
+    
 }
 
 - (void)EditShoesViewControllerWillDismiss:(EditShoesViewController *)vc
@@ -140,29 +115,33 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-	if (cell == nil)
-	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UITableViewCell"];
-	}
+    EditShoesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EditShoesCell" forIndexPath:indexPath];
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
-    Shoe *s = [shoes objectAtIndex:indexPath.row];
+    Shoe *shoe = [shoes objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",s.brand];
-    cell.detailTextLabel.text = nil;
     if (indexPath.row == currentShoe) {
-        cell.detailTextLabel.text = @"Selected";
-    }   
+//        cell.detailTextLabel.text = @"Selected";
+        [cell setSelected:YES animated:NO];
+    }
+    
+    [cell configureForShoe:shoe];
+//    cell.textLabel.text = [NSString stringWithFormat:@"%@",s.brand];
+//    cell.detailTextLabel.text = nil;
+//    if (indexPath.row == currentShoe) {
+//        cell.detailTextLabel.text = @"Selected";
+//    }   
 	
     cell.accessoryType = UITableViewCellAccessoryDetailButton ;
-    
-    EZLog(@"Made it to tableView exit");
     
 	return cell;
 } 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 58;
+}
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
@@ -173,17 +152,28 @@
     [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
-    
-    EZLog(@"********** Going to Detail View ***************");
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelected:YES animated:YES];
+    return indexPath;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelected:NO animated:YES];
+    return indexPath;
+}
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     EZLog(@"Entering did select row at index path");
     currentShoe = indexPath.row;
     [UserDistanceSetting setSelectedShoe:currentShoe];
-    [[self tableView] reloadData];
+//    [[self tableView] reloadData];
 }
 
 

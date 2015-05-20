@@ -29,7 +29,7 @@
     
     // Create viewControllers for the tabBar
     AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] initWithNibName:@"AddDistanceViewController" bundle:nil];
-    EditShoesViewController *vc2 = [[EditShoesViewController alloc] init];
+    EditShoesViewController *vc2 = [[EditShoesViewController alloc] initWithStyle:UITableViewStyleGrouped];
     SetupViewController *vc3 = [[SetupViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc2];

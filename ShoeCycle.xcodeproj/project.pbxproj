@@ -19,6 +19,8 @@
 		1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */; };
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
 		1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B381A6819E1C2D3002C3FD7 /* HealthKitManager.m */; };
+		1B3CB6301B0CB9E200E19778 /* EditShoesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CB62E1B0CB9E200E19778 /* EditShoesCell.m */; };
+		1B3CB6311B0CB9E200E19778 /* EditShoesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
@@ -80,6 +82,9 @@
 		1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunHistoryViewController.xib; sourceTree = "<group>"; };
 		1B381A6719E1C2D3002C3FD7 /* HealthKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthKitManager.h; path = sharedObjects/HealthKitManager.h; sourceTree = "<group>"; };
 		1B381A6819E1C2D3002C3FD7 /* HealthKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthKitManager.m; path = sharedObjects/HealthKitManager.m; sourceTree = "<group>"; };
+		1B3CB62D1B0CB9E200E19778 /* EditShoesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditShoesCell.h; path = Views/EditShoesCell.h; sourceTree = "<group>"; };
+		1B3CB62E1B0CB9E200E19778 /* EditShoesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditShoesCell.m; path = Views/EditShoesCell.m; sourceTree = "<group>"; };
+		1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditShoesCell.xib; path = Views/EditShoesCell.xib; sourceTree = "<group>"; };
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
@@ -167,6 +172,9 @@
 			children = (
 				1B26F6C01B0241DD004095CF /* ConnectionIconContainerView.h */,
 				1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */,
+				1B3CB62D1B0CB9E200E19778 /* EditShoesCell.h */,
+				1B3CB62E1B0CB9E200E19778 /* EditShoesCell.m */,
+				1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -436,6 +444,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B3CB6311B0CB9E200E19778 /* EditShoesCell.xib in Resources */,
 				1BCF6448148AF7E7004C0E6A /* InfoPlist.strings in Resources */,
 				1BDDEC5F148BDF8C009E5436 /* AddDistanceViewController.xib in Resources */,
 				EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */,
@@ -520,6 +529,7 @@
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */,
+				1B3CB6301B0CB9E200E19778 /* EditShoesCell.m in Sources */,
 				1B26F6C21B0241DD004095CF /* ConnectionIconContainerView.m in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,

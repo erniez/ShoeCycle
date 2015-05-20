@@ -47,7 +47,6 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 
 - (id)init
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // Call the class designated initializer
     self = [super initWithNibName:nil
                            bundle:nil];

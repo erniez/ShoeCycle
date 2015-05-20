@@ -413,7 +413,6 @@ float runTotal;
                 addDistanceHandler();
             }
         }];
-        
     }
     else {
         addDistanceHandler();
