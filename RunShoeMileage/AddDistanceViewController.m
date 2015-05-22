@@ -379,6 +379,7 @@ float runTotal;
         
         runTotal = runTotal + addDistance;
         [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+        self.distShoe.totalDistance = @(runTotal);
         
         weakSelf.enterDistanceField.text = nil;
         [weakSelf.runDateField setText:[weakSelf.runDateFormatter stringFromDate:[NSDate date]]];

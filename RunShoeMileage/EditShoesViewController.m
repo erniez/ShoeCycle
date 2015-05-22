@@ -20,6 +20,7 @@
 @interface EditShoesViewController ()
 
 @property (nonatomic, strong) UIView *helpBubble;
+@property (nonatomic) NSInteger editingSelectedShoe; // We need this for when we're in editing mode, and we switch tabs.
 
 @end
 
@@ -43,32 +44,33 @@
 {
     [super viewWillAppear:animated];
     currentShoe = [UserDistanceSetting getSelectedShoe];
-    [[self tableView] reloadData];
     self.tableView.contentMode = UIViewContentModeTop;
     [self.helpBubble removeFromSuperview];
     self.helpBubble = nil;
+    
+    NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : currentShoe;
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    
+//    [[self tableView] reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     NSInteger shoeCount = [[[ShoeStore defaultStore] allShoes] count];
     if (shoeCount == 0)
     {
         [self showHelpBubble];
     }
-    
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    self.editingSelectedShoe = -1;
+    
     UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
                             initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                             target:self
@@ -80,7 +82,7 @@
     
     UINib *cellNib = [UINib nibWithNibName:@"EditShoesCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"EditShoesCell"];
-    
+    self.tableView.allowsSelectionDuringEditing = YES;
 }
 
 - (void)EditShoesViewControllerWillDismiss:(EditShoesViewController *)vc
@@ -94,6 +96,20 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    if (!editing) {
+        currentShoe = self.editingSelectedShoe;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [UserDistanceSetting setSelectedShoe:currentShoe];
+        self.editingSelectedShoe = -1;
+    }
+    else {
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        self.editingSelectedShoe = currentShoe;
+    }
+}
 
 // ******************************************************************************************
 //  End of View Cycle
@@ -121,18 +137,8 @@
     
     Shoe *shoe = [shoes objectAtIndex:indexPath.row];
     
-    if (indexPath.row == currentShoe) {
-//        cell.detailTextLabel.text = @"Selected";
-        [cell setSelected:YES animated:NO];
-    }
-    
     [cell configureForShoe:shoe];
-//    cell.textLabel.text = [NSString stringWithFormat:@"%@",s.brand];
-//    cell.detailTextLabel.text = nil;
-//    if (indexPath.row == currentShoe) {
-//        cell.detailTextLabel.text = @"Selected";
-//    }   
-	
+
     cell.accessoryType = UITableViewCellAccessoryDetailButton ;
     
 	return cell;
@@ -154,28 +160,20 @@
     [[self navigationController] pushViewController:detailViewController animated:YES];
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelected:YES animated:YES];
-    return indexPath;
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelected:NO animated:YES];
-    return indexPath;
-}
-
-- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    EZLog(@"Entering did select row at index path");
+    if (currentShoe == indexPath.row) {
+        return;
+    }
+    [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:YES];
     currentShoe = indexPath.row;
-    [UserDistanceSetting setSelectedShoe:currentShoe];
-//    [[self tableView] reloadData];
+    if (self.isEditing) {
+        self.editingSelectedShoe = indexPath.row;
+    }
+    else {
+        [UserDistanceSetting setSelectedShoe:currentShoe];
+    }
 }
-
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -198,10 +196,20 @@
     }
 }
 
-
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     [[ShoeStore defaultStore] moveShoeAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
+    NSInteger fromIndex = fromIndexPath.row;
+    NSInteger toIndex = toIndexPath.row;
+    if (fromIndex == self.editingSelectedShoe) {
+        self.editingSelectedShoe = toIndex;
+    }
+    else if (fromIndex < self.editingSelectedShoe && self.editingSelectedShoe <= toIndex) {
+        self.editingSelectedShoe--;
+    }
+    else if (fromIndex > self.editingSelectedShoe && self.editingSelectedShoe >= toIndex) {
+        self.editingSelectedShoe++;
+    }
 }
 
 
@@ -233,10 +241,6 @@
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
     [self presentViewController:navController animated:YES completion:nil];
-    
-//    [self.tabBarController presentModalViewController:navController animated:YES];
-//    *** can't figure out how to present a modal view without covering tabBarController
-
 }
 
 - (void)showHelpBubble

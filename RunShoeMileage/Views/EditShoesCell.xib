@@ -20,14 +20,14 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance: 123 miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Xl-mM-3tN">
-                        <rect key="frame" x="81" y="32" width="127" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc2-h2-tuH">
+                        <rect key="frame" x="8" y="32" width="57" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc2-h2-tuH">
-                        <rect key="frame" x="8" y="32" width="57" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance: 123 miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Xl-mM-3tN">
+                        <rect key="frame" x="81" y="32" width="127" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -36,8 +36,8 @@
                 <constraints>
                     <constraint firstItem="BHO-Oh-VQ6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="5te-eW-ydg"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Kc2-h2-tuH" secondAttribute="bottom" id="LVT-a1-ixy"/>
-                    <constraint firstItem="5Xl-mM-3tN" firstAttribute="leading" secondItem="Kc2-h2-tuH" secondAttribute="trailing" constant="16" id="MBq-R5-VD3"/>
                     <constraint firstItem="BHO-Oh-VQ6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="WPl-DB-aqH"/>
+                    <constraint firstItem="5Xl-mM-3tN" firstAttribute="leading" secondItem="BHO-Oh-VQ6" secondAttribute="leading" constant="73" id="ZXa-mj-ufp"/>
                     <constraint firstItem="BHO-Oh-VQ6" firstAttribute="leading" secondItem="Kc2-h2-tuH" secondAttribute="leading" id="gms-pC-sf4"/>
                     <constraint firstAttribute="bottomMargin" secondItem="5Xl-mM-3tN" secondAttribute="bottom" id="jR5-If-rR8"/>
                     <constraint firstItem="5Xl-mM-3tN" firstAttribute="centerY" secondItem="Kc2-h2-tuH" secondAttribute="centerY" id="pwf-CF-tFV"/>
@@ -45,6 +45,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="distanceLabel" destination="5Xl-mM-3tN" id="fIZ-Hy-Cc2"/>
+                <outlet property="distanceLeadingAlignmentConstraint" destination="ZXa-mj-ufp" id="xje-1N-BQZ"/>
                 <outlet property="nameLabel" destination="BHO-Oh-VQ6" id="PcI-Ed-2cd"/>
                 <outlet property="selectedLabel" destination="Kc2-h2-tuH" id="oh2-I0-u4m"/>
             </connections>

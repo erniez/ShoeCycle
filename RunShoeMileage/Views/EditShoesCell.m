@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *distanceLeadingAlignmentConstraint;
 
 @end
 
@@ -25,7 +26,6 @@
 
 - (void)awakeFromNib {
     self.selectedLabel.textColor = [UIColor orangeColor];
-    self.selectedLabel.text = @"";
     self.nameLabel.text = @"";
     self.distanceLabel.text = @"";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -38,30 +38,45 @@
     NSString *distanceText = [UserDistanceSetting displayDistance:totalDistance];
     NSString *unitOfMeasure = [UserDistanceSetting getDistanceUnit] ? @"km" : @"miles";
     self.distanceLabel.text = [NSString stringWithFormat:@"Distance: %@ %@",distanceText, unitOfMeasure];
+    [self layoutIfNeeded];
     if (self.selected) {
         self.backgroundColor = [UIColor shoeCycleGreen];
-        self.selectedLabel.text = @"Selected";
+        self.nameLabel.alpha = 1.0;
+        self.distanceLeadingAlignmentConstraint.constant = 73;
+        [self layoutIfNeeded];
+    }
+    else {
+        self.selectedLabel.alpha = 0.0;
+        self.distanceLeadingAlignmentConstraint.constant = 0;
+        [self layoutIfNeeded];
     }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-    CGFloat animationTime = animated ? 0.25 : 0.0;
-    [UIView animateWithDuration:animationTime animations:^{
-        self.selectedLabel.text = selected ? @"Selected" : @"";
-        self.backgroundColor = selected ? [UIColor shoeCycleGreen] : [UIColor whiteColor];
+    UIColor *selectedColor = selected ? [UIColor shoeCycleGreen] : [UIColor whiteColor];
+    [UIView animateWithDuration:0.25 animations:^{
+        self.distanceLeadingAlignmentConstraint.constant = selected ? 73 : 0;
+        self.backgroundColor = selectedColor;
+        self.selectedLabel.alpha = selected ? 1.0 : 0.0;
         [self layoutIfNeeded];
     } completion:nil];
-    
 }
 
 - (void)prepareForReuse
 {
-    self.selectedLabel.text = @"";
     self.nameLabel.text = @"";
     self.distanceLabel.text = @"";
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor shoeCycleGreen];
+    self.nameLabel.alpha = 1.0;
+    self.distanceLeadingAlignmentConstraint.constant = 73;
+}
+
+- (CGFloat)unselectedConstant
+{
+    return self.distanceLabel.frame.origin.x - self.nameLabel.frame.origin.x;
+
 }
 
 @end
