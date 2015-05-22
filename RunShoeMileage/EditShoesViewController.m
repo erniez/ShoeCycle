@@ -17,10 +17,11 @@
 #import "EditShoesCell.h"
 
 
-@interface EditShoesViewController ()
+@interface EditShoesViewController ()<ShoeDetailViewControllerDelegate>
 
 @property (nonatomic, strong) UIView *helpBubble;
 @property (nonatomic) NSInteger editingSelectedShoe; // We need this for when we're in editing mode, and we switch tabs.
+@property (nonatomic) BOOL animatingDeletion;
 
 @end
 
@@ -49,9 +50,7 @@
     self.helpBubble = nil;
     
     NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : currentShoe;
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
-    
-//    [[self tableView] reloadData];
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,11 +84,6 @@
     self.tableView.allowsSelectionDuringEditing = YES;
 }
 
-- (void)EditShoesViewControllerWillDismiss:(EditShoesViewController *)vc
-{
-    [[self tableView] reloadData];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -99,13 +93,14 @@
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
-    if (!editing) {
-        currentShoe = self.editingSelectedShoe;
+    if (!editing && !self.animatingDeletion) {
+        // need to check for valid data, because this gets hit multiple times on swipe deletes.
+        currentShoe = self.editingSelectedShoe >=0 ? self.editingSelectedShoe : currentShoe;
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
         [UserDistanceSetting setSelectedShoe:currentShoe];
         self.editingSelectedShoe = -1;
     }
-    else {
+    else if (editing){
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
         self.editingSelectedShoe = currentShoe;
     }
@@ -156,6 +151,7 @@
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
         
     [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
+    detailViewController.delegate = self;
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
 }
@@ -182,11 +178,28 @@
         NSArray *shoes = [ss allShoes];
         Shoe *s = [shoes objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
-        
+
+        NSInteger newShowSelectedIndex = self.editing ? self.editingSelectedShoe : currentShoe;
+        if (indexPath.row < newShowSelectedIndex) {
+            currentShoe--;
+            self.editingSelectedShoe = -1;
+            newShowSelectedIndex--;
+        }
+        // Save new shoe index only. Selection is handled by table view.
+        [UserDistanceSetting setSelectedShoe:newShowSelectedIndex];
+
+        [CATransaction begin];
+        [CATransaction setCompletionBlock: ^{
+            [tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:newShowSelectedIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            self.animatingDeletion = NO;
+        }];
+       
         // remove row from table with animation
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-        [[self tableView] reloadData];
+        self.animatingDeletion = YES;
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
         
+        [CATransaction commit];
+
         // show help bubble again if there are no more shoes.
         if ([shoes count] == 0)
         {
@@ -219,6 +232,7 @@
     
     Shoe *newShoe = [[ShoeStore defaultStore] createShoe];
     ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] initForNewItem:YES];
+    detailViewController.delegate = self;
 
     newShoe.maxDistance = [NSNumber numberWithFloat:350];
     newShoe.startDate = [NSDate date];
@@ -291,5 +305,12 @@
         } completion:nil];
 
     }
+}
+
+#pragma mark - ShoeDetailViewControllerDelegate
+
+- (void)shoeDetailViewControllerDataDidChange:(ShoeDetailViewController *)viewController
+{
+    [self.tableView reloadData];
 }
 @end

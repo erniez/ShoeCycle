@@ -33,6 +33,7 @@
 
 @property (nonatomic) BOOL isNew;
 @property (nonatomic) BOOL newShoeIsCancelled;
+@property (nonatomic, getter=isDataDirty) BOOL dataDirty;
 
 @end
 
@@ -138,7 +139,6 @@
 
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated
 {
 
@@ -156,6 +156,7 @@
         [[ShoeStore defaultStore] saveChangesEZ];
     }
 
+    [self.delegate shoeDetailViewControllerDataDidChange:self];
     EZLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
     EZLog(@"Leaving Date = %@",self.shoe.expirationDate);
     EZLog(@"************** Leaving Detail View ************");
