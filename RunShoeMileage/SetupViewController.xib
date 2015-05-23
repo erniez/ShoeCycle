@@ -194,7 +194,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ra-d4-lhk">
-                            <rect key="frame" x="124" y="480" width="72" height="37"/>
+                            <rect key="frame" x="124" y="479" width="72" height="37"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="37" id="7mP-Cs-JRl"/>
                                 <constraint firstAttribute="width" constant="72" id="e9v-tY-oxb"/>
@@ -257,9 +257,9 @@
                         <constraint firstAttribute="centerX" secondItem="PEU-Kt-Irh" secondAttribute="centerX" id="0la-aZ-YIX"/>
                         <constraint firstItem="wGr-KZ-Fhd" firstAttribute="top" secondItem="gZY-Rb-Z6v" secondAttribute="bottom" constant="20" id="6DW-nI-Xfv"/>
                         <constraint firstItem="Ln1-vh-RGs" firstAttribute="top" secondItem="PEU-Kt-Irh" secondAttribute="bottom" constant="20" id="7au-fK-t8b"/>
-                        <constraint firstItem="0Ra-d4-lhk" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="480" id="DXM-C0-tmG"/>
+                        <constraint firstItem="0Ra-d4-lhk" firstAttribute="top" secondItem="yWP-ai-uel" secondAttribute="top" constant="479" id="DXM-C0-tmG"/>
                         <constraint firstAttribute="centerX" secondItem="wGr-KZ-Fhd" secondAttribute="centerX" id="HSI-JJ-OmN"/>
-                        <constraint firstItem="0Ra-d4-lhk" firstAttribute="bottom" secondItem="yWP-ai-uel" secondAttribute="bottom" constant="-59" id="Rnt-HZ-jFY"/>
+                        <constraint firstItem="0Ra-d4-lhk" firstAttribute="bottom" secondItem="yWP-ai-uel" secondAttribute="bottom" constant="-45" id="Rnt-HZ-jFY"/>
                         <constraint firstAttribute="centerX" secondItem="gZY-Rb-Z6v" secondAttribute="centerX" id="Ztx-Rd-b8x"/>
                         <constraint firstAttribute="centerX" secondItem="0Ra-d4-lhk" secondAttribute="centerX" id="fRl-gX-W66"/>
                         <constraint firstAttribute="centerX" secondItem="Ln1-vh-RGs" secondAttribute="centerX" id="fZG-Te-pWi"/>
