@@ -16,6 +16,7 @@
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
 #import "AFNetworking.h"
+#import "FTUUtility.h"
 
 
 @implementation ShoeCycleAppDelegate
@@ -59,15 +60,11 @@
     [self.window makeKeyAndVisible];
     
     [self monitorVersion];
-    
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kDoNotShowNewFeaturesKey])
+
+    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
     {
-        NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-        if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
-        {
-            [self displayNewFeaturesInfoOnViewController:vc1];
-        }
-        
+        [self displayNewFeaturesInfoOnViewController:vc1];
     }
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
@@ -125,14 +122,18 @@
 
 - (void)displayNewFeaturesInfoOnViewController:(UIViewController *)viewController
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Feature!" message:kNewFeaturesInfov2_1String preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *readConfirmation = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kDoNotShowNewFeaturesKey];
-    }];
-    UIAlertAction *done = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction: readConfirmation];
-    [alert addAction:done];
-    [viewController presentViewController:alert animated:YES completion:nil];
+    NSArray *newFeatures = [FTUUtility newFeatures];
+    if (newFeatures) {
+        NSString *featureText = [FTUUtility featureTextForFeatureKey:[newFeatures firstObject]];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Feature!" message:featureText preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *readConfirmation = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [FTUUtility completeFeature:[newFeatures firstObject]];
+        }];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction: readConfirmation];
+        [alert addAction:done];
+        [viewController presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)monitorVersion

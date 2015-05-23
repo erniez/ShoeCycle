@@ -10,6 +10,7 @@
 		1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0751F919D88D9C00171D48 /* Crashlytics.framework */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
+		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
 		1B26F6C21B0241DD004095CF /* ConnectionIconContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */; };
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
@@ -66,6 +67,8 @@
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
 		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
+		1B1EF6FF1B101EB9000ED442 /* FTUUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTUUtility.h; path = utilities/FTUUtility.h; sourceTree = "<group>"; };
+		1B1EF7001B101EB9000ED442 /* FTUUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTUUtility.m; path = utilities/FTUUtility.m; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		1B23E02B14B5257F00B51A6E /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
 		1B26F6C01B0241DD004095CF /* ConnectionIconContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionIconContainerView.h; path = Views/ConnectionIconContainerView.h; sourceTree = "<group>"; };
@@ -251,6 +254,8 @@
 				1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */,
 				1B26F6C81B06F8F0004095CF /* DateUtilities.h */,
 				1B26F6C91B06F8F0004095CF /* DateUtilities.m */,
+				1B1EF6FF1B101EB9000ED442 /* FTUUtility.h */,
+				1B1EF7001B101EB9000ED442 /* FTUUtility.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */,
+				1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */,
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
