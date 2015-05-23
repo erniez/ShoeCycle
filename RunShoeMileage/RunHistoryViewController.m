@@ -15,7 +15,6 @@
 
 @interface RunHistoryViewController ()  <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) IBOutlet UIView *view;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *runsByTheMonth;
 @property (weak, nonatomic) IBOutlet UILabel *runDateHeaderLabel;
