@@ -576,6 +576,8 @@ float runTotal;
         hud.graceTime = 0.1;
         hud.minShowTime = 0.5;
         hud.activityIndicatorColor = [UIColor shoeCycleOrange];
+        hud.labelText = @"Sending data to Strava ...";
+        hud.labelColor = [UIColor shoeCycleOrange];
         hud.taskInProgress = YES;
         [self.view addSubview:hud];
         [hud show:YES];
