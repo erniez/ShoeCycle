@@ -27,6 +27,7 @@
 #import "UIAlertController+CommonAlerts.h"
 #import "StravaActivity+DistanceConversion.h"
 #import "MBProgressHUD.h"
+#import "GlobalStringConstants.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -399,6 +400,7 @@ float runTotal;
         
         [weakSelf.totalDistanceLabel pulseView];
         [[ShoeStore defaultStore] saveChangesEZ];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
     };
     if ([UserDistanceSetting isStravaConnected]) {
         [self showHUD];

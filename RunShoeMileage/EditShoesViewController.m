@@ -15,9 +15,10 @@
 #import "UIUtilities.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "EditShoesCell.h"
+#import "GlobalStringConstants.h"
 
 
-@interface EditShoesViewController ()<ShoeDetailViewControllerDelegate>
+@interface EditShoesViewController ()
 
 @property (nonatomic, strong) UIView *helpBubble;
 @property (nonatomic) NSInteger editingSelectedShoe; // We need this for when we're in editing mode, and we switch tabs.
@@ -67,6 +68,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:kShoeDataDidChange object:nil];
 
     self.editingSelectedShoe = -1;
     
@@ -151,7 +154,6 @@
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
         
     [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
-    detailViewController.delegate = self;
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
 }
@@ -232,7 +234,6 @@
     
     Shoe *newShoe = [[ShoeStore defaultStore] createShoe];
     ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] initForNewItem:YES];
-    detailViewController.delegate = self;
 
     newShoe.maxDistance = [NSNumber numberWithFloat:350];
     newShoe.startDate = [NSDate date];

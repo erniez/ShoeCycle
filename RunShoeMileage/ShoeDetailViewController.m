@@ -13,6 +13,7 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
 #import "RunDatePickerViewController.h"
+#import "GlobalStringConstants.h"
 
 
 @interface ShoeDetailViewController () <RunDatePickerViewDelegate>
@@ -156,7 +157,7 @@
         [[ShoeStore defaultStore] saveChangesEZ];
     }
 
-    [self.delegate shoeDetailViewControllerDataDidChange:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
     EZLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
     EZLog(@"Leaving Date = %@",self.shoe.expirationDate);
     EZLog(@"************** Leaving Detail View ************");

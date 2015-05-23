@@ -9,16 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Shoe.h"
 
-@protocol ShoeDetailViewControllerDelegate;
 
 @interface ShoeDetailViewController : UIViewController
 <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
-{
-    // TODO: Fix this mess.  Using popover in implementation which is a no-no.
-    id pictureButton;
-}
-
-@property (nonatomic, weak) id<ShoeDetailViewControllerDelegate>delegate;
 
 @property (nonatomic, weak) IBOutlet UITextField *brandField;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -44,11 +37,5 @@
 - (IBAction)backgroundTapped:(id)sender;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 - (IBAction)callDP:(id)sender;
-
-@end
-
-@protocol ShoeDetailViewControllerDelegate <NSObject>
-
-- (void)shoeDetailViewControllerDataDidChange:(ShoeDetailViewController *)viewController;
 
 @end

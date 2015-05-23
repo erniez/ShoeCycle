@@ -23,6 +23,7 @@ extern NSString * const kStravaAccessToken; // for user defaults
 
 // Alert Messages
 extern NSString * const kNewFeaturesInfov2_1String;
+extern NSString * const kShoeDataDidChange;
 
 
 @interface GlobalStringConstants : NSObject

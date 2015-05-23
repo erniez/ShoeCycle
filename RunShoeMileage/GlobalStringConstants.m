@@ -26,4 +26,9 @@ NSString * const kStravaAccessToken = @"ShoeCycleStravaAccessToken"; // for user
 // Alert Messages
 NSString * const kNewFeaturesInfov2_1String = @"You can now integrate with HealthKit! Check out your running progress in an easy to read chart in the Health app.  Just tap on the \"Setup\" tab to get started!";
 
+
+// Notifications
+NSString * const kShoeDataDidChange = @"ShoeCycleShoeDataDidChange";
+
+
 @end
