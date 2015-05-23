@@ -275,6 +275,16 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
     UISwitch *enableSwitch = sender;
     HealthKitManager *healthManager = [HealthKitManager sharedManager];
 
+    if (![healthManager isHealthKitAvailable]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"HealthKit Unavailable" message:@"We're sorry, HealthKit is unavailable on your device." handler:^(UIAlertAction *action) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [enableSwitch setOn:NO animated:YES];
+            });
+        }];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
+    
     [UserDistanceSetting setHealthKitEnabled:enableSwitch.isOn];
     
     if (healthManager.authorizationStatus != HKAuthorizationStatusSharingAuthorized && enableSwitch.isOn)

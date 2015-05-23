@@ -11,5 +11,6 @@
 @interface UIAlertController (CommonAlerts)
 
 + (UIAlertController *)alertControllerWithOKButtonAndTitle:(NSString *)title message:(NSString *)message;
++ (UIAlertController *)alertControllerWithOKButtonAndTitle:(NSString *)title message:(NSString *)message handler:(void(^)(UIAlertAction *action))handler;
 
 @end
