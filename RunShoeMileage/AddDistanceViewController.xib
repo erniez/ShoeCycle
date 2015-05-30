@@ -17,6 +17,7 @@
                 <outlet property="enterDistanceField" destination="6" id="10"/>
                 <outlet property="expirationDateLabel" destination="52" id="69"/>
                 <outlet property="iconContainerView" destination="Rjo-7k-QZD" id="FrY-Rq-KA8"/>
+                <outlet property="imageScrollIndicators" destination="ERP-m3-IJT" id="Y9w-Xm-RNa"/>
                 <outlet property="imageView" destination="64" id="65"/>
                 <outlet property="lightenView" destination="13p-YD-EAb" id="Ncy-U3-CPD"/>
                 <outlet property="maxDistanceLabel" destination="53" id="63"/>
@@ -137,13 +138,13 @@
                     </connections>
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Running Shoe Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="60">
-                    <rect key="frame" x="162" y="148" width="134" height="17"/>
+                    <rect key="frame" x="135" y="148" width="134" height="17"/>
                     <color key="textColor" red="1" green="0.61008487960000002" blue="0.15198030879999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64">
-                    <rect key="frame" x="157" y="33" width="143" height="96"/>
+                <imageView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64">
+                    <rect key="frame" x="130" y="33" width="143" height="96"/>
                     <color key="backgroundColor" red="0.0" green="0.54509806630000002" blue="0.74901962280000001" alpha="0.25" colorSpace="deviceRGB"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
@@ -217,8 +218,11 @@
                         <constraint firstAttribute="height" constant="10" id="GWO-Hs-4Tn"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lk0-sU-SAs">
-                    <rect key="frame" x="20" y="33" width="120" height="120"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lk0-sU-SAs">
+                    <rect key="frame" x="16" y="33" width="100" height="96"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="dM6-h1-LnW"/>
+                    </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rjo-7k-QZD" userLabel="Icon Container" customClass="ConnectionIconContainerView">
                     <rect key="frame" x="246" y="246" width="59" height="32"/>
@@ -247,6 +251,12 @@
                         <constraint firstAttribute="width" constant="59" id="em8-di-cbV"/>
                     </constraints>
                 </view>
+                <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroll-arrows" translatesAutoresizingMaskIntoConstraints="NO" id="ERP-m3-IJT">
+                    <rect key="frame" x="273" y="33" width="35" height="96"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="xtH-17-pJO"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -259,15 +269,17 @@
                 <constraint firstItem="7H0-I3-FA9" firstAttribute="leading" secondItem="83" secondAttribute="leading" id="F9z-TR-ITc"/>
                 <constraint firstItem="4" firstAttribute="trailing" secondItem="5" secondAttribute="trailing" id="Gal-Kl-gfm"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="13" id="HuL-Ni-arH"/>
+                <constraint firstItem="ERP-m3-IJT" firstAttribute="top" secondItem="64" secondAttribute="top" id="IE0-dS-XcZ"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="7H0-I3-FA9" secondAttribute="leading" constant="1" id="KB4-IG-DG8"/>
                 <constraint firstItem="5" firstAttribute="centerY" secondItem="81" secondAttribute="centerY" id="M3I-mG-Gj9"/>
                 <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" id="Men-aY-Bc3"/>
                 <constraint firstItem="8" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="19" id="PbL-CB-I53"/>
+                <constraint firstItem="ERP-m3-IJT" firstAttribute="leading" secondItem="64" secondAttribute="trailing" id="Q8n-6s-AAf"/>
                 <constraint firstItem="53" firstAttribute="centerY" secondItem="79" secondAttribute="centerY" id="TJW-EK-apj"/>
                 <constraint firstItem="75" firstAttribute="top" secondItem="81" secondAttribute="bottom" constant="-5" id="V1V-Io-2B4"/>
                 <constraint firstItem="67" firstAttribute="leading" secondItem="7fq-28-cJu" secondAttribute="leading" id="VUT-2a-zIb"/>
                 <constraint firstItem="4" firstAttribute="trailing" secondItem="7H0-I3-FA9" secondAttribute="trailing" constant="-1" id="YIO-zo-80P"/>
-                <constraint firstItem="lk0-sU-SAs" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Yom-o7-Lgs"/>
+                <constraint firstItem="lk0-sU-SAs" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="16" id="Yom-o7-Lgs"/>
                 <constraint firstItem="13p-YD-EAb" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="13" id="b5J-c0-sxz"/>
                 <constraint firstItem="Rjo-7k-QZD" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="12" id="cSI-KX-41N"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="5" secondAttribute="leading" id="ctZ-dH-Yib"/>
@@ -276,13 +288,15 @@
                 <constraint firstItem="8" firstAttribute="centerX" secondItem="Rjo-7k-QZD" secondAttribute="centerX" constant="-0.5" id="f9k-eQ-W1k"/>
                 <constraint firstItem="5" firstAttribute="trailing" secondItem="7fq-28-cJu" secondAttribute="trailing" constant="-1" id="fdW-QE-MGr"/>
                 <constraint firstItem="7fq-28-cJu" firstAttribute="trailing" secondItem="52" secondAttribute="trailing" id="jK8-3b-t1C"/>
-                <constraint firstAttribute="trailing" secondItem="64" secondAttribute="trailing" constant="20" id="kgO-f7-fHB"/>
+                <constraint firstAttribute="trailing" secondItem="64" secondAttribute="trailing" constant="47" id="kgO-f7-fHB"/>
                 <constraint firstItem="67" firstAttribute="centerY" secondItem="52" secondAttribute="centerY" id="l8Z-Is-RjA"/>
+                <constraint firstItem="64" firstAttribute="bottom" secondItem="lk0-sU-SAs" secondAttribute="bottom" id="nAR-Wd-5y7"/>
                 <constraint firstItem="7H0-I3-FA9" firstAttribute="trailing" secondItem="53" secondAttribute="trailing" id="nL1-dq-YyE"/>
                 <constraint firstAttribute="trailing" secondItem="75" secondAttribute="trailing" constant="10" id="nXK-Vg-obT"/>
                 <constraint firstItem="13p-YD-EAb" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="5" id="oep-Pe-7Dr"/>
                 <constraint firstItem="64" firstAttribute="centerX" secondItem="60" secondAttribute="centerX" id="orH-GT-iRy"/>
                 <constraint firstItem="79" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="-7" id="qlF-w0-YDr"/>
+                <constraint firstItem="ERP-m3-IJT" firstAttribute="bottom" secondItem="64" secondAttribute="bottom" id="qrw-fe-IMm"/>
                 <constraint firstItem="60" firstAttribute="top" secondItem="64" secondAttribute="bottom" constant="19" id="r1Q-5u-LXy"/>
                 <constraint firstItem="53" firstAttribute="centerY" secondItem="83" secondAttribute="centerY" id="uZt-U3-IX2"/>
                 <constraint firstAttribute="trailing" secondItem="79" secondAttribute="trailing" constant="26" id="vGW-qX-D5L"/>
@@ -302,6 +316,7 @@
         <image name="button-distance" width="113" height="40"/>
         <image name="button-history" width="98" height="40"/>
         <image name="logo" width="120" height="120"/>
+        <image name="scroll-arrows" width="19" height="40"/>
         <image name="stravaLogo" width="22" height="22"/>
         <image name="tickmarks" width="222" height="23"/>
     </resources>

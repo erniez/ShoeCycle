@@ -58,6 +58,7 @@ float runTotal;
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
 @property (weak, nonatomic) IBOutlet ConnectionIconContainerView *iconContainerView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageScrollIndicators;
 
 // Have to use strong because I remove these views from superView in viewDidLoad.
 // I do this, because I am using the nib to set up the views, rather than programatically.
@@ -281,18 +282,28 @@ float runTotal;
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
     
-    UISwipeGestureRecognizer *swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
-    swipeDownRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
-    UISwipeGestureRecognizer *swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
-    swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
-    self.imageView.userInteractionEnabled = YES;
-    [self.imageView addGestureRecognizer:swipeDownRecognizer];
-    [self.imageView addGestureRecognizer:swipeUpRecognizer];
-    
+    [self.imageView addGestureRecognizer:[self newSwipeDownRecognizer]];
+    [self.imageView addGestureRecognizer:[self newSwipeUpRecognizer]];
+    [self.imageScrollIndicators addGestureRecognizer:[self newSwipeDownRecognizer]];
+    [self.imageScrollIndicators addGestureRecognizer:[self newSwipeUpRecognizer]];
     
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
+}
+
+- (UISwipeGestureRecognizer *)newSwipeDownRecognizer
+{
+    UISwipeGestureRecognizer *swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
+    swipeDownRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    return swipeDownRecognizer;
+}
+
+- (UISwipeGestureRecognizer *)newSwipeUpRecognizer
+{
+    UISwipeGestureRecognizer *swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
+    swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+    return swipeUpRecognizer;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
