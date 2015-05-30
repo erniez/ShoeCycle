@@ -24,6 +24,7 @@
                 <outlet property="nameField" destination="60" id="61"/>
                 <outlet property="runDateField" destination="21" id="47"/>
                 <outlet property="startDateLabel" destination="67" id="68"/>
+                <outlet property="swipeView" destination="oRO-4A-A1s" id="GVc-To-cBk"/>
                 <outlet property="totalDistanceLabel" destination="77" id="78"/>
                 <outlet property="totalDistanceProgress" destination="4" id="62"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -143,7 +144,7 @@
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <imageView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="64">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="64">
                     <rect key="frame" x="130" y="33" width="143" height="96"/>
                     <color key="backgroundColor" red="0.0" green="0.54509806630000002" blue="0.74901962280000001" alpha="0.25" colorSpace="deviceRGB"/>
                     <accessibility key="accessibilityConfiguration">
@@ -251,17 +252,22 @@
                         <constraint firstAttribute="width" constant="59" id="em8-di-cbV"/>
                     </constraints>
                 </view>
-                <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroll-arrows" translatesAutoresizingMaskIntoConstraints="NO" id="ERP-m3-IJT">
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroll-arrows" translatesAutoresizingMaskIntoConstraints="NO" id="ERP-m3-IJT">
                     <rect key="frame" x="273" y="33" width="35" height="96"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="35" id="xtH-17-pJO"/>
                     </constraints>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oRO-4A-A1s" userLabel="Swipe Area">
+                    <rect key="frame" x="130" y="33" width="190" height="96"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="75" firstAttribute="centerX" secondItem="81" secondAttribute="centerX" constant="-0.5" id="0s0-8F-Yyc"/>
                 <constraint firstItem="7fq-28-cJu" firstAttribute="top" secondItem="5" secondAttribute="bottom" id="2vj-fM-fJD"/>
+                <constraint firstItem="64" firstAttribute="top" secondItem="oRO-4A-A1s" secondAttribute="top" id="5WT-o9-3XU"/>
                 <constraint firstItem="5" firstAttribute="leading" secondItem="7fq-28-cJu" secondAttribute="leading" constant="1" id="AjB-3R-aPf"/>
                 <constraint firstItem="67" firstAttribute="centerY" secondItem="75" secondAttribute="centerY" id="Be4-24-rjH"/>
                 <constraint firstItem="7H0-I3-FA9" firstAttribute="top" secondItem="4" secondAttribute="bottom" id="C9B-Se-3ed"/>
@@ -274,6 +280,7 @@
                 <constraint firstItem="5" firstAttribute="centerY" secondItem="81" secondAttribute="centerY" id="M3I-mG-Gj9"/>
                 <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" id="Men-aY-Bc3"/>
                 <constraint firstItem="8" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="19" id="PbL-CB-I53"/>
+                <constraint firstItem="64" firstAttribute="bottom" secondItem="oRO-4A-A1s" secondAttribute="bottom" id="Pbx-UI-9BQ"/>
                 <constraint firstItem="ERP-m3-IJT" firstAttribute="leading" secondItem="64" secondAttribute="trailing" id="Q8n-6s-AAf"/>
                 <constraint firstItem="53" firstAttribute="centerY" secondItem="79" secondAttribute="centerY" id="TJW-EK-apj"/>
                 <constraint firstItem="75" firstAttribute="top" secondItem="81" secondAttribute="bottom" constant="-5" id="V1V-Io-2B4"/>
@@ -283,6 +290,7 @@
                 <constraint firstItem="13p-YD-EAb" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="13" id="b5J-c0-sxz"/>
                 <constraint firstItem="Rjo-7k-QZD" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="12" id="cSI-KX-41N"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="5" secondAttribute="leading" id="ctZ-dH-Yib"/>
+                <constraint firstItem="64" firstAttribute="leading" secondItem="oRO-4A-A1s" secondAttribute="leading" id="eB2-Tv-JSC"/>
                 <constraint firstItem="77" firstAttribute="centerX" secondItem="79" secondAttribute="centerX" constant="0.5" id="f0D-e0-D0I"/>
                 <constraint firstItem="4" firstAttribute="centerY" secondItem="77" secondAttribute="centerY" id="f7m-zH-AgE"/>
                 <constraint firstItem="8" firstAttribute="centerX" secondItem="Rjo-7k-QZD" secondAttribute="centerX" constant="-0.5" id="f9k-eQ-W1k"/>
@@ -298,6 +306,7 @@
                 <constraint firstItem="79" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="-7" id="qlF-w0-YDr"/>
                 <constraint firstItem="ERP-m3-IJT" firstAttribute="bottom" secondItem="64" secondAttribute="bottom" id="qrw-fe-IMm"/>
                 <constraint firstItem="60" firstAttribute="top" secondItem="64" secondAttribute="bottom" constant="19" id="r1Q-5u-LXy"/>
+                <constraint firstAttribute="trailing" secondItem="oRO-4A-A1s" secondAttribute="trailing" id="tzT-H1-Hsu"/>
                 <constraint firstItem="53" firstAttribute="centerY" secondItem="83" secondAttribute="centerY" id="uZt-U3-IX2"/>
                 <constraint firstAttribute="trailing" secondItem="79" secondAttribute="trailing" constant="26" id="vGW-qX-D5L"/>
                 <constraint firstItem="81" firstAttribute="top" secondItem="79" secondAttribute="bottom" constant="13" id="wE6-Ra-jsI"/>
