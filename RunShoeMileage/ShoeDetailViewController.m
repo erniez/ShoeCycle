@@ -111,10 +111,12 @@
         UIImage *imageToDisplay = [[ImageStore defaultImageStore] imageForKey:imageKey];
         
         // Use that image to put on the screen in imageView
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.imageView setImage:imageToDisplay];
     } else {
         // Clear the imageView
-        [self.imageView setImage:nil];
+        [self.imageView setContentMode:UIViewContentModeCenter];
+        [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
     }
     
     if (self.isNew)
@@ -212,6 +214,12 @@
     lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.wearBackgroundView.bounds.size.height);
     lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleBlue]];
     [self.wearBackgroundView addSubview:lineView];
+    
+    UITapGestureRecognizer *photoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(takePicture:)];
+    [self.imageView addGestureRecognizer:photoTap];
+    self.imageView.layer.borderWidth = 1.0;
+    self.imageView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
+    self.imageView.layer.cornerRadius = 7.0;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -143,7 +143,7 @@
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <imageView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64">
+                <imageView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="64">
                     <rect key="frame" x="130" y="33" width="143" height="96"/>
                     <color key="backgroundColor" red="0.0" green="0.54509806630000002" blue="0.74901962280000001" alpha="0.25" colorSpace="deviceRGB"/>
                     <accessibility key="accessibilityConfiguration">

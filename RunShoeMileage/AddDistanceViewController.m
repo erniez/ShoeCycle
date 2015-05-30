@@ -163,7 +163,15 @@ float runTotal;
     
     [self calculateDaysLeftProgressBar];
     
-    [self.imageView setImage:[self.distShoe thumbnail]];
+    if ([self.distShoe thumbnail]) {
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.imageView setImage:[self.distShoe thumbnail]];
+    }
+    else {
+        self.imageView.contentMode = UIViewContentModeCenter;
+        [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
+    }
+    
     
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);

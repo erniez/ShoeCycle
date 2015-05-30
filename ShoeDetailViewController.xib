@@ -34,10 +34,10 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wai-7M-dA2" userLabel="Shoe Background">
                             <rect key="frame" x="14" y="9" width="293" height="59"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shoe" translatesAutoresizingMaskIntoConstraints="NO" id="xmg-Fq-5Jd">
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shoe" translatesAutoresizingMaskIntoConstraints="NO" id="xmg-Fq-5Jd">
                                     <rect key="frame" x="20" y="10" width="52" height="25"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="SHOE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndh-6F-sfG">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndh-6F-sfG">
                                     <rect key="frame" x="32" y="42" width="29" height="12"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <nil key="highlightedColor"/>
@@ -209,7 +209,7 @@
                                 <outlet property="delegate" destination="-1" id="37"/>
                             </connections>
                         </textField>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="24">
                             <rect key="frame" x="56" y="217" width="209" height="139"/>
                             <color key="backgroundColor" red="0.0" green="0.68235296010000002" blue="0.93333339689999995" alpha="0.25" colorSpace="deviceRGB"/>
                             <constraints>
