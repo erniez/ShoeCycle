@@ -42,4 +42,10 @@
 
 + (void)setHealthKitEnabled:(BOOL)isEnabled;
 
++ (BOOL)isStravaConnected;
+
++ (void)resetStravaConnection;
+
++ (float)convertMilesToMeters:(float)miles;
+
 @end

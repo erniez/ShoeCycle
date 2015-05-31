@@ -13,6 +13,7 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
 #import "RunDatePickerViewController.h"
+#import "GlobalStringConstants.h"
 
 
 @interface ShoeDetailViewController () <RunDatePickerViewDelegate>
@@ -33,6 +34,7 @@
 
 @property (nonatomic) BOOL isNew;
 @property (nonatomic) BOOL newShoeIsCancelled;
+@property (nonatomic, getter=isDataDirty) BOOL dataDirty;
 
 @end
 
@@ -109,10 +111,12 @@
         UIImage *imageToDisplay = [[ImageStore defaultImageStore] imageForKey:imageKey];
         
         // Use that image to put on the screen in imageView
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.imageView setImage:imageToDisplay];
     } else {
         // Clear the imageView
-        [self.imageView setImage:nil];
+        [self.imageView setContentMode:UIViewContentModeCenter];
+        [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
     }
     
     if (self.isNew)
@@ -138,7 +142,6 @@
 
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated
 {
 
@@ -156,6 +159,7 @@
         [[ShoeStore defaultStore] saveChangesEZ];
     }
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
     EZLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
     EZLog(@"Leaving Date = %@",self.shoe.expirationDate);
     EZLog(@"************** Leaving Detail View ************");
@@ -210,6 +214,12 @@
     lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.wearBackgroundView.bounds.size.height);
     lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleBlue]];
     [self.wearBackgroundView addSubview:lineView];
+    
+    UITapGestureRecognizer *photoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(takePicture:)];
+    [self.imageView addGestureRecognizer:photoTap];
+    self.imageView.layer.borderWidth = 1.0;
+    self.imageView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
+    self.imageView.layer.cornerRadius = 7.0;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

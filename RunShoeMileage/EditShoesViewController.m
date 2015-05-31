@@ -14,11 +14,15 @@
 #import "UserDistanceSetting.h"
 #import "UIUtilities.h"
 #import "UIColor+ShoeCycleColors.h"
+#import "EditShoesCell.h"
+#import "GlobalStringConstants.h"
 
 
 @interface EditShoesViewController ()
 
 @property (nonatomic, strong) UIView *helpBubble;
+@property (nonatomic) NSInteger editingSelectedShoe; // We need this for when we're in editing mode, and we switch tabs.
+@property (nonatomic) BOOL animatingDeletion;
 
 @end
 
@@ -27,46 +31,13 @@
 //@synthesize testBrandArray, testNameArray;
 
 
-- (id)init
-{
-    self = [super initWithStyle:UITableViewStyleGrouped];
-    
-    if (self) {
-/*        // Get tab bar item
-        UITabBarItem *tbi = [self tabBarItem];
-        
-        // Give it a label
-        [tbi setTitle:@"Add/Edit Shoes"];
-***  Moved this block of Code to the appDelegate. The title text was not appearing in the tab for some reason */
-        EZLog(@"Made it to init Self");
-        
-        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
-                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                target:self
-                                action:@selector(addNewShoe:)];
-        [[self navigationItem] setRightBarButtonItem:bbi];
-                
-        [[self navigationItem] setTitle:@"Add/Edit Shoes"];
-        
-        [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
-    } 
-    
-    return self;
-}
-
-
 - (id) initWithStyle:(UITableViewStyle)style
 {
-    return [self init];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    EZLog(@"entered editShoes didReceiveMemoryWarning");
-    [super didReceiveMemoryWarning];
-    EZLog(@"leaving editShoed didReceiveMemoryWarning");    
-    // Release any cached data, images, etc that aren't in use.
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+      
+    }
+    return self;
 }
 
 #pragma mark - View lifecycle
@@ -75,42 +46,45 @@
 {
     [super viewWillAppear:animated];
     currentShoe = [UserDistanceSetting getSelectedShoe];
-    [[self tableView] reloadData];
     self.tableView.contentMode = UIViewContentModeTop;
     [self.helpBubble removeFromSuperview];
     self.helpBubble = nil;
+    
+    NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : currentShoe;
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     NSInteger shoeCount = [[[ShoeStore defaultStore] allShoes] count];
     if (shoeCount == 0)
     {
         [self showHelpBubble];
     }
-    
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:kShoeDataDidChange object:nil];
 
+    self.editingSelectedShoe = -1;
+    
+    UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
+                            initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                            target:self
+                            action:@selector(addNewShoe:)];
+    [self.navigationItem setRightBarButtonItem:bbi];
+    [self.navigationItem setTitle:@"Add/Edit Shoes"];
+    [self.navigationItem setLeftBarButtonItem:[self editButtonItem]];
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
     
-    EZLog(@"Made it to viewDidLoad");
-
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)EditShoesViewControllerWillDismiss:(EditShoesViewController *)vc
-{
-    [[self tableView] reloadData];
+    UINib *cellNib = [UINib nibWithNibName:@"EditShoesCell" bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"EditShoesCell"];
+    self.tableView.allowsSelectionDuringEditing = YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -119,6 +93,21 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    if (!editing && !self.animatingDeletion) {
+        // need to check for valid data, because this gets hit multiple times on swipe deletes.
+        currentShoe = self.editingSelectedShoe >=0 ? self.editingSelectedShoe : currentShoe;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [UserDistanceSetting setSelectedShoe:currentShoe];
+        self.editingSelectedShoe = -1;
+    }
+    else if (editing){
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        self.editingSelectedShoe = currentShoe;
+    }
+}
 
 // ******************************************************************************************
 //  End of View Cycle
@@ -140,29 +129,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView 
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-	if (cell == nil)
-	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UITableViewCell"];
-	}
+    EditShoesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EditShoesCell" forIndexPath:indexPath];
     
     NSArray *shoes = [[ShoeStore defaultStore] allShoes];
     
-    Shoe *s = [shoes objectAtIndex:indexPath.row];
+    Shoe *shoe = [shoes objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",s.brand];
-    cell.detailTextLabel.text = nil;
-    if (indexPath.row == currentShoe) {
-        cell.detailTextLabel.text = @"Selected";
-    }   
-	
+    [cell configureForShoe:shoe];
+
     cell.accessoryType = UITableViewCellAccessoryDetailButton ;
-    
-    EZLog(@"Made it to tableView exit");
     
 	return cell;
 } 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 58;
+}
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
@@ -173,19 +156,22 @@
     [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
-    
-    EZLog(@"********** Going to Detail View ***************");
 }
 
-
-- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EZLog(@"Entering did select row at index path");
+    if (currentShoe == indexPath.row) {
+        return;
+    }
+    [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:YES];
     currentShoe = indexPath.row;
-    [UserDistanceSetting setSelectedShoe:currentShoe];
-    [[self tableView] reloadData];
+    if (self.isEditing) {
+        self.editingSelectedShoe = indexPath.row;
+    }
+    else {
+        [UserDistanceSetting setSelectedShoe:currentShoe];
+    }
 }
-
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -194,11 +180,28 @@
         NSArray *shoes = [ss allShoes];
         Shoe *s = [shoes objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
-        
+
+        NSInteger newShowSelectedIndex = self.editing ? self.editingSelectedShoe : currentShoe;
+        if (indexPath.row < newShowSelectedIndex) {
+            currentShoe--;
+            self.editingSelectedShoe = -1;
+            newShowSelectedIndex--;
+        }
+        // Save new shoe index only. Selection is handled by table view.
+        [UserDistanceSetting setSelectedShoe:newShowSelectedIndex];
+
+        [CATransaction begin];
+        [CATransaction setCompletionBlock: ^{
+            [tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:newShowSelectedIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            self.animatingDeletion = NO;
+        }];
+       
         // remove row from table with animation
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-        [[self tableView] reloadData];
+        self.animatingDeletion = YES;
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
         
+        [CATransaction commit];
+
         // show help bubble again if there are no more shoes.
         if ([shoes count] == 0)
         {
@@ -208,10 +211,20 @@
     }
 }
 
-
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     [[ShoeStore defaultStore] moveShoeAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
+    NSInteger fromIndex = fromIndexPath.row;
+    NSInteger toIndex = toIndexPath.row;
+    if (fromIndex == self.editingSelectedShoe) {
+        self.editingSelectedShoe = toIndex;
+    }
+    else if (fromIndex < self.editingSelectedShoe && self.editingSelectedShoe <= toIndex) {
+        self.editingSelectedShoe--;
+    }
+    else if (fromIndex > self.editingSelectedShoe && self.editingSelectedShoe >= toIndex) {
+        self.editingSelectedShoe++;
+    }
 }
 
 
@@ -243,10 +256,6 @@
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     
     [self presentViewController:navController animated:YES completion:nil];
-    
-//    [self.tabBarController presentModalViewController:navController animated:YES];
-//    *** can't figure out how to present a modal view without covering tabBarController
-
 }
 
 - (void)showHelpBubble
@@ -297,5 +306,12 @@
         } completion:nil];
 
     }
+}
+
+#pragma mark - ShoeDetailViewControllerDelegate
+
+- (void)shoeDetailViewControllerDataDidChange:(ShoeDetailViewController *)viewController
+{
+    [self.tableView reloadData];
 }
 @end

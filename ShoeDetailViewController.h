@@ -9,12 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Shoe.h"
 
+
 @interface ShoeDetailViewController : UIViewController
 <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
-{
-    // TODO: Fix this mess.  Using popover in implementation which is a no-no.
-    id pictureButton;
-}
 
 @property (nonatomic, weak) IBOutlet UITextField *brandField;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;

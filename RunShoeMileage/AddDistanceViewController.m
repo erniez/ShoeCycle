@@ -19,12 +19,21 @@
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
 #import "UIColor+ShoeCycleColors.h"
+#import "AFNetworking.h"
+#import "StravaAPIManager.h"
+#import "StravaActivity.h"
+#import "ConnectionIconContainerView.h"
+#import "UIView+Effects.h"
+#import "UIAlertController+CommonAlerts.h"
+#import "StravaActivity+DistanceConversion.h"
+#import "MBProgressHUD.h"
+#import "GlobalStringConstants.h"
 
 float const milesToKilometers;
 float runTotal;
 
 
-@interface AddDistanceViewController () <RunDatePickerViewDelegate>
+@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addDistanceButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
@@ -48,22 +57,30 @@ float runTotal;
 @property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
-@property (weak, nonatomic) IBOutlet UILabel *connectedToHealthKitAlert;
+@property (weak, nonatomic) IBOutlet ConnectionIconContainerView *iconContainerView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageScrollIndicators;
+@property (weak, nonatomic) IBOutlet UIView *swipeView;
+
+// Have to use strong because I remove these views from superView in viewDidLoad.
+// I do this, because I am using the nib to set up the views, rather than programatically.
+@property (strong, nonatomic) IBOutlet UILabel *connectedToHealthKitAlert;
+@property (strong, nonatomic) IBOutlet UIImageView *connectedToStravaView;
 
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 @property (nonatomic) BOOL noShoesInStore;
 @property (nonatomic) BOOL writeToHealthKit;
+@property (nonatomic) BOOL writeToStrava;
+
+@property (nonatomic) NSArray *dataSource;
 
 @end
 
 
 @implementation AddDistanceViewController
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    // Call the class designated initializer
-    self = [super initWithNibName:nil
-                           bundle:nil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Get tab bar item
         UITabBarItem *tbi = [self tabBarItem];
@@ -73,16 +90,6 @@ float runTotal;
         [tbi setTitle:@"Add Distance"];
         [tbi setImage:image];
     }
-    
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
     return self;
 }
 
@@ -91,12 +98,15 @@ float runTotal;
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-      
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self loadDataSourceAndRefreshViews];
+}
+
+- (void)loadDataSourceAndRefreshViews
+{
+    self.dataSource = [[ShoeStore defaultStore] allShoes];
     
-    if ([shoes count] == 0)
+    if ([self.dataSource count] == 0)
     {
         self.noShoesInStore = YES;
         return;
@@ -105,8 +115,8 @@ float runTotal;
     {
         self.noShoesInStore = NO;
     }
-
-// Change sttings in prefix file to create a suitable screenshot for the first screen.
+    
+    // Change sttings in prefix file to create a suitable screenshot for the first screen.
 #ifdef LaunchImageSetup
     self.runDateField.text = @"";
     self.totalDistanceLabel.text = @"";
@@ -121,11 +131,11 @@ float runTotal;
     return;
 #endif
     
-    if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
-        self.distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
+    if (([self.dataSource count]-1) >= [UserDistanceSetting getSelectedShoe]){
+        self.distShoe = [self.dataSource objectAtIndex:[UserDistanceSetting getSelectedShoe]];
     }
     else {
-        self.distShoe = [shoes objectAtIndex:0];
+        self.distShoe = [self.dataSource objectAtIndex:0];
     }
     
     runTotal = [self.distShoe.startDistance floatValue];
@@ -144,30 +154,40 @@ float runTotal;
     self.nameField.text = [NSString stringWithFormat:@"%@",self.distShoe.brand];
     self.distanceUnitLabel.text = @"Miles";
     if ([UserDistanceSetting getDistanceUnit]) {
-       self. distanceUnitLabel.text = @"Km";
+        self. distanceUnitLabel.text = @"Km";
     }
     self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
     [self.maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[self.distShoe.maxDistance floatValue]]]];
     EZLog(@"run total2 = %f",runTotal);
-
+    
     EZLog(@"run total3 = %f",runTotal);
     
     [self calculateDaysLeftProgressBar];
     
-    [self.imageView setImage:[self.distShoe thumbnail]];
-
+    if ([self.distShoe thumbnail]) {
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.imageView setImage:[self.distShoe thumbnail]];
+    }
+    else {
+        self.imageView.contentMode = UIViewContentModeCenter;
+        [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
+    }
+    
+    
     EZLog(@"Leaving View Will Appear");
     EZLog(@"run total last = %f",runTotal);
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
     self.writeToHealthKit = [UserDistanceSetting getHealthKitEnabled] && [self checkForHealthKit];
+    self.writeToStrava = [UserDistanceSetting isStravaConnected];
+    NSMutableArray *iconsToShow = [[NSMutableArray alloc] initWithCapacity:2];
     if (self.writeToHealthKit)
     {
-        self.connectedToHealthKitAlert.hidden = NO;
+        [iconsToShow addObject:self.connectedToHealthKitAlert];
     }
-    else
-    {
-        self.connectedToHealthKitAlert.hidden = YES;
+    if (self.writeToStrava) {
+        [iconsToShow addObject:self.connectedToStravaView];
     }
+    [self.iconContainerView setIconsToDisplay:[iconsToShow copy]];
 }
 
 - (BOOL)checkForHealthKit
@@ -196,6 +216,10 @@ float runTotal;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.connectedToHealthKitAlert removeFromSuperview];
+    [self.connectedToStravaView removeFromSuperview];
+    self.iconContainerView.backgroundColor = [UIColor clearColor];
     
     if (![UIUtilities isIphone4ScreenSize])
     {
@@ -266,10 +290,28 @@ float runTotal;
     // Need the following code to register to update date calculation if app has been in background for more than a day
     // otherwise, days left does not update, because viewWillAppear will not be called upon return from background
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(calculateDaysLeftProgressBar) name:UIApplicationWillEnterForegroundNotification object:nil];
-
+    
+    self.swipeView.backgroundColor = [UIColor clearColor];
+    [self.swipeView addGestureRecognizer:[self newSwipeDownRecognizer]];
+    [self.swipeView addGestureRecognizer:[self newSwipeUpRecognizer]];
+    
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
+}
+
+- (UISwipeGestureRecognizer *)newSwipeDownRecognizer
+{
+    UISwipeGestureRecognizer *swipeDownRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
+    swipeDownRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    return swipeDownRecognizer;
+}
+
+- (UISwipeGestureRecognizer *)newSwipeUpRecognizer
+{
+    UISwipeGestureRecognizer *swipeUpRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageSwipe:)];
+    swipeUpRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+    return swipeUpRecognizer;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -321,54 +363,82 @@ float runTotal;
     }
 }
 
-- (IBAction)addDistanceButton:(id)sender 
+- (IBAction)addDistanceButton:(id)sender
 {
     float addDistance;
-    
-    [self dismissDatePickerIfShowing];
-
-    
-    NSManagedObjectContext *context = [self.distShoe managedObjectContext];
-    NSDate *testDate; // temporary date that gets written to run history table
-    
-    // clear any editors that may be visible (clicking directly from distance number pad)
-    [[self view] endEditing:YES];
-    
-
     addDistance = [UserDistanceSetting enterDistance:[self.enterDistanceField text]];
     if (!addDistance) {
         return;
     }
-    EZLog(@"addDistance = %.2f",addDistance);
-    testDate = self.addRunDate;
     
-    [[ShoeStore defaultStore] setRunDistance:addDistance];
-    
-    self.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
-    [self.distShoe addHistoryObject:self.hist];
-    self.hist.runDistance = [NSNumber numberWithFloat:addDistance];
-    EZLog(@"setting history run distance = %@",self.hist.runDistance);
-    self.hist.runDate = testDate;
-    
-    EZLog(@"%@",self.hist.runDistance);
-    
-    runTotal = runTotal + addDistance;
-    [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
-    
-    self.enterDistanceField.text = nil;
-    [self.runDateField setText:[self.runDateFormatter stringFromDate:[NSDate date]]];
-    self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
-    
-    if (self.writeToHealthKit)
-    {
-        NSURL *shoeIdenitfier = self.distShoe.objectID.URIRepresentation;
-        NSString *shoeIDString = shoeIdenitfier.absoluteString;
-        NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
-        [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
-        [self pulseLabel:self.connectedToHealthKitAlert];
+    __weak typeof(self) weakSelf = self;
+    void(^addDistanceHandler)(void) = ^{
+        
+        
+        [weakSelf dismissDatePickerIfShowing];
+        
+        NSManagedObjectContext *context = [weakSelf.distShoe managedObjectContext];
+        NSDate *testDate; // temporary date that gets written to run history table
+        
+        // clear any editors that may be visible (clicking directly from distance number pad)
+        [[weakSelf view] endEditing:YES];
+        
+
+        EZLog(@"addDistance = %.2f",addDistance);
+        testDate = weakSelf.addRunDate;
+        
+        [[ShoeStore defaultStore] setRunDistance:addDistance];
+        
+        weakSelf.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
+        [weakSelf.distShoe addHistoryObject:weakSelf.hist];
+        weakSelf.hist.runDistance = [NSNumber numberWithFloat:addDistance];
+        EZLog(@"setting history run distance = %@",weakSelf.hist.runDistance);
+        weakSelf.hist.runDate = testDate;
+        
+        EZLog(@"%@",weakSelf.hist.runDistance);
+        
+        runTotal = runTotal + addDistance;
+        [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+        self.distShoe.totalDistance = @(runTotal);
+        
+        weakSelf.enterDistanceField.text = nil;
+        [weakSelf.runDateField setText:[weakSelf.runDateFormatter stringFromDate:[NSDate date]]];
+        weakSelf.totalDistanceProgress.progress = runTotal/weakSelf.distShoe.maxDistance.floatValue;
+        
+        if (weakSelf.writeToHealthKit)
+        {
+            NSURL *shoeIdenitfier = weakSelf.distShoe.objectID.URIRepresentation;
+            NSString *shoeIDString = shoeIdenitfier.absoluteString;
+            NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
+            [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
+        }
+        
+        [weakSelf.iconContainerView.iconsToDisplay enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+            [view pulseView];
+        }];
+        
+        [weakSelf.totalDistanceLabel pulseView];
+        [[ShoeStore defaultStore] saveChangesEZ];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
+    };
+    if ([UserDistanceSetting isStravaConnected]) {
+        [self showHUD];
+        NSNumber *stravaDistance = [StravaActivity stravaDistanceFromAddDistance:addDistance];
+        StravaActivity *activity = [[StravaActivity alloc] initWithName:@"ShoeCycle Logged Run" distance:stravaDistance startDate:[NSDate date]];
+        [[StravaAPIManager new] sendActivityToStrava:activity completion:^(NSError *error) {
+            [self hideHUD];
+            if (error) {
+                UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"Network Connection Error" message:[NSString stringWithFormat:@"Sorry, there was a problem with the network connection. Details: %@",error.localizedDescription]];
+                [weakSelf presentViewController:alertController animated:YES completion:nil];
+            }
+            else {
+                addDistanceHandler();
+            }
+        }];
     }
-    
-    [self pulseLabel:self.totalDistanceLabel];
+    else {
+        addDistanceHandler();
+    }
 }
 
 
@@ -399,6 +469,20 @@ float runTotal;
         }];
     }
 
+}
+
+- (void)handleImageSwipe:(UISwipeGestureRecognizer *)recognizer
+{
+    NSInteger selectedShoeIndex = [UserDistanceSetting getSelectedShoe];
+    recognizer.direction == UISwipeGestureRecognizerDirectionUp ? selectedShoeIndex++ : selectedShoeIndex--;
+    if (selectedShoeIndex < 0) {
+        selectedShoeIndex = 0;
+    }
+    if (selectedShoeIndex > [self.dataSource count] - 1) {
+        selectedShoeIndex = [self.dataSource count] - 1;
+    }
+    [UserDistanceSetting setSelectedShoe:selectedShoeIndex];
+    [self loadDataSourceAndRefreshViews];
 }
 
 #pragma mark - RunDatePickerViewControllerDelegate
@@ -438,7 +522,7 @@ float runTotal;
 {
     [[self view] endEditing:YES];           // clear any editors that may be visible
     
-    RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] initWithStyle:UITableViewStylePlain];
+    RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] init];
     modalViewController.shoe = self.distShoe;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
@@ -506,15 +590,23 @@ float runTotal;
     EZLog(@"Wear = %.4f",wear);
 }
 
-- (void)pulseLabel:(UILabel *)label
+- (void)showHUD
 {
-    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionNone animations:^{
-        label.transform = CGAffineTransformMakeScale(1.5, 1.5);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.25 animations:^{
-            label.transform = CGAffineTransformIdentity;
-        } completion:nil];
-    }];
+    if (![MBProgressHUD HUDForView:self.view]) {
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        hud.graceTime = 0.1;
+        hud.minShowTime = 0.5;
+        hud.activityIndicatorColor = [UIColor shoeCycleOrange];
+        hud.labelText = @"Sending data to Strava ...";
+        hud.labelColor = [UIColor shoeCycleOrange];
+        hud.taskInProgress = YES;
+        [self.view addSubview:hud];
+        [hud show:YES];
+    }
 }
 
+- (void)hideHUD
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
 @end

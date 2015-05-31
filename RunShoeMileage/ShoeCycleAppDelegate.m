@@ -14,7 +14,9 @@
 #import "ShoeStore.h"
 #import <Crashlytics/Crashlytics.h>
 #import "UserDistanceSetting.h"
-#import "GlobalStingConstants.h"
+#import "GlobalStringConstants.h"
+#import "AFNetworking.h"
+#import "FTUUtility.h"
 
 
 @implementation ShoeCycleAppDelegate
@@ -27,8 +29,8 @@
     tabBarController = [[UITabBarController alloc] init];
     
     // Create viewControllers for the tabBar
-    AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] init];
-    EditShoesViewController *vc2 = [[EditShoesViewController alloc] init];
+    AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] initWithNibName:@"AddDistanceViewController" bundle:nil];
+    EditShoesViewController *vc2 = [[EditShoesViewController alloc] initWithStyle:UITableViewStyleGrouped];
     SetupViewController *vc3 = [[SetupViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc2];
@@ -58,16 +60,14 @@
     [self.window makeKeyAndVisible];
     
     [self monitorVersion];
-    
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kDoNotShowNewFeaturesKey])
+
+    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
     {
-        NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-        if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
-        {
-            [self displayNewFeaturesInfoOnViewController:vc1];
-        }
-        
+        [self displayNewFeaturesInfoOnViewController:vc1];
     }
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     return YES;
 }
@@ -122,14 +122,18 @@
 
 - (void)displayNewFeaturesInfoOnViewController:(UIViewController *)viewController
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Feature!" message:kNewFeaturesInfov2_1String preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *readConfirmation = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kDoNotShowNewFeaturesKey];
-    }];
-    UIAlertAction *done = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction: readConfirmation];
-    [alert addAction:done];
-    [viewController presentViewController:alert animated:YES completion:nil];
+    NSArray *newFeatures = [FTUUtility newFeatures];
+    if (newFeatures) {
+        NSString *featureText = [FTUUtility featureTextForFeatureKey:[newFeatures firstObject]];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Feature!" message:featureText preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *readConfirmation = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [FTUUtility completeFeature:[newFeatures firstObject]];
+        }];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction: readConfirmation];
+        [alert addAction:done];
+        [viewController presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)monitorVersion

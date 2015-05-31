@@ -12,9 +12,14 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
+#import "AFNetworking.h"
+#import "StravaInteractionViewController.h"
+#import "UIAlertController+CommonAlerts.h"
 
+static NSString * const kStravaEnabledMessage = @"You are connected to Strava. Tap the switch to disconnect.";
+static NSString * const kStravaDisableMessage = @"Turning this option on will connect you with the Strava login screen.";
 
-@interface SetupViewController ()
+@interface SetupViewController () <UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *distanceUnitControl;
 @property (weak, nonatomic) IBOutlet UITextField *userDefinedDistance1;
@@ -30,6 +35,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitInfoLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *enableHealthKitSwitch;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *stravaBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *stravaInfoLabel1;
+@property (weak, nonatomic) IBOutlet UILabel *stravaInfoLabel2;
+@property (weak, nonatomic) IBOutlet UISwitch *stravaEnableSwitch;
 
 @end
 
@@ -80,11 +90,15 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"black_mamba"]];
     self.unitsTitleLabel.textColor = [UIColor shoeCycleOrange];
     self.favDistancesTitleLabel.textColor = [UIColor shoeCycleGreen];
     self.enableHealthKitLabel.textColor = [UIColor shoeCycleBlue];
     self.enableHealthKitInfoLabel.textColor = [UIColor shoeCycleOrange];
+    
+    self.stravaInfoLabel1.textColor = [UIColor shoeCycleOrange];
+    self.stravaInfoLabel2.textColor = [UIColor shoeCycleOrange];
+    self.stravaEnableSwitch.on = [UserDistanceSetting isStravaConnected];
+    [self updateEnableStravaInfo];
     
     self.userDefinedDistance1.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
@@ -122,6 +136,9 @@
     self.enableHealthKitBackgroundView.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.enableHealthKitBackgroundView];
     
+    self.stravaBackgroundView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.stravaBackgroundView];
+    
     // Create dotted lines
     CGRect lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.unitsBackgroundView.bounds.size.height);
     UIView *lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleOrange]];
@@ -148,6 +165,23 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ([viewController isKindOfClass:[StravaInteractionViewController class]]) {
+        StravaInteractionViewController *vc = (StravaInteractionViewController *)viewController;
+        [vc setCompletion:^(BOOL success, NSError *error) {
+            if (error) {
+                [self postErrorAlert:error];
+            }
+            if (!success) {
+                [self resetStravaSwitchToOff];
+            }
+            // If we're successful, there's no need to do anything.
+        }];
+    }
+}
 
 // ==========================================================================================
 // dismiss keyboards
@@ -198,6 +232,12 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (IBAction)stravaInteractionButtonTapped:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
+    UINavigationController *nc = [storyboard instantiateInitialViewController];
+    [self presentViewController:nc animated:YES completion:nil];
+}
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
@@ -230,9 +270,21 @@
 
 - (IBAction)enableHealthKitValueDidChange:(id)sender
 {
+    [[self view] endEditing:YES]; // get rid of any visible keyboards
+    
     UISwitch *enableSwitch = sender;
     HealthKitManager *healthManager = [HealthKitManager sharedManager];
 
+    if (![healthManager isHealthKitAvailable]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithOKButtonAndTitle:@"HealthKit Unavailable" message:@"We're sorry, HealthKit is unavailable on your device." handler:^(UIAlertAction *action) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [enableSwitch setOn:NO animated:YES];
+            });
+        }];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
+    
     [UserDistanceSetting setHealthKitEnabled:enableSwitch.isOn];
     
     if (healthManager.authorizationStatus != HKAuthorizationStatusSharingAuthorized && enableSwitch.isOn)
@@ -263,6 +315,21 @@
     }
 }
 
+- (IBAction)enableStravaDidChange:(UISwitch *)stravaSwitch
+{
+    if (stravaSwitch.isOn) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
+        UINavigationController *nc = [storyboard instantiateInitialViewController];
+        nc.delegate = self;
+        [self presentViewController:nc animated:YES completion:nil];
+    }
+    else
+    {
+        [UserDistanceSetting resetStravaConnection];
+    }
+    [self updateEnableStravaInfo];
+}
+
 - (void)updateEnableHealthKitInfoLabel
 {
     if ([UserDistanceSetting getHealthKitEnabled])
@@ -273,5 +340,27 @@
     {
         self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App.";
     }
+}
+
+- (void)updateEnableStravaInfo
+{
+    self.stravaInfoLabel2.text = self.stravaEnableSwitch.isOn ? kStravaEnabledMessage : kStravaDisableMessage;
+}
+
+- (void)postErrorAlert:(NSError *)error
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error!" message:@"There was a problem with your network connection. Please try again later." preferredStyle:UIAlertControllerStyleAlert];
+    NSLog(@"An error ocurred when trying to log user into Strava:/n%@",error);
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertControllerStyleAlert handler:nil];
+    [alertController addAction:doneAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)resetStravaSwitchToOff
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.stravaEnableSwitch setOn:NO animated:YES];
+        [self enableStravaDidChange:self.stravaEnableSwitch];
+    });
 }
 @end
