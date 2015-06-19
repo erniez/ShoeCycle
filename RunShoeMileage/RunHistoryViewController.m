@@ -114,15 +114,8 @@
         [self.tableView reloadData];
     }
     else {
-        self.noRunHistoryView.frame = self.tableView.frame;
-        self.tableView.alpha = 0;
-        self.runDateHeaderLabel.alpha = 0;
-        self.distanceHeaderLabel.alpha = 0;
-        self.navigationItem.rightBarButtonItem = nil;
-        [self.view addSubview:self.noRunHistoryView];
+        [self configureForNoRunHistory];
     }
-    
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -152,6 +145,17 @@
     [self.tableView setEditing:editing animated:animated];
 }
 
+- (void)configureForNoRunHistory
+{
+    self.noRunHistoryView.frame = self.tableView.frame;
+    self.noRunHistoryView.alpha = 1.0;
+    self.tableView.alpha = 0;
+    self.runDateHeaderLabel.alpha = 0;
+    self.distanceHeaderLabel.alpha = 0;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [self.view addSubview:self.noRunHistoryView];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -167,7 +171,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     NSDateFormatter *dateFormatter;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -205,6 +208,21 @@
         EZLog(@"runs = %@",runs);
         EZLog(@"history count after delete = %lu",(unsigned long)[shoe.history count]);
         // remove row from table with animation
+        
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            if ([self.runsByTheMonth count] == 0) {
+                // If we don't have anymore run history, then show the no run history view.
+                self.noRunHistoryView.frame = self.tableView.frame;
+                self.noRunHistoryView.alpha = 0.0;
+                [UIView animateWithDuration:0.25 animations:^{
+                    [self configureForNoRunHistory];
+                }];
+            }
+            else {
+                [[self tableView] reloadData];
+            }
+        }];
         [tableView beginUpdates];
         if ([runsForTheMonth count] == 0) {
             [self.runsByTheMonth removeObjectAtIndex:indexPath.section];
@@ -214,7 +232,8 @@
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         [tableView endUpdates];
-        [[self tableView] reloadData];
+        [CATransaction commit];
+
         [[ShoeStore defaultStore] saveChangesEZ];       // Save context
     }
 }
