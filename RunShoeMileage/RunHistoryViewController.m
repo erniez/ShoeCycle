@@ -108,8 +108,9 @@
         previousYear = year;
         previousMonth = month;
     }
-    [self.runsByTheMonth addObject:[runsForTheMonth mutableCopy]];
-    
+    if ([runsForTheMonth count] > 0) {
+        [self.runsByTheMonth addObject:[runsForTheMonth mutableCopy]];
+    }
     [self.tableView reloadData];
     
 }
