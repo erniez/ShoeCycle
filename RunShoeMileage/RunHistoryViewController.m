@@ -19,6 +19,7 @@
 @property (nonatomic) NSMutableArray *runsByTheMonth;
 @property (weak, nonatomic) IBOutlet UILabel *runDateHeaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceHeaderLabel;
+@property (nonatomic) IBOutlet UIView *noRunHistoryView;
 
 @end
 
@@ -110,8 +111,17 @@
     }
     if ([runsForTheMonth count] > 0) {
         [self.runsByTheMonth addObject:[runsForTheMonth mutableCopy]];
+        [self.tableView reloadData];
     }
-    [self.tableView reloadData];
+    else {
+        self.noRunHistoryView.frame = self.tableView.frame;
+        self.tableView.alpha = 0;
+        self.runDateHeaderLabel.alpha = 0;
+        self.distanceHeaderLabel.alpha = 0;
+        self.navigationItem.rightBarButtonItem = nil;
+        [self.view addSubview:self.noRunHistoryView];
+    }
+    
     
 }
 
