@@ -332,19 +332,23 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 
 - (void)updateEnableHealthKitInfoLabel
 {
-    if ([UserDistanceSetting getHealthKitEnabled])
-    {
-        self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App. The ❤️ means that you're connected.";
-    }
-    else
-    {
-        self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App.";
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([UserDistanceSetting getHealthKitEnabled])
+        {
+            self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App. The ❤️ means that you're connected.";
+        }
+        else
+        {
+            self.enableHealthKitInfoLabel.text = @"Turning this option on will write directly to the Walk + Run Section of the Health App.";
+        }
+    });
 }
 
 - (void)updateEnableStravaInfo
 {
-    self.stravaInfoLabel2.text = self.stravaEnableSwitch.isOn ? kStravaEnabledMessage : kStravaDisableMessage;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.stravaInfoLabel2.text = self.stravaEnableSwitch.isOn ? kStravaEnabledMessage : kStravaDisableMessage;
+    });
 }
 
 - (void)postErrorAlert:(NSError *)error
