@@ -28,6 +28,7 @@
 #import "StravaActivity+DistanceConversion.h"
 #import "MBProgressHUD.h"
 #import "GlobalStringConstants.h"
+#import "AnalyticsLogger.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -73,6 +74,7 @@ float runTotal;
 
 @property (nonatomic) NSArray *dataSource;
 @property (nonatomic) NSDateFormatter *dateFormatter;
+@property (weak, nonatomic) AnalyticsLogger *logger;
 
 @end
 
@@ -220,6 +222,8 @@ float runTotal;
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"MM/dd/yy"];
+    
+    self.logger = [AnalyticsLogger sharedLogger];
     
     [self.connectedToHealthKitAlert removeFromSuperview];
     [self.connectedToStravaView removeFromSuperview];
@@ -418,6 +422,7 @@ float runTotal;
             NSURL *shoeIdenitfier = weakSelf.distShoe.objectID.URIRepresentation;
             NSString *shoeIDString = shoeIdenitfier.absoluteString;
             NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
+            [self.logger logEventWithName:kHealthKitEvent userInfo:nil];
             [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
         }
         
@@ -429,6 +434,8 @@ float runTotal;
             [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
             [weakSelf.totalDistanceLabel pulseView];
             [[ShoeStore defaultStore] saveChangesEZ];
+            [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance)}];
+            [self.logger logEventWithName:kLogTotalMileageEvent userInfo:@{kTotalMileageNumberKey : @(runTotal)}];
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];
     };
@@ -444,6 +451,7 @@ float runTotal;
                 [weakSelf presentViewController:alertController animated:YES completion:nil];
             }
             else {
+                [self.logger logEventWithName:kStravaEvent userInfo:nil];
                 addDistanceHandler();
             }
         }];
@@ -554,6 +562,7 @@ float runTotal;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
    
+    [self.logger logEventWithName:kShowHistoryEvent userInfo:nil];
     [self presentViewController:navController animated:YES completion:nil];
 }
 

@@ -13,6 +13,7 @@
 		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
 		1B1EF7031B12C23C000ED442 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1EF7021B12C23C000ED442 /* Fabric.framework */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
+		1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */; settings = {ASSET_TAGS = (); }; };
 		1B26F6C21B0241DD004095CF /* ConnectionIconContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */; };
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
 		1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */; };
@@ -73,6 +74,8 @@
 		1B1EF7021B12C23C000ED442 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		1B23E02B14B5257F00B51A6E /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
+		1B24870D1BEEA3E500777E25 /* AnalyticsLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalyticsLogger.h; path = sharedObjects/AnalyticsLogger.h; sourceTree = "<group>"; };
+		1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalyticsLogger.m; path = sharedObjects/AnalyticsLogger.m; sourceTree = "<group>"; };
 		1B26F6C01B0241DD004095CF /* ConnectionIconContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConnectionIconContainerView.h; path = Views/ConnectionIconContainerView.h; sourceTree = "<group>"; };
 		1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConnectionIconContainerView.m; path = Views/ConnectionIconContainerView.m; sourceTree = "<group>"; };
 		1B26F6C31B02EFAD004095CF /* UIView+Effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Effects.h"; path = "Categories/UIView+Effects.h"; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 			children = (
 				1B381A6719E1C2D3002C3FD7 /* HealthKitManager.h */,
 				1B381A6819E1C2D3002C3FD7 /* HealthKitManager.m */,
+				1B24870D1BEEA3E500777E25 /* AnalyticsLogger.h */,
+				1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */,
 			);
 			name = "Shared Objects";
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
+				1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */,
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
 				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
