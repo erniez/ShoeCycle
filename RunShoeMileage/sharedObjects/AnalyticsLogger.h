@@ -17,10 +17,12 @@ extern NSString * const kHealthKitEvent;
 extern NSString * const kAddShoeEvent;
 extern NSString * const kShoePictureAddedEvent;
 extern NSString * const kShowHistoryEvent;
+extern NSString * const kShowFavoriteDistancesEvent;
 
 // User Info Keys
 extern NSString * const kMileageNumberKey;
 extern NSString * const kTotalMileageNumberKey;
+extern NSString * const kNumberOfFavoritesUsedKey;
 
 @interface AnalyticsLogger : NSObject
 

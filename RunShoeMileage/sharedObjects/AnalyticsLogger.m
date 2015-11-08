@@ -10,17 +10,19 @@
 #import <Crashlytics/Crashlytics.h>
 
 // Event Constants
-NSString * const kLogMileageEvent = @"shoecycleLogMileageEvent";
-NSString * const kLogTotalMileageEvent = @"shoecycleLogTotalMileageEvent";
-NSString * const kStravaEvent = @"shoecycleStravaEvent";
-NSString * const kHealthKitEvent = @"shoecycleHealthKitEvent";
-NSString * const kAddShoeEvent = @"shoecycleAddShoeEvent";
-NSString * const kShoePictureAddedEvent = @"shoecycleShoePictureAddedEvent";
-NSString * const kShowHistoryEvent = @"shoecycleShowHistoryEvent";
+NSString * const kLogMileageEvent = @"LogMileageEvent_ShoeCycle";
+NSString * const kLogTotalMileageEvent = @"LogTotalMileageEvent_ShoeCycle";
+NSString * const kStravaEvent = @"StravaEvent_ShoeCycle";
+NSString * const kHealthKitEvent = @"HealthKitEvent_ShoeCycle";
+NSString * const kAddShoeEvent = @"AddShoeEvent_ShoeCycle";
+NSString * const kShoePictureAddedEvent = @"ShoePictureAddedEvent_ShoeCycle";
+NSString * const kShowHistoryEvent = @"ShowHistoryEvent_ShoeCycle";
+NSString * const kShowFavoriteDistancesEvent = @"ShowFavoriteDistancesEvent_ShoeCylce";
 
 // User Info Keys
-NSString * const kMileageNumberKey = @"shoecycleMileageNumberKey";
-NSString * const kTotalMileageNumberKey = @"shoecycleTotalMileageNumberKey";
+NSString * const kMileageNumberKey = @"MileageNumber_ShoeCycleKey";
+NSString * const kTotalMileageNumberKey = @"TotalMileageNumber_ShoeCycleKey";
+NSString * const kNumberOfFavoritesUsedKey = @"NumberOfFavoritesUsed_ShoeCycleKey";
 
 @implementation AnalyticsLogger
 
