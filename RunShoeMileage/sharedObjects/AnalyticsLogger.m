@@ -36,7 +36,9 @@ NSString * const kTotalMileageNumberKey = @"shoecycleTotalMileageNumberKey";
 
 - (void)logEventWithName:(NSString *)name userInfo:(nullable NSDictionary<NSString *,id> *)userInfo
 {
+#ifndef DEBUG
     [Answers logCustomEventWithName:name customAttributes:userInfo];
+#endif
 }
 
 @end
