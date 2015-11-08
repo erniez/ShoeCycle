@@ -2,7 +2,7 @@
 //  StravaAPIManager.m
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 5/8/15.
+//  Created by Ernie Zappacosta on 5/8/15.
 //
 //
 

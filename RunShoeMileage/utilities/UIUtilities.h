@@ -2,7 +2,7 @@
 //  UIUtilities.h
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 9/26/14.
+//  Created by Ernie Zappacosta on 9/26/14.
 //
 //
 

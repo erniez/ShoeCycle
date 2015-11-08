@@ -2,7 +2,7 @@
 //  HealthKitManager.h
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 10/5/14.
+//  Created by Ernie Zappacosta on 10/5/14.
 //
 //
 

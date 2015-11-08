@@ -2,7 +2,7 @@
 //  AnalyticsLogger.m
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 11/7/15.
+//  Created by Ernie Zappacosta on 11/7/15.
 //
 //
 

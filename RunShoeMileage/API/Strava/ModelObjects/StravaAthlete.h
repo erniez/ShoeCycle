@@ -2,7 +2,7 @@
 //  StravaAthlete.h
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 5/9/15.
+//  Created by Ernie Zappacosta on 5/9/15.
 //
 //
 
