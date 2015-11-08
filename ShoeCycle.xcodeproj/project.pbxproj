@@ -13,7 +13,7 @@
 		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
 		1B1EF7031B12C23C000ED442 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1EF7021B12C23C000ED442 /* Fabric.framework */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
-		1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */; settings = {ASSET_TAGS = (); }; };
+		1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */; };
 		1B26F6C21B0241DD004095CF /* ConnectionIconContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */; };
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
 		1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */; };
