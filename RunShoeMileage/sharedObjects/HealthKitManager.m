@@ -101,7 +101,9 @@ dispatch_once(&onceToken, ^{
     {
         HKQuantity *runDistanceQuantity = [HKQuantity quantityWithUnit:[HKUnit mileUnit] doubleValue:runDistance];
         HKQuantitySample *runSample = [HKQuantitySample quantitySampleWithType:self.runQuantityType quantity:runDistanceQuantity startDate:runDate endDate:runDate metadata:metadata];
-        [self.healthStore saveObject:runSample withCompletion:nil];
+        [self.healthStore saveObject:runSample withCompletion:^(BOOL success, NSError * _Nullable error) {
+            ; // Intentional No Operation to silence warning
+        }];
     }
 }
 
