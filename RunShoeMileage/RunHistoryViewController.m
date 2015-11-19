@@ -186,8 +186,6 @@
     
     cell.textLabel.text = [dateFormatter stringFromDate:hist.runDate];
     cell.detailTextLabel.text = [UserDistanceSetting displayDistance:[hist.runDistance floatValue]];
-    EZLog (@"hist.runDate = %@", hist.runDate);
-    EZLog (@"hist.runDistance = %@",hist.runDistance);
     
     return cell;
 }
@@ -250,10 +248,24 @@
     monthLabel.text = [DateUtilities monthStringFromDate:history.runDate];
     [monthLabel sizeToFit];
     CGRect labelFrame = monthLabel.frame;
-    labelFrame.origin.x = 10;
+    labelFrame.origin.x = 8.0;
     labelFrame.origin.y = headerView.bounds.size.height/2 - monthLabel.bounds.size.height/2;
     monthLabel.frame = labelFrame;
     [headerView addSubview:monthLabel];
+    UILabel *totalLabel = [UILabel new];
+    NSArray *monthOfRuns = self.runsByTheMonth[section];
+    CGFloat totalDistance = 0.0;
+    for (History *runHistory in monthOfRuns) {
+        totalDistance += [runHistory.runDistance floatValue];
+    }
+    totalLabel.text = [UserDistanceSetting displayDistance:totalDistance];
+    [totalLabel sizeToFit];
+    CGRect runTotalFrame = CGRectMake(self.view.bounds.size.width - totalLabel.bounds.size.width - 8.0,
+                                      headerView.bounds.size.height/2 - monthLabel.bounds.size.height/2,
+                                      totalLabel.bounds.size.width,
+                                      totalLabel.bounds.size.height);
+    totalLabel.frame = runTotalFrame;
+    [headerView addSubview:totalLabel];
     return headerView;
 }
 

@@ -73,7 +73,6 @@ float runTotal;
 @property (nonatomic) BOOL writeToStrava;
 
 @property (nonatomic) NSArray *dataSource;
-@property (nonatomic) NSDateFormatter *dateFormatter;
 @property (weak, nonatomic) AnalyticsLogger *logger;
 
 @end
@@ -219,9 +218,6 @@ float runTotal;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"MM/dd/yy"];
     
     self.logger = [AnalyticsLogger sharedLogger];
     
@@ -476,7 +472,7 @@ float runTotal;
         
         NSDate *datePickerDate = [NSDate date];
         if (self.runDateField.text.length > 0) {
-            datePickerDate = [self.dateFormatter dateFromString:self.runDateField.text];
+            datePickerDate = [self.runDateFormatter dateFromString:self.runDateField.text];
         }
         [self.runDatePickerViewController setDate:datePickerDate];
         
