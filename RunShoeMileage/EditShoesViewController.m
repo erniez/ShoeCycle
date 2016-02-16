@@ -16,6 +16,7 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "EditShoesCell.h"
 #import "GlobalStringConstants.h"
+#import "AnalyticsLogger.h"
 
 
 @interface EditShoesViewController ()
@@ -254,7 +255,7 @@
     [toolBar setItems:items animated:YES];
     
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    
+    [[AnalyticsLogger sharedLogger] logEventWithName:kAddShoeEvent userInfo:nil];
     [self presentViewController:navController animated:YES completion:nil];
 }
 

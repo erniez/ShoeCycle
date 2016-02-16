@@ -14,6 +14,7 @@
 #import "UIUtilities.h"
 #import "RunDatePickerViewController.h"
 #import "GlobalStringConstants.h"
+#import "AnalyticsLogger.h"
 
 
 @interface ShoeDetailViewController () <RunDatePickerViewDelegate>
@@ -311,6 +312,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     CFRelease(newUniqueID);
     
     // Store  image in the ImageStore with this key
+    [[AnalyticsLogger sharedLogger] logEventWithName:kShoePictureAddedEvent userInfo:nil];
     [[ImageStore defaultImageStore] setImage:image withWidth:210 withHeight:140 forKey:[self.shoe imageKey]];
 
     // Put that image onto the screen in our image view

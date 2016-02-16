@@ -28,6 +28,7 @@
 #import "StravaActivity+DistanceConversion.h"
 #import "MBProgressHUD.h"
 #import "GlobalStringConstants.h"
+#import "AnalyticsLogger.h"
 
 float const milesToKilometers;
 float runTotal;
@@ -72,6 +73,7 @@ float runTotal;
 @property (nonatomic) BOOL writeToStrava;
 
 @property (nonatomic) NSArray *dataSource;
+@property (weak, nonatomic) AnalyticsLogger *logger;
 
 @end
 
@@ -217,6 +219,8 @@ float runTotal;
 {
     [super viewDidLoad];
     
+    self.logger = [AnalyticsLogger sharedLogger];
+    
     [self.connectedToHealthKitAlert removeFromSuperview];
     [self.connectedToStravaView removeFromSuperview];
     self.iconContainerView.backgroundColor = [UIColor clearColor];
@@ -357,9 +361,19 @@ float runTotal;
 
 - (void)dismissDatePickerIfShowing
 {
+    [self dismissDatePicker:self.runDatePickerViewController completion:nil];
+}
+
+- (void)dismissDatePickerIfShowingWithCompletion:(void(^)(void))completion
+{
     if (self.runDatePickerViewController)
     {
-        [self dismissDatePicker:self.runDatePickerViewController];
+        [self dismissDatePicker:self.runDatePickerViewController completion:completion];
+    }
+    else {
+        if (completion) {
+            completion();
+        }
     }
 }
 
@@ -373,16 +387,12 @@ float runTotal;
     
     __weak typeof(self) weakSelf = self;
     void(^addDistanceHandler)(void) = ^{
-        
-        
-        [weakSelf dismissDatePickerIfShowing];
-        
+       
         NSManagedObjectContext *context = [weakSelf.distShoe managedObjectContext];
         NSDate *testDate; // temporary date that gets written to run history table
         
         // clear any editors that may be visible (clicking directly from distance number pad)
         [[weakSelf view] endEditing:YES];
-        
 
         EZLog(@"addDistance = %.2f",addDistance);
         testDate = weakSelf.addRunDate;
@@ -398,11 +408,9 @@ float runTotal;
         EZLog(@"%@",weakSelf.hist.runDistance);
         
         runTotal = runTotal + addDistance;
-        [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
         self.distShoe.totalDistance = @(runTotal);
         
         weakSelf.enterDistanceField.text = nil;
-        [weakSelf.runDateField setText:[weakSelf.runDateFormatter stringFromDate:[NSDate date]]];
         weakSelf.totalDistanceProgress.progress = runTotal/weakSelf.distShoe.maxDistance.floatValue;
         
         if (weakSelf.writeToHealthKit)
@@ -410,6 +418,7 @@ float runTotal;
             NSURL *shoeIdenitfier = weakSelf.distShoe.objectID.URIRepresentation;
             NSString *shoeIDString = shoeIdenitfier.absoluteString;
             NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
+            [self.logger logEventWithName:kHealthKitEvent userInfo:nil];
             [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
         }
         
@@ -417,10 +426,16 @@ float runTotal;
             [view pulseView];
         }];
         
-        [weakSelf.totalDistanceLabel pulseView];
-        [[ShoeStore defaultStore] saveChangesEZ];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
+        [weakSelf dismissDatePickerIfShowingWithCompletion:^{
+            [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+            [weakSelf.totalDistanceLabel pulseView];
+            [[ShoeStore defaultStore] saveChangesEZ];
+            [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance)}];
+            [self.logger logEventWithName:kLogTotalMileageEvent userInfo:@{kTotalMileageNumberKey : @(runTotal)}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
+        }];
     };
+    
     if ([UserDistanceSetting isStravaConnected]) {
         [self showHUD];
         NSNumber *stravaDistance = [StravaActivity stravaDistanceFromAddDistance:addDistance];
@@ -432,6 +447,7 @@ float runTotal;
                 [weakSelf presentViewController:alertController animated:YES completion:nil];
             }
             else {
+                [self.logger logEventWithName:kStravaEvent userInfo:nil];
                 addDistanceHandler();
             }
         }];
@@ -442,8 +458,8 @@ float runTotal;
 }
 
 
-- (IBAction)callDP:(id)sender {
-    
+- (IBAction)callDP:(id)sender
+{
     [[self view] endEditing:YES];   // clear any editors that may be visible (clicking from distance to date)
     
     if (!self.runDatePickerViewController)
@@ -451,9 +467,14 @@ float runTotal;
         self.runDatePickerViewController = [[RunDatePickerViewController alloc] init];
         CGRect dpFrame = self.runDatePickerViewController.view.frame;
         dpFrame.origin.y = self.view.bounds.size.height;
-        dpFrame.size.height = 250;
+        dpFrame.size.height = 285;
         self.runDatePickerViewController.view.frame = dpFrame;
         
+        NSDate *datePickerDate = [NSDate date];
+        if (self.runDateField.text.length > 0) {
+            datePickerDate = [self.runDateFormatter dateFromString:self.runDateField.text];
+        }
+        [self.runDatePickerViewController setDate:datePickerDate];
         
         [self addChildViewController:self.runDatePickerViewController];
         [self.view addSubview:self.runDatePickerViewController.view];
@@ -489,6 +510,11 @@ float runTotal;
 
 - (void)dismissDatePicker:(RunDatePickerViewController *)datePicker
 {
+    [self dismissDatePicker:datePicker completion:nil];
+}
+
+- (void)dismissDatePicker:(RunDatePickerViewController *)datePicker completion:(void(^)(void))completion
+{
     [self willMoveToParentViewController:nil];
     CGRect dpFrame = datePicker.view.frame;
     dpFrame.origin.y = self.view.bounds.size.height;
@@ -498,6 +524,9 @@ float runTotal;
         [datePicker.view removeFromSuperview];
         [datePicker removeFromParentViewController];
         self.runDatePickerViewController = nil;
+        if (completion) {
+            completion();
+        }
     }];
 }
 
@@ -510,6 +539,7 @@ float runTotal;
 - (IBAction)standardDistancesButtonPressed:(id)sender
 {
     [[self view] endEditing:YES];           // clear any editors that may be visible
+    [self dismissDatePickerIfShowing];
     
     StandardDistancesViewController *modalViewController = [[StandardDistancesViewController alloc] initWithDistance:self];
     
@@ -521,12 +551,14 @@ float runTotal;
 - (IBAction)runHistoryButtonPressed:(id)sender 
 {
     [[self view] endEditing:YES];           // clear any editors that may be visible
+    [self dismissDatePickerIfShowing];
     
     RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] init];
     modalViewController.shoe = self.distShoe;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
    
+    [self.logger logEventWithName:kShowHistoryEvent userInfo:nil];
     [self presentViewController:navController animated:YES completion:nil];
 }
 
@@ -609,4 +641,5 @@ float runTotal;
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
+
 @end

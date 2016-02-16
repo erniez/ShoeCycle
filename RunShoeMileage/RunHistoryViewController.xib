@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunHistoryViewController">
             <connections>
                 <outlet property="distanceHeaderLabel" destination="15" id="CNv-aJ-TMC"/>
+                <outlet property="noRunHistoryView" destination="bGO-eD-z97" id="60W-CQ-I26"/>
                 <outlet property="runDateHeaderLabel" destination="16" id="Jtl-FR-eGk"/>
                 <outlet property="tableHeaderView" destination="14" id="17"/>
                 <outlet property="tableView" destination="4" id="gJX-88-s0y"/>
@@ -65,6 +66,27 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="545" y="19.5"/>
+        </view>
+        <view contentMode="scaleToFill" id="bGO-eD-z97">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no run history for this shoe." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" preferredMaxLayoutWidth="272" translatesAutoresizingMaskIntoConstraints="NO" id="Lum-Gz-FXm">
+                    <rect key="frame" x="24" y="228" width="272" height="51"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Lum-Gz-FXm" secondAttribute="trailing" constant="24" id="37D-Lk-l4h"/>
+                <constraint firstAttribute="centerY" secondItem="Lum-Gz-FXm" secondAttribute="centerY" constant="31" id="8Hg-PH-WRM"/>
+                <constraint firstItem="Lum-Gz-FXm" firstAttribute="leading" secondItem="bGO-eD-z97" secondAttribute="leading" constant="24" id="XjD-HN-dKu"/>
+                <constraint firstAttribute="centerX" secondItem="Lum-Gz-FXm" secondAttribute="centerX" id="ywZ-06-vYP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="931" y="28"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

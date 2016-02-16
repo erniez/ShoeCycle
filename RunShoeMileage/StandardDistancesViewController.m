@@ -11,6 +11,7 @@
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
+#import "AnalyticsLogger.h"
 
 
 // Standard Distance Constants
@@ -105,31 +106,38 @@ const float k10Miles = 10;
     lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleGreen]];
     [self.favoriteDistancesBackground addSubview:lineView];
     
+    NSInteger analytics_FavoritesCount = 0;
+    
     if([UserDistanceSetting getUserDefinedDistance1])
     {
         [userDefinedDistance1Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance1]] 
                                     forState:UIControlStateNormal];
+        analytics_FavoritesCount++;
     }
    
     if([UserDistanceSetting getUserDefinedDistance2])
     {
         [userDefinedDistance2Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance2]] 
                                     forState:UIControlStateNormal];
+        analytics_FavoritesCount++;
     }
 
     if([UserDistanceSetting getUserDefinedDistance3])
     {
         [userDefinedDistance3Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance3]] 
                                     forState:UIControlStateNormal];
+        analytics_FavoritesCount++;
     }
 
     if([UserDistanceSetting getUserDefinedDistance4])
     {
         [userDefinedDistance4Button setTitle:[UserDistanceSetting displayDistance:[UserDistanceSetting getUserDefinedDistance4]] 
                                     forState:UIControlStateNormal];
+        analytics_FavoritesCount++;
     }
 
     halfMarathonButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [[AnalyticsLogger sharedLogger] logEventWithName:kShowFavoriteDistancesEvent userInfo:@{kNumberOfFavoritesUsedKey : @(analytics_FavoritesCount)}];
 }
 
 - (void)viewDidUnload

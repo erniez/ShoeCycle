@@ -2,7 +2,7 @@
 //  GlobalStringConstants.h
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 12/7/14.
+//  Created by Ernie Zappacosta on 12/7/14.
 //
 //
 

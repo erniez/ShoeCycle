@@ -2,7 +2,7 @@
 //  RunDatePickerViewController.h
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 9/23/14.
+//  Created by Ernie Zappacosta on 9/23/14.
 //
 //
 

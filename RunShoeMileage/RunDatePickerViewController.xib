@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunDatePickerViewController">
@@ -9,22 +10,25 @@
                 <outlet property="datePicker" destination="ywk-SZ-11z" id="tVx-DE-gUt"/>
                 <outlet property="doneButton" destination="Y6I-1z-Xwm" id="a8M-UI-JTo"/>
                 <outlet property="infoLabel" destination="sMg-dr-dEE" id="nJN-Ij-ypH"/>
+                <outlet property="todayButton" destination="iKd-x6-ali" id="ONW-jy-uM3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vT-Sh-CD7">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Z7U-ed-IIM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6I-1z-Xwm">
-                                <rect key="frame" x="275" y="8" width="37" height="30"/>
+                                <rect key="frame" x="271" y="8" width="41" height="33"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -33,7 +37,8 @@
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ywk-SZ-11z">
-                                <rect key="frame" x="0.0" y="38" width="320" height="162"/>
+                                <rect key="frame" x="0.0" y="81" width="320" height="162"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="uWv-r8-yXu"/>
                                 </constraints>
@@ -44,23 +49,40 @@
                                     <action selector="datePickerValueDidChange:" destination="-1" eventType="valueChanged" id="F79-3k-EpL"/>
                                 </connections>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick your date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMg-dr-dEE">
-                                <rect key="frame" x="8" y="12" width="116" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick your date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMg-dr-dEE">
+                                <rect key="frame" x="8" y="55" width="114" height="21"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iKd-x6-ali">
+                                <rect key="frame" x="265" y="49" width="47" height="33"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Today"/>
+                                <connections>
+                                    <action selector="todayButtonTapped:" destination="-1" eventType="touchUpInside" id="LDP-lg-ETn"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Y6I-1z-Xwm" secondAttribute="trailing" constant="8" id="7bU-yv-vgY"/>
                             <constraint firstAttribute="centerX" secondItem="ywk-SZ-11z" secondAttribute="centerX" id="9MU-lU-fhU"/>
-                            <constraint firstItem="ywk-SZ-11z" firstAttribute="top" secondItem="Y6I-1z-Xwm" secondAttribute="bottom" id="BKn-eW-egX"/>
+                            <constraint firstItem="sMg-dr-dEE" firstAttribute="leading" secondItem="Z7U-ed-IIM" secondAttribute="leading" constant="8" id="TYK-b9-XDZ"/>
+                            <constraint firstItem="iKd-x6-ali" firstAttribute="top" secondItem="Y6I-1z-Xwm" secondAttribute="bottom" constant="8" id="ZK3-8h-b5a"/>
+                            <constraint firstItem="iKd-x6-ali" firstAttribute="centerY" secondItem="sMg-dr-dEE" secondAttribute="centerY" id="cXt-sH-O3z"/>
+                            <constraint firstItem="ywk-SZ-11z" firstAttribute="top" secondItem="sMg-dr-dEE" secondAttribute="bottom" constant="5" id="fLv-Jo-lI3"/>
                             <constraint firstItem="Y6I-1z-Xwm" firstAttribute="top" secondItem="Z7U-ed-IIM" secondAttribute="top" constant="8" id="p7B-pl-SFt"/>
+                            <constraint firstItem="Y6I-1z-Xwm" firstAttribute="trailing" secondItem="iKd-x6-ali" secondAttribute="trailing" id="tTi-Ro-E9z"/>
                         </constraints>
                     </view>
+                    <animations/>
                     <blurEffect style="light"/>
                 </visualEffectView>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="9vT-Sh-CD7" secondAttribute="bottom" id="5wm-nH-qpy"/>
@@ -70,7 +92,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="392" y="341.5"/>
+            <point key="canvasLocation" x="392" y="322"/>
         </view>
     </objects>
 </document>

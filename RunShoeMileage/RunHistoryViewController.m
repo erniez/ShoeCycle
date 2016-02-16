@@ -19,6 +19,7 @@
 @property (nonatomic) NSMutableArray *runsByTheMonth;
 @property (weak, nonatomic) IBOutlet UILabel *runDateHeaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceHeaderLabel;
+@property (nonatomic) IBOutlet UIView *noRunHistoryView;
 
 @end
 
@@ -108,10 +109,13 @@
         previousYear = year;
         previousMonth = month;
     }
-    [self.runsByTheMonth addObject:[runsForTheMonth mutableCopy]];
-    
-    [self.tableView reloadData];
-    
+    if ([runsForTheMonth count] > 0) {
+        [self.runsByTheMonth addObject:[runsForTheMonth mutableCopy]];
+        [self.tableView reloadData];
+    }
+    else {
+        [self configureForNoRunHistory];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,6 +145,17 @@
     [self.tableView setEditing:editing animated:animated];
 }
 
+- (void)configureForNoRunHistory
+{
+    self.noRunHistoryView.frame = self.tableView.frame;
+    self.noRunHistoryView.alpha = 1.0;
+    self.tableView.alpha = 0;
+    self.runDateHeaderLabel.alpha = 0;
+    self.distanceHeaderLabel.alpha = 0;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [self.view addSubview:self.noRunHistoryView];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -156,7 +171,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     NSDateFormatter *dateFormatter;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -172,8 +186,6 @@
     
     cell.textLabel.text = [dateFormatter stringFromDate:hist.runDate];
     cell.detailTextLabel.text = [UserDistanceSetting displayDistance:[hist.runDistance floatValue]];
-    EZLog (@"hist.runDate = %@", hist.runDate);
-    EZLog (@"hist.runDistance = %@",hist.runDistance);
     
     return cell;
 }
@@ -194,6 +206,21 @@
         EZLog(@"runs = %@",runs);
         EZLog(@"history count after delete = %lu",(unsigned long)[shoe.history count]);
         // remove row from table with animation
+        
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            if ([self.runsByTheMonth count] == 0) {
+                // If we don't have anymore run history, then show the no run history view.
+                self.noRunHistoryView.frame = self.tableView.frame;
+                self.noRunHistoryView.alpha = 0.0;
+                [UIView animateWithDuration:0.25 animations:^{
+                    [self configureForNoRunHistory];
+                }];
+            }
+            else {
+                [[self tableView] reloadData];
+            }
+        }];
         [tableView beginUpdates];
         if ([runsForTheMonth count] == 0) {
             [self.runsByTheMonth removeObjectAtIndex:indexPath.section];
@@ -203,7 +230,8 @@
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         [tableView endUpdates];
-        [[self tableView] reloadData];
+        [CATransaction commit];
+
         [[ShoeStore defaultStore] saveChangesEZ];       // Save context
     }
 }
@@ -220,10 +248,24 @@
     monthLabel.text = [DateUtilities monthStringFromDate:history.runDate];
     [monthLabel sizeToFit];
     CGRect labelFrame = monthLabel.frame;
-    labelFrame.origin.x = 10;
+    labelFrame.origin.x = 8.0;
     labelFrame.origin.y = headerView.bounds.size.height/2 - monthLabel.bounds.size.height/2;
     monthLabel.frame = labelFrame;
     [headerView addSubview:monthLabel];
+    UILabel *totalLabel = [UILabel new];
+    NSArray *monthOfRuns = self.runsByTheMonth[section];
+    CGFloat totalDistance = 0.0;
+    for (History *runHistory in monthOfRuns) {
+        totalDistance += [runHistory.runDistance floatValue];
+    }
+    totalLabel.text = [UserDistanceSetting displayDistance:totalDistance];
+    [totalLabel sizeToFit];
+    CGRect runTotalFrame = CGRectMake(self.view.bounds.size.width - totalLabel.bounds.size.width - 8.0,
+                                      headerView.bounds.size.height/2 - monthLabel.bounds.size.height/2,
+                                      totalLabel.bounds.size.width,
+                                      totalLabel.bounds.size.height);
+    totalLabel.frame = runTotalFrame;
+    [headerView addSubview:totalLabel];
     return headerView;
 }
 

@@ -2,7 +2,7 @@
 //  DateUtilities.m
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 5/15/15.
+//  Created by Ernie Zappacosta on 5/15/15.
 //
 //
 
