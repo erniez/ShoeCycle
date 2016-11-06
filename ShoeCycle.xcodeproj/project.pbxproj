@@ -12,6 +12,9 @@
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
 		1B1EF7031B12C23C000ED442 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1EF7021B12C23C000ED442 /* Fabric.framework */; };
+		1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CC1C8145600081518A /* Shoe+Helpers.m */; };
+		1B2248D01C81480C0081518A /* CSVUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CF1C81480C0081518A /* CSVUtility.swift */; };
+		1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248EE1C82A3A50081518A /* EmailUtility.swift */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
 		1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */; };
 		1B26F6C21B0241DD004095CF /* ConnectionIconContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C11B0241DD004095CF /* ConnectionIconContainerView.m */; };
@@ -72,6 +75,11 @@
 		1B1EF6FF1B101EB9000ED442 /* FTUUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTUUtility.h; path = utilities/FTUUtility.h; sourceTree = "<group>"; };
 		1B1EF7001B101EB9000ED442 /* FTUUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTUUtility.m; path = utilities/FTUUtility.m; sourceTree = "<group>"; };
 		1B1EF7021B12C23C000ED442 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		1B2248CB1C8145600081518A /* Shoe+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Shoe+Helpers.h"; sourceTree = "<group>"; };
+		1B2248CC1C8145600081518A /* Shoe+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Shoe+Helpers.m"; sourceTree = "<group>"; };
+		1B2248CE1C81480B0081518A /* ShoeCycle-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShoeCycle-Bridging-Header.h"; sourceTree = "<group>"; };
+		1B2248CF1C81480C0081518A /* CSVUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVUtility.swift; sourceTree = "<group>"; };
+		1B2248EE1C82A3A50081518A /* EmailUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailUtility.swift; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		1B23E02B14B5257F00B51A6E /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
 		1B24870D1BEEA3E500777E25 /* AnalyticsLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalyticsLogger.h; path = sharedObjects/AnalyticsLogger.h; sourceTree = "<group>"; };
@@ -264,6 +272,8 @@
 				1B26F6C91B06F8F0004095CF /* DateUtilities.m */,
 				1B1EF6FF1B101EB9000ED442 /* FTUUtility.h */,
 				1B1EF7001B101EB9000ED442 /* FTUUtility.m */,
+				1B2248CF1C81480C0081518A /* CSVUtility.swift */,
+				1B2248EE1C82A3A50081518A /* EmailUtility.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -326,6 +336,8 @@
 				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
 				1BC08E7914D42171007A4344 /* Shoe.h */,
 				1BC08E7A14D42171007A4344 /* Shoe.m */,
+				1B2248CB1C8145600081518A /* Shoe+Helpers.h */,
+				1B2248CC1C8145600081518A /* Shoe+Helpers.m */,
 			);
 			name = ShoeCycle;
 			path = RunShoeMileage;
@@ -334,6 +346,7 @@
 		1BCF6444148AF7E7004C0E6A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1B2248CE1C81480B0081518A /* ShoeCycle-Bridging-Header.h */,
 				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
 				1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */,
 				1B2E8CA314C9105C00F0917C /* History.h */,
@@ -424,11 +437,16 @@
 		1BCF6430148AF7E5004C0E6A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					1BCF6438148AF7E6004C0E6A = {
 						DevelopmentTeam = XG8D9FRJ5Q;
+						LastSwiftMigration = 0810;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
@@ -542,6 +560,7 @@
 				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
+				1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */,
@@ -553,12 +572,14 @@
 				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
 				EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
+				1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
 				1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */,
 				1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */,
+				1B2248D01C81480C0081518A /* CSVUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,9 +651,11 @@
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "RunShoeMileage/ShoeCycle-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = AdHocDistro;
@@ -710,10 +733,12 @@
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "RunShoeMileage/ShoeCycle-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -741,10 +766,12 @@
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "RunShoeMileage/ShoeCycle-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
