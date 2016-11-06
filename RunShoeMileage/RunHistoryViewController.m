@@ -11,15 +11,20 @@
 #import "UserDistanceSetting.h"
 #import "ShoeStore.h"
 #import "DateUtilities.h"
+#import "Shoe+Helpers.h"
+#import "ShoeCycle-Swift.h"
+
+#import <MessageUI/MessageUI.h>
 
 
-@interface RunHistoryViewController ()  <UITableViewDelegate, UITableViewDataSource>
+@interface RunHistoryViewController ()  <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *runsByTheMonth;
 @property (weak, nonatomic) IBOutlet UILabel *runDateHeaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceHeaderLabel;
 @property (nonatomic) IBOutlet UIView *noRunHistoryView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *emailDataButton;
 
 @end
 
@@ -72,20 +77,14 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"runDate" ascending:NO];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
-	
-	NSMutableArray *sortedRuns = [[NSMutableArray alloc] initWithArray:[shoe.history allObjects]];
-	[sortedRuns sortUsingDescriptors:sortDescriptors];
-	self.runs = sortedRuns;
+
+	self.runs = [[self.shoe sortedRunHistory] mutableCopy];
 
     self.runsByTheMonth = [NSMutableArray new];
     NSMutableArray *runsForTheMonth = [NSMutableArray new];
@@ -154,6 +153,7 @@
     self.distanceHeaderLabel.alpha = 0;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     [self.view addSubview:self.noRunHistoryView];
+    self.emailDataButton.enabled = NO;
 }
 
 #pragma mark - Table view data source
@@ -274,4 +274,80 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)emailButtonTapped:(UIBarButtonItem *)sender
+{
+    EmailUtility *mailUtility = [EmailUtility new];
+    UIViewController *mailViewController = [mailUtility newMailComposerViewController];
+    if ([mailViewController isKindOfClass:[UIAlertController class]]) {
+        //HAX: The following line fixes some weird collection view error that was being displayed in the debug console.
+        // Something to do with the flow layout not being set up properly. It did not crash, it just wrote some garbage
+        // text to the console.  So, we're forcing a layout pass before presenting which appears to allieviate the issue.
+        // Since this code will hardly ever execute, I did not research it too deeply.
+        [mailViewController.view layoutIfNeeded];
+        [self presentViewController:mailViewController animated:YES completion:nil];
+    }
+    else {
+        if ([MFMailComposeViewController canSendMail]) {
+            CSVUtility *csvUtility = [[CSVUtility alloc] init];
+            NSString *csvString = [csvUtility createCSVDataFromShoe:self.shoe];
+            MFMailComposeViewController *mailer = (MFMailComposeViewController *)mailViewController;
+            
+            mailer.mailComposeDelegate = self;
+            
+            [mailer setSubject: [NSString stringWithFormat:@"CSV data from ShoeCycle shoe: %@",
+                                 self.shoe.brand]];
+            
+            [mailer addAttachmentData:[csvString dataUsingEncoding:NSUTF8StringEncoding]
+                             mimeType:@"text/csv"
+                             fileName:[NSString stringWithFormat:@"ShoeCycleShoeData-%@.csv",self.shoe.brand]];
+            
+            NSString *emailBody = @"Attached is the CSV shoe data from ShoeCycle!";
+            
+            [mailer setMessageBody:emailBody isHTML:NO];
+            
+            [self presentViewController:mailer animated:YES completion:nil];
+        }
+        else {
+            [self showNoMailAvailableAlert];
+        }
+        
+    }
+}
+
+- (void)showNoMailAvailableAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Available" message:@"You do not have the ability to send email on this device" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    if (!error) {
+        switch (result)
+        {
+            case MFMailComposeResultCancelled:
+                NSLog(@"Mail cancelled: you cancelled the operation and no email message was queued.");
+                break;
+            case MFMailComposeResultSaved:
+                NSLog(@"Mail saved: you saved the email message in the drafts folder.");
+                break;
+            case MFMailComposeResultSent:
+                NSLog(@"Mail send: the email message is queued in the outbox. It is ready to send.");
+                break;
+            case MFMailComposeResultFailed:
+                NSLog(@"Mail failed: the email message was not saved or queued, possibly due to an error.");
+                break;
+            default:
+                NSLog(@"Mail not sent.");
+                break;
+        }
+    }
+    
+    // Remove the mail view
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
