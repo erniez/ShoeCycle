@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.3</string>
+	<string>3.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>31</string>
+	<string>33</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -45,8 +45,18 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>This app needs to access your health data in order to track your mileage.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>This app needs to access your health data in order to update your mileage.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs to access your camera so that you can take awesome pictures of your running shoes.</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to your photo library in order for you to select an awesome picture of your running shoes.</string>
+	<key>NSPrincipalClass</key>
+	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
