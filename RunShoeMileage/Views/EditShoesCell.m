@@ -26,6 +26,7 @@
 @implementation EditShoesCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.selectedLabel.textColor = [UIColor orangeColor];
     self.nameLabel.text = @"";
     self.distanceLabel.text = @"";
