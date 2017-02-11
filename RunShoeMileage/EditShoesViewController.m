@@ -29,8 +29,6 @@
 
 
 @implementation EditShoesViewController
-//@synthesize testBrandArray, testNameArray;
-
 
 - (id) initWithStyle:(UITableViewStyle)style
 {
@@ -46,12 +44,12 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    currentShoe = [UserDistanceSetting getSelectedShoe];
+    self.currentShoe = [UserDistanceSetting getSelectedShoe];
     self.tableView.contentMode = UIViewContentModeTop;
     [self.helpBubble removeFromSuperview];
     self.helpBubble = nil;
     
-    NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : currentShoe;
+    NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : self.currentShoe;
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
@@ -99,14 +97,14 @@
     [super setEditing:editing animated:animated];
     if (!editing && !self.animatingDeletion) {
         // need to check for valid data, because this gets hit multiple times on swipe deletes.
-        currentShoe = self.editingSelectedShoe >=0 ? self.editingSelectedShoe : currentShoe;
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-        [UserDistanceSetting setSelectedShoe:currentShoe];
+        self.currentShoe = self.editingSelectedShoe >=0 ? self.editingSelectedShoe : self.currentShoe;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [UserDistanceSetting setSelectedShoe:self.currentShoe];
         self.editingSelectedShoe = -1;
     }
     else if (editing){
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-        self.editingSelectedShoe = currentShoe;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        self.editingSelectedShoe = self.currentShoe;
     }
 }
 
@@ -119,9 +117,9 @@
 {
     NSInteger cnt = [[[ShoeStore defaultStore] allShoes] count];
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
-    if (currentShoe >= cnt) {
-        currentShoe = 0;
-        [UserDistanceSetting setSelectedShoe:currentShoe];
+    if (self.currentShoe >= cnt) {
+        self.currentShoe = 0;
+        [UserDistanceSetting setSelectedShoe:self.currentShoe];
     }
     return cnt;
 }
@@ -161,16 +159,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (currentShoe == indexPath.row) {
+    if (self.currentShoe == indexPath.row) {
         return;
     }
-    [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:YES];
-    currentShoe = indexPath.row;
+    [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentShoe inSection:0] animated:YES];
+    self.currentShoe = indexPath.row;
     if (self.isEditing) {
         self.editingSelectedShoe = indexPath.row;
     }
     else {
-        [UserDistanceSetting setSelectedShoe:currentShoe];
+        [UserDistanceSetting setSelectedShoe:self.currentShoe];
     }
 }
 
@@ -182,9 +180,9 @@
         Shoe *s = [shoes objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
 
-        NSInteger newShowSelectedIndex = self.editing ? self.editingSelectedShoe : currentShoe;
+        NSInteger newShowSelectedIndex = self.editing ? self.editingSelectedShoe : self.currentShoe;
         if (indexPath.row < newShowSelectedIndex) {
-            currentShoe--;
+            self.currentShoe--;
             self.editingSelectedShoe = -1;
             newShowSelectedIndex--;
         }

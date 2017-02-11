@@ -12,9 +12,9 @@
 #import "Shoe.h"
 
 @interface EditShoesViewController : UITableViewController<UITableViewDelegate>
-{
-    NSInteger currentShoe;
-}
+
+@property NSInteger currentShoe;
+
 
 - (IBAction)addNewShoe:(id)sender;
 
