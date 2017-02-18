@@ -19,8 +19,7 @@
 
 @interface ShoeDetailViewController () <RunDatePickerViewDelegate>
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalCenterConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *hallOfFameButton;
 @property (weak, nonatomic) IBOutlet UIView *shoeBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *distanceBackroundView;
 @property (weak, nonatomic) IBOutlet UIView *wearBackgroundView;
@@ -35,7 +34,6 @@
 
 @property (nonatomic) BOOL isNew;
 @property (nonatomic) BOOL newShoeIsCancelled;
-@property (nonatomic, getter=isDataDirty) BOOL dataDirty;
 
 @end
 
@@ -139,8 +137,6 @@
         
         [self.view addSubview:self.toolbar];
     }
-
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -170,16 +166,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
-    if ([UIUtilities isIphone4ScreenSize])
-    {
-        self.topSpaceConstraint.constant = 67.0;
-        [self.view removeConstraint:self.verticalCenterConstraint];
-    }
-    else
-    {
-        [self.view removeConstraint:self.topSpaceConstraint];
-    }
     
     self.maxDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
@@ -221,6 +209,8 @@
     self.imageView.layer.borderWidth = 1.0;
     self.imageView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
     self.imageView.layer.cornerRadius = 7.0;
+    
+    [self updateHallOfFameButtonText];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -423,6 +413,22 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     
     return YES;    
+}
+
+- (IBAction)didTapHallOfFameButton:(id)sender
+{
+    self.shoe.hallOfFame = !self.shoe.hallOfFame;
+    [self updateHallOfFameButtonText];
+}
+
+- (void)updateHallOfFameButtonText
+{
+    if (self.shoe.hallOfFame) {
+        [self.hallOfFameButton setTitle:@"Add to Hall of Fame" forState:UIControlStateNormal];
+    }
+    else {
+        [self.hallOfFameButton setTitle:@"Remove from Hall of Fame" forState:UIControlStateNormal];
+    }
 }
 
 #pragma Getters / Setters
