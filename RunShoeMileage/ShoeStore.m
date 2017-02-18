@@ -52,11 +52,15 @@
         NSURL *storeURL = [NSURL fileURLWithPath:path];
     
         NSError *error = nil;
+        
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     
         if (![psc addPersistentStoreWithType:NSSQLiteStoreType
                                configuration:nil
                                          URL:storeURL
-                                     options:nil
+                                     options:options
                                        error:&error]) {
             [NSException raise:@"Open failed"
                         format:@"Reason: %@", [error localizedDescription]];

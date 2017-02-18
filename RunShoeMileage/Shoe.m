@@ -23,6 +23,7 @@
 @dynamic totalDistance;
 @dynamic startDate;
 @dynamic history;
+@dynamic hallOfFame;
 
 
 - (void)awakeFromFetch

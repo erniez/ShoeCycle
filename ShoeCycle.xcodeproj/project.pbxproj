@@ -287,6 +287,19 @@
 			name = Global;
 			sourceTree = "<group>";
 		};
+		1BC46D1F1E4FAC1D002204E2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1B2E8CA314C9105C00F0917C /* History.h */,
+				1B2E8CA414C9105C00F0917C /* History.m */,
+				1BC08E7914D42171007A4344 /* Shoe.h */,
+				1BC08E7A14D42171007A4344 /* Shoe.m */,
+				1B2248CB1C8145600081518A /* Shoe+Helpers.h */,
+				1B2248CC1C8145600081518A /* Shoe+Helpers.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		1BCF642E148AF7E5004C0E6A = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +336,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1BC46D1F1E4FAC1D002204E2 /* Models */,
 				1BE34AE01AFDCF7900CF83EE /* API */,
 				EA7194171A4B47ED00C2517A /* Storyboards */,
 				1B80342A1A34C17500126C59 /* Global */,
@@ -334,10 +348,6 @@
 				1BCF644D148AF7E7004C0E6A /* ShoeCycleAppDelegate.m */,
 				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
 				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
-				1BC08E7914D42171007A4344 /* Shoe.h */,
-				1BC08E7A14D42171007A4344 /* Shoe.m */,
-				1B2248CB1C8145600081518A /* Shoe+Helpers.h */,
-				1B2248CC1C8145600081518A /* Shoe+Helpers.m */,
 			);
 			name = ShoeCycle;
 			path = RunShoeMileage;
@@ -349,8 +359,6 @@
 				1B2248CE1C81480B0081518A /* ShoeCycle-Bridging-Header.h */,
 				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
 				1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */,
-				1B2E8CA314C9105C00F0917C /* History.h */,
-				1B2E8CA414C9105C00F0917C /* History.m */,
 				1BCF6445148AF7E7004C0E6A /* ShoeCycle-Info.plist */,
 				1BCF6446148AF7E7004C0E6A /* InfoPlist.strings */,
 				1BCF6449148AF7E7004C0E6A /* main.m */,
