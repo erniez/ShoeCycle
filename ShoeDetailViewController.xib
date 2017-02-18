@@ -237,21 +237,41 @@
                         <constraint firstAttribute="height" constant="375" id="ga4-6x-bIz"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT4-Zg-HDI">
-                    <rect key="frame" x="92.5" y="437" width="135" height="30"/>
-                    <state key="normal" title="Add to Hall of Fame"/>
-                    <connections>
-                        <action selector="didTapHallOfFameButton:" destination="-1" eventType="touchUpInside" id="tom-8P-gXQ"/>
-                    </connections>
-                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jVl-zh-Z17" userLabel="HOF Container">
+                    <rect key="frame" x="67.5" y="420" width="185" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT4-Zg-HDI">
+                            <rect key="frame" x="42" y="10" width="135" height="30"/>
+                            <state key="normal" title="Add to Hall of Fame"/>
+                            <connections>
+                                <action selector="didTapHallOfFameButton:" destination="-1" eventType="touchUpInside" id="tom-8P-gXQ"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cb3-HS-48g">
+                            <rect key="frame" x="8" y="12" width="26" height="26.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="8Jn-7X-22W"/>
+                        <constraint firstAttribute="trailing" secondItem="GT4-Zg-HDI" secondAttribute="trailing" constant="8" id="9eK-It-5yc"/>
+                        <constraint firstItem="GT4-Zg-HDI" firstAttribute="centerY" secondItem="jVl-zh-Z17" secondAttribute="centerY" id="GR2-dE-f5E"/>
+                        <constraint firstItem="GT4-Zg-HDI" firstAttribute="centerY" secondItem="cb3-HS-48g" secondAttribute="centerY" id="Ibl-o5-dxL"/>
+                        <constraint firstItem="GT4-Zg-HDI" firstAttribute="leading" secondItem="cb3-HS-48g" secondAttribute="trailing" constant="8" id="Qrv-pb-Vtm"/>
+                        <constraint firstItem="cb3-HS-48g" firstAttribute="leading" secondItem="jVl-zh-Z17" secondAttribute="leading" constant="8" id="lnm-qx-teK"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="jVl-zh-Z17" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="3zR-Rv-xdH"/>
                 <constraint firstAttribute="trailing" secondItem="N6e-qp-AOC" secondAttribute="trailing" id="BbX-6y-fAv"/>
-                <constraint firstItem="GT4-Zg-HDI" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="PDc-4U-uar"/>
                 <constraint firstItem="N6e-qp-AOC" firstAttribute="top" secondItem="1" secondAttribute="top" id="ZcH-5I-zhs"/>
                 <constraint firstItem="N6e-qp-AOC" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="bId-lC-WFh"/>
-                <constraint firstItem="GT4-Zg-HDI" firstAttribute="top" secondItem="24" secondAttribute="bottom" constant="16" id="kn2-Hr-voZ"/>
+                <constraint firstItem="jVl-zh-Z17" firstAttribute="top" secondItem="24" secondAttribute="bottom" constant="-1" id="dA5-dc-vYH"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
