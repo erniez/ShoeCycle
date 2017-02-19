@@ -43,7 +43,8 @@ class HOFTableViewController: UITableViewController {
     
     private func setupDataSource() {
         let allShoes = ShoeStore.default().allShoes() ?? [Shoe]()
-        tableData = allShoes.filter { $0.hallOfFame == true }
+        let hofShoes = allShoes.filter { $0.hallOfFame == true }
+        tableData = hofShoes.sorted { $0.totalDistance.doubleValue > $1.totalDistance.doubleValue }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
