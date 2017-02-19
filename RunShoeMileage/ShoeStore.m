@@ -78,7 +78,7 @@
 }
 
 
-- (NSArray *)allShoes
+- (NSArray<Shoe *> *)allShoes
 {
     [self fetchShoesIfNecessary];
     return allShoes;

@@ -24,7 +24,7 @@
 - (BOOL)saveChangesEZ;
 
 #pragma mark Shoes
-- (NSArray *)allShoes;
+- (NSArray<Shoe *> *)allShoes;
 - (NSArray *)allRunDistances;
 - (Shoe *)createShoe;
 - (void)removeShoe:(Shoe *)s;

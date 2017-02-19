@@ -424,10 +424,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (void)updateHallOfFameButtonText
 {
     if (self.shoe.hallOfFame) {
-        [self.hallOfFameButton setTitle:@"Add to Hall of Fame" forState:UIControlStateNormal];
+        [self.hallOfFameButton setTitle:@"Remove from Hall of Fame" forState:UIControlStateNormal];
     }
     else {
-        [self.hallOfFameButton setTitle:@"Remove from Hall of Fame" forState:UIControlStateNormal];
+        [self.hallOfFameButton setTitle:@"Add to Hall of Fame" forState:UIControlStateNormal];
     }
 }
 
