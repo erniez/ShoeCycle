@@ -34,6 +34,12 @@ NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
     return distanceUnit;
 }
 
++ (NSString *)unitOfMeasure
+{
+    NSString *unitOfMeasure = [UserDistanceSetting getDistanceUnit] ? @"km" : @"miles";
+    return unitOfMeasure;
+}
+
 
 + (void) setDistanceUnit:(NSInteger)setting
 {

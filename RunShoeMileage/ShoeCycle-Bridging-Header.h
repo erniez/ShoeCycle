@@ -6,3 +6,4 @@
 #import "History.h"
 #import "UIUtilities.h"
 #import "ShoeStore.h"
+#import "UserDistanceSetting.h"

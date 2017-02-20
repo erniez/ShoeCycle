@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+NS_ASSUME_NONNULL_BEGIN
 @interface UserDistanceSetting : NSObject
 
 + (NSInteger) getDistanceUnit;
+
++ (NSString *)unitOfMeasure;
 
 + (void) setDistanceUnit:(NSInteger)setting;
 
@@ -49,3 +51,4 @@
 + (float)convertMilesToMeters:(float)miles;
 
 @end
+NS_ASSUME_NONNULL_END

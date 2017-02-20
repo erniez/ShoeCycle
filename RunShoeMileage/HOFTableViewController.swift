@@ -15,14 +15,7 @@ class HOFTableViewController: UITableViewController {
     
     override init(style: UITableViewStyle) {
         super.init(style: style)
-        
-        // Get tab bar item
-        let tbi = tabBarItem
-        
-        // Give it a label
-        let image = UIImage(named: "tabbar-add.png")
-        tbi?.title = "Hall of Fame"
-        tbi?.image = image
+        title = "Hall of Fame"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,7 +25,7 @@ class HOFTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIUtilities.setShoeCyclePatternedBackgroundOn(view)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HOFCell")
+        tableView.register(HallOfFameCell.self, forCellReuseIdentifier: "HOFCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,7 +50,13 @@ class HOFTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HOFCell", for: indexPath)
-        cell.textLabel?.text = tableData[indexPath.row].brand
+        if let cell = cell as? HallOfFameCell {
+            cell.configure(shoe: tableData[indexPath.row])
+        }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        print("Tapped!")
     }
 }
