@@ -12,7 +12,7 @@ import Foundation
 class HallOfFameCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
-        accessoryType = UITableViewCellAccessoryType.detailButton
+        accessoryType = UITableViewCellAccessoryType.disclosureIndicator
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIView *helpBubble;
 @property (nonatomic) NSInteger editingSelectedShoe; // We need this for when we're in editing mode, and we switch tabs.
 @property (nonatomic) BOOL animatingDeletion;
+@property (nonatomic) NSMutableArray *tableData;
 
 @end
 
@@ -49,6 +50,8 @@
     [self.helpBubble removeFromSuperview];
     self.helpBubble = nil;
     
+    self.tableData = [[[ShoeStore defaultStore] activeShoes] mutableCopy];
+    
     NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : self.currentShoe;
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
@@ -57,7 +60,7 @@
 {
     [super viewDidAppear:animated];
 
-    NSInteger shoeCount = [[[ShoeStore defaultStore] allShoes] count];
+    NSInteger shoeCount = [self.tableData count];
     if (shoeCount == 0)
     {
         [self showHelpBubble];
@@ -115,7 +118,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger cnt = [[[ShoeStore defaultStore] allShoes] count];
+    NSInteger cnt = [[[ShoeStore defaultStore] activeShoes] count];
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
     if (self.currentShoe >= cnt) {
         self.currentShoe = 0;
@@ -130,7 +133,7 @@
 {
     EditShoesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EditShoesCell" forIndexPath:indexPath];
     
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    NSArray *shoes = [[ShoeStore defaultStore] activeShoes];
     
     Shoe *shoe = [shoes objectAtIndex:indexPath.row];
     
@@ -149,10 +152,8 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] init];
-       
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
         
-    [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
+    [detailViewController setShoe:[_tableData objectAtIndex:indexPath.row]];
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
 }
@@ -176,9 +177,9 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ShoeStore *ss = [ShoeStore defaultStore];
-        NSArray *shoes = [ss allShoes];
-        Shoe *s = [shoes objectAtIndex:[indexPath row]];
+        Shoe *s = [self.tableData objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
+        [self.tableData removeObject:s];
 
         NSInteger newShowSelectedIndex = self.editing ? self.editingSelectedShoe : self.currentShoe;
         if (indexPath.row < newShowSelectedIndex) {
@@ -202,7 +203,7 @@
         [CATransaction commit];
 
         // show help bubble again if there are no more shoes.
-        if ([shoes count] == 0)
+        if ([self.tableData count] == 0)
         {
             [self performSelector:@selector(showHelpBubble) withObject:nil afterDelay:1.0];
         }

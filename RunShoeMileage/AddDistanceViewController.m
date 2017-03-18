@@ -106,7 +106,7 @@ float runTotal;
 
 - (void)loadDataSourceAndRefreshViews
 {
-    self.dataSource = [[ShoeStore defaultStore] allShoes];
+    self.dataSource = [[ShoeStore defaultStore] activeShoes];
     
     if ([self.dataSource count] == 0)
     {
@@ -269,7 +269,7 @@ float runTotal;
     
     self.enterDistanceField.delegate = self;
     
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    NSArray *shoes = [[ShoeStore defaultStore] activeShoes];
     
     if ([shoes count]) {
         if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){

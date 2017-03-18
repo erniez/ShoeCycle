@@ -35,8 +35,7 @@ class HOFTableViewController: UITableViewController {
     }
     
     private func setupDataSource() {
-        let allShoes = ShoeStore.default().allShoes() ?? [Shoe]()
-        let hofShoes = allShoes.filter { $0.hallOfFame == true }
+        let hofShoes = ShoeStore.default().hallOfFameShoes() ?? [Shoe]()
         tableData = hofShoes.sorted { $0.totalDistance.doubleValue > $1.totalDistance.doubleValue }
     }
     
@@ -58,5 +57,12 @@ class HOFTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         print("Tapped!")
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let shoeDetailViewController = ShoeDetailViewController()
+        shoeDetailViewController.shoe = tableData[indexPath.row]
+        navigationController?.pushViewController(shoeDetailViewController, animated: true)
     }
 }

@@ -7,3 +7,4 @@
 #import "UIUtilities.h"
 #import "ShoeStore.h"
 #import "UserDistanceSetting.h"
+#import "ShoeDetailViewController.h"

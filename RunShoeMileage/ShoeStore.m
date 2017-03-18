@@ -12,6 +12,16 @@
 #import "History.h"
 #import "FileHelpers.h"
 
+@interface ShoeStore ()
+
+@property (nonatomic) NSMutableArray *mAllShoes;
+@property (nonatomic) NSMutableArray *allRunDistances;
+@property (nonatomic) NSManagedObjectContext *context;
+@property (nonatomic) NSManagedObjectModel *model;
+
+@end
+
+
 @implementation ShoeStore
 
 
@@ -41,11 +51,11 @@
     if (self) {
   
         // Read in TreadTracker.xcdatamodeld
-        model = [NSManagedObjectModel mergedModelFromBundles:nil];
-        EZLog (@"model = %@", model);
+        self.model = [NSManagedObjectModel mergedModelFromBundles:nil];
+        EZLog (@"model = %@", self.model);
     
         NSPersistentStoreCoordinator *psc =
-        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
     
         // Where does the SQLite file go?
         NSString *path = pathInDocumentDirectory(@"store.data");
@@ -67,11 +77,11 @@
         }
     
         // Create the manage object context
-        context = [[NSManagedObjectContext alloc] init];
-        [context setPersistentStoreCoordinator:psc];
+        self.context = [[NSManagedObjectContext alloc] init];
+        [self.context setPersistentStoreCoordinator:psc];
     
         // The managed object context can manage undo, but we don't need it
-        [context setUndoManager:nil];
+        [self.context setUndoManager:nil];
     }
 
     return self;
@@ -81,16 +91,33 @@
 - (NSArray<Shoe *> *)allShoes
 {
     [self fetchShoesIfNecessary];
-    return allShoes;
+    return self.mAllShoes;
 }
 
+- (NSArray<Shoe *> *)hallOfFameShoes
+{
+    [self fetchShoesIfNecessary];
+    NSPredicate *hallOfFamePredicate = [NSPredicate predicateWithBlock:^BOOL(Shoe   * _Nullable shoe, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return shoe.hallOfFame;
+    }];
+    return [self.allShoes filteredArrayUsingPredicate:hallOfFamePredicate];
+}
+
+- (NSArray<Shoe *> *)activeShoes
+{
+    [self fetchShoesIfNecessary];
+    NSPredicate *hallOfFamePredicate = [NSPredicate predicateWithBlock:^BOOL(Shoe   * _Nullable shoe, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return !shoe.hallOfFame;
+    }];
+    return [self.allShoes filteredArrayUsingPredicate:hallOfFamePredicate];
+}
 
 - (void)removeShoe:(Shoe *)s
 {
     NSString *key = [s imageKey];
     [[ImageStore defaultImageStore] deleteImageForKey:key];
-    [context deleteObject:s];
-    [allShoes removeObjectIdenticalTo:s];
+    [self.context deleteObject:s];
+    [self.mAllShoes removeObjectIdenticalTo:s];
     return;
 }
 
@@ -102,19 +129,19 @@
     //    Possession *p = [Possession randomPossession];
     
     double order;
-    if ([allShoes count] == 0) {
+    if ([self.mAllShoes count] == 0) {
         order = 1.0;
     } else {
-        order = [[[allShoes lastObject] orderingValue] doubleValue] + 1.0;
+        order = [[[self.mAllShoes lastObject] orderingValue] doubleValue] + 1.0;
     }
-    EZLog(@"Adding after %lu intems, order = %.2f", (unsigned long)[allShoes count], order);
+    EZLog(@"Adding after %lu intems, order = %.2f", (unsigned long)[self.mAllShoes count], order);
     
     Shoe *p = [NSEntityDescription insertNewObjectForEntityForName:@"Shoe"
-                                                  inManagedObjectContext:context];
+                                                  inManagedObjectContext:self.context];
     
     [p setOrderingValue:[NSNumber numberWithDouble:order]];
     
-    [allShoes addObject:p];
+    [self.mAllShoes addObject:p];
     
     return p;
 }
@@ -126,31 +153,31 @@
         return;
     }
     // Get pointer to object being moved
-    Shoe *s = [allShoes objectAtIndex:from];
+    Shoe *s = [self.mAllShoes objectAtIndex:from];
      
     // Remove s from array, it is automatically sent release
-    [allShoes removeObjectAtIndex:from];
+    [self.mAllShoes removeObjectAtIndex:from];
      
     // Insert s in array at new location, retained by array
-    [allShoes insertObject:s atIndex:to];
+    [self.mAllShoes insertObject:s atIndex:to];
  
     // Computing a new orderValue for the object that was moved
     double lowerBound = 0.0;
     
     // Is there an object before it in the array?
     if (to > 0) {
-        lowerBound = [[[allShoes objectAtIndex:to - 1] orderingValue] doubleValue];
+        lowerBound = [[[self.mAllShoes objectAtIndex:to - 1] orderingValue] doubleValue];
     } else {
-        lowerBound = [[[allShoes objectAtIndex:1] orderingValue] doubleValue] - 2.0;
+        lowerBound = [[[self.mAllShoes objectAtIndex:1] orderingValue] doubleValue] - 2.0;
     }
     
     double upperBound = 0.0;
     
     // Is there an object after it in the array?
-    if (to < [allShoes count] - 1) {
-        upperBound = [[[allShoes objectAtIndex:to + 1] orderingValue] doubleValue];
+    if (to < [self.mAllShoes count] - 1) {
+        upperBound = [[[self.mAllShoes objectAtIndex:to + 1] orderingValue] doubleValue];
     } else {
-        upperBound = [[[allShoes objectAtIndex:to - 1] orderingValue] doubleValue] + 2.0; 
+        upperBound = [[[self.mAllShoes objectAtIndex:to - 1] orderingValue] doubleValue] + 2.0;
     }
     
     // The order value will be the midpoint between the lower and upper bounds
@@ -164,7 +191,7 @@
 - (BOOL)saveChangesEZ
 {
     NSError *err = nil;
-    BOOL successful = [context save:&err];
+    BOOL successful = [self.context save:&err];
     if (!successful) {
         NSLog(@"Error saving: %@", [err localizedDescription]);
     }
@@ -174,10 +201,10 @@
 
 - (void)fetchShoesIfNecessary
 {
-    if (!allShoes) {
+    if (!self.mAllShoes) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         
-        NSEntityDescription *e = [[model entitiesByName] objectForKey:@"Shoe"];
+        NSEntityDescription *e = [[self.model entitiesByName] objectForKey:@"Shoe"];
         [request setEntity:e];
         
         NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"orderingValue"
@@ -185,13 +212,13 @@
         [request setSortDescriptors:[NSArray arrayWithObject:sd]];
         
         NSError *error;
-        NSArray *result = [context executeFetchRequest:request error:&error];
+        NSArray *result = [self.context executeFetchRequest:request error:&error];
         if (!result) {
             [NSException raise:@"Fetch failed"
                         format:@"Reason: %@", [error localizedDescription]];
         }
         
-        allShoes = [[NSMutableArray alloc] initWithArray:result];
+        self.mAllShoes = [[NSMutableArray alloc] initWithArray:result];
     }
 }
 
@@ -210,7 +237,7 @@
 {
     NSManagedObject *history;
     
-    history = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
+    history = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:self.context];
     [history setValue:[NSNumber numberWithFloat:dist] forKey:@"runDistance"];
     
 }
@@ -218,28 +245,28 @@
 
 - (NSArray *)allRunDistances
 {
-    if (!allRunDistances) {
+    if (!self.allRunDistances) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         
-        NSEntityDescription *e = [[model entitiesByName] objectForKey:@"History"];
+        NSEntityDescription *e = [[self.model entitiesByName] objectForKey:@"History"];
         
         [request setEntity:e];
         
         NSError *error;
-        NSArray *result = [context executeFetchRequest:request error:&error];
+        NSArray *result = [self.context executeFetchRequest:request error:&error];
         if (!result) {
             [NSException raise:@"Fetch failed"
                         format:@"Reason: %@", [error localizedDescription]];
         }
-        allRunDistances = [result mutableCopy];
+        self.allRunDistances = [result mutableCopy];
     }
-    return allRunDistances;
+    return self.allRunDistances;
 }
 
 
 - (void)removeHistory:(History *)h atShoe:(Shoe *)s
 {
-    [context deleteObject:h];
+    [self.context deleteObject:h];
     return;
 }
 

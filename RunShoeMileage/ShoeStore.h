@@ -11,20 +11,15 @@
 
 @class Shoe;
 @class History;
-
 @interface ShoeStore : NSObject
-{
-    NSMutableArray *allShoes;
-    NSMutableArray *allRunDistances;
-    NSManagedObjectContext *context;
-    NSManagedObjectModel *model;
-}
 
 + (ShoeStore *)defaultStore;
 - (BOOL)saveChangesEZ;
 
 #pragma mark Shoes
 - (NSArray<Shoe *> *)allShoes;
+- (NSArray<Shoe *> *)hallOfFameShoes;
+- (NSArray<Shoe *> *)activeShoes;
 - (NSArray *)allRunDistances;
 - (Shoe *)createShoe;
 - (void)removeShoe:(Shoe *)s;
