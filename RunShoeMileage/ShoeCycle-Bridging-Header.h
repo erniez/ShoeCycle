@@ -8,3 +8,4 @@
 #import "ShoeStore.h"
 #import "UserDistanceSetting.h"
 #import "ShoeDetailViewController.h"
+#import "EditShoesCell.h"

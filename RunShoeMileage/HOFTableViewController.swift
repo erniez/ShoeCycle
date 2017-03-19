@@ -25,7 +25,8 @@ class HOFTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIUtilities.setShoeCyclePatternedBackgroundOn(view)
-        tableView.register(HallOfFameCell.self, forCellReuseIdentifier: "HOFCell")
+        let nib = UINib.init(nibName: "EditShoesCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "EditShoesCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,15 +49,15 @@ class HOFTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HOFCell", for: indexPath)
-        if let cell = cell as? HallOfFameCell {
-            cell.configure(shoe: tableData[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EditShoesCell", for: indexPath)
+        if let cell = cell as? EditShoesCell {
+            cell.configure(for: tableData[indexPath.row])
         }
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("Tapped!")
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 58.0
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
