@@ -50,11 +50,10 @@
     [tbi setImage:image];
     
     // Set the tab bar for the Hall of Fame navigation controller.
+    UIImage *trophy = [UIImage imageNamed:@"trophy.png"];
     tbi = [navController2 tabBarItem];
-    image = [UIImage imageNamed:@"tabbar-add.png"];
     [tbi setTitle:@"Hall of Fame"];
-    [tbi setImage:image];
-    
+    [tbi setImage:trophy];
 
     // Attach the array to the tabBarController
     [tabBarController setViewControllers:viewControllers];

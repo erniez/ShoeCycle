@@ -141,7 +141,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-
     if (!self.newShoeIsCancelled)
     {
         [super viewWillDisappear:animated];
@@ -155,12 +154,6 @@
         // Save changes, if any, unless cancelled (new shoe only)
         [[ShoeStore defaultStore] saveChangesEZ];
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
-    EZLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
-    EZLog(@"Leaving Date = %@",self.shoe.expirationDate);
-    EZLog(@"************** Leaving Detail View ************");
-    
 }
 
 - (void)viewDidLoad
@@ -423,12 +416,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (void)updateHallOfFameButtonText
 {
-    if (self.shoe.hallOfFame) {
-        [self.hallOfFameButton setTitle:@"Remove from Hall of Fame" forState:UIControlStateNormal];
-    }
-    else {
-        [self.hallOfFameButton setTitle:@"Add to Hall of Fame" forState:UIControlStateNormal];
-    }
+    [UIView animateWithDuration:0.25 animations:^{
+        if (self.shoe.hallOfFame) {
+            [self.hallOfFameButton setTitle:@"Remove from Hall of Fame" forState:UIControlStateNormal];
+        }
+        else {
+            [self.hallOfFameButton setTitle:@"Add to Hall of Fame" forState:UIControlStateNormal];
+        }
+        [self.view layoutIfNeeded];
+    }];
 }
 
 #pragma Getters / Setters

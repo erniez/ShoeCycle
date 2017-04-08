@@ -12,6 +12,7 @@ import Foundation
 class HOFTableViewController: UITableViewController {
     
     var tableData = [Shoe]()
+    var shoeForEditing: Shoe?
     
     override init(style: UITableViewStyle) {
         super.init(style: style)
@@ -31,13 +32,29 @@ class HOFTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupDataSource()
-        tableView.reloadData()
+        if let shoe = shoeForEditing {
+            checkForRemoval(shoe: shoe)
+            shoeForEditing = nil
+        } else {
+            setupDataSource()
+            tableView.reloadData()
+        }
     }
     
     private func setupDataSource() {
         let hofShoes = ShoeStore.default().hallOfFameShoes() ?? [Shoe]()
         tableData = hofShoes.sorted { $0.totalDistance.doubleValue > $1.totalDistance.doubleValue }
+    }
+    
+    private func checkForRemoval(shoe: Shoe) {
+        if !shoe.hallOfFame {
+            if let index = tableData.index(of: shoe) {
+                tableView.beginUpdates()
+                tableData.remove(at: index)
+                tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+                tableView.endUpdates()
+            }
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,7 +80,8 @@ class HOFTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let shoeDetailViewController = ShoeDetailViewController()
-        shoeDetailViewController.shoe = tableData[indexPath.row]
+        shoeForEditing = tableData[indexPath.row]
+        shoeDetailViewController.shoe = shoeForEditing
         navigationController?.pushViewController(shoeDetailViewController, animated: true)
     }
 }
