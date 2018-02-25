@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */; };
 		1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0751F919D88D9C00171D48 /* Crashlytics.framework */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
@@ -68,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		1AD896DEB33DD21A1E9004D0 /* Pods.adhocdistro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhocdistro.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhocdistro.xcconfig"; sourceTree = "<group>"; };
+		1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = Categories/UITableViewExtensions.swift; sourceTree = "<group>"; };
 		1B0751F919D88D9C00171D48 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
@@ -186,6 +188,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B06EA441FED708100E430AA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		1B26F6BF1B02419A004095CF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,7 +258,7 @@
 			name = "Shared Objects";
 			sourceTree = "<group>";
 		};
-		1B76CA0C19D5ABEA0063F2F2 /* Categories */ = {
+		1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				1B76CA1019D5AD030063F2F2 /* UIColor+ShoeCycleColors.h */,
@@ -262,8 +271,9 @@
 				1BDAF9081B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m */,
 				1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */,
 				1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */,
+				1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */,
 			);
-			name = Categories;
+			name = "Categories And Extensions";
 			sourceTree = "<group>";
 		};
 		1B76CA1319D5AE890063F2F2 /* Utilities */ = {
@@ -339,6 +349,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B06EA441FED708100E430AA /* Extensions */,
 				1BC46D1F1E4FAC1D002204E2 /* Models */,
 				1BE34AE01AFDCF7900CF83EE /* API */,
 				EA7194171A4B47ED00C2517A /* Storyboards */,
@@ -346,7 +357,7 @@
 				1B381A6619E1C293002C3FD7 /* Shared Objects */,
 				1B381A6519E1C230002C3FD7 /* Classes */,
 				1B76CA1319D5AE890063F2F2 /* Utilities */,
-				1B76CA0C19D5ABEA0063F2F2 /* Categories */,
+				1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */,
 				1BCF644C148AF7E7004C0E6A /* ShoeCycleAppDelegate.h */,
 				1BCF644D148AF7E7004C0E6A /* ShoeCycleAppDelegate.m */,
 				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
@@ -557,6 +568,7 @@
 				1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */,
 				1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */,
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
+				1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */,
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
@@ -661,7 +673,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
@@ -745,7 +757,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
@@ -778,7 +790,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;

@@ -56,8 +56,8 @@
     if (!self.shoeForEditing) {
         self.tableData = [[[ShoeStore defaultStore] activeShoes] mutableCopy];
         [self.tableView reloadData];
-        [self refreshSelectedShoe];
     }
+    [self refreshSelectedShoe];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -334,7 +334,7 @@
     }
     else {
         NSInteger index = [self.tableData indexOfObject:shoe];
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         if (self.tableData[self.currentShoe] == shoe) {
             [self refreshSelectedShoe];
         }

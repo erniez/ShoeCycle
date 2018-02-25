@@ -137,6 +137,7 @@
         
         [self.view addSubview:self.toolbar];
     }
+    [self updateHallOfFameButtonText];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -202,8 +203,6 @@
     self.imageView.layer.borderWidth = 1.0;
     self.imageView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
     self.imageView.layer.cornerRadius = 7.0;
-    
-    [self updateHallOfFameButtonText];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

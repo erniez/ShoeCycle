@@ -9,3 +9,4 @@
 #import "UserDistanceSetting.h"
 #import "ShoeDetailViewController.h"
 #import "EditShoesCell.h"
+#import "UIColor+ShoeCycleColors.h"
