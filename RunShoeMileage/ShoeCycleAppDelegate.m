@@ -17,6 +17,7 @@
 #import "GlobalStringConstants.h"
 #import "AFNetworking.h"
 #import "FTUUtility.h"
+#import "ShoeCycle-swift.h"
 
 
 @implementation ShoeCycleAppDelegate
@@ -31,23 +32,28 @@
     // Create viewControllers for the tabBar
     AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] initWithNibName:@"AddDistanceViewController" bundle:nil];
     EditShoesViewController *vc2 = [[EditShoesViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    SetupViewController *vc3 = [[SetupViewController alloc] init];
+    HOFTableViewController *vc3 = [[HOFTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    SetupViewController *vc4 = [[SetupViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc2];
+    UINavigationController *navController2 = [[UINavigationController alloc] initWithRootViewController:vc3];
     
     // Make an array containing the view controllers
-    NSArray *viewControllers = [NSArray arrayWithObjects: vc1, navController, vc3, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: vc1, navController, navController2, vc4, nil];
     
-    // Get tab bar item for the Edit shoes navigation controller 
-    // If I do the following code in the init of the root view controller, it will not will
-    // I would need to create a seperate navigation controller class and override the init field if I don't
-    // want the following two lines of code in the App Delegate.
+    // Grab the nav controllers tab bar item (the rootViewController won't work).
     UITabBarItem *tbi = [navController tabBarItem];
     
     // Give it an image and center
     UIImage *image = [UIImage imageNamed:@"tabbar-shoe.png"];
     [tbi setTitle:@"Add/Edit Shoes"];
     [tbi setImage:image];
+    
+    // Set the tab bar for the Hall of Fame navigation controller.
+    UIImage *trophy = [UIImage imageNamed:@"trophy.png"];
+    tbi = [navController2 tabBarItem];
+    [tbi setTitle:@"Hall of Fame"];
+    [tbi setImage:trophy];
 
     // Attach the array to the tabBarController
     [tabBarController setViewControllers:viewControllers];

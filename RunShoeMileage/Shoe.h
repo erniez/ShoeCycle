@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSNumber * totalDistance;
 @property (nonatomic, strong) NSDate * startDate;
 @property (nonatomic, strong) NSSet *history;
+@property (nonatomic) BOOL hallOfFame;
 @end
 
 @interface Shoe (CoreDataGeneratedAccessors)

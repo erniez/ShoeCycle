@@ -19,8 +19,7 @@
 
 @interface ShoeDetailViewController () <RunDatePickerViewDelegate>
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *verticalCenterConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *hallOfFameButton;
 @property (weak, nonatomic) IBOutlet UIView *shoeBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *distanceBackroundView;
 @property (weak, nonatomic) IBOutlet UIView *wearBackgroundView;
@@ -35,7 +34,6 @@
 
 @property (nonatomic) BOOL isNew;
 @property (nonatomic) BOOL newShoeIsCancelled;
-@property (nonatomic, getter=isDataDirty) BOOL dataDirty;
 
 @end
 
@@ -139,13 +137,11 @@
         
         [self.view addSubview:self.toolbar];
     }
-
-
+    [self updateHallOfFameButtonText];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-
     if (!self.newShoeIsCancelled)
     {
         [super viewWillDisappear:animated];
@@ -159,27 +155,13 @@
         // Save changes, if any, unless cancelled (new shoe only)
         [[ShoeStore defaultStore] saveChangesEZ];
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
-    EZLog(@"Will Disappear Start Date = %@",self.expPickerView.date);
-    EZLog(@"Leaving Date = %@",self.shoe.expirationDate);
-    EZLog(@"************** Leaving Detail View ************");
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [UIUtilities setShoeCyclePatternedBackgroundOnView:self.view];
-    if ([UIUtilities isIphone4ScreenSize])
-    {
-        self.topSpaceConstraint.constant = 67.0;
-        [self.view removeConstraint:self.verticalCenterConstraint];
-    }
-    else
-    {
-        [self.view removeConstraint:self.topSpaceConstraint];
-    }
     
     self.maxDistance.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 4.1)) {
@@ -423,6 +405,25 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }
     
     return YES;    
+}
+
+- (IBAction)didTapHallOfFameButton:(id)sender
+{
+    self.shoe.hallOfFame = !self.shoe.hallOfFame;
+    [self updateHallOfFameButtonText];
+}
+
+- (void)updateHallOfFameButtonText
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        if (self.shoe.hallOfFame) {
+            [self.hallOfFameButton setTitle:@"Remove from Hall of Fame" forState:UIControlStateNormal];
+        }
+        else {
+            [self.hallOfFameButton setTitle:@"Add to Hall of Fame" forState:UIControlStateNormal];
+        }
+        [self.view layoutIfNeeded];
+    }];
 }
 
 #pragma Getters / Setters

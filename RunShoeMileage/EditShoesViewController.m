@@ -24,13 +24,13 @@
 @property (nonatomic, strong) UIView *helpBubble;
 @property (nonatomic) NSInteger editingSelectedShoe; // We need this for when we're in editing mode, and we switch tabs.
 @property (nonatomic) BOOL animatingDeletion;
+@property (nonatomic) NSMutableArray *tableData;
+@property (nonatomic) Shoe *shoeForEditing;
 
 @end
 
 
 @implementation EditShoesViewController
-//@synthesize testBrandArray, testNameArray;
-
 
 - (id) initWithStyle:(UITableViewStyle)style
 {
@@ -46,31 +46,38 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    currentShoe = [UserDistanceSetting getSelectedShoe];
+    self.currentShoe = [UserDistanceSetting getSelectedShoe];
     self.tableView.contentMode = UIViewContentModeTop;
     [self.helpBubble removeFromSuperview];
     self.helpBubble = nil;
     
-    NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : currentShoe;
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    // We don't want to grab new data if we have a shoe for editing that has become a hall of fame shoe.
+    // Table will get updated in the checkForRemoval method
+    if (!self.shoeForEditing) {
+        self.tableData = [[[ShoeStore defaultStore] activeShoes] mutableCopy];
+        [self.tableView reloadData];
+    }
+    [self refreshSelectedShoe];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 
-    NSInteger shoeCount = [[[ShoeStore defaultStore] allShoes] count];
+    NSInteger shoeCount = [self.tableData count];
     if (shoeCount == 0)
     {
         [self showHelpBubble];
+    }
+    if (self.shoeForEditing) {
+        [self updateTableViewForShoe:self.shoeForEditing];
+        self.shoeForEditing = nil;
     }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:kShoeDataDidChange object:nil];
 
     self.editingSelectedShoe = -1;
     
@@ -99,14 +106,14 @@
     [super setEditing:editing animated:animated];
     if (!editing && !self.animatingDeletion) {
         // need to check for valid data, because this gets hit multiple times on swipe deletes.
-        currentShoe = self.editingSelectedShoe >=0 ? self.editingSelectedShoe : currentShoe;
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-        [UserDistanceSetting setSelectedShoe:currentShoe];
+        self.currentShoe = self.editingSelectedShoe >=0 ? self.editingSelectedShoe : self.currentShoe;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [UserDistanceSetting setSelectedShoe:self.currentShoe];
         self.editingSelectedShoe = -1;
     }
     else if (editing){
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-        self.editingSelectedShoe = currentShoe;
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentShoe inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        self.editingSelectedShoe = self.currentShoe;
     }
 }
 
@@ -117,11 +124,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger cnt = [[[ShoeStore defaultStore] allShoes] count];
+    NSInteger cnt = [[[ShoeStore defaultStore] activeShoes] count];
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
-    if (currentShoe >= cnt) {
-        currentShoe = 0;
-        [UserDistanceSetting setSelectedShoe:currentShoe];
+    if (self.currentShoe >= cnt) {
+        self.currentShoe = 0;
+        [UserDistanceSetting setSelectedShoe:self.currentShoe];
     }
     return cnt;
 }
@@ -132,7 +139,7 @@
 {
     EditShoesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EditShoesCell" forIndexPath:indexPath];
     
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+    NSArray *shoes = [[ShoeStore defaultStore] activeShoes];
     
     Shoe *shoe = [shoes objectAtIndex:indexPath.row];
     
@@ -150,27 +157,26 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] init];
-       
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-        
-    [detailViewController setShoe:[shoes objectAtIndex:indexPath.row]];
+    ShoeDetailViewController *detailViewController = [ShoeDetailViewController new];
+    
+    self.shoeForEditing = [self.tableData objectAtIndex:indexPath.row];
+    detailViewController.shoe = self.shoeForEditing;
 
     [[self navigationController] pushViewController:detailViewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (currentShoe == indexPath.row) {
+    if (self.currentShoe == indexPath.row) {
         return;
     }
-    [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:currentShoe inSection:0] animated:YES];
-    currentShoe = indexPath.row;
+    [tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentShoe inSection:0] animated:YES];
+    self.currentShoe = indexPath.row;
     if (self.isEditing) {
         self.editingSelectedShoe = indexPath.row;
     }
     else {
-        [UserDistanceSetting setSelectedShoe:currentShoe];
+        [UserDistanceSetting setSelectedShoe:self.currentShoe];
     }
 }
 
@@ -178,13 +184,13 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         ShoeStore *ss = [ShoeStore defaultStore];
-        NSArray *shoes = [ss allShoes];
-        Shoe *s = [shoes objectAtIndex:[indexPath row]];
+        Shoe *s = [self.tableData objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
+        [self.tableData removeObject:s];
 
-        NSInteger newShowSelectedIndex = self.editing ? self.editingSelectedShoe : currentShoe;
+        NSInteger newShowSelectedIndex = self.editing ? self.editingSelectedShoe : self.currentShoe;
         if (indexPath.row < newShowSelectedIndex) {
-            currentShoe--;
+            self.currentShoe--;
             self.editingSelectedShoe = -1;
             newShowSelectedIndex--;
         }
@@ -204,7 +210,7 @@
         [CATransaction commit];
 
         // show help bubble again if there are no more shoes.
-        if ([shoes count] == 0)
+        if ([self.tableData count] == 0)
         {
             [self performSelector:@selector(showHelpBubble) withObject:nil afterDelay:1.0];
         }
@@ -309,10 +315,36 @@
     }
 }
 
-#pragma mark - ShoeDetailViewControllerDelegate
-
-- (void)shoeDetailViewControllerDataDidChange:(ShoeDetailViewController *)viewController
+- (void)updateTableViewForShoe:(Shoe *)shoe
 {
-    [self.tableView reloadData];
+    if (shoe.hallOfFame) {
+        [CATransaction setCompletionBlock:^{
+            if (self.tableData.count == 0) {
+                [self showHelpBubble];
+            }
+        }];
+        [self.tableView beginUpdates];
+        NSInteger index = [self.tableData indexOfObject:shoe];
+        if (index != NSIntegerMax) {  // Just in case the index is not found for some reason.
+            [self.tableData removeObjectAtIndex:index];
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        [self.tableView endUpdates];
+        [CATransaction commit];
+    }
+    else {
+        NSInteger index = [self.tableData indexOfObject:shoe];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        if (self.tableData[self.currentShoe] == shoe) {
+            [self refreshSelectedShoe];
+        }
+    }
 }
+
+- (void)refreshSelectedShoe
+{
+    NSInteger rowSelect = self.isEditing ? self.editingSelectedShoe : self.currentShoe;
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:rowSelect inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+}
+
 @end
