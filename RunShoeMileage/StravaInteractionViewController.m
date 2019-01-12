@@ -99,10 +99,8 @@ static NSString * const kStravaSecretKey = @"client_secret";
         hud.removeFromSuperViewOnHide = YES;
         hud.graceTime = 0.1;
         hud.minShowTime = 0.5;
-        hud.activityIndicatorColor = [UIColor shoeCycleOrange];
-        hud.taskInProgress = YES;
         [self.view addSubview:hud];
-        [hud show:YES];
+        [hud showAnimated:YES];
 
         self.showingHUD = YES;
     }
@@ -110,7 +108,7 @@ static NSString * const kStravaSecretKey = @"client_secret";
 
 - (void)hideHUD
 {
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.showingHUD = NO;
 }
 
@@ -119,11 +117,11 @@ static NSString * const kStravaSecretKey = @"client_secret";
     __weak typeof(self) weakSelf = self;
     NSString *URLString = @"https://www.strava.com/oauth/token";
     NSDictionary *params = @{kStravaClientIDkey : kStravaClientID, kStravaSecretKey : kStravaSecret, @"code" : self.tempToken};
-    [self.httpSessionManager POST:URLString parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.httpSessionManager POST:URLString parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [weakSelf saveAccessToken:responseObject[@"access_token"]];
         weakSelf.connectionSuccessful = YES;
         [weakSelf postSuccessMessage];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         weakSelf.connectionError = error;
         [weakSelf cancelButtonTapped:nil];
     }];

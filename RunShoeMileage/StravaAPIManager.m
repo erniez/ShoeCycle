@@ -31,7 +31,7 @@
     [request setValue:authString forHTTPHeaderField:@"Authorization"];
     
     AFHTTPSessionManager *sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL sessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    NSURLSessionDataTask *athleteDataTask = [sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    NSURLSessionDataTask *athleteDataTask = [sessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (completion) {
             completion(error);
         }
@@ -47,8 +47,8 @@
     NSString *authString = [NSString stringWithFormat:@"Bearer %@", token];
     [request setValue:authString forHTTPHeaderField:@"Authorization"];
     AFHTTPSessionManager *sessionManager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL sessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    NSURLSessionDataTask *athleteDataTask = [sessionManager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        NSLog(@"SUCCESS!");
+    NSURLSessionDataTask *athleteDataTask = [sessionManager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        // Intentionally Empty
     }];
     [athleteDataTask resume];
 }

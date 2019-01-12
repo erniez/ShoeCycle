@@ -72,6 +72,7 @@
 
 - (void)prepareForReuse
 {
+    [super prepareForReuse];
     self.nameLabel.text = @"";
     self.distanceLabel.text = @"";
     self.backgroundColor = [UIColor shoeCycleGreen];

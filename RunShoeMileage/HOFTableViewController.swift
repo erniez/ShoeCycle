@@ -14,7 +14,7 @@ class HOFTableViewController: UITableViewController {
     var tableData = [Shoe]()
     var shoeForEditing: Shoe?
     
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style)
         title = "Hall of Fame"
     }
@@ -61,7 +61,7 @@ class HOFTableViewController: UITableViewController {
                 CATransaction.begin()
                 tableView.beginUpdates()
                 tableData.remove(at: index)
-                tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+                tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableView.RowAnimation.automatic)
                 tableView.endUpdates()
                 CATransaction.commit()
             }
