@@ -19,14 +19,14 @@
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
 #import "UIColor+ShoeCycleColors.h"
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 #import "StravaAPIManager.h"
 #import "StravaActivity.h"
 #import "ConnectionIconContainerView.h"
 #import "UIView+Effects.h"
 #import "UIAlertController+CommonAlerts.h"
 #import "StravaActivity+DistanceConversion.h"
-#import "MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "GlobalStringConstants.h"
 #import "AnalyticsLogger.h"
 

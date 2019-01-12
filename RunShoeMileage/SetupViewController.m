@@ -12,7 +12,7 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 #import "StravaInteractionViewController.h"
 #import "UIAlertController+CommonAlerts.h"
 

@@ -22,6 +22,8 @@
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
 		1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */; };
 		1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C91B06F8F0004095CF /* DateUtilities.m */; };
+		1B2721D221E9AAFF002BD17E /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2721B921E7915C002BD17E /* MBProgressHUD.framework */; };
+		1B2721D421E9AB21002BD17E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2721B721E79148002BD17E /* AFNetworking.framework */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */; };
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
@@ -61,14 +63,25 @@
 		1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */; };
 		1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */; };
 		1BE7C0591495B2B70002C332 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BCF644F148AF7E7004C0E6A /* MainWindow.xib */; };
-		BC2CB8357E1CF032AF778124 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5BF4F9997A411C66168D1A /* libPods.a */; };
 		EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */; };
 		EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26DB1AFF0550006C4B63 /* StravaActivity.m */; };
 		EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1B2721D121E9A9A7002BD17E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		1AD896DEB33DD21A1E9004D0 /* Pods.adhocdistro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhocdistro.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhocdistro.xcconfig"; sourceTree = "<group>"; };
 		1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = Categories/UITableViewExtensions.swift; sourceTree = "<group>"; };
 		1B0751F919D88D9C00171D48 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
@@ -94,6 +107,8 @@
 		1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalStringConstants.m; sourceTree = "<group>"; };
 		1B26F6C81B06F8F0004095CF /* DateUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateUtilities.h; path = utilities/DateUtilities.h; sourceTree = "<group>"; };
 		1B26F6C91B06F8F0004095CF /* DateUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateUtilities.m; path = utilities/DateUtilities.m; sourceTree = "<group>"; };
+		1B2721B721E79148002BD17E /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
+		1B2721B921E7915C002BD17E /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunHistoryViewController.h; sourceTree = "<group>"; };
@@ -159,9 +174,6 @@
 		1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StravaAthlete.m; path = API/Strava/ModelObjects/StravaAthlete.m; sourceTree = "<group>"; };
 		1BE34AEC1AFE8F6000CF83EE /* NSDate+UTCConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+UTCConversion.h"; path = "Categories/NSDate+UTCConversion.h"; sourceTree = "<group>"; };
 		1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+UTCConversion.m"; path = "Categories/NSDate+UTCConversion.m"; sourceTree = "<group>"; };
-		2B5BF4F9997A411C66168D1A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4114D55CD2CD3D7AF6662B62 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		B77E182E37D566A2D3689CE6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIURLStrings.h; path = API/APIURLStrings.h; sourceTree = "<group>"; };
 		EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIURLStrings.m; path = API/APIURLStrings.m; sourceTree = "<group>"; };
 		EA0F26DA1AFF0550006C4B63 /* StravaActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaActivity.h; path = API/Strava/ModelObjects/StravaActivity.h; sourceTree = "<group>"; };
@@ -174,14 +186,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B2721D221E9AAFF002BD17E /* MBProgressHUD.framework in Frameworks */,
 				1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */,
 				1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */,
 				1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */,
 				1B1EF7031B12C23C000ED442 /* Fabric.framework in Frameworks */,
 				1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */,
 				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
+				1B2721D421E9AB21002BD17E /* AFNetworking.framework in Frameworks */,
 				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
-				BC2CB8357E1CF032AF778124 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +332,6 @@
 				1BCF6443148AF7E7004C0E6A /* ShoeCycle */,
 				1BCF643C148AF7E7004C0E6A /* Frameworks */,
 				1BCF643A148AF7E7004C0E6A /* Products */,
-				219F331D3E846DC4E9742714 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -334,6 +346,8 @@
 		1BCF643C148AF7E7004C0E6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B2721B921E7915C002BD17E /* MBProgressHUD.framework */,
+				1B2721B721E79148002BD17E /* AFNetworking.framework */,
 				1B1EF7021B12C23C000ED442 /* Fabric.framework */,
 				1BAD389119E25C4000161DA8 /* HealthKit.framework */,
 				1B0751F919D88D9C00171D48 /* Crashlytics.framework */,
@@ -341,7 +355,6 @@
 				1BCF643D148AF7E7004C0E6A /* UIKit.framework */,
 				1BCF643F148AF7E7004C0E6A /* Foundation.framework */,
 				1BCF6441148AF7E7004C0E6A /* CoreGraphics.framework */,
-				2B5BF4F9997A411C66168D1A /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -412,16 +425,6 @@
 			name = "Model Objects";
 			sourceTree = "<group>";
 		};
-		219F331D3E846DC4E9742714 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4114D55CD2CD3D7AF6662B62 /* Pods.debug.xcconfig */,
-				B77E182E37D566A2D3689CE6 /* Pods.release.xcconfig */,
-				1AD896DEB33DD21A1E9004D0 /* Pods.adhocdistro.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		EA7194171A4B47ED00C2517A /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,12 +440,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BCF6454148AF7E7004C0E6A /* Build configuration list for PBXNativeTarget "ShoeCycle" */;
 			buildPhases = (
-				6174FF1A50CDC93E2F5D1C85 /* Check Pods Manifest.lock */,
-				1BCF6435148AF7E6004C0E6A /* Sources */,
 				1BCF6436148AF7E6004C0E6A /* Frameworks */,
 				1BCF6437148AF7E6004C0E6A /* Resources */,
-				1B0751F819D88D4600171D48 /* ShellScript */,
-				1ACE40ED877D13294A1CF0C4 /* Copy Pods Resources */,
+				1B2721D121E9A9A7002BD17E /* Embed Frameworks */,
+				1B2721BB21E79199002BD17E /* Carthage - Copy Frameworks */,
+				1BCF6435148AF7E6004C0E6A /* Sources */,
 			);
 			buildRules = (
 			);
@@ -515,48 +517,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1ACE40ED877D13294A1CF0C4 /* Copy Pods Resources */ = {
+		1B2721BB21E79199002BD17E /* Carthage - Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Copy Pods Resources";
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
+			);
+			name = "Carthage - Copy Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1B0751F819D88D4600171D48 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "./Crashlytics.framework/run 949e709fc52c311b695d5efc4d8c85064ad7a389 de82ccc4f8380a0a5562095ca78ceb5ad2c290eb09fbf08396ba0030e368862b";
-			shellScript = "";
-		};
-		6174FF1A50CDC93E2F5D1C85 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -654,7 +633,6 @@
 		};
 		1B77CC0A14EB65D000FA6E06 /* AdHocDistro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1AD896DEB33DD21A1E9004D0 /* Pods.adhocdistro.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -668,6 +646,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
@@ -738,7 +717,6 @@
 		};
 		1BCF6455148AF7E7004C0E6A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4114D55CD2CD3D7AF6662B62 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -752,6 +730,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
@@ -771,7 +750,6 @@
 		};
 		1BCF6456148AF7E7004C0E6A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B77E182E37D566A2D3689CE6 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -785,6 +763,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";

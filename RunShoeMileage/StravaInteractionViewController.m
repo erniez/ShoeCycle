@@ -6,11 +6,11 @@
 //
 //
 #import "StravaInteractionViewController.h"
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 #import "GlobalStringConstants.h"
 #import "APIURLStrings.h"
 #import "UIAlertController+CommonAlerts.h"
-#import "MBProgressHUD.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "UIColor+ShoeCycleColors.h"
 
 static NSString * const kStravaClientID = @"4002";

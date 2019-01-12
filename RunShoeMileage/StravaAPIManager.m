@@ -7,7 +7,7 @@
 //
 
 #import "StravaAPIManager.h"
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 #import "NSDate+UTCConversion.h"
 #import "APIURLStrings.h"
 #import "StravaActivity.h"

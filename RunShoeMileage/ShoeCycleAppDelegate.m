@@ -15,9 +15,10 @@
 #import <Crashlytics/Crashlytics.h>
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 #import "FTUUtility.h"
 #import "ShoeCycle-swift.h"
+
 
 
 @implementation ShoeCycleAppDelegate
