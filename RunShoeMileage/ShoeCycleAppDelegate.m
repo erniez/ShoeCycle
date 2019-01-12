@@ -19,7 +19,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "FTUUtility.h"
 #import "UIColor+ShoeCycleColors.h"
-#import "ShoeCycle-swift.h"
+#import "ShoeCycle-Swift.h"
 
 
 
