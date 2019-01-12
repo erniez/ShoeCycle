@@ -628,18 +628,16 @@ float runTotal;
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         hud.graceTime = 0.1;
         hud.minShowTime = 0.5;
-        hud.activityIndicatorColor = [UIColor shoeCycleOrange];
-        hud.labelText = @"Sending data to Strava ...";
-        hud.labelColor = [UIColor shoeCycleOrange];
-        hud.taskInProgress = YES;
+        hud.label.text = @"Sending data to Strava ...";
+        hud.label.textColor = [UIColor shoeCycleOrange];
         [self.view addSubview:hud];
-        [hud show:YES];
+        [hud showAnimated:YES];
     }
 }
 
 - (void)hideHUD
 {
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 @end

@@ -16,8 +16,10 @@
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
 #import <AFNetworking/AFNetworking.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "FTUUtility.h"
-#import "ShoeCycle-swift.h"
+#import "UIColor+ShoeCycleColors.h"
+#import "ShoeCycle-Swift.h"
 
 
 
@@ -75,6 +77,7 @@
     }
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor shoeCycleOrange];
     
     return YES;
 }

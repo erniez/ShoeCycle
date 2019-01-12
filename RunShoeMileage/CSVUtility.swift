@@ -16,6 +16,7 @@ class CSVUtility: NSObject {
         formatter.dateFormat = "MM-dd-yyyy"
     }
     
+    @objc
     func createCSVData(fromShoe shoe: Shoe) -> NSString {
         var returnString: String
         returnString = createHeaderString()
