@@ -25,7 +25,7 @@ NSString * const kNewFeaturesInfov3_3String = @"You can now export your run hist
     NSMutableArray *allFeatures = [[[self class] featureKeys] mutableCopy];
     [allFeatures removeObjectsInArray:[[NSUserDefaults standardUserDefaults] arrayForKey:kFTUCompletedFeatures]];
     if ([allFeatures count] == 0) {
-        return nil;
+        return [NSArray array];
     }
     return allFeatures;
 }
@@ -44,7 +44,7 @@ NSString * const kNewFeaturesInfov3_3String = @"You can now export your run hist
     return [[self class] featureDictionary][featureKey];
 }
 
-+ (NSArray *)featureKeys
++ (NSArray<NSString *> * __nonnull)featureKeys
 {
     return @[kFTUEmailHistoryFeature, kFTUStravaFeature, kFTUSwipeFeature];
 }

@@ -27,6 +27,10 @@
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */; };
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
+		1B30A82421EF756400AF22A7 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30A82321EF756400AF22A7 /* LaunchViewController.swift */; };
+		1B30A82621EF770300AF22A7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B30A82521EF770300AF22A7 /* Launch Screen.storyboard */; };
+		1B30A82821EF77DC00AF22A7 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B30A82721EF77DC00AF22A7 /* Launch.storyboard */; };
+		1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30A82A21F20FD200AF22A7 /* AppViewController.swift */; };
 		1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B381A6819E1C2D3002C3FD7 /* HealthKitManager.m */; };
 		1B3CB6301B0CB9E200E19778 /* EditShoesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CB62E1B0CB9E200E19778 /* EditShoesCell.m */; };
 		1B3CB6311B0CB9E200E19778 /* EditShoesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */; };
@@ -114,6 +118,10 @@
 		1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunHistoryViewController.h; sourceTree = "<group>"; };
 		1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunHistoryViewController.m; sourceTree = "<group>"; };
 		1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunHistoryViewController.xib; sourceTree = "<group>"; };
+		1B30A82321EF756400AF22A7 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		1B30A82521EF770300AF22A7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1B30A82721EF77DC00AF22A7 /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		1B30A82A21F20FD200AF22A7 /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		1B381A6719E1C2D3002C3FD7 /* HealthKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthKitManager.h; path = sharedObjects/HealthKitManager.h; sourceTree = "<group>"; };
 		1B381A6819E1C2D3002C3FD7 /* HealthKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthKitManager.m; path = sharedObjects/HealthKitManager.m; sourceTree = "<group>"; };
 		1B3CB62D1B0CB9E200E19778 /* EditShoesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditShoesCell.h; path = Views/EditShoesCell.h; sourceTree = "<group>"; };
@@ -218,6 +226,13 @@
 				1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		1B30A82921F20FB400AF22A7 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Scenes;
 			sourceTree = "<group>";
 		};
 		1B381A6519E1C230002C3FD7 /* Classes */ = {
@@ -362,6 +377,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B30A82921F20FB400AF22A7 /* Scenes */,
 				1B06EA441FED708100E430AA /* Extensions */,
 				1BC46D1F1E4FAC1D002204E2 /* Models */,
 				1BE34AE01AFDCF7900CF83EE /* API */,
@@ -375,6 +391,10 @@
 				1BCF644D148AF7E7004C0E6A /* ShoeCycleAppDelegate.m */,
 				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
 				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
+				1B30A82321EF756400AF22A7 /* LaunchViewController.swift */,
+				1B30A82521EF770300AF22A7 /* Launch Screen.storyboard */,
+				1B30A82721EF77DC00AF22A7 /* Launch.storyboard */,
+				1B30A82A21F20FD200AF22A7 /* AppViewController.swift */,
 			);
 			name = ShoeCycle;
 			path = RunShoeMileage;
@@ -506,7 +526,9 @@
 				EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */,
 				1BE7C0591495B2B70002C332 /* MainWindow.xib in Resources */,
 				1BC5184014A35D240033EFC3 /* SetupViewController.xib in Resources */,
+				1B30A82621EF770300AF22A7 /* Launch Screen.storyboard in Resources */,
 				1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */,
+				1B30A82821EF77DC00AF22A7 /* Launch.storyboard in Resources */,
 				1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */,
 				1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */,
 				1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */,
@@ -553,6 +575,7 @@
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
+				1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */,
@@ -575,6 +598,7 @@
 				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
 				EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
+				1B30A82421EF756400AF22A7 /* LaunchViewController.swift in Sources */,
 				1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
@@ -634,7 +658,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -650,7 +673,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
@@ -716,7 +739,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -732,7 +754,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
@@ -749,7 +771,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -765,7 +786,7 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;

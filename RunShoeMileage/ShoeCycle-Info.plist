@@ -45,18 +45,20 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs to access your camera so that you can take awesome pictures of your running shoes.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>This app needs to access your health data in order to track your mileage.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>This app needs to access your health data in order to update your mileage.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>This app needs to access your camera so that you can take awesome pictures of your running shoes.</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to your photo library in order for you to select an awesome picture of your running shoes.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

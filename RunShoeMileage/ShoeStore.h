@@ -13,6 +13,7 @@
 @class History;
 @interface ShoeStore : NSObject
 
+NS_ASSUME_NONNULL_BEGIN
 + (ShoeStore *)defaultStore;
 - (BOOL)saveChangesEZ;
 
@@ -27,5 +28,5 @@
 - (void)fetchShoesIfNecessary;
 - (void)setRunDistance:(float)dist;
 - (void)removeHistory:(History *)h atShoe:(Shoe *)s;
-
+NS_ASSUME_NONNULL_END
 @end

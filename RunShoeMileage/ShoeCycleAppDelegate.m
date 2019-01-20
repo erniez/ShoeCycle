@@ -21,7 +21,9 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "ShoeCycle-Swift.h"
 
-
+@interface ShoeCycleAppDelegate()
+@property (nonatomic) AppViewController *appViewController;
+@end
 
 @implementation ShoeCycleAppDelegate
 
@@ -60,7 +62,20 @@
 
     // Attach the array to the tabBarController
     [tabBarController setViewControllers:viewControllers];
-    [[self window] setRootViewController:tabBarController];
+    
+    LaunchViewController *launchViewController = [[UIStoryboard storyboardWithName:@"Launch" bundle:nil] instantiateInitialViewController];
+    __weak typeof(self) weakSelf = self;
+    launchViewController.onAnimationCompletion = ^{
+        [weakSelf.appViewController transitionToViewController:tabBarController duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL success) {
+            NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+            if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
+            {
+                [weakSelf displayNewFeaturesInfoOnViewController:vc1];
+            }
+        }];
+    };
+    self.appViewController = [[AppViewController alloc] initWithViewController:launchViewController];
+    [[self window] setRootViewController:self.appViewController];
     
     // Start Crashlytics
 //    [[Crashlytics sharedInstance] setDebugMode:YES];
@@ -69,12 +84,6 @@
     [self.window makeKeyAndVisible];
     
     [self monitorVersion];
-
-    NSArray *shoes = [[ShoeStore defaultStore] allShoes];
-    if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
-    {
-        [self displayNewFeaturesInfoOnViewController:vc1];
-    }
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor shoeCycleOrange];
@@ -133,7 +142,7 @@
 - (void)displayNewFeaturesInfoOnViewController:(UIViewController *)viewController
 {
     NSArray *newFeatures = [FTUUtility newFeatures];
-    if (newFeatures) {
+    if (newFeatures.count > 0) {
         NSString *featureText = [FTUUtility featureTextForFeatureKey:[newFeatures firstObject]];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Feature!" message:featureText preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *readConfirmation = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
