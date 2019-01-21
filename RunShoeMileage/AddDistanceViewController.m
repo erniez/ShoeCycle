@@ -22,7 +22,6 @@
 #import <AFNetworking/AFNetworking.h>
 #import "StravaAPIManager.h"
 #import "StravaActivity.h"
-#import "ConnectionIconContainerView.h"
 #import "UIView+Effects.h"
 #import "UIAlertController+CommonAlerts.h"
 #import "StravaActivity+DistanceConversion.h"
@@ -58,7 +57,8 @@ float runTotal;
 @property (nonatomic, weak) IBOutlet UIProgressView *wearProgress;
 
 @property (weak, nonatomic) IBOutlet UIView *lightenView;
-@property (weak, nonatomic) IBOutlet ConnectionIconContainerView *iconContainerView;
+
+@property (weak, nonatomic) IBOutlet UIStackView *statusIconsContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageScrollIndicators;
 @property (weak, nonatomic) IBOutlet UIView *swipeView;
 
@@ -182,15 +182,13 @@ float runTotal;
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
     self.writeToHealthKit = [UserDistanceSetting getHealthKitEnabled] && [self checkForHealthKit];
     self.writeToStrava = [UserDistanceSetting isStravaConnected];
-    NSMutableArray *iconsToShow = [[NSMutableArray alloc] initWithCapacity:2];
     if (self.writeToHealthKit)
     {
-        [iconsToShow addObject:self.connectedToHealthKitAlert];
+        [self.statusIconsContainerView addArrangedSubview:self.connectedToHealthKitAlert];
     }
     if (self.writeToStrava) {
-        [iconsToShow addObject:self.connectedToStravaView];
+        [self.statusIconsContainerView addArrangedSubview:self.connectedToStravaView];
     }
-    [self.iconContainerView setIconsToDisplay:[iconsToShow copy]];
 }
 
 - (BOOL)checkForHealthKit
@@ -224,7 +222,6 @@ float runTotal;
     
     [self.connectedToHealthKitAlert removeFromSuperview];
     [self.connectedToStravaView removeFromSuperview];
-    self.iconContainerView.backgroundColor = [UIColor clearColor];
     
     if (![UIUtilities isIphone4ScreenSize])
     {
@@ -410,10 +407,6 @@ float runTotal;
             [self.logger logEventWithName:kHealthKitEvent userInfo:nil];
             [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
         }
-        
-        [weakSelf.iconContainerView.iconsToDisplay enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            [view pulseView];
-        }];
         
         [weakSelf dismissDatePickerIfShowingWithCompletion:^{
             [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
