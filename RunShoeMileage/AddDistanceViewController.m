@@ -66,6 +66,7 @@ float runTotal;
 // I do this, because I am using the nib to set up the views, rather than programatically.
 @property (strong, nonatomic) IBOutlet UILabel *connectedToHealthKitAlert;
 @property (strong, nonatomic) IBOutlet UIImageView *connectedToStravaView;
+@property (weak, nonatomic) IBOutlet UIView *arrowContainerView;
 
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
 @property (nonatomic) BOOL noShoesInStore;
@@ -236,27 +237,15 @@ float runTotal;
     self.imageView.layer.borderWidth = 2.0;
     self.imageView.layer.cornerRadius = 5.0;
     
-    UIView *arrowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+    UIView *arrowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 12)];
     arrowView.backgroundColor = [UIColor orangeColor];
     arrowView.transform = CGAffineTransformMakeRotation(M_PI/4);
     
-    UIView *arrowContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    arrowContainer.clipsToBounds = YES;
+    self.arrowContainerView.clipsToBounds = YES;
+    self.arrowContainerView.backgroundColor = UIColor.clearColor;
     
-    CGFloat yPosition = self.imageView.frame.origin.y + self.imageView.bounds.size.height;
-    CGFloat xPosition = self.imageView.frame.origin.x +
-                        self.imageView.bounds.size.width/2 -
-                        arrowContainer.bounds.size.width/2;
-    
-    arrowView.center = CGPointMake(arrowContainer.bounds.size.width/2, -1);
-    [arrowContainer addSubview:arrowView];
-    
-    CGRect containerFrame = arrowContainer.frame;
-    containerFrame.origin.y = yPosition;
-    containerFrame.origin.x = xPosition;
-    arrowContainer.frame = containerFrame;
-    
-    [self.view addSubview:arrowContainer];
+    arrowView.center = CGPointMake(self.arrowContainerView.bounds.size.width/2, 0);
+    [self.arrowContainerView addSubview:arrowView];
     
     self.lightenView.layer.cornerRadius = 5.0;
     self.imageView.layer.cornerRadius = 5.0;
