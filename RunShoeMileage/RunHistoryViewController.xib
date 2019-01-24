@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <development version="5000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RunHistoryViewController">
@@ -25,20 +28,20 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14">
                     <rect key="frame" x="0.0" y="64" width="320" height="31"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Run Date" lineBreakMode="tailTruncation" minimumFontSize="10" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                            <rect key="frame" x="6" y="6" width="72" height="20"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Run Date" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                            <rect key="frame" x="6" y="5.5" width="72" height="20"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Distance(km)" lineBreakMode="tailTruncation" minimumFontSize="10" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15">
-                            <rect key="frame" x="214" y="6" width="101" height="20"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Distance(km)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                            <rect key="frame" x="214" y="5.5" width="101" height="20"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="31" id="Lh4-o4-h4b"/>
                         <constraint firstAttribute="centerY" secondItem="16" secondAttribute="centerY" id="ah0-Br-YQF"/>
@@ -49,7 +52,7 @@
                 </view>
                 <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="35" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                     <rect key="frame" x="0.0" y="95" width="320" height="412"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="18"/>
                         <outlet property="delegate" destination="-1" id="7"/>
@@ -67,12 +70,13 @@
                     </items>
                 </toolbar>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="7hW-X3-iy0" secondAttribute="trailing" id="2gm-td-oov"/>
                 <constraint firstItem="7hW-X3-iy0" firstAttribute="top" secondItem="4" secondAttribute="bottom" id="64j-cd-DY6"/>
-                <constraint firstAttribute="bottom" secondItem="7hW-X3-iy0" secondAttribute="bottom" id="B4V-Vb-Qha"/>
+                <constraint firstAttribute="bottomMargin" secondItem="7hW-X3-iy0" secondAttribute="bottom" id="B4V-Vb-Qha"/>
                 <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="PCW-0a-ApY"/>
+                <constraint firstItem="7hW-X3-iy0" firstAttribute="bottom" secondItem="Cq7-b2-1yn" secondAttribute="bottomMargin" id="c0N-uY-qEd"/>
                 <constraint firstItem="4" firstAttribute="top" secondItem="14" secondAttribute="bottom" id="cVW-f8-Arg"/>
                 <constraint firstItem="7hW-X3-iy0" firstAttribute="leading" secondItem="Cq7-b2-1yn" secondAttribute="leading" id="ezL-Mq-Rtg"/>
                 <constraint firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="fCg-jQ-lw9"/>
@@ -80,29 +84,31 @@
                 <constraint firstItem="14" firstAttribute="leading" secondItem="Cq7-b2-1yn" secondAttribute="leading" id="uGj-nN-5OI"/>
                 <constraint firstItem="14" firstAttribute="top" secondItem="Cq7-b2-1yn" secondAttribute="top" constant="64" id="wWr-zj-3gL"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="545" y="19.5"/>
+            <point key="canvasLocation" x="872" y="17.541229385307346"/>
         </view>
         <view contentMode="scaleToFill" id="bGO-eD-z97">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no run history for this shoe." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" preferredMaxLayoutWidth="272" translatesAutoresizingMaskIntoConstraints="NO" id="Lum-Gz-FXm">
-                    <rect key="frame" x="24" y="228" width="272" height="51"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no run history for this shoe." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lum-Gz-FXm">
+                    <rect key="frame" x="24" y="228" width="272" height="50.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Lum-Gz-FXm" secondAttribute="trailing" constant="24" id="37D-Lk-l4h"/>
                 <constraint firstAttribute="centerY" secondItem="Lum-Gz-FXm" secondAttribute="centerY" constant="31" id="8Hg-PH-WRM"/>
                 <constraint firstItem="Lum-Gz-FXm" firstAttribute="leading" secondItem="bGO-eD-z97" secondAttribute="leading" constant="24" id="XjD-HN-dKu"/>
                 <constraint firstAttribute="centerX" secondItem="Lum-Gz-FXm" secondAttribute="centerX" id="ywZ-06-vYP"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="931" y="28"/>
+            <point key="canvasLocation" x="1489.5999999999999" y="25.187406296851577"/>
         </view>
     </objects>
 </document>

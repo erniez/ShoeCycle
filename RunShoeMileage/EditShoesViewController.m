@@ -57,7 +57,9 @@
         self.tableData = [[[ShoeStore defaultStore] activeShoes] mutableCopy];
         [self.tableView reloadData];
     }
-    [self refreshSelectedShoe];
+    if (self.tableView.indexPathsForSelectedRows.count == 0) {
+        [self refreshSelectedShoe];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -79,6 +81,7 @@
 {
     [super viewDidLoad];
 
+    self.clearsSelectionOnViewWillAppear = NO;
     self.editingSelectedShoe = -1;
     
     UIBarButtonItem *bbi = [[UIBarButtonItem alloc]

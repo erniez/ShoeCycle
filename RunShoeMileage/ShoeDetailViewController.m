@@ -74,70 +74,11 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    EZLog(@"entered shoeDetail didReceiveMemoryWarning");
-    [super didReceiveMemoryWarning];
-    EZLog(@"leaving shoeDetail didReceiveMemoryWarning");    
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.brandField setText:self.shoe.brand];
-    
-    [self.maxDistance setText:[UserDistanceSetting displayDistance:[self.shoe.maxDistance floatValue]]];
-    [self.startDistance setText:[UserDistanceSetting displayDistance:[self.shoe.startDistance floatValue]]];
-
-    self.expirationDateFormatter = [[NSDateFormatter alloc] init];
-	[self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
-	[self.expirationDateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    self.expirationDate = self.shoe.expirationDate;
-    [self.expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.shoe.expirationDate]];
-    self.startDate = self.shoe.startDate;
-    [self.startDateField setText:[self.expirationDateFormatter stringFromDate:self.shoe.startDate]];
-    EZLog(@"Will Appear Date = %@",self.shoe.expirationDate);
-    
-    NSString *imageKey = [self.shoe imageKey];
-    
-    if (imageKey) {
-        // Get image for image key from image store
-        UIImage *imageToDisplay = [[ImageStore defaultImageStore] imageForKey:imageKey];
-        
-        // Use that image to put on the screen in imageView
-        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [self.imageView setImage:imageToDisplay];
-    } else {
-        // Clear the imageView
-        [self.imageView setContentMode:UIViewContentModeCenter];
-        [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
-    }
-    
-    if (self.isNew)
-    {
-        UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:@selector(takePicture:)];
-        UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
-        
-        NSArray *items = [NSArray arrayWithObjects:camera, spacer, nil];
-        
-        self.toolbar = [UIToolbar new];
-        self.toolbar.barStyle = UIBarStyleDefault;
-        
-        // size up the toolbar and set its frame
-        [self.toolbar sizeToFit];
-        CGFloat toolbarHeight = [self.toolbar bounds].size.height;
-        self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height - toolbarHeight, self.view.bounds.size.height, toolbarHeight);
-        
-        [self.toolbar setItems:items animated:YES];
-        
-        [self.view addSubview:self.toolbar];
-    }
-    [self updateHallOfFameButtonText];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -203,6 +144,23 @@
     self.imageView.layer.borderWidth = 1.0;
     self.imageView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
     self.imageView.layer.cornerRadius = 7.0;
+    
+    NSString *imageKey = [self.shoe imageKey];
+    
+    if (imageKey) {
+        // Get image for image key from image store
+        UIImage *imageToDisplay = [[ImageStore defaultImageStore] imageForKey:imageKey];
+        
+        // Use that image to put on the screen in imageView
+        [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [self.imageView setImage:imageToDisplay];
+    } else {
+        // Clear the imageView
+        [self.imageView setContentMode:UIViewContentModeCenter];
+        [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
+    }
+    
+    [self configureView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -215,6 +173,44 @@
 /* ==============================================================
  End View Lifecycle
  =============================================================== */
+
+- (void)configureView
+{
+    [self.brandField setText:self.shoe.brand];
+    
+    [self.maxDistance setText:[UserDistanceSetting displayDistance:[self.shoe.maxDistance floatValue]]];
+    [self.startDistance setText:[UserDistanceSetting displayDistance:[self.shoe.startDistance floatValue]]];
+    
+    self.expirationDateFormatter = [[NSDateFormatter alloc] init];
+    [self.expirationDateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [self.expirationDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    self.expirationDate = self.shoe.expirationDate;
+    [self.expirationDateField setText:[self.expirationDateFormatter stringFromDate:self.shoe.expirationDate]];
+    self.startDate = self.shoe.startDate;
+    [self.startDateField setText:[self.expirationDateFormatter stringFromDate:self.shoe.startDate]];
+    EZLog(@"Will Appear Date = %@",self.shoe.expirationDate);
+    
+    if (self.isNew)
+    {
+        UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:@selector(takePicture:)];
+        UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
+        
+        NSArray *items = [NSArray arrayWithObjects:camera, spacer, nil];
+        
+        self.toolbar = [UIToolbar new];
+        self.toolbar.barStyle = UIBarStyleDefault;
+        
+        // size up the toolbar and set its frame
+        [self.toolbar sizeToFit];
+        CGFloat toolbarHeight = [self.toolbar bounds].size.height;
+        self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height - toolbarHeight, self.view.bounds.size.height, toolbarHeight);
+        
+        [self.toolbar setItems:items animated:YES];
+        
+        [self.view addSubview:self.toolbar];
+    }
+    [self updateHallOfFameButtonText];
+}
 
 // ==========================================================================================
 // dismiss keyboards
