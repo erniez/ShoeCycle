@@ -199,6 +199,8 @@
         NSMutableArray *runsForTheMonth = self.runsByTheMonth[indexPath.section];
         History *shoeHistoryEntry = runsForTheMonth[indexPath.row];
         [[ShoeStore defaultStore] removeHistory:[shoe.history member:shoeHistoryEntry] atShoe:shoe];
+        [[ShoeStore defaultStore] saveChangesEZ];
+        [[ShoeStore defaultStore] updateTotalDistanceForShoe:shoe];
         [runsForTheMonth removeObjectAtIndex:indexPath.row];
         EZLog(@"runs = %@",runs);
         [runs removeObjectAtIndex:[indexPath row]];

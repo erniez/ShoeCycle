@@ -233,13 +233,21 @@
 }
 
 
-- (void)setRunDistance:(float)dist
+- (void)updateTotalDistanceForShoe:(Shoe *)shoe
 {
-    NSManagedObject *history;
-    
-    history = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:self.context];
-    [history setValue:[NSNumber numberWithFloat:dist] forKey:@"runDistance"];
-    
+    float runTotal = [shoe.startDistance floatValue];
+    if ([shoe.history count]) {
+        NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[shoe.history allObjects]];
+        NSInteger i = 0;
+        do {
+            History *tempHist = [runs objectAtIndex:i];
+            runTotal = runTotal +  [tempHist.runDistance floatValue];
+            EZLog (@"runDistance = %f",[tempHist.runDistance floatValue]);
+            i++;
+        } while (i < [shoe.history count]);
+        EZLog(@"run total = %f",runTotal);
+        shoe.totalDistance = [NSNumber numberWithFloat:runTotal];
+    }
 }
 
 

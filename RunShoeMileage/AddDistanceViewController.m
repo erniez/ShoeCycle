@@ -30,7 +30,6 @@
 #import "AnalyticsLogger.h"
 
 float const milesToKilometers;
-float runTotal;
 
 
 @interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate>
@@ -47,7 +46,6 @@ float runTotal;
 @property (nonatomic, strong) NSDateFormatter *runDateFormatter;
 @property (nonatomic, weak) IBOutlet UITextField *nameField;
 @property (nonatomic, strong) Shoe *distShoe;
-@property (nonatomic, strong) History *hist;
 @property (nonatomic, weak) IBOutlet UIProgressView *totalDistanceProgress;
 @property (nonatomic, strong) NSDate *addRunDate;
 @property (nonatomic, weak) IBOutlet UILabel *startDateLabel;
@@ -141,29 +139,13 @@ float runTotal;
         self.distShoe = [self.dataSource objectAtIndex:0];
     }
     
-    runTotal = [self.distShoe.startDistance floatValue];
-    if ([self.distShoe.history count]) {
-        NSMutableArray *runs = [[NSMutableArray alloc] initWithArray:[self.distShoe.history allObjects]];
-        NSInteger i = 0;
-        do {
-            History *tempHist = [runs objectAtIndex:i];
-            runTotal = runTotal +  [tempHist.runDistance floatValue];
-            EZLog (@"runDistance = %f",[tempHist.runDistance floatValue]);
-            i++;
-        } while (i < [self.distShoe.history count]);
-        EZLog(@"run total = %f",runTotal);
-    }
-    
     self.nameField.text = [NSString stringWithFormat:@"%@",self.distShoe.brand];
     self.distanceUnitLabel.text = @"Miles";
     if ([UserDistanceSetting getDistanceUnit]) {
         self. distanceUnitLabel.text = @"Km";
     }
-    self.totalDistanceProgress.progress = runTotal/self.distShoe.maxDistance.floatValue;
+    self.totalDistanceProgress.progress = self.distShoe.totalDistance.floatValue/self.distShoe.maxDistance.floatValue;
     [self.maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[self.distShoe.maxDistance floatValue]]]];
-    EZLog(@"run total2 = %f",runTotal);
-    
-    EZLog(@"run total3 = %f",runTotal);
     
     [self calculateDaysLeftProgressBar];
     
@@ -175,11 +157,8 @@ float runTotal;
         self.imageView.contentMode = UIViewContentModeCenter;
         [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
     }
-    
-    
-    EZLog(@"Leaving View Will Appear");
-    EZLog(@"run total last = %f",runTotal);
-    [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+
+    [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:self.distShoe.totalDistance.floatValue]];
     self.writeToHealthKit = [UserDistanceSetting getHealthKitEnabled] && [self checkForHealthKit];
     self.writeToStrava = [UserDistanceSetting isStravaConnected];
     if (self.writeToHealthKit)
@@ -382,22 +361,17 @@ float runTotal;
 
         EZLog(@"addDistance = %.2f",addDistance);
         testDate = weakSelf.addRunDate;
+    
+        History *history = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
+        history.runDistance = [NSNumber numberWithFloat:addDistance];
+        history.runDate = testDate;
+        [weakSelf.distShoe addHistoryObject:history];
         
-        [[ShoeStore defaultStore] setRunDistance:addDistance];
-        
-        weakSelf.hist = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:context];
-        [weakSelf.distShoe addHistoryObject:weakSelf.hist];
-        weakSelf.hist.runDistance = [NSNumber numberWithFloat:addDistance];
-        EZLog(@"setting history run distance = %@",weakSelf.hist.runDistance);
-        weakSelf.hist.runDate = testDate;
-        
-        EZLog(@"%@",weakSelf.hist.runDistance);
-        
-        runTotal = runTotal + addDistance;
-        self.distShoe.totalDistance = @(runTotal);
+        [[ShoeStore defaultStore] updateTotalDistanceForShoe:weakSelf.distShoe];
+        [[ShoeStore defaultStore] saveChangesEZ];
         
         weakSelf.enterDistanceField.text = nil;
-        weakSelf.totalDistanceProgress.progress = runTotal/weakSelf.distShoe.maxDistance.floatValue;
+        weakSelf.totalDistanceProgress.progress = self.distShoe.totalDistance.floatValue/weakSelf.distShoe.maxDistance.floatValue;
         
         if (weakSelf.writeToHealthKit)
         {
@@ -409,11 +383,10 @@ float runTotal;
         }
         
         [weakSelf dismissDatePickerIfShowingWithCompletion:^{
-            [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:runTotal]];
+            [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:[weakSelf.distShoe.totalDistance floatValue]]];
             [weakSelf.totalDistanceLabel pulseView];
-            [[ShoeStore defaultStore] saveChangesEZ];
             [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance)}];
-            [self.logger logEventWithName:kLogTotalMileageEvent userInfo:@{kTotalMileageNumberKey : @(runTotal)}];
+            [self.logger logEventWithName:kLogTotalMileageEvent userInfo:@{kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue)}];
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];
     };
