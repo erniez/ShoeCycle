@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Shoe.h"
+#import "ShoeCycle-Swift.h"
 
 @interface RunHistoryViewController : UIViewController
 
 @property (nonatomic, strong) Shoe *shoe;
 @property (nonatomic, strong) NSMutableArray *runs;
 @property (nonatomic, strong) IBOutlet UIView *tableHeaderView;
+@property (nonatomic, weak) id<RunHistoryViewControllerDelegate> delegate;
 
 @end

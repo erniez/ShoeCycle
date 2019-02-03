@@ -23,6 +23,7 @@
                 <outlet property="imageScrollIndicators" destination="ERP-m3-IJT" id="Y9w-Xm-RNa"/>
                 <outlet property="imageView" destination="64" id="65"/>
                 <outlet property="lightenView" destination="13p-YD-EAb" id="Ncy-U3-CPD"/>
+                <outlet property="lineChartView" destination="UwI-pe-18u" id="pjG-XU-Kfc"/>
                 <outlet property="maxDistanceLabel" destination="53" id="63"/>
                 <outlet property="nameField" destination="60" id="61"/>
                 <outlet property="runDateField" destination="21" id="47"/>
@@ -301,9 +302,14 @@
                         <constraint firstAttribute="width" constant="60" id="iF7-gq-Mo1"/>
                     </constraints>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UwI-pe-18u" customClass="LineChartView" customModule="Charts">
+                    <rect key="frame" x="16" y="432" width="343" height="219"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="bottomMargin" secondItem="UwI-pe-18u" secondAttribute="bottom" constant="16" id="2un-Rn-LBf"/>
                 <constraint firstItem="64" firstAttribute="top" secondItem="oRO-4A-A1s" secondAttribute="top" id="5WT-o9-3XU"/>
                 <constraint firstItem="6" firstAttribute="bottom" secondItem="21" secondAttribute="bottom" id="Adu-jj-4JO"/>
                 <constraint firstItem="AYV-iY-8Wy" firstAttribute="leading" secondItem="13p-YD-EAb" secondAttribute="leading" constant="8" id="CHn-o2-Bdb"/>
@@ -313,6 +319,7 @@
                 <constraint firstItem="21" firstAttribute="leading" secondItem="AYV-iY-8Wy" secondAttribute="leading" id="IgV-92-S8l"/>
                 <constraint firstItem="55" firstAttribute="bottom" secondItem="54" secondAttribute="bottom" id="JTe-EU-Bgs"/>
                 <constraint firstItem="54" firstAttribute="trailing" secondItem="21" secondAttribute="trailing" id="Lxr-J1-k8G"/>
+                <constraint firstAttribute="trailing" secondItem="UwI-pe-18u" secondAttribute="trailing" constant="16" id="MNs-bi-zcZ"/>
                 <constraint firstItem="55" firstAttribute="leading" secondItem="54" secondAttribute="trailing" constant="11" id="MOI-S0-C8v"/>
                 <constraint firstAttribute="trailing" secondItem="p9f-nS-f4H" secondAttribute="trailing" constant="16" id="McU-Ee-bS2"/>
                 <constraint firstItem="13p-YD-EAb" firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="8" id="Men-aY-Bc3"/>
@@ -342,6 +349,8 @@
                 <constraint firstItem="55" firstAttribute="top" secondItem="54" secondAttribute="top" id="tnO-fS-q8W"/>
                 <constraint firstAttribute="trailing" secondItem="oRO-4A-A1s" secondAttribute="trailing" id="tzT-H1-Hsu"/>
                 <constraint firstItem="54" firstAttribute="leading" secondItem="21" secondAttribute="leading" id="ubS-Fx-lzd"/>
+                <constraint firstItem="UwI-pe-18u" firstAttribute="top" secondItem="p9f-nS-f4H" secondAttribute="bottom" constant="16" id="w00-IS-NwZ"/>
+                <constraint firstItem="UwI-pe-18u" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="16" id="xJq-WU-FXl"/>
                 <constraint firstItem="p9f-nS-f4H" firstAttribute="top" secondItem="13p-YD-EAb" secondAttribute="bottom" constant="8" id="y19-dZ-aQM"/>
                 <constraint firstItem="sXU-oa-asj" firstAttribute="top" secondItem="64" secondAttribute="bottom" id="zCR-6w-bAk"/>
                 <constraint firstItem="64" firstAttribute="top" secondItem="1" secondAttribute="topMargin" constant="16" id="zFj-DB-Uas"/>

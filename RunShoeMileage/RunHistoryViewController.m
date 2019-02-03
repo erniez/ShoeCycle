@@ -235,6 +235,7 @@
         [CATransaction commit];
 
         [[ShoeStore defaultStore] saveChangesEZ];       // Save context
+        [self.delegate runHistoryDidChangeWithShoe:self.shoe];
     }
 }
 

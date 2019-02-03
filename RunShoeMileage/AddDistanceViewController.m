@@ -12,6 +12,7 @@
 #import "RunHistoryViewController.h"
 #import "ShoeStore.h"
 #import "Shoe.h"
+#import "Shoe+Helpers.h"
 #import "History.h"
 #import "UserDistanceSetting.h"
 #import "ShoeCycleAppDelegate.h"
@@ -28,11 +29,13 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "GlobalStringConstants.h"
 #import "AnalyticsLogger.h"
+#import <Charts/Charts.h>
+#import "ShoeCycle-Swift.h"
 
 float const milesToKilometers;
 
 
-@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate>
+@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate, IChartAxisValueFormatter, RunHistoryViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addDistanceButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
@@ -59,6 +62,7 @@ float const milesToKilometers;
 @property (weak, nonatomic) IBOutlet UIStackView *statusIconsContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageScrollIndicators;
 @property (weak, nonatomic) IBOutlet UIView *swipeView;
+@property (weak, nonatomic) IBOutlet LineChartView *lineChartView;
 
 // Have to use strong because I remove these views from superView in viewDidLoad.
 // I do this, because I am using the nib to set up the views, rather than programatically.
@@ -73,6 +77,9 @@ float const milesToKilometers;
 
 @property (nonatomic) NSArray *dataSource;
 @property (weak, nonatomic) AnalyticsLogger *logger;
+
+@property (nonatomic, strong) LineChartDataSet *dataSet;
+@property (nonatomic) BOOL animateChart;
 
 @end
 
@@ -168,6 +175,11 @@ float const milesToKilometers;
     if (self.writeToStrava) {
         [self.statusIconsContainerView addArrangedSubview:self.connectedToStravaView];
     }
+    [self updateChartData];
+    if (self.animateChart) {
+        [self.lineChartView animateWithYAxisDuration:1.0];
+        self.animateChart = NO;
+    }
 }
 
 - (BOOL)checkForHealthKit
@@ -178,7 +190,6 @@ float const milesToKilometers;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     if (self.noShoesInStore)
     {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"No shoes are being tracked:" message:@"You first need to add a shoe before you can add a distance." preferredStyle:UIAlertControllerStyleAlert];
@@ -264,6 +275,9 @@ float const milesToKilometers;
     [self.swipeView addGestureRecognizer:[self newSwipeDownRecognizer]];
     [self.swipeView addGestureRecognizer:[self newSwipeUpRecognizer]];
     
+    [self configureLineChartView];
+    self.animateChart = YES;
+    
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
@@ -310,6 +324,69 @@ float const milesToKilometers;
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // must delloc from notification center or program will crash
 }
 
+- (void)configureLineChartView
+{
+    self.lineChartView.xAxis.labelTextColor = [UIColor whiteColor];
+    self.lineChartView.legend.textColor = [UIColor whiteColor];
+    self.lineChartView.xAxis.valueFormatter = self;
+    self.lineChartView.leftAxis.labelTextColor = [UIColor whiteColor];
+    self.lineChartView.leftAxis.drawGridLinesEnabled = NO;
+    self.lineChartView.leftAxis.axisMinimum = 0.0;
+    self.lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
+    self.lineChartView.xAxis.drawGridLinesEnabled = NO;
+    self.lineChartView.rightAxis.enabled = NO;
+}
+
+- (void)updateChartData
+{
+    self.dataSet = [LineChartDataSet new];
+    [self configureDataSet];
+    NSArray *shoeHistorySorted = [self.distShoe sortedRunHistory];
+    for (int i = 0; i < shoeHistorySorted.count; i++) {
+        History *history = shoeHistorySorted[i];
+        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:i y:history.runDistance.doubleValue];
+        if (![self.dataSet addEntry:dataEntry]) {
+            break;
+        }
+    }
+    self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
+}
+
+- (void)configureDataSet
+{
+    self.dataSet.circleRadius = 3.0;
+    self.dataSet.drawCircleHoleEnabled = NO;
+    self.dataSet.circleColor = [UIColor shoeCycleGreen];
+    self.dataSet.circleHoleColor = [UIColor shoeCycleBlue];
+    self.dataSet.color = [UIColor shoeCycleOrange];
+    self.dataSet.drawValuesEnabled = NO;
+}
+
+- (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
+{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"runDate" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSArray *shoeHistorySorted = [self.distShoe.history sortedArrayUsingDescriptors:sortDescriptors];
+
+    History *history = shoeHistorySorted[(int)value];
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateStyle = NSDateFormatterShortStyle;
+//    NSLog(@"UnSortedCount: %lu  SortedCount: %lu", (unsigned long)self.distShoe.history.count, (unsigned long)shoeHistorySorted.count);
+//    for (History *history in shoeHistorySorted) {
+//        NSLog([formatter stringFromDate:history.runDate]);
+//    }
+    return [formatter stringFromDate:history.runDate];
+}
+
+- (NSArray *)createZeroChartData
+{
+    NSMutableArray *zeroData = [NSMutableArray new];
+    for (int i = 1; i <= 12; i++) {
+        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:i y:0.0];
+        [zeroData addObject:dataEntry];
+    }
+    return [zeroData copy];
+}
 
 - (IBAction)backgroundTapped:(id)sender 
 {
@@ -389,6 +466,9 @@ float const milesToKilometers;
             [self.logger logEventWithName:kLogTotalMileageEvent userInfo:@{kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue)}];
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];
+        
+        [self updateChartData];
+        [self.lineChartView animateWithYAxisDuration:1.0];
     };
     
     if ([UserDistanceSetting isStravaConnected]) {
@@ -458,6 +538,7 @@ float const milesToKilometers;
         selectedShoeIndex = [self.dataSource count] - 1;
     }
     [UserDistanceSetting setSelectedShoe:selectedShoeIndex];
+    self.animateChart = YES;
     [self loadDataSourceAndRefreshViews];
 }
 
@@ -510,6 +591,7 @@ float const milesToKilometers;
     
     RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] init];
     modalViewController.shoe = self.distShoe;
+    modalViewController.delegate = self;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
    
@@ -593,6 +675,12 @@ float const milesToKilometers;
 - (void)hideHUD
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+#pragma RunHistoryViewControllerDelegate
+- (void)runHistoryDidChangeWithShoe:(Shoe *)shoe
+{
+    self.animateChart = YES;
 }
 
 @end

@@ -10,6 +10,7 @@
 		1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */; };
 		1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0751F919D88D9C00171D48 /* Crashlytics.framework */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
+		1B1665D62203FC2F00A93009 /* testData.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1B1665D52203FC2F00A93009 /* testData.csv */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
 		1B1EF7031B12C23C000ED442 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1EF7021B12C23C000ED442 /* Fabric.framework */; };
@@ -40,8 +41,10 @@
 		1B76CA0B19D3CD6B0063F2F2 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
 		1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */; };
 		1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */; };
+		1B7D254021FF3D2E0085E4A8 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7D253F21FF3D2E0085E4A8 /* Charts.framework */; };
 		1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */; };
 		1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */; };
+		1B9EA80422068594000FA58B /* RunHistoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
 		1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */; };
@@ -89,6 +92,7 @@
 		1B0751F919D88D9C00171D48 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
+		1B1665D52203FC2F00A93009 /* testData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = testData.csv; path = ../../../../../Downloads/testData.csv; sourceTree = "<group>"; };
 		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
 		1B1EF6FF1B101EB9000ED442 /* FTUUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTUUtility.h; path = utilities/FTUUtility.h; sourceTree = "<group>"; };
@@ -135,10 +139,12 @@
 		1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ShoeCycleColors.m"; sourceTree = "<group>"; };
 		1B76CA1419D5AEF10063F2F2 /* UIUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIUtilities.h; path = utilities/UIUtilities.h; sourceTree = "<group>"; };
 		1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIUtilities.m; path = utilities/UIUtilities.m; sourceTree = "<group>"; };
+		1B7D253F21FF3D2E0085E4A8 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		1B7D4B1819D27F42000094DE /* RunDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunDatePickerViewController.h; sourceTree = "<group>"; };
 		1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDatePickerViewController.m; sourceTree = "<group>"; };
 		1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunDatePickerViewController.xib; sourceTree = "<group>"; };
 		1B80342B1A34C1C300126C59 /* GlobalStringConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalStringConstants.h; sourceTree = "<group>"; };
+		1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1BAD389119E25C4000161DA8 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ShoeCycle.entitlements; path = ../ShoeCycle.entitlements; sourceTree = "<group>"; };
 		1BC08E7914D42171007A4344 /* Shoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shoe.h; sourceTree = "<group>"; };
@@ -191,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B7D254021FF3D2E0085E4A8 /* Charts.framework in Frameworks */,
 				1B2721D221E9AAFF002BD17E /* MBProgressHUD.framework in Frameworks */,
 				1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */,
 				1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */,
@@ -323,6 +330,14 @@
 			name = Global;
 			sourceTree = "<group>";
 		};
+		1B9EA805220685BE000FA58B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		1BC46D1F1E4FAC1D002204E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +371,7 @@
 		1BCF643C148AF7E7004C0E6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B7D253F21FF3D2E0085E4A8 /* Charts.framework */,
 				1B2721B921E7915C002BD17E /* MBProgressHUD.framework */,
 				1B2721B721E79148002BD17E /* AFNetworking.framework */,
 				1B1EF7021B12C23C000ED442 /* Fabric.framework */,
@@ -372,6 +388,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B9EA805220685BE000FA58B /* Protocols */,
 				1B30A82921F20FB400AF22A7 /* Scenes */,
 				1B06EA441FED708100E430AA /* Extensions */,
 				1BC46D1F1E4FAC1D002204E2 /* Models */,
@@ -398,6 +415,7 @@
 		1BCF6444148AF7E7004C0E6A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1B1665D52203FC2F00A93009 /* testData.csv */,
 				1B2248CE1C81480B0081518A /* ShoeCycle-Bridging-Header.h */,
 				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
 				1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */,
@@ -525,6 +543,7 @@
 				1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */,
 				1B30A82821EF77DC00AF22A7 /* Launch.storyboard in Resources */,
 				1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */,
+				1B1665D62203FC2F00A93009 /* testData.csv in Resources */,
 				1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */,
 				1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */,
 				1B76CA0B19D3CD6B0063F2F2 /* Media.xcassets in Resources */,
@@ -544,6 +563,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
 			);
 			name = "Carthage - Copy Frameworks";
 			outputFileListPaths = (
@@ -564,6 +584,7 @@
 				1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */,
 				1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */,
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
+				1B9EA80422068594000FA58B /* RunHistoryViewControllerDelegate.swift in Sources */,
 				1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */,
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
