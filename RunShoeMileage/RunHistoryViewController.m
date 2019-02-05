@@ -84,7 +84,7 @@
 {
     [super viewWillAppear:animated];
 
-	self.runs = [[self.shoe sortedRunHistory] mutableCopy];
+    self.runs = [[self.shoe sortedRunHistoryAscending:YES] mutableCopy];
 
     self.runsByTheMonth = [NSMutableArray new];
     NSMutableArray *runsForTheMonth = [NSMutableArray new];

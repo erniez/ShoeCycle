@@ -20,7 +20,7 @@ class CSVUtility: NSObject {
     func createCSVData(fromShoe shoe: Shoe) -> NSString {
         var returnString: String
         returnString = createHeaderString()
-        let shoeHistory: Array<History> = shoe.sortedRunHistory()
+        let shoeHistory: Array<History> = shoe.sortedRunHistoryAscending(false)
         for history in shoeHistory{
             returnString = returnString + "\(formatter.string(from: history.runDate)), \(history.runDistance.intValue)\n"
         }

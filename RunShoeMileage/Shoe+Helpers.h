@@ -12,8 +12,10 @@
 @interface Shoe (Helpers)
 
 /**
- Sorted run history. Most recent run is first.
+ Sorted run history. Sorting controlled by the ascending property
  */
-- (NSArray<History *> *)sortedRunHistory;
+- (NSArray<History *> *)sortedRunHistoryAscending:(BOOL)ascending;
+
+- (NSDictionary *)collatedRunHistoryByWeekAscending:(BOOL)ascending;
 
 @end

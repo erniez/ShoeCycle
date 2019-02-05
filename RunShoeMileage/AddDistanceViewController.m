@@ -32,8 +32,6 @@
 #import <Charts/Charts.h>
 #import "ShoeCycle-Swift.h"
 
-float const milesToKilometers;
-
 
 @interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate, IChartAxisValueFormatter, RunHistoryViewControllerDelegate>
 
@@ -79,6 +77,8 @@ float const milesToKilometers;
 @property (weak, nonatomic) AnalyticsLogger *logger;
 
 @property (nonatomic, strong) LineChartDataSet *dataSet;
+@property (nonatomic, strong) NSArray *sortedCollatedKeys;
+@property (nonatomic, strong) NSDictionary *collatedWeeklyData;
 @property (nonatomic) BOOL animateChart;
 
 @end
@@ -274,7 +274,11 @@ float const milesToKilometers;
     self.swipeView.backgroundColor = [UIColor clearColor];
     [self.swipeView addGestureRecognizer:[self newSwipeDownRecognizer]];
     [self.swipeView addGestureRecognizer:[self newSwipeUpRecognizer]];
-    
+
+    // iPhoneSE cannot fit the graph, so remove it.
+    if ([UIScreen mainScreen].bounds.size.height < 570) {
+        [self.lineChartView removeFromSuperview];
+    }
     [self configureLineChartView];
     self.animateChart = YES;
     
@@ -332,23 +336,36 @@ float const milesToKilometers;
     self.lineChartView.leftAxis.labelTextColor = [UIColor whiteColor];
     self.lineChartView.leftAxis.drawGridLinesEnabled = NO;
     self.lineChartView.leftAxis.axisMinimum = 0.0;
+    self.lineChartView.leftAxis.granularityEnabled = YES;
     self.lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
     self.lineChartView.xAxis.drawGridLinesEnabled = NO;
+    self.lineChartView.xAxis.granularityEnabled = YES;
     self.lineChartView.rightAxis.enabled = NO;
+    self.lineChartView.minOffset = 24.0; // Need to do this because dates were getting cut off.
 }
 
 - (void)updateChartData
 {
     self.dataSet = [LineChartDataSet new];
     [self configureDataSet];
-    NSArray *shoeHistorySorted = [self.distShoe sortedRunHistory];
-    for (int i = 0; i < shoeHistorySorted.count; i++) {
-        History *history = shoeHistorySorted[i];
-        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:i y:history.runDistance.doubleValue];
+    self.collatedWeeklyData = [self.distShoe collatedRunHistoryByWeekAscending:YES];
+    self.sortedCollatedKeys = self.collatedWeeklyData[@"SortedKeys"];
+    [self.sortedCollatedKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+        WeeklyCollated *weeklyCollated = (WeeklyCollated *)self.collatedWeeklyData[key];
+        double value = [weeklyCollated.runDistance doubleValue];
+        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:idx y:value];
         if (![self.dataSet addEntry:dataEntry]) {
-            break;
+            *stop = YES;
         }
-    }
+    }];
+//    NSArray *shoeHistorySorted = [self.distShoe sortedRunHistoryAscending:YES];
+//    for (int i = 0; i < shoeHistorySorted.count; i++) {
+//        History *history = shoeHistorySorted[i];
+//        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:i y:history.runDistance.doubleValue];
+//        if (![self.dataSet addEntry:dataEntry]) {
+//            break;
+//        }
+//    }
     self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
 }
 
@@ -360,22 +377,19 @@ float const milesToKilometers;
     self.dataSet.circleHoleColor = [UIColor shoeCycleBlue];
     self.dataSet.color = [UIColor shoeCycleOrange];
     self.dataSet.drawValuesEnabled = NO;
+    self.dataSet.label = @"Miles";
 }
 
 - (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
 {
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"runDate" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    NSArray *shoeHistorySorted = [self.distShoe.history sortedArrayUsingDescriptors:sortDescriptors];
-
-    History *history = shoeHistorySorted[(int)value];
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    formatter.dateStyle = NSDateFormatterShortStyle;
-//    NSLog(@"UnSortedCount: %lu  SortedCount: %lu", (unsigned long)self.distShoe.history.count, (unsigned long)shoeHistorySorted.count);
-//    for (History *history in shoeHistorySorted) {
-//        NSLog([formatter stringFromDate:history.runDate]);
-//    }
-    return [formatter stringFromDate:history.runDate];
+    NSString *dateKey = self.sortedCollatedKeys[(int)value];
+    WeeklyCollated *weeklyCollated = self.collatedWeeklyData[dateKey];
+    return [self.runDateFormatter stringFromDate:weeklyCollated.date];
+//    NSArray *shoeHistorySorted = [self.distShoe sortedRunHistoryAscending:YES];
+//    History *history = shoeHistorySorted[(int)value];
+//    NSDateFormatter *formatter = [NSDateFormatter new];
+//    formatter.dateStyle = NSDateFormatterShortStyle;
+//    return [formatter stringFromDate:history.runDate];
 }
 
 - (NSArray *)createZeroChartData
@@ -467,8 +481,8 @@ float const milesToKilometers;
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];
         
+        self.animateChart = YES;
         [self updateChartData];
-        [self.lineChartView animateWithYAxisDuration:1.0];
     };
     
     if ([UserDistanceSetting isStravaConnected]) {

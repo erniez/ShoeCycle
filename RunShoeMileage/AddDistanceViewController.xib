@@ -184,7 +184,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                    <rect key="frame" x="301" y="178" width="50" height="50"/>
+                    <rect key="frame" x="301" y="180" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="KrP-Zz-rMo"/>
                         <constraint firstAttribute="height" constant="50" id="fRY-U3-znG"/>
@@ -277,7 +277,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="center" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="v3q-Xu-BWI">
-                    <rect key="frame" x="296" y="236" width="60" height="32"/>
+                    <rect key="frame" x="296" y="238" width="60" height="32"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="❤️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJ8-cP-K90">
                             <rect key="frame" x="0.0" y="5" width="24" height="22"/>
@@ -313,7 +313,7 @@
                 <constraint firstItem="64" firstAttribute="top" secondItem="oRO-4A-A1s" secondAttribute="top" id="5WT-o9-3XU"/>
                 <constraint firstItem="6" firstAttribute="bottom" secondItem="21" secondAttribute="bottom" id="Adu-jj-4JO"/>
                 <constraint firstItem="AYV-iY-8Wy" firstAttribute="leading" secondItem="13p-YD-EAb" secondAttribute="leading" constant="8" id="CHn-o2-Bdb"/>
-                <constraint firstItem="8" firstAttribute="bottom" secondItem="6" secondAttribute="bottom" id="Dzs-bR-6ty"/>
+                <constraint firstItem="8" firstAttribute="bottom" secondItem="6" secondAttribute="bottom" constant="2" id="Dzs-bR-6ty"/>
                 <constraint firstItem="6" firstAttribute="leading" secondItem="ubG-1m-b21" secondAttribute="leading" id="FwJ-6z-eQ3"/>
                 <constraint firstItem="ERP-m3-IJT" firstAttribute="top" secondItem="64" secondAttribute="top" id="IE0-dS-XcZ"/>
                 <constraint firstItem="21" firstAttribute="leading" secondItem="AYV-iY-8Wy" secondAttribute="leading" id="IgV-92-S8l"/>
