@@ -77,8 +77,8 @@
 @property (weak, nonatomic) AnalyticsLogger *logger;
 
 @property (nonatomic, strong) LineChartDataSet *dataSet;
-@property (nonatomic, strong) NSArray *sortedCollatedKeys;
-@property (nonatomic, strong) NSDictionary *collatedWeeklyData;
+@property (nonatomic, strong) ChartLimitLine *chartLimitLine;
+@property (nonatomic, strong) NSArray<WeeklyCollated *> *weeklyCollatedArray;
 @property (nonatomic) BOOL animateChart;
 
 @end
@@ -108,6 +108,12 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self loadDataSourceAndRefreshViews];
+}
+
+- (void)loadDataSourceAndRefreshViewAndChart
+{
+    [self loadDataSourceAndRefreshViews];
+    [self refreshChart];
 }
 
 - (void)loadDataSourceAndRefreshViews
@@ -175,6 +181,10 @@
     if (self.writeToStrava) {
         [self.statusIconsContainerView addArrangedSubview:self.connectedToStravaView];
     }
+}
+
+- (void)refreshChart
+{
     [self updateChartData];
     if (self.animateChart) {
         [self.lineChartView animateWithYAxisDuration:1.0];
@@ -201,6 +211,7 @@
         [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
     }
+    [self refreshChart]; // The chart doesn't know it's entire layout until AFTER view will appear.
     
 }
 
@@ -337,36 +348,46 @@
     self.lineChartView.leftAxis.drawGridLinesEnabled = NO;
     self.lineChartView.leftAxis.axisMinimum = 0.0;
     self.lineChartView.leftAxis.granularityEnabled = YES;
+    self.lineChartView.leftAxis.spaceTop = 0.25;
     self.lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
     self.lineChartView.xAxis.drawGridLinesEnabled = NO;
     self.lineChartView.xAxis.granularityEnabled = YES;
     self.lineChartView.rightAxis.enabled = NO;
     self.lineChartView.minOffset = 24.0; // Need to do this because dates were getting cut off.
+    self.lineChartView.scaleYEnabled = NO;
+    self.lineChartView.scaleXEnabled = NO;
+    self.lineChartView.noDataTextColor = [UIColor whiteColor];
+    self.lineChartView.noDataFont = [UIFont systemFontOfSize:16.0];
+    self.lineChartView.noDataText = @"Please enter a run distance to see data in this graph.";
+    
+    self.chartLimitLine = [ChartLimitLine new];
+    self.chartLimitLine.lineColor = [UIColor shoeCycleBlue];
+    self.chartLimitLine.lineDashLengths = @[[NSNumber numberWithDouble:10.0], [NSNumber numberWithDouble:5.0]];
+    [self.lineChartView.leftAxis addLimitLine:self.chartLimitLine];
 }
 
 - (void)updateChartData
 {
+    self.lineChartView.data = nil;
     self.dataSet = [LineChartDataSet new];
     [self configureDataSet];
-    self.collatedWeeklyData = [self.distShoe collatedRunHistoryByWeekAscending:YES];
-    self.sortedCollatedKeys = self.collatedWeeklyData[@"SortedKeys"];
-    [self.sortedCollatedKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
-        WeeklyCollated *weeklyCollated = (WeeklyCollated *)self.collatedWeeklyData[key];
+    self.weeklyCollatedArray = [self.distShoe collatedRunHistoryByWeekAscending:YES];
+    [self.weeklyCollatedArray enumerateObjectsUsingBlock:^(WeeklyCollated * _Nonnull weeklyCollated, NSUInteger idx, BOOL * _Nonnull stop) {
         double value = [weeklyCollated.runDistance doubleValue];
         ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:idx y:value];
         if (![self.dataSet addEntry:dataEntry]) {
             *stop = YES;
         }
     }];
-//    NSArray *shoeHistorySorted = [self.distShoe sortedRunHistoryAscending:YES];
-//    for (int i = 0; i < shoeHistorySorted.count; i++) {
-//        History *history = shoeHistorySorted[i];
-//        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:i y:history.runDistance.doubleValue];
-//        if (![self.dataSet addEntry:dataEntry]) {
-//            break;
-//        }
-//    }
-    self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
+
+    if (self.weeklyCollatedArray.count > 0) {
+        self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
+        self.chartLimitLine.limit = self.dataSet.yMax;
+        // only show 12 datapoints at a time.
+        [self.lineChartView setVisibleXRangeMaximum:11];
+        // move the chart to show the latest values.
+        [self.lineChartView moveViewToX:self.dataSet.entryCount];
+    }
 }
 
 - (void)configureDataSet
@@ -382,14 +403,11 @@
 
 - (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
 {
-    NSString *dateKey = self.sortedCollatedKeys[(int)value];
-    WeeklyCollated *weeklyCollated = self.collatedWeeklyData[dateKey];
+    if (self.weeklyCollatedArray.count <= value || value < 0 ) {
+        return @"";
+    }
+    WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
     return [self.runDateFormatter stringFromDate:weeklyCollated.date];
-//    NSArray *shoeHistorySorted = [self.distShoe sortedRunHistoryAscending:YES];
-//    History *history = shoeHistorySorted[(int)value];
-//    NSDateFormatter *formatter = [NSDateFormatter new];
-//    formatter.dateStyle = NSDateFormatterShortStyle;
-//    return [formatter stringFromDate:history.runDate];
 }
 
 - (NSArray *)createZeroChartData
@@ -482,7 +500,7 @@
         }];
         
         self.animateChart = YES;
-        [self updateChartData];
+        [self refreshChart];
     };
     
     if ([UserDistanceSetting isStravaConnected]) {
@@ -553,7 +571,7 @@
     }
     [UserDistanceSetting setSelectedShoe:selectedShoeIndex];
     self.animateChart = YES;
-    [self loadDataSourceAndRefreshViews];
+    [self loadDataSourceAndRefreshViewAndChart];
 }
 
 #pragma mark - RunDatePickerViewControllerDelegate
@@ -632,7 +650,7 @@
     //  Define calendar to be used
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
-    // Set today's date to just yeay, month, day
+    // Set today's date to just year, month, day
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
     NSDate *date = [NSDate date];
     NSDateComponents *todayNoHoursNoSeconds = [gregorianCalendar components:unitFlags fromDate:date];

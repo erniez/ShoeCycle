@@ -8,6 +8,7 @@
 
 #import "Shoe.h"
 @class History;
+@class WeeklyCollated;
 
 @interface Shoe (Helpers)
 
@@ -16,6 +17,6 @@
  */
 - (NSArray<History *> *)sortedRunHistoryAscending:(BOOL)ascending;
 
-- (NSDictionary *)collatedRunHistoryByWeekAscending:(BOOL)ascending;
+- (NSArray<WeeklyCollated *> *)collatedRunHistoryByWeekAscending:(BOOL)ascending;
 
 @end
