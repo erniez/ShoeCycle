@@ -532,10 +532,6 @@
     if (!self.runDatePickerViewController)
     {
         self.runDatePickerViewController = [[RunDatePickerViewController alloc] init];
-        CGRect dpFrame = self.runDatePickerViewController.view.frame;
-        dpFrame.origin.y = self.view.bounds.size.height;
-        dpFrame.size.height = 285;
-        self.runDatePickerViewController.view.frame = dpFrame;
         
         NSDate *datePickerDate = [NSDate date];
         if (self.runDateField.text.length > 0) {
@@ -543,15 +539,25 @@
         }
         [self.runDatePickerViewController setDate:datePickerDate];
         
+        UIView *dpView = self.runDatePickerViewController.view;
+        dpView.translatesAutoresizingMaskIntoConstraints = NO;
+        
         [self addChildViewController:self.runDatePickerViewController];
         [self.view addSubview:self.runDatePickerViewController.view];
         [self.runDatePickerViewController didMoveToParentViewController:self];
         
-        self.runDatePickerViewController.delegate = self;
+        [dpView.heightAnchor constraintEqualToConstant:250.0].active = YES;
+        [dpView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+        [dpView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+        NSLayoutConstraint *bottomConstraint = [dpView.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor constant:250.0];
+        bottomConstraint.active = YES;
+        [self.view layoutIfNeeded];
         
-        dpFrame.origin.y -= self.runDatePickerViewController.view.bounds.size.height;
+        self.runDatePickerViewController.delegate = self;
+     
         [UIView animateWithDuration:0.5 animations:^{
-            self.runDatePickerViewController.view.frame = dpFrame;
+            bottomConstraint.constant = 0.0;
+            [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
             
         }];
