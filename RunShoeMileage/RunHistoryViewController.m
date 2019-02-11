@@ -84,7 +84,7 @@
 {
     [super viewWillAppear:animated];
 
-	self.runs = [[self.shoe sortedRunHistory] mutableCopy];
+    self.runs = [[self.shoe sortedRunHistoryAscending:NO] mutableCopy];
 
     self.runsByTheMonth = [NSMutableArray new];
     NSMutableArray *runsForTheMonth = [NSMutableArray new];
@@ -235,6 +235,7 @@
         [CATransaction commit];
 
         [[ShoeStore defaultStore] saveChangesEZ];       // Save context
+        [self.delegate runHistoryDidChangeWithShoe:self.shoe];
     }
 }
 

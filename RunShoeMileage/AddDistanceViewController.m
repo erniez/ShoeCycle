@@ -12,6 +12,7 @@
 #import "RunHistoryViewController.h"
 #import "ShoeStore.h"
 #import "Shoe.h"
+#import "Shoe+Helpers.h"
 #import "History.h"
 #import "UserDistanceSetting.h"
 #import "ShoeCycleAppDelegate.h"
@@ -28,11 +29,11 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "GlobalStringConstants.h"
 #import "AnalyticsLogger.h"
+#import <Charts/Charts.h>
+#import "ShoeCycle-Swift.h"
 
-float const milesToKilometers;
 
-
-@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate>
+@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate, IChartAxisValueFormatter, RunHistoryViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addDistanceButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
@@ -59,6 +60,7 @@ float const milesToKilometers;
 @property (weak, nonatomic) IBOutlet UIStackView *statusIconsContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageScrollIndicators;
 @property (weak, nonatomic) IBOutlet UIView *swipeView;
+@property (weak, nonatomic) IBOutlet LineChartView *lineChartView;
 
 // Have to use strong because I remove these views from superView in viewDidLoad.
 // I do this, because I am using the nib to set up the views, rather than programatically.
@@ -73,6 +75,11 @@ float const milesToKilometers;
 
 @property (nonatomic) NSArray *dataSource;
 @property (weak, nonatomic) AnalyticsLogger *logger;
+
+@property (nonatomic, strong) LineChartDataSet *dataSet;
+@property (nonatomic, strong) ChartLimitLine *chartLimitLine;
+@property (nonatomic, strong) NSArray<WeeklyCollated *> *weeklyCollatedArray;
+@property (nonatomic) BOOL animateChart;
 
 @end
 
@@ -101,6 +108,12 @@ float const milesToKilometers;
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self loadDataSourceAndRefreshViews];
+}
+
+- (void)loadDataSourceAndRefreshViewAndChart
+{
+    [self loadDataSourceAndRefreshViews];
+    [self refreshChart];
 }
 
 - (void)loadDataSourceAndRefreshViews
@@ -170,6 +183,15 @@ float const milesToKilometers;
     }
 }
 
+- (void)refreshChart
+{
+    [self updateChartData];
+    if (self.animateChart) {
+        [self.lineChartView animateWithYAxisDuration:1.0];
+        self.animateChart = NO;
+    }
+}
+
 - (BOOL)checkForHealthKit
 {
     return [[HealthKitManager sharedManager] authorizationStatus];
@@ -178,7 +200,6 @@ float const milesToKilometers;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     if (self.noShoesInStore)
     {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"No shoes are being tracked:" message:@"You first need to add a shoe before you can add a distance." preferredStyle:UIAlertControllerStyleAlert];
@@ -190,6 +211,7 @@ float const milesToKilometers;
         [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
     }
+    [self refreshChart]; // The chart doesn't know it's entire layout until AFTER view will appear.
     
 }
 
@@ -263,6 +285,13 @@ float const milesToKilometers;
     self.swipeView.backgroundColor = [UIColor clearColor];
     [self.swipeView addGestureRecognizer:[self newSwipeDownRecognizer]];
     [self.swipeView addGestureRecognizer:[self newSwipeUpRecognizer]];
+
+    // iPhoneSE cannot fit the graph, so remove it.
+    if ([UIScreen mainScreen].bounds.size.height < 570) {
+        [self.lineChartView removeFromSuperview];
+    }
+    [self configureLineChartView];
+    self.animateChart = YES;
     
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -310,6 +339,86 @@ float const milesToKilometers;
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // must delloc from notification center or program will crash
 }
 
+- (void)configureLineChartView
+{
+    self.lineChartView.xAxis.labelTextColor = [UIColor whiteColor];
+    self.lineChartView.legend.textColor = [UIColor whiteColor];
+    self.lineChartView.xAxis.valueFormatter = self;
+    self.lineChartView.leftAxis.labelTextColor = [UIColor whiteColor];
+    self.lineChartView.leftAxis.drawGridLinesEnabled = NO;
+    self.lineChartView.leftAxis.axisMinimum = 0.0;
+    self.lineChartView.leftAxis.granularityEnabled = YES;
+    self.lineChartView.leftAxis.spaceTop = 0.25;
+    self.lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
+    self.lineChartView.xAxis.drawGridLinesEnabled = NO;
+    self.lineChartView.xAxis.granularityEnabled = YES;
+    self.lineChartView.rightAxis.enabled = NO;
+    self.lineChartView.minOffset = 24.0; // Need to do this because dates were getting cut off.
+    self.lineChartView.scaleYEnabled = NO;
+    self.lineChartView.scaleXEnabled = NO;
+    self.lineChartView.noDataTextColor = [UIColor whiteColor];
+    self.lineChartView.noDataFont = [UIFont systemFontOfSize:16.0];
+    self.lineChartView.noDataText = @"Please enter a run distance to see data in this graph.";
+    
+    self.chartLimitLine = [ChartLimitLine new];
+    self.chartLimitLine.lineColor = [UIColor shoeCycleBlue];
+    self.chartLimitLine.lineDashLengths = @[[NSNumber numberWithDouble:10.0], [NSNumber numberWithDouble:5.0]];
+    [self.lineChartView.leftAxis addLimitLine:self.chartLimitLine];
+}
+
+- (void)updateChartData
+{
+    self.lineChartView.data = nil;
+    self.dataSet = [LineChartDataSet new];
+    [self configureDataSet];
+    self.weeklyCollatedArray = [self.distShoe collatedRunHistoryByWeekAscending:YES];
+    [self.weeklyCollatedArray enumerateObjectsUsingBlock:^(WeeklyCollated * _Nonnull weeklyCollated, NSUInteger idx, BOOL * _Nonnull stop) {
+        double value = [weeklyCollated.runDistance doubleValue];
+        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:idx y:value];
+        if (![self.dataSet addEntry:dataEntry]) {
+            *stop = YES;
+        }
+    }];
+
+    if (self.weeklyCollatedArray.count > 0) {
+        self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
+        self.chartLimitLine.limit = self.dataSet.yMax;
+        // only show 12 datapoints at a time.
+        [self.lineChartView setVisibleXRangeMaximum:11];
+        // move the chart to show the latest values.
+        [self.lineChartView moveViewToX:self.dataSet.entryCount];
+    }
+}
+
+- (void)configureDataSet
+{
+    self.dataSet.circleRadius = 3.0;
+    self.dataSet.drawCircleHoleEnabled = NO;
+    self.dataSet.circleColor = [UIColor shoeCycleGreen];
+    self.dataSet.circleHoleColor = [UIColor shoeCycleBlue];
+    self.dataSet.color = [UIColor shoeCycleOrange];
+    self.dataSet.drawValuesEnabled = NO;
+    self.dataSet.label = @"Miles";
+}
+
+- (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
+{
+    if (self.weeklyCollatedArray.count <= value || value < 0 ) {
+        return @"";
+    }
+    WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
+    return [self.runDateFormatter stringFromDate:weeklyCollated.date];
+}
+
+- (NSArray *)createZeroChartData
+{
+    NSMutableArray *zeroData = [NSMutableArray new];
+    for (int i = 1; i <= 12; i++) {
+        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:i y:0.0];
+        [zeroData addObject:dataEntry];
+    }
+    return [zeroData copy];
+}
 
 - (IBAction)backgroundTapped:(id)sender 
 {
@@ -389,6 +498,9 @@ float const milesToKilometers;
             [self.logger logEventWithName:kLogTotalMileageEvent userInfo:@{kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue)}];
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];
+        
+        self.animateChart = YES;
+        [self refreshChart];
     };
     
     if ([UserDistanceSetting isStravaConnected]) {
@@ -458,7 +570,8 @@ float const milesToKilometers;
         selectedShoeIndex = [self.dataSource count] - 1;
     }
     [UserDistanceSetting setSelectedShoe:selectedShoeIndex];
-    [self loadDataSourceAndRefreshViews];
+    self.animateChart = YES;
+    [self loadDataSourceAndRefreshViewAndChart];
 }
 
 #pragma mark - RunDatePickerViewControllerDelegate
@@ -510,6 +623,7 @@ float const milesToKilometers;
     
     RunHistoryViewController *modalViewController = [[RunHistoryViewController alloc] init];
     modalViewController.shoe = self.distShoe;
+    modalViewController.delegate = self;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
    
@@ -536,7 +650,7 @@ float const milesToKilometers;
     //  Define calendar to be used
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
-    // Set today's date to just yeay, month, day
+    // Set today's date to just year, month, day
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
     NSDate *date = [NSDate date];
     NSDateComponents *todayNoHoursNoSeconds = [gregorianCalendar components:unitFlags fromDate:date];
@@ -593,6 +707,12 @@ float const milesToKilometers;
 - (void)hideHUD
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+#pragma RunHistoryViewControllerDelegate
+- (void)runHistoryDidChangeWithShoe:(Shoe *)shoe
+{
+    self.animateChart = YES;
 }
 
 @end
