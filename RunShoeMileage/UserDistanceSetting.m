@@ -26,7 +26,7 @@ NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
 
 @implementation UserDistanceSetting
 
-+ (NSInteger) getDistanceUnit
++ (NSInteger)getDistanceUnit
 {
     NSInteger distanceUnit;
     
@@ -81,6 +81,15 @@ NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
         }    
         return returnString;
     }
+}
+
++ (float)getDistanceFromMiles:(float)miles
+{
+    float runDistance = miles;
+    if ([UserDistanceSetting getDistanceUnit]) {
+        runDistance = miles * milesToKilometers;
+    }
+    return runDistance;
 }
 
 

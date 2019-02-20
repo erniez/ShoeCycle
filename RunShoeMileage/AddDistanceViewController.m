@@ -153,10 +153,7 @@
     }
     
     self.nameField.text = [NSString stringWithFormat:@"%@",self.distShoe.brand];
-    self.distanceUnitLabel.text = @"Miles";
-    if ([UserDistanceSetting getDistanceUnit]) {
-        self. distanceUnitLabel.text = @"Km";
-    }
+    self.distanceUnitLabel.text = [UserDistanceSetting unitOfMeasure];
     self.totalDistanceProgress.progress = self.distShoe.totalDistance.floatValue/self.distShoe.maxDistance.floatValue;
     [self.maxDistanceLabel setText:[NSString stringWithFormat:@"%@",[UserDistanceSetting displayDistance:[self.distShoe.maxDistance floatValue]]]];
     
@@ -373,7 +370,8 @@
     [self configureDataSet];
     self.weeklyCollatedArray = [self.distShoe collatedRunHistoryByWeekAscending:YES];
     [self.weeklyCollatedArray enumerateObjectsUsingBlock:^(WeeklyCollated * _Nonnull weeklyCollated, NSUInteger idx, BOOL * _Nonnull stop) {
-        double value = [weeklyCollated.runDistance doubleValue];
+        float runDistance = [UserDistanceSetting getDistanceFromMiles:[weeklyCollated.runDistance floatValue]];
+        double value = (double)runDistance;
         ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:idx y:value];
         if (![self.dataSet addEntry:dataEntry]) {
             *stop = YES;
@@ -398,7 +396,7 @@
     self.dataSet.circleHoleColor = [UIColor shoeCycleBlue];
     self.dataSet.color = [UIColor shoeCycleOrange];
     self.dataSet.drawValuesEnabled = NO;
-    self.dataSet.label = @"Miles";
+    self.dataSet.label = [UserDistanceSetting unitOfMeasure];
 }
 
 - (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
