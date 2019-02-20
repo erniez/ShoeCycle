@@ -209,7 +209,8 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     [self refreshChart]; // The chart doesn't know it's entire layout until AFTER view will appear.
-    
+    // reset no data text from empty.
+    self.lineChartView.noDataText = @"Please enter a run distance to see data in this graph.";
 }
 
 - (void)viewDidLoad
@@ -355,7 +356,8 @@
     self.lineChartView.scaleXEnabled = NO;
     self.lineChartView.noDataTextColor = [UIColor whiteColor];
     self.lineChartView.noDataFont = [UIFont systemFontOfSize:16.0];
-    self.lineChartView.noDataText = @"Please enter a run distance to see data in this graph.";
+    // Set no data text to empty to prevent it from flashing on the screen before view did appear.
+    self.lineChartView.noDataText = @"";
     
     self.chartLimitLine = [ChartLimitLine new];
     self.chartLimitLine.lineColor = [UIColor shoeCycleBlue];
