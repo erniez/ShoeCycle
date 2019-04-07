@@ -31,22 +31,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Test code
-    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    [calendar setFirstWeekday:2];
-    NSDate *priorDate = [NSDate new];
-    NSDate *beginningOfWeek = [priorDate beginningOfWeekForCalendar:calendar];
-    NSMutableArray *beginningOfWeeks = [NSMutableArray new];
-    NSDateComponents *comp = [NSDateComponents new];
-    comp.weekday = 2;
-    __block NSInteger limiter = 0;
-    [calendar enumerateDatesStartingAfterDate:priorDate matchingComponents:comp options:NSCalendarMatchNextTime usingBlock:^(NSDate * _Nullable date, BOOL exactMatch, BOOL * _Nonnull stop) {
-        limiter ++;
-        if (limiter == 5) {
-            *stop = YES;
-        }
-    }];
-    
     // Create the tabBarController
     tabBarController = [[UITabBarController alloc] init];
     

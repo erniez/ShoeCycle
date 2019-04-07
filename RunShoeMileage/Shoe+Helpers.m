@@ -9,6 +9,7 @@
 #import "Shoe+Helpers.h"
 #import "History.h"
 #import "ShoeCycle-Swift.h"
+#import "UserDistanceSetting.h"
 
 @implementation Shoe (Helpers)
 
@@ -29,8 +30,7 @@
     // We actually want the gregorian calendar here, because we want the first day of the week to be consistent.
     // i.e. Weekday 2 is Monday.
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    // TODO: Make this configurable
-    [calendar setFirstWeekday:2];  // Set Monday to be first day of the week.
+    [calendar setFirstWeekday:[UserDistanceSetting getFirstDayOfWeek]];
     dateFormatter.dateStyle = NSDateFormatterShortStyle;
     NSArray *sortedRuns = [self sortedRunHistoryAscending:ascending];
     [sortedRuns enumerateObjectsUsingBlock:^(History  * _Nonnull history, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -72,7 +72,7 @@
     NSDate *beginningOfWeekForCompareDate = [compareDate beginningOfWeekForCalendar:calendar];
     NSMutableArray<NSDate *> *beginningOfWeeks = [NSMutableArray new];
     NSDateComponents *components = [NSDateComponents new];
-    components.weekday = 2; // TODO: also needs to be configurable
+    components.weekday = [UserDistanceSetting getFirstDayOfWeek];
     [calendar enumerateDatesStartingAfterDate:beginningOfWeekForPriorDate matchingComponents:components options:NSCalendarMatchNextTime usingBlock:^(NSDate * _Nullable date, BOOL exactMatch, BOOL * _Nonnull stop) {
         NSComparisonResult dateCompare = [date compare:beginningOfWeekForCompareDate];
         if (dateCompare == NSOrderedDescending || dateCompare == NSOrderedSame) {

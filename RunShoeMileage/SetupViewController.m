@@ -30,6 +30,11 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 @property (weak, nonatomic) IBOutlet UIView *unitsBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *favoriteDistancesBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *unitsTitleLabel;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *firstDayOfWeekControl;
+@property (weak, nonatomic) IBOutlet UIView *firstDayOfWeekBackground;
+@property (weak, nonatomic) IBOutlet UILabel *firstDayOfWeekTitleLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *favDistancesTitleLabel;
 @property (weak, nonatomic) IBOutlet UIView *enableHealthKitBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *enableHealthKitLabel;
@@ -90,6 +95,10 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 {
     [super viewDidLoad];
     
+    if ([UIUtilities isSmallScreenSize]) {
+        [self.firstDayOfWeekBackground removeFromSuperview];
+    }
+    
     self.unitsTitleLabel.textColor = [UIColor shoeCycleOrange];
     self.favDistancesTitleLabel.textColor = [UIColor shoeCycleGreen];
     self.enableHealthKitLabel.textColor = [UIColor shoeCycleBlue];
@@ -130,6 +139,11 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
     self.unitsBackgroundView.layer.borderColor = [UIColor shoeCycleOrange].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.unitsBackgroundView];
     
+    self.firstDayOfWeekBackground.layer.borderColor = [UIColor shoeCycleBlue].CGColor;
+    [UIUtilities configureInputFieldBackgroundViews:self.firstDayOfWeekBackground];
+    self.firstDayOfWeekTitleLabel.textColor = [UIColor shoeCycleBlue];
+    
+    
     self.favoriteDistancesBackgroundView.layer.borderColor = [UIColor shoeCycleGreen].CGColor;
     [UIUtilities configureInputFieldBackgroundViews:self.favoriteDistancesBackgroundView];
     
@@ -147,6 +161,10 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
     lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.favoriteDistancesBackgroundView.bounds.size.height);
     lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleGreen]];
     [self.favoriteDistancesBackgroundView addSubview:lineView];
+    
+    lineFrame = CGRectMake(lineXposition, 0, lineWidth, self.firstDayOfWeekBackground.bounds.size.height);
+    lineView = [UIUtilities getDottedLineForFrame:lineFrame color:[UIColor shoeCycleBlue]];
+    [self.firstDayOfWeekBackground addSubview:lineView];
 }
 
 
@@ -154,6 +172,7 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 {
     [super viewWillAppear:animated];
     [self.distanceUnitControl setSelectedSegmentIndex:[UserDistanceSetting getDistanceUnit]];
+    [self.firstDayOfWeekControl setSelectedSegmentIndex:([UserDistanceSetting getFirstDayOfWeek] - 1)];
     [self refreshUserDefinedDistances];
     [self.enableHealthKitSwitch setOn:[UserDistanceSetting getHealthKitEnabled] animated:NO];
     [self updateEnableHealthKitInfoLabel];
@@ -267,6 +286,12 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
     [UserDistanceSetting setDistanceUnit:[sender selectedSegmentIndex]];
     [self refreshUserDefinedDistances];
 }
+
+- (IBAction)changeFirstDayOfWeek:(id)sender
+{
+    [UserDistanceSetting setFirstDayOfWeek:([sender selectedSegmentIndex] + 1)];
+}
+
 
 - (IBAction)enableHealthKitValueDidChange:(id)sender
 {

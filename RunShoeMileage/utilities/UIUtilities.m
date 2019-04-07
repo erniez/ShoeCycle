@@ -74,4 +74,12 @@
     return NO;
 }
 
++ (BOOL)isSmallScreenSize
+{
+    if ([UIScreen mainScreen].bounds.size.height < 570) {
+        return YES;
+    }
+    return NO;
+}
+
 @end

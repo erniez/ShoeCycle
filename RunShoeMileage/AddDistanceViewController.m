@@ -285,7 +285,7 @@
     [self.swipeView addGestureRecognizer:[self newSwipeUpRecognizer]];
 
     // iPhoneSE cannot fit the graph, so remove it.
-    if ([UIScreen mainScreen].bounds.size.height < 570) {
+    if ([UIUtilities isSmallScreenSize]) {
         [self.lineChartView removeFromSuperview];
     }
     [self configureLineChartView];

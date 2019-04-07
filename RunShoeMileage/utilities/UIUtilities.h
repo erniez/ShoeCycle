@@ -17,5 +17,6 @@ static const CGFloat lineWidth = 2.0;
 + (void)setShoeCyclePatternedBackgroundOnView:(UIView *)view;
 + (UIView *)getDottedLineForFrame:(CGRect)frame color:(UIColor *)color;
 + (BOOL)isIphone4ScreenSize;
++ (BOOL)isSmallScreenSize; // iPhone SE or smaller
 
 @end

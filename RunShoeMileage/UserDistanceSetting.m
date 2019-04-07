@@ -22,6 +22,7 @@ NSString * const TreadTrackerUserDefineDistance4PrefKey = @"TreadTrackerUserDefi
 NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePrefKey";
 NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
 NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
+NSString * const ShoeCycleFirstDayOfWeekKey = @"ShoeCycleFirstDayOfWeekKey";
 
 
 @implementation UserDistanceSetting
@@ -49,6 +50,22 @@ NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++ (NSInteger)getFirstDayOfWeek
+{
+    NSInteger firstDayOfWeek = [[NSUserDefaults standardUserDefaults] integerForKey:ShoeCycleFirstDayOfWeekKey];
+    if (firstDayOfWeek) {
+        return firstDayOfWeek;
+    }
+    firstDayOfWeek = 2; // default to Monday
+    [self setFirstDayOfWeek:firstDayOfWeek];
+    return firstDayOfWeek;
+}
+
++ (void)setFirstDayOfWeek:(NSInteger)setting
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:setting forKey:ShoeCycleFirstDayOfWeekKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 + (NSString *) displayDistance:(float)runDistance
 {
