@@ -373,6 +373,8 @@
     self.chartLimitLine = [ChartLimitLine new];
     self.chartLimitLine.lineColor = [UIColor shoeCycleBlue];
     self.chartLimitLine.lineDashLengths = @[[NSNumber numberWithDouble:10.0], [NSNumber numberWithDouble:5.0]];
+    self.chartLimitLine.labelPosition = ChartLimitLabelPositionLeftTop;
+    self.chartLimitLine.valueTextColor = [UIColor shoeCycleBlue];
     [self.lineChartView.leftAxis addLimitLine:self.chartLimitLine];
 }
 
@@ -394,6 +396,7 @@
     if (self.weeklyCollatedArray.count > 0) {
         self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
         self.chartLimitLine.limit = self.dataSet.yMax;
+        self.chartLimitLine.label = [NSString stringWithFormat:@"%.2f", self.dataSet.yMax];
         // only show 12 datapoints at a time.
         [self.lineChartView setVisibleXRangeMaximum:11];
         // move the chart to show the latest values.
