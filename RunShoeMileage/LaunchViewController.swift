@@ -14,6 +14,10 @@ class LaunchViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var logoImageView: UIImageView!
     @objc var onAnimationCompletion: (() -> Void)?
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIUtilities.setShoeCyclePatternedBackgroundOn(view)
@@ -99,11 +103,11 @@ class LaunchViewController: UIViewController, CAAnimationDelegate {
     
     private func displayNewFeaturesInfo(_ viewController: UIViewController) {
         let newFeatures = FTUUtility.newFeatures()
-        if !newFeatures.isEmpty {
-            let featureText = FTUUtility.featureText(forFeatureKey: newFeatures.first)
+        if let newFeature = newFeatures.first {
+            let featureText = FTUUtility.featureText(forFeatureKey: newFeature)
             let alert = UIAlertController(title: "New Feature", message: featureText, preferredStyle: .alert)
             let readConfirmation = UIAlertAction(title: "Don't show again", style: .default) { action in
-                FTUUtility.completeFeature(newFeatures.first!)
+                FTUUtility.completeFeature(newFeature)
             }
             let done = UIAlertAction.init(title: "Done", style: .cancel, handler: nil)
             alert.addAction(readConfirmation)

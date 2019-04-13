@@ -58,16 +58,16 @@
     [super viewDidLoad];
   
     // Configure the sticky table header view.
-    self.runDateHeaderLabel.text = NSLocalizedString(@"Run Date", @"");
+    self.runDateHeaderLabel.text = @"Run Date";
     self.runDateHeaderLabel.textColor = [UIColor blackColor];
     self.runDateHeaderLabel.font = [UIFont boldSystemFontOfSize:17];
     self.runDateHeaderLabel.backgroundColor = [UIColor clearColor];
 
     if ([UserDistanceSetting getDistanceUnit]) {
-        self.distanceHeaderLabel.text = NSLocalizedString(@"Distance(km)", @"");
+        self.distanceHeaderLabel.text = @"Distance(km)";
     }
     else {
-        self.distanceHeaderLabel.text = NSLocalizedString(@"Distance(miles)", @"");
+        self.distanceHeaderLabel.text = @"Distance(miles)";
     }
     
     self.distanceHeaderLabel.textColor = [UIColor blackColor];

@@ -47,4 +47,12 @@ class AppViewController: UIViewController {
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override var childForStatusBarStyle: UIViewController? {
+        return viewController
+    }
+    
 }

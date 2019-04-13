@@ -89,6 +89,10 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad

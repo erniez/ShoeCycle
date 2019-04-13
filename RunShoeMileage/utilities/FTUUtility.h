@@ -10,9 +10,9 @@
 
 @interface FTUUtility : NSObject
 
-+ (NSString *)featureTextForFeatureKey:(NSString *)featureKey;
++ (NSString *_Nonnull)featureTextForFeatureKey:(NSString *_Nonnull)featureKey;
 + (NSArray<NSString *> * _Nonnull)newFeatures;
-+ (void)completeFeature:(NSString *)featureKey;
++ (void)completeFeature:(NSString *_Nonnull)featureKey;
 + (NSArray<NSString *> * __nonnull)featureKeys;
 
 @end

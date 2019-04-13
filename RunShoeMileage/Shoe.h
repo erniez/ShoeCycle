@@ -35,7 +35,6 @@
 - (void)addHistory:(NSSet *)values;
 - (void)removeHistory:(NSSet *)values;
 
-- (void)setThumbnailDataFromImage:(UIImage *)image width:(int)w height:(int)h;
-+ (CGSize)thumbnailSizeFromWidth:(int)w height:(int)h;
+- (void)setThumbnailDataFromImage:(UIImage *)image width:(CGFloat)width height:(CGFloat)height;
 
 @end

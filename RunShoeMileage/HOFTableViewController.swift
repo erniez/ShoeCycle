@@ -42,7 +42,7 @@ class HOFTableViewController: UITableViewController {
     }
     
     private func setupDataSource() {
-        let hofShoes = ShoeStore.default().hallOfFameShoes() ?? [Shoe]()
+        let hofShoes = ShoeStore.default().hallOfFameShoes()
         tableData = hofShoes.sorted { $0.totalDistance.doubleValue > $1.totalDistance.doubleValue }
         if tableData.isEmpty {
             tableView.backgroundView = UITableView.emptyDataBackgroundView(message: "You have no shoes in the Hall of Fame.  To add one, please edit the shoe you want to add.")
@@ -53,7 +53,7 @@ class HOFTableViewController: UITableViewController {
     
     private func checkForRemoval(shoe: Shoe) {
         if !shoe.hallOfFame {
-            if let index = tableData.index(of: shoe) {
+            if let index = tableData.firstIndex(of: shoe) {
                 CATransaction.setCompletionBlock({
                     self.setupDataSource()
                     self.tableView.reloadData()
