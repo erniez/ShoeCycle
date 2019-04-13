@@ -35,13 +35,13 @@
 }
 
 
-- (void)setThumbnailDataFromImage:(UIImage *)image width:(int)w height:(int)h
+- (void)setThumbnailDataFromImage:(UIImage *)image width:(CGFloat)width height:(CGFloat)height
 {
     CGSize origImageSize = [image size];
     
     CGRect newRect;
     newRect.origin = CGPointZero;
-    newRect.size = [[self class] thumbnailSizeFromWidth:w height:h];
+    newRect.size = CGSizeMake(width, height);
     
     // How do we scale the image?
     float ratio = MAX(newRect.size.width/origImageSize.width,
@@ -76,12 +76,5 @@
     // Cleanup image context resources, we're done
     UIGraphicsEndImageContext();
 }
-
-
-+ (CGSize)thumbnailSizeFromWidth:(int)w height:(int)h
-{
-    return CGSizeMake(w, h);
-}
-
 
 @end

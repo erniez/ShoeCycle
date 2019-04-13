@@ -15,6 +15,7 @@
 #import "RunDatePickerViewController.h"
 #import "GlobalStringConstants.h"
 #import "AnalyticsLogger.h"
+#import "ShoeCycle-Swift.h"
 
 
 @interface ShoeDetailViewController () <RunDatePickerViewDelegate>
@@ -27,10 +28,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wearTimeTitleLabel;
 @property (nonatomic, strong) RunDatePickerViewController *runDatePickerViewController;
-// Have to retain the imagePicker as its own property, or else it will crash when you rotate after taking a picture.
+// Have to retain the imagePickerDelegate as its own property, or else it will crash when you rotate after taking a picture.
 // The crash is caused by notification sender sending the imagePicker a rotation notification, and it not being around
 // to process it, getting an unrecogized selector error.
-@property (nonatomic, strong) UIImagePickerController *imagePickerController;
+@property (nonatomic, strong) ImagePickerDelegate *imagePickerDelegate;
 
 @property (nonatomic) BOOL isNew;
 @property (nonatomic) BOOL newShoeIsCancelled;
@@ -234,74 +235,13 @@
 
 - (IBAction)takePicture:(id)sender
 {
-    UIAlertController *pictureAlertController = [UIAlertController alertControllerWithTitle:@"Choose Picture Method" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self presentImagePickerControllerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    self.imagePickerDelegate = [[ImagePickerDelegate alloc] initWithShoe:self.shoe];
+    __weak typeof(self) weakSelf = self;
+    [self.imagePickerDelegate setOnDidFinishPicking:^(UIImage * _Nullable image) {
+        weakSelf.imageView.image = image;
     }];
-    
-    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self presentImagePickerControllerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    
-    [pictureAlertController addAction:cameraAction];
-    [pictureAlertController addAction:libraryAction];
-    [pictureAlertController addAction:cancelAction];
-    
-    [self presentViewController:pictureAlertController animated:YES completion:nil];
+    [self.imagePickerDelegate presentImagePickerAlertViewControllerWithPresentingViewController:self];
 }
-
-- (void)presentImagePickerControllerForSourceType:(UIImagePickerControllerSourceType)sourceType
-{
-    self.imagePickerController.sourceType = sourceType;
-    [self.imagePickerController setDelegate:self];
-    [self presentViewController:self.imagePickerController animated:YES completion:nil];
-}
-
-
-- (void)imagePickerController:(UIImagePickerController *)picker 
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSString *oldKey = [self.shoe imageKey];
-    
-    
-    // Did the possession already have an image?
-    if (oldKey) {
-        // Delete the old image
-        [[ImageStore defaultImageStore] deleteImageForKey:oldKey];
-    }
-    
-    // Get picked image from info dictionary
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-
-    // Create a CFUUID object - it knows how to create unique identifier strings
-    CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
-    
-    // Create a string from a unique identifier
-    CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
-    
-    // Use that unique ID to set our possessions imageKey
-    [self.shoe setImageKey:(__bridge NSString *)newUniqueIDString];
-    
-    // We used "Create" in the functions to make objects, we need to release them
-    CFRelease(newUniqueIDString);
-    CFRelease(newUniqueID);
-    
-    // Store  image in the ImageStore with this key
-    [[AnalyticsLogger sharedLogger] logEventWithName:kShoePictureAddedEvent userInfo:nil];
-    [[ImageStore defaultImageStore] setImage:image withWidth:210 withHeight:140 forKey:[self.shoe imageKey]];
-
-    // Put that image onto the screen in our image view
-    [self.imageView setImage:image];
-    
-    [self.shoe setThumbnailDataFromImage:image width:143 height:96];
-    
-    // Take image picker off the screen - You must call this dismiss method
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 
 - (IBAction)save:(id)sender
 {
@@ -421,16 +361,4 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         [self.view layoutIfNeeded];
     }];
 }
-
-#pragma Getters / Setters
-
-- (UIImagePickerController *)imagePickerController
-{
-    if (!_imagePickerController)
-    {
-        _imagePickerController = [[UIImagePickerController alloc] init];
-    }
-    return _imagePickerController;
-}
-
 @end

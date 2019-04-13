@@ -75,11 +75,14 @@
 
 @property (nonatomic) NSArray *dataSource;
 @property (weak, nonatomic) AnalyticsLogger *logger;
+@property (nonatomic) UITapGestureRecognizer *shoeImageTapRecognizer;
 
 @property (nonatomic, strong) LineChartDataSet *dataSet;
 @property (nonatomic, strong) ChartLimitLine *chartLimitLine;
 @property (nonatomic, strong) NSArray<WeeklyCollated *> *weeklyCollatedArray;
 @property (nonatomic) BOOL animateChart;
+
+@property (nonatomic, strong) ImagePickerDelegate *imagePickerDelegate;
 
 @end
 
@@ -162,10 +165,12 @@
     if ([self.distShoe thumbnail]) {
         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.imageView setImage:[self.distShoe thumbnail]];
+        self.shoeImageTapRecognizer.enabled = NO;
     }
     else {
         self.imageView.contentMode = UIViewContentModeCenter;
         [self.imageView setImage:[UIImage imageNamed:@"photo-placeholder"]];
+        self.shoeImageTapRecognizer.enabled = YES;
     }
 
     [self.totalDistanceLabel setText:[UserDistanceSetting displayDistance:self.distShoe.totalDistance.floatValue]];
@@ -216,8 +221,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.logger = [AnalyticsLogger sharedLogger];
+    
+    self.shoeImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shoeImageTapped:)];
     
     [self.connectedToHealthKitAlert removeFromSuperview];
     [self.connectedToStravaView removeFromSuperview];
@@ -283,6 +289,7 @@
     self.swipeView.backgroundColor = [UIColor clearColor];
     [self.swipeView addGestureRecognizer:[self newSwipeDownRecognizer]];
     [self.swipeView addGestureRecognizer:[self newSwipeUpRecognizer]];
+    [self.swipeView addGestureRecognizer:self.shoeImageTapRecognizer];
 
     // iPhoneSE cannot fit the graph, so remove it.
     if ([UIUtilities isSmallScreenSize]) {
@@ -635,6 +642,18 @@
    
     [self.logger logEventWithName:kShowHistoryEvent userInfo:nil];
     [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)shoeImageTapped:(id)send
+{
+    NSLog(@"shoe tapped");
+    self.imagePickerDelegate = [[ImagePickerDelegate alloc] initWithShoe:self.distShoe];
+    __weak typeof(self) weakSelf = self;
+    [self.imagePickerDelegate setOnDidFinishPicking:^(UIImage * _Nullable image) {
+        weakSelf.imageView.image = image;
+        [[ShoeStore defaultStore] saveChangesEZ];
+    }];
+    [self.imagePickerDelegate presentImagePickerAlertViewControllerWithPresentingViewController:self];
 }
 
 - (void)calculateDaysLeftProgressBar

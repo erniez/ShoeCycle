@@ -16,3 +16,5 @@
 #import "EditShoesNavController.h"
 #import "GlobalStringConstants.h"
 #import "FTUUtility.h"
+#import "ImageStore.h"
+#import "AnalyticsLogger.h"
