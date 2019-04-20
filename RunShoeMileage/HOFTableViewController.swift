@@ -63,6 +63,7 @@ class HOFTableViewController: UITableViewController {
                 tableData.remove(at: index)
                 tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableView.RowAnimation.automatic)
                 tableView.endUpdates()
+                ShoeStore.default().move(toLastPlace: shoe);
                 CATransaction.commit()
             }
         }

@@ -96,6 +96,8 @@
 
 - (NSArray<Shoe *> *)hallOfFameShoes
 {
+    // Erase all shoes so they get reloaded and reorderd.
+    self.mAllShoes = nil;
     [self fetchShoesIfNecessary];
     NSPredicate *hallOfFamePredicate = [NSPredicate predicateWithBlock:^BOOL(Shoe   * _Nullable shoe, NSDictionary<NSString *,id> * _Nullable bindings) {
         return shoe.hallOfFame;
@@ -105,6 +107,8 @@
 
 - (NSArray<Shoe *> *)activeShoes
 {
+    // Erase all shoes so they get reloaded and reorderd.
+    self.mAllShoes = nil;
     [self fetchShoesIfNecessary];
     NSPredicate *hallOfFamePredicate = [NSPredicate predicateWithBlock:^BOOL(Shoe   * _Nullable shoe, NSDictionary<NSString *,id> * _Nullable bindings) {
         return !shoe.hallOfFame;
@@ -152,32 +156,35 @@
     if (from == to) {
         return;
     }
+
+    NSMutableArray *activeShoes = [self.activeShoes mutableCopy];
+    
     // Get pointer to object being moved
-    Shoe *s = [self.mAllShoes objectAtIndex:from];
+    Shoe *s = [activeShoes objectAtIndex:from];
      
     // Remove s from array, it is automatically sent release
-    [self.mAllShoes removeObjectAtIndex:from];
+    [activeShoes removeObjectAtIndex:from];
      
     // Insert s in array at new location, retained by array
-    [self.mAllShoes insertObject:s atIndex:to];
+    [activeShoes insertObject:s atIndex:to];
  
     // Computing a new orderValue for the object that was moved
     double lowerBound = 0.0;
     
     // Is there an object before it in the array?
     if (to > 0) {
-        lowerBound = [[[self.mAllShoes objectAtIndex:to - 1] orderingValue] doubleValue];
+        lowerBound = [[[activeShoes objectAtIndex:to - 1] orderingValue] doubleValue];
     } else {
-        lowerBound = [[[self.mAllShoes objectAtIndex:1] orderingValue] doubleValue] - 2.0;
+        lowerBound = [[[activeShoes objectAtIndex:1] orderingValue] doubleValue] - 2.0;
     }
     
     double upperBound = 0.0;
     
     // Is there an object after it in the array?
-    if (to < [self.mAllShoes count] - 1) {
-        upperBound = [[[self.mAllShoes objectAtIndex:to + 1] orderingValue] doubleValue];
+    if (to < [activeShoes count] - 1) {
+        upperBound = [[[activeShoes objectAtIndex:to + 1] orderingValue] doubleValue];
     } else {
-        upperBound = [[[self.mAllShoes objectAtIndex:to - 1] orderingValue] doubleValue] + 2.0;
+        upperBound = [[[activeShoes objectAtIndex:to - 1] orderingValue] doubleValue] + 2.0;
     }
     
     // The order value will be the midpoint between the lower and upper bounds
@@ -185,6 +192,7 @@
     
     EZLog(@"Moving to order %@",n);
     [s setOrderingValue:n];
+    [self saveChangesEZ];
 }
 
 
@@ -279,6 +287,16 @@
 {
     [self.context deleteObject:h];
     return;
+}
+
+- (void)moveToLastPlace:(Shoe *)shoe
+{
+    Shoe *lastShoe = [self.mAllShoes lastObject];
+    if (lastShoe) {
+        NSNumber *order = lastShoe.orderingValue;
+        shoe.orderingValue = [NSNumber numberWithDouble:[order doubleValue] + 1];
+        [self saveChangesEZ];
+    }
 }
 
 @end

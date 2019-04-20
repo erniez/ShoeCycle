@@ -28,5 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchShoesIfNecessary;
 - (void)removeHistory:(History *)h atShoe:(Shoe *)s;
 - (void)updateTotalDistanceForShoe:(Shoe *)shoe;
+- (void)moveToLastPlace:(Shoe *)shoe;
 NS_ASSUME_NONNULL_END
 @end
