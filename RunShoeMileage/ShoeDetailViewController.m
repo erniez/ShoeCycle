@@ -80,6 +80,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (self.isNew)
+    {
+        [self configureToolbar];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -190,9 +194,12 @@
     self.startDate = self.shoe.startDate;
     [self.startDateField setText:[self.expirationDateFormatter stringFromDate:self.shoe.startDate]];
     EZLog(@"Will Appear Date = %@",self.shoe.expirationDate);
-    
-    if (self.isNew)
-    {
+    [self updateHallOfFameButtonText];
+}
+
+- (void)configureToolbar
+{
+    if (!self.toolbar) {
         UIBarButtonItem *camera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:nil action:@selector(takePicture:)];
         UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
         
@@ -200,17 +207,15 @@
         
         self.toolbar = [UIToolbar new];
         self.toolbar.barStyle = UIBarStyleDefault;
-        
-        // size up the toolbar and set its frame
-        [self.toolbar sizeToFit];
-        CGFloat toolbarHeight = [self.toolbar bounds].size.height;
-        self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height - toolbarHeight, self.view.bounds.size.height, toolbarHeight);
-        
+
         [self.toolbar setItems:items animated:YES];
         
+        self.toolbar.translatesAutoresizingMaskIntoConstraints = NO;
         [self.view addSubview:self.toolbar];
+        [self.toolbar.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:0.0].active = YES;
+        [self.toolbar.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:0.0].active = YES;
+        [self.toolbar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0.0].active = YES;
     }
-    [self updateHallOfFameButtonText];
 }
 
 // ==========================================================================================
