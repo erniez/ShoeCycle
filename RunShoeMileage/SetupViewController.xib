@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -91,44 +91,40 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ln1-vh-RGs" userLabel="Favorites Background">
                             <rect key="frame" x="16" y="175" width="305" height="118"/>
                             <subviews>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 1" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DfB-vW-D0K">
-                                    <rect key="frame" x="115" y="20.5" width="87" height="30"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 1" textAlignment="center" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DfB-vW-D0K">
+                                    <rect key="frame" x="98" y="20.5" width="95.5" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="N4v-zg-BhQ"/>
-                                        <constraint firstAttribute="width" constant="87" id="g3F-iu-i6B"/>
                                     </constraints>
                                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 2" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Cnf-22-j02">
-                                    <rect key="frame" x="210" y="20" width="87" height="31"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 2" textAlignment="center" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Cnf-22-j02">
+                                    <rect key="frame" x="201.5" y="20" width="95.5" height="31"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="87" id="7ew-ad-2EU"/>
                                         <constraint firstAttribute="height" constant="31" id="PQm-gY-sZY"/>
                                     </constraints>
                                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 3" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1sM-Ly-XpR">
-                                    <rect key="frame" x="115" y="68" width="87" height="30"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 3" textAlignment="center" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1sM-Ly-XpR">
+                                    <rect key="frame" x="98" y="68" width="95.5" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="PGd-x5-GCb"/>
-                                        <constraint firstAttribute="width" constant="87" id="bEd-eP-OVu"/>
                                     </constraints>
                                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 4" textAlignment="center" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HK2-pn-eyv">
-                                    <rect key="frame" x="210" y="68" width="87" height="30"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Favorite 4" textAlignment="center" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HK2-pn-eyv">
+                                    <rect key="frame" x="201.5" y="68" width="95.5" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="2lR-tz-fDE"/>
-                                        <constraint firstAttribute="width" constant="87" id="wrx-0L-zfl"/>
                                     </constraints>
                                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tC-7Y-JFt" userLabel="FavContainer">
@@ -160,6 +156,9 @@
                             <constraints>
                                 <constraint firstItem="HK2-pn-eyv" firstAttribute="leading" secondItem="1sM-Ly-XpR" secondAttribute="trailing" constant="8" id="7BX-eQ-ck7"/>
                                 <constraint firstAttribute="height" constant="118" id="C0i-u9-tAe"/>
+                                <constraint firstItem="HK2-pn-eyv" firstAttribute="width" secondItem="1sM-Ly-XpR" secondAttribute="width" id="CpA-c2-xfO"/>
+                                <constraint firstItem="DfB-vW-D0K" firstAttribute="leading" secondItem="1sM-Ly-XpR" secondAttribute="leading" id="EAe-he-gcD"/>
+                                <constraint firstItem="DfB-vW-D0K" firstAttribute="leading" secondItem="3tC-7Y-JFt" secondAttribute="trailing" constant="8" id="Z6o-nN-MXg"/>
                                 <constraint firstAttribute="centerY" secondItem="3tC-7Y-JFt" secondAttribute="centerY" id="aLA-h9-29y"/>
                                 <constraint firstItem="Cnf-22-j02" firstAttribute="leading" secondItem="DfB-vW-D0K" secondAttribute="trailing" constant="8" id="bdH-oS-7Ef"/>
                                 <constraint firstAttribute="trailing" secondItem="Cnf-22-j02" secondAttribute="trailing" constant="8" id="cfm-Aq-MEH"/>
@@ -167,6 +166,7 @@
                                 <constraint firstItem="3tC-7Y-JFt" firstAttribute="leading" secondItem="Ln1-vh-RGs" secondAttribute="leading" id="fAW-4M-wDs"/>
                                 <constraint firstItem="HK2-pn-eyv" firstAttribute="centerY" secondItem="1sM-Ly-XpR" secondAttribute="centerY" id="hIa-0c-MnC"/>
                                 <constraint firstItem="Cnf-22-j02" firstAttribute="top" secondItem="Ln1-vh-RGs" secondAttribute="top" constant="20" id="mCZ-vv-Q0k"/>
+                                <constraint firstItem="Cnf-22-j02" firstAttribute="width" secondItem="DfB-vW-D0K" secondAttribute="width" id="sDT-R9-f0Y"/>
                                 <constraint firstAttribute="bottom" secondItem="HK2-pn-eyv" secondAttribute="bottom" constant="20" id="wDE-6S-hec"/>
                                 <constraint firstItem="DfB-vW-D0K" firstAttribute="centerY" secondItem="Cnf-22-j02" secondAttribute="centerY" id="xrD-bl-VZy"/>
                             </constraints>
