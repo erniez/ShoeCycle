@@ -373,7 +373,7 @@
     self.chartLimitLine = [ChartLimitLine new];
     self.chartLimitLine.lineColor = [UIColor shoeCycleBlue];
     self.chartLimitLine.lineDashLengths = @[[NSNumber numberWithDouble:10.0], [NSNumber numberWithDouble:5.0]];
-    self.chartLimitLine.labelPosition = ChartLimitLabelPositionLeftTop;
+    self.chartLimitLine.labelPosition = ChartLimitLabelPositionTopLeft;
     self.chartLimitLine.valueTextColor = [UIColor shoeCycleBlue];
     [self.lineChartView.leftAxis addLimitLine:self.chartLimitLine];
 }
@@ -398,9 +398,11 @@
         self.chartLimitLine.limit = self.dataSet.yMax;
         self.chartLimitLine.label = [NSString stringWithFormat:@"%.2f", self.dataSet.yMax];
         // move the chart to show the latest values.
-        [self.lineChartView moveViewToX:self.dataSet.entryCount];
+        double moveToValue = self.dataSet.xMax; // - (12 - 1);
         // only show 12 datapoints at a time.
-        [self.lineChartView setVisibleXRangeMaximum:11];
+        [self.lineChartView setVisibleXRangeWithMinXRange:12 - 1 maxXRange:12 - 1];
+        // The moveViewToX method must be called last, or else unpredictable behavior happens.
+        [self.lineChartView moveViewToX: moveToValue];
     }
 }
 
@@ -415,6 +417,7 @@
     self.dataSet.label = [UserDistanceSetting unitOfMeasure];
 }
 
+#pragma mark - IChartAxisValueFormatter
 - (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
 {
     if (self.weeklyCollatedArray.count <= value || value < 0 ) {
@@ -423,16 +426,7 @@
     WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
     return [self.runDateFormatter stringFromDate:weeklyCollated.date];
 }
-
-- (NSArray *)createZeroChartData
-{
-    NSMutableArray *zeroData = [NSMutableArray new];
-    for (int i = 1; i <= 12; i++) {
-        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:i y:0.0];
-        [zeroData addObject:dataEntry];
-    }
-    return [zeroData copy];
-}
+#pragma mark -
 
 - (IBAction)backgroundTapped:(id)sender 
 {

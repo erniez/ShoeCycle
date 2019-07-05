@@ -272,7 +272,10 @@
 {
     if (!self.helpBubble)
     {
-        UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(190, 20, 120, 90)];
+        // Magic numbers imperically found.
+        CGFloat bubbleWidth = 120;
+        CGFloat containerXPosition = UIScreen.mainScreen.bounds.size.width - (bubbleWidth) - 11;
+        UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(containerXPosition, 20, bubbleWidth, 90)];
         UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
         [helpLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
         helpLabel.numberOfLines = 0;
