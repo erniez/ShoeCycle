@@ -11,7 +11,7 @@ import Foundation
 class WeeklyCollated: NSObject {
     @objc let date: NSDate
     @objc var runDistance: NSNumber
-    
+
     @objc
     init(date: NSDate, runDistance: NSNumber) {
         self.date = date

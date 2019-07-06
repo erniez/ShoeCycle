@@ -8,35 +8,34 @@
 import Foundation
 import UIKit
 
-
 class LaunchViewController: UIViewController, CAAnimationDelegate {
-    
+
     @IBOutlet weak var logoImageView: UIImageView!
     @objc var onAnimationCompletion: (() -> Void)?
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         UIUtilities.setShoeCyclePatternedBackgroundOn(view)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         logoImageView.center = view.center
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         performAnimations()
     }
-    
+
     @objc
     func getLogoView() -> UIView {
         return logoImageView
     }
-    
+
     func performAnimations() {
         let xValue =  self.logoImageView.bounds.size.width/2.0 + 16.0
         let yValue = logoImageView.bounds.size.height/2.0 + 16.0
@@ -45,8 +44,8 @@ class LaunchViewController: UIViewController, CAAnimationDelegate {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: view.center.x, y: view.center.y))
         path.addQuadCurve(to: toPoint,
-                          controlPoint: CGPoint(x:logoImageView.bounds.size.width/2.0, y: self.view.bounds.size.height/3.0))
-        
+                          controlPoint: CGPoint(x: logoImageView.bounds.size.width/2.0, y: self.view.bounds.size.height/3.0))
+
         let animation = CAKeyframeAnimation(keyPath: "position")
         animation.delegate = self
         animation.timingFunction = CAMediaTimingFunction.init(name: .easeIn)
@@ -60,37 +59,37 @@ class LaunchViewController: UIViewController, CAAnimationDelegate {
             self.logoImageView.layer.position = toPoint
         }
     }
-    
+
     func configureViewControllers() -> UIViewController {
         // Create the tabBarController
         let tabBarController = UITabBarController()
-        
+
         // Create viewControllers for the tabBar
         let addDistanceViewController = AddDistanceViewController(nibName: "AddDistanceViewController", bundle: nil)
         let editShoesViewController = EditShoesViewController(style: .grouped)
         let hofTableViewController = HOFTableViewController(style: .grouped)
         let setupViewController = SetupViewController()
-        
+
         let navController = UINavigationController(rootViewController: editShoesViewController)
         let navController2 = UINavigationController(rootViewController: hofTableViewController)
-        
+
         // Make an array containing the view controllers
         let viewControllers = [addDistanceViewController, navController, navController2, hofTableViewController, setupViewController]
-        
+
         // Grab the nav controllers tab bar item (the rootViewController won't work).
         var tbi = navController.tabBarItem
-        
+
         // Give it an image and center
         let image = #imageLiteral(resourceName: "tabbar-shoe")
         tbi?.title = "Add/Edit Shoes"
         tbi?.image = image
-        
+
         // Set the tab bar for the Hall of Fame navigation controller.
         let trophy = #imageLiteral(resourceName: "trophy")
         tbi = navController2.tabBarItem
         tbi?.title = "Hall of Fame"
         tbi?.image = trophy
-        
+
         // Attach the array to the tabBarController
         tabBarController.viewControllers = viewControllers
 
@@ -100,13 +99,13 @@ class LaunchViewController: UIViewController, CAAnimationDelegate {
         }
         return tabBarController
     }
-    
+
     private func displayNewFeaturesInfo(_ viewController: UIViewController) {
         let newFeatures = FTUUtility.newFeatures()
         if let newFeature = newFeatures.first {
             let featureText = FTUUtility.featureText(forFeatureKey: newFeature)
             let alert = UIAlertController(title: "New Feature", message: featureText, preferredStyle: .alert)
-            let readConfirmation = UIAlertAction(title: "Don't show again", style: .default) { action in
+            let readConfirmation = UIAlertAction(title: "Don't show again", style: .default) { _ in
                 FTUUtility.completeFeature(newFeature)
             }
             let done = UIAlertAction.init(title: "Done", style: .cancel, handler: nil)
@@ -115,7 +114,7 @@ class LaunchViewController: UIViewController, CAAnimationDelegate {
             viewController.present(alert, animated: true, completion: nil)
         }
     }
-    
+
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true

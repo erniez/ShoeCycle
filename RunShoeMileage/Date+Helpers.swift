@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension NSDate {
     @objc
     func beginningOfWeek(forCalendar calendar: NSCalendar) -> NSDate {

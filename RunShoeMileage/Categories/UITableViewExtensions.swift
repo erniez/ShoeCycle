@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension UITableView {
     static func emptyDataBackgroundView(message: String) -> UIView {
         let backgroundView = UIView()
