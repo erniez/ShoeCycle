@@ -408,6 +408,8 @@
 
 - (void)configureDataSet
 {
+    self.dataSet.drawHorizontalHighlightIndicatorEnabled = NO;
+    self.dataSet.drawVerticalHighlightIndicatorEnabled = NO;
     self.dataSet.circleRadius = 3.0;
     self.dataSet.drawCircleHoleEnabled = NO;
     self.dataSet.circleColor = [UIColor shoeCycleGreen];
@@ -540,6 +542,8 @@
     if (!self.runDatePickerViewController)
     {
         self.runDatePickerViewController = [[RunDatePickerViewController alloc] init];
+        // Need to load view so that it exists when we change the date below.
+        [self.runDatePickerViewController loadViewIfNeeded];
         
         NSDate *datePickerDate = [NSDate date];
         if (self.runDateField.text.length > 0) {
