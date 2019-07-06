@@ -2,7 +2,7 @@
 //  HOFTableViewController.swift
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 2/18/17.
+//  Created by Ernie Zappacosta on 2/18/17.
 //
 //
 
@@ -44,7 +44,8 @@ class HOFTableViewController: UITableViewController {
         let hofShoes = ShoeStore.default().hallOfFameShoes()
         tableData = hofShoes.sorted { $0.totalDistance.doubleValue > $1.totalDistance.doubleValue }
         if tableData.isEmpty {
-            tableView.backgroundView = UITableView.emptyDataBackgroundView(message: "You have no shoes in the Hall of Fame.  To add one, please edit the shoe you want to add.")
+            tableView.backgroundView = UITableView.emptyDataBackgroundView(message:
+                "You have no shoes in the Hall of Fame.  To add one, please edit the shoe you want to add.")
         } else {
             tableView.backgroundView = nil
         }
@@ -60,7 +61,8 @@ class HOFTableViewController: UITableViewController {
                 CATransaction.begin()
                 tableView.beginUpdates()
                 tableData.remove(at: index)
-                tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)], with: UITableView.RowAnimation.automatic)
+                tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)],
+                                     with: UITableView.RowAnimation.automatic)
                 tableView.endUpdates()
                 ShoeStore.default().move(toLastPlace: shoe)
                 CATransaction.commit()

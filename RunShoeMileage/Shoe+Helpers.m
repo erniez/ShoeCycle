@@ -2,7 +2,7 @@
 //  Shoe+Helpers.m
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 2/26/16.
+//  Created by Ernie Zappacosta on 2/26/16.
 //
 //
 

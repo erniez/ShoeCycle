@@ -2,7 +2,7 @@
 //  UITableViewExtensions.swift
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 12/22/17.
+//  Created by Ernie Zappacosta on 12/22/17.
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  ImagePickerDelegate.swift
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 4/7/19.
+//  Created by Ernie Zappacosta on 4/7/19.
 //
 
 import Foundation
@@ -21,7 +21,8 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
     }
 
     @objc
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let oldKey = shoe.imageKey
 
         // Did the possession already have an image?
@@ -56,14 +57,17 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
 
     @objc
     func presentImagePickerAlertViewController(presentingViewController: UIViewController) {
-        let presentImagePickerController: (UIViewController, UIImagePickerController.SourceType) -> Void = { [weak self] viewController, sourceType in
+        let presentImagePickerController: (UIViewController, UIImagePickerController.SourceType) -> Void = {
+        [weak self] viewController, sourceType in
             guard let self = self else { return }
             self.imagePickerController.sourceType = sourceType
             self.imagePickerController.delegate = self
             viewController.present(self.imagePickerController, animated: true, completion: nil)
 
         }
-        let pictureAlertController = UIAlertController(title: "Choose Picture Method", message: nil, preferredStyle: .actionSheet)
+        let pictureAlertController = UIAlertController(title: "Choose Picture Method",
+                                                       message: nil,
+                                                       preferredStyle: .actionSheet)
         let cameraAction = UIAlertAction.init(title: "Camera", style: .default) { _ in
             presentImagePickerController(presentingViewController, .camera)
         }

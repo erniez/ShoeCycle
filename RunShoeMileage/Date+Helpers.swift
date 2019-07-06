@@ -2,7 +2,7 @@
 //  Date+Helpers.swift
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 2/4/19.
+//  Created by Ernie Zappacosta on 2/4/19.
 //
 
 import Foundation

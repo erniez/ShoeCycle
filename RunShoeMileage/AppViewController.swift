@@ -2,7 +2,7 @@
 //  AppViewController.swift
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 1/18/19.
+//  Created by Ernie Zappacosta on 1/18/19.
 //
 
 import Foundation
@@ -36,9 +36,16 @@ class AppViewController: UIViewController {
     }
 
     @objc
-    public func transition(toViewController: UIViewController, duration: TimeInterval = 0.0, options: UIView.AnimationOptions = .layoutSubviews, animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
+    public func transition(toViewController: UIViewController,
+                           duration: TimeInterval = 0.0,
+                           options: UIView.AnimationOptions = .layoutSubviews,
+                           animations: (() -> Void)?,
+                           completion: ((Bool) -> Void)?) {
         addChild(toViewController)
-        transition(from: viewController, to: toViewController, duration: duration, options: options, animations: animations) { animationComplete in
+        transition(from: viewController, to: toViewController,
+                   duration: duration,
+                   options: options,
+                   animations: animations) { animationComplete in
             completion?(animationComplete)
             self.viewController.removeFromParent()
             self.viewController = toViewController

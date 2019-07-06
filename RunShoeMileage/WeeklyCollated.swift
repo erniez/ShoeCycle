@@ -2,7 +2,7 @@
 //  WeeklyCollated.swift
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 2/3/19.
+//  Created by Ernie Zappacosta on 2/3/19.
 //
 
 import Foundation

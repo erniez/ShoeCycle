@@ -2,7 +2,7 @@
 //  CSVUtility.swift
 //  ShoeCycle
 //
-//  Created by Bob Bitchin on 2/26/16.
+//  Created by Ernie Zappacosta on 2/26/16.
 //
 //
 
@@ -20,9 +20,9 @@ class CSVUtility: NSObject {
     func createCSVData(fromShoe shoe: Shoe) -> NSString {
         var returnString: String
         returnString = createHeaderString()
-        let shoeHistory: Array<History> = shoe.sortedRunHistoryAscending(false)
+        let shoeHistory: [History] = shoe.sortedRunHistoryAscending(false)
         for history in shoeHistory {
-            returnString = returnString + "\(formatter.string(from: history.runDate)), \(history.runDistance.intValue)\n"
+            returnString += "\(formatter.string(from: history.runDate)), \(history.runDistance.intValue)\n"
         }
         return returnString as NSString
     }
