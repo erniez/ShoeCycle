@@ -273,7 +273,6 @@
                                         <segment title="Monday"/>
                                     </segments>
                                     <connections>
-                                        <action selector="changeDistanceUnits:" destination="-1" eventType="valueChanged" id="4Pn-cw-dsV"/>
                                         <action selector="changeFirstDayOfWeek:" destination="-1" eventType="valueChanged" id="AjW-FL-Yzl"/>
                                     </connections>
                                 </segmentedControl>
