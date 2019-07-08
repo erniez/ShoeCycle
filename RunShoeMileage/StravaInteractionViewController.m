@@ -58,12 +58,14 @@ static NSString * const kStravaSecretKey = @"client_secret";
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSURL *requestURL = request.URL;
-    NSString *URLString = requestURL.absoluteString;
-    if ([URLString containsString:kStravaCallbackSubstringURL] && ![URLString containsString:@"redirect_uri"]){
-        if ([URLString containsString:@"code"]) {
-            NSArray *tempArray = [URLString componentsSeparatedByString:@"code="];
-            self.tempToken = [tempArray lastObject];
-            [self didReceiveTemporaryToken];
+    NSString *urlString = requestURL.absoluteString;
+    if ([urlString containsString:kStravaCallbackSubstringURL] && ![urlString containsString:@"redirect_uri"]) {
+        NSURLComponents *components = [NSURLComponents componentsWithString:urlString];
+        for (NSURLQueryItem *queryItem in components.queryItems) {
+            if ([queryItem.name  isEqual: @"code"]) {
+                self.tempToken = queryItem.value;
+                [self didReceiveTemporaryToken];
+            }
         }
     }
     return YES;
@@ -116,7 +118,10 @@ static NSString * const kStravaSecretKey = @"client_secret";
 {
     __weak typeof(self) weakSelf = self;
     NSString *URLString = @"https://www.strava.com/oauth/token";
-    NSDictionary *params = @{kStravaClientIDkey : kStravaClientID, kStravaSecretKey : kStravaSecret, @"code" : self.tempToken};
+    NSDictionary *params = @{kStravaClientIDkey : kStravaClientID,
+                             kStravaSecretKey : kStravaSecret,
+                             @"code" : self.tempToken,
+                             @"grant_type" : @"authorization_code"};
     [self.httpSessionManager POST:URLString parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [weakSelf saveAccessToken:responseObject[@"access_token"]];
         weakSelf.connectionSuccessful = YES;
