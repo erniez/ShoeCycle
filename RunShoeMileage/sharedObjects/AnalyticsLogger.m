@@ -18,6 +18,8 @@ NSString * const kAddShoeEvent = @"AddShoeEvent_ShoeCycle";
 NSString * const kShoePictureAddedEvent = @"ShoePictureAddedEvent_ShoeCycle";
 NSString * const kShowHistoryEvent = @"ShowHistoryEvent_ShoeCycle";
 NSString * const kShowFavoriteDistancesEvent = @"ShowFavoriteDistancesEvent_ShoeCylce";
+NSString * const kAddToHOFEvent = @"AddToHOFEvent_Shoecycle";
+NSString * const kRemoveFromHOFEvent = @"RemoveFromHOFEvent_Shoecycle";
 
 // User Info Keys
 NSString * const kMileageNumberKey = @"MileageNumber_ShoeCycleKey";

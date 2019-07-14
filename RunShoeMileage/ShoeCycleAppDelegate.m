@@ -31,6 +31,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Generate random shoe data for testing and screenshots
+//    MockShoeGenerator *generator = [MockShoeGenerator new];
+//    [generator generateNewShoeWithData];
+
     // Create the tabBarController
     tabBarController = [[UITabBarController alloc] init];
     

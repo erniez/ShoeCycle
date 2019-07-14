@@ -39,7 +39,6 @@
 		1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
-		1B76CA0B19D3CD6B0063F2F2 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
 		1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */; };
 		1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */; };
 		1B7D254021FF3D2E0085E4A8 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7D253F21FF3D2E0085E4A8 /* Charts.framework */; };
@@ -48,6 +47,8 @@
 		1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B876F562207E9AF00964400 /* WeeklyCollated.swift */; };
 		1B9EA80422068594000FA58B /* RunHistoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */; };
 		1BA0E58C2262285600941A06 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BA0E58B2262285600941A06 /* MainWindow.xib */; };
+		1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */; };
+		1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
 		1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
@@ -150,6 +151,7 @@
 		1B876F562207E9AF00964400 /* WeeklyCollated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCollated.swift; sourceTree = "<group>"; };
 		1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1BA0E58B2262285600941A06 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockShoeGenerator.swift; sourceTree = "<group>"; };
 		1BAD389119E25C4000161DA8 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ShoeCycle.entitlements; path = ../ShoeCycle.entitlements; sourceTree = "<group>"; };
 		1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				1BE34ADD1AFC4FE800CF83EE /* StravaInteractionViewController.h */,
 				1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */,
 				1BE059621E58BDC100D6225C /* HOFTableViewController.swift */,
+				1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 			files = (
 				1B3CB6311B0CB9E200E19778 /* EditShoesCell.xib in Resources */,
 				1BDDEC5F148BDF8C009E5436 /* AddDistanceViewController.xib in Resources */,
+				1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */,
 				EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */,
 				1BC5184014A35D240033EFC3 /* SetupViewController.xib in Resources */,
 				1B30A82621EF770300AF22A7 /* Launch Screen.storyboard in Resources */,
@@ -544,7 +548,6 @@
 				1B1665D62203FC2F00A93009 /* testData.csv in Resources */,
 				1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */,
 				1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */,
-				1B76CA0B19D3CD6B0063F2F2 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +636,7 @@
 				1B30A82421EF756400AF22A7 /* LaunchViewController.swift in Sources */,
 				1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
+				1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */,
 				1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
 				1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */,

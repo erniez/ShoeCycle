@@ -416,7 +416,7 @@
     self.dataSet.circleHoleColor = [UIColor shoeCycleBlue];
     self.dataSet.color = [UIColor shoeCycleOrange];
     self.dataSet.drawValuesEnabled = NO;
-    self.dataSet.label = [UserDistanceSetting unitOfMeasure];
+    self.dataSet.label = [NSString stringWithFormat:@"Weekly %@", [UserDistanceSetting unitOfMeasure]];
 }
 
 #pragma mark - IChartAxisValueFormatter

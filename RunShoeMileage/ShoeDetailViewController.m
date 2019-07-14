@@ -40,6 +40,8 @@
 
 @implementation ShoeDetailViewController
 
+const CGFloat TAB_BAR_HEIGHT = 49;
+
 - (id)initForNewItem:(BOOL)isNew
 {
     self = [super initWithNibName:@"ShoeDetailViewController" bundle:nil];
@@ -282,6 +284,7 @@
         self.runDatePickerViewController = [[RunDatePickerViewController alloc] init];
         CGRect dpFrame = self.runDatePickerViewController.view.frame;
         dpFrame.origin.y = self.view.bounds.size.height;
+        dpFrame.size.width = UIScreen.mainScreen.bounds.size.width;
         dpFrame.size.height = 250;
         self.runDatePickerViewController.view.frame = dpFrame;
         
@@ -291,7 +294,7 @@
         
         self.runDatePickerViewController.delegate = self;
         
-        dpFrame.origin.y -= self.runDatePickerViewController.view.bounds.size.height;
+        dpFrame.origin.y -= (self.runDatePickerViewController.view.bounds.size.height + TAB_BAR_HEIGHT);
         [UIView animateWithDuration:0.5 animations:^{
             self.runDatePickerViewController.view.frame = dpFrame;
         } completion:^(BOOL finished) {
@@ -351,6 +354,12 @@
 - (IBAction)didTapHallOfFameButton:(id)sender
 {
     self.shoe.hallOfFame = !self.shoe.hallOfFame;
+    if (self.shoe.hallOfFame) {
+        [[AnalyticsLogger sharedLogger] logEventWithName:kRemoveFromHOFEvent userInfo:nil];
+    }
+    else {
+        [[AnalyticsLogger sharedLogger] logEventWithName:kAddToHOFEvent userInfo:nil];
+    }
     [self updateHallOfFameButtonText];
 }
 
