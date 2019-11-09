@@ -5,7 +5,8 @@ jobs:
       xcode: "11.2.0"
     steps:
       - checkout
-      - run: fastlane scan
+      - run: bundle exec fastlane scan
+      
 workflows:
   version: 2.1
   build_and_test:
