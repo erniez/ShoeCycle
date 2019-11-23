@@ -1,0 +1,17 @@
+version: 2.1
+jobs:
+  test:
+    macos:
+      xcode: "11.2.0"
+    steps:
+      - checkout
+      - run:
+        name: Build Carthage Libraries
+        command: carthage bootstrap --platform ios
+      - run: bundle exec fastlane scan
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - test

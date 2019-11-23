@@ -22,7 +22,8 @@ class CSVUtility: NSObject {
         returnString = createHeaderString()
         let shoeHistory: [History] = shoe.sortedRunHistoryAscending(false)
         for history in shoeHistory {
-            returnString += "\(formatter.string(from: history.runDate)), \(history.runDistance.intValue)\n"
+            let distanceString = String(format: "%.2f", history.runDistance.floatValue)
+            returnString += "\(formatter.string(from: history.runDate)), \(distanceString)\n"
         }
         return returnString as NSString
     }
