@@ -22,7 +22,7 @@ class ShoeCycleTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         print("I'm running tests!!!!!")
     }
-    
+
     func testExample2() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
