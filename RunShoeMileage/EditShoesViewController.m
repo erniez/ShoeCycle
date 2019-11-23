@@ -263,6 +263,7 @@
     
     [toolBar setItems:items animated:YES];
     
+    navController.modalPresentationStyle = UIModalPresentationFullScreen;
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     [[AnalyticsLogger sharedLogger] logEventWithName:kAddShoeEvent userInfo:nil];
     [self presentViewController:navController animated:YES completion:nil];
