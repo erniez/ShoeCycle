@@ -425,8 +425,12 @@
     if (self.weeklyCollatedArray.count <= value || value < 0 ) {
         return @"";
     }
-    WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
-    return [self.runDateFormatter stringFromDate:weeklyCollated.date];
+    // Show x values only on every other odd point.
+    if (fmod(value,2.0) == 1.0) {
+        WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
+        return [self.runDateFormatter stringFromDate:weeklyCollated.date];
+    }
+    return @"";
 }
 #pragma mark -
 
