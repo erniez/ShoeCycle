@@ -648,6 +648,7 @@
     modalViewController.delegate = self;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
+    navController.modalPresentationStyle = UIModalPresentationFullScreen;
    
     [self.logger logEventWithName:kShowHistoryEvent userInfo:nil];
     [self presentViewController:navController animated:YES completion:nil];
