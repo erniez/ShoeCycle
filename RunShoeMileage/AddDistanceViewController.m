@@ -425,8 +425,11 @@
     if (self.weeklyCollatedArray.count <= value || value < 0 ) {
         return @"";
     }
-    // Show x values only on every other odd point.
-    if (fmod(value,2.0) == 1.0) {
+    // HAX: I originally wanted to show on every odd point, but, even though it worked on the simulator
+    // it did not show correctly on my XSMax device.  There is something wrong with the Charts rendering
+    // engine where it only shows the even values.
+    // Show x values only on every other even point.
+    if (fmod(value,2.0) == 0.0) {
         WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
         return [self.runDateFormatter stringFromDate:weeklyCollated.date];
     }
@@ -656,7 +659,6 @@
 
 - (void)shoeImageTapped:(id)send
 {
-    NSLog(@"shoe tapped");
     self.imagePickerDelegate = [[ImagePickerDelegate alloc] initWithShoe:self.distShoe];
     __weak typeof(self) weakSelf = self;
     [self.imagePickerDelegate setOnDidFinishPicking:^(UIImage * _Nullable image) {
