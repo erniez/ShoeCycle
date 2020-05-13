@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (float)convertMilesToMeters:(float)miles;
 + (NSInteger)getFirstDayOfWeek;
 + (void)setFirstDayOfWeek:(NSInteger)setting;
++ (BOOL)graphAllShoeToggle;
++ (void)setGraphAllShoeToggle:(BOOL)showAllShoes;
 
 @end
 NS_ASSUME_NONNULL_END

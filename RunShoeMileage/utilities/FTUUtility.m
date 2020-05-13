@@ -13,12 +13,14 @@ NSString * const kFTUSwipeFeature = @"ShoeCycleFTUSwipeFeature";
 NSString * const kFTUEmailHistoryFeature = @"ShoeCycleFTUEmailHistoryFeature";
 NSString * const kFTUHOFFeature = @"ShoeCycleFTUHOFFeature";
 NSString * const kFTUCompletedFeatures = @"ShoeCycleFTUCompletedFeatures";
+NSString * const kFTUGraphAllShoesFeature = @"ShoeCycleFTUGraphAllShoesFeature";
 
 // Feature Strings
 NSString * const kNewFeaturesInfov3_0String = @"You can integrate with Strava! Add your runs to Strava as easily as tapping the \"+\" button.  Just tap on the \"Setup\" tab to get started!";
 NSString * const kNewFeaturesInfov3_0String2 = @"You can swipe between shoes just by by swiping up or down on the shoe image in the \"Add Distance\" screen.";
 NSString * const kNewFeaturesInfov3_3String = @"You can export your run history as a CSV file via email!  Just tap \"Email Data\" at the bottom right of the Run History screen.";
 NSString * const kNewFeaturesInfov4_0String = @"You can now add shoes to the Hall of Fame section, so they don't crowd your active sneakers.";
+NSString * const kNewFeaturesInfov4_3String = @"You can tap the button at the bottom right of the graph to toggle between showing data for all active shoes or just the currently selected shoe.";
 
 @implementation FTUUtility
 
@@ -48,7 +50,7 @@ NSString * const kNewFeaturesInfov4_0String = @"You can now add shoes to the Hal
 
 + (NSArray<NSString *> * __nonnull)featureKeys
 {
-    return @[kFTUHOFFeature, kFTUEmailHistoryFeature, kFTUSwipeFeature];
+    return @[kFTUGraphAllShoesFeature, kFTUHOFFeature, kFTUSwipeFeature];
 }
 
 + (NSDictionary *)featureDictionary
@@ -56,7 +58,8 @@ NSString * const kNewFeaturesInfov4_0String = @"You can now add shoes to the Hal
     return @{
                  kFTUSwipeFeature : kNewFeaturesInfov3_0String2,
                  kFTUEmailHistoryFeature : kNewFeaturesInfov3_3String,
-                 kFTUHOFFeature : kNewFeaturesInfov4_0String
+                 kFTUHOFFeature : kNewFeaturesInfov4_0String,
+                 kFTUGraphAllShoesFeature : kNewFeaturesInfov4_3String
              };
 }
 

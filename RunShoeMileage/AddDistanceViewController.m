@@ -61,6 +61,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageScrollIndicators;
 @property (weak, nonatomic) IBOutlet UIView *swipeView;
 @property (weak, nonatomic) IBOutlet LineChartView *lineChartView;
+@property (weak, nonatomic) IBOutlet UIButton *allShoesToggle;
 
 // Have to use strong because I remove these views from superView in viewDidLoad.
 // I do this, because I am using the nib to set up the views, rather than programatically.
@@ -383,7 +384,19 @@
     self.lineChartView.data = nil;
     self.dataSet = [LineChartDataSet new];
     [self configureDataSet];
-    self.weeklyCollatedArray = [self.distShoe collatedRunHistoryByWeekAscending:YES];
+    NSArray<Shoe *> *activeShoes = ShoeStore.defaultStore.activeShoes;
+    self.weeklyCollatedArray = NSArray.new;
+    if ([UserDistanceSetting graphAllShoeToggle]) {
+        NSArray<History *> *histories = NSArray.new;
+        for (Shoe *shoe in activeShoes) {
+            histories = [histories arrayByAddingObjectsFromArray:[shoe.history allObjects]];
+        }
+        self.weeklyCollatedArray = [Shoe collatedRunHistories:histories ByWeekAscending:YES];
+    } else {
+        self.weeklyCollatedArray = [self.distShoe collatedRunHistoryByWeekAscending:YES];
+    }
+
+
     [self.weeklyCollatedArray enumerateObjectsUsingBlock:^(WeeklyCollated * _Nonnull weeklyCollated, NSUInteger idx, BOOL * _Nonnull stop) {
         float runDistance = [UserDistanceSetting getDistanceFromMiles:[weeklyCollated.runDistance floatValue]];
         double value = (double)runDistance;
@@ -435,7 +448,7 @@
     }
     return @"";
 }
-#pragma mark -
+#pragma mark - User Interactions
 
 - (IBAction)backgroundTapped:(id)sender 
 {
@@ -595,8 +608,30 @@
         selectedShoeIndex = [self.dataSource count] - 1;
     }
     [UserDistanceSetting setSelectedShoe:selectedShoeIndex];
-    self.animateChart = YES;
+    if ([UserDistanceSetting graphAllShoeToggle]) {
+        self.animateChart = NO;
+    } else {
+        self.animateChart = YES;
+    }
     [self loadDataSourceAndRefreshViewAndChart];
+}
+
+- (IBAction)didTapShowAllShoesToggle:(id)sender {
+    BOOL isShowAllShoes = [UserDistanceSetting graphAllShoeToggle];
+    [UserDistanceSetting setGraphAllShoeToggle:!isShowAllShoes];
+    self.animateChart = true;
+    [self.allShoesToggle setTitle:[self textForButtonTitle:!isShowAllShoes]
+                         forState:UIControlStateNormal];
+    [self refreshChart];
+}
+
+- (NSString *) textForButtonTitle:(BOOL)isShowAllShoes
+{
+    if (isShowAllShoes) {
+        return @"Show Only Current Shoe";
+    } else {
+        return @"Show All Active Shoes";
+    }
 }
 
 #pragma mark - RunDatePickerViewControllerDelegate
