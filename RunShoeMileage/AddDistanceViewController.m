@@ -296,9 +296,10 @@
     [self.swipeView addGestureRecognizer:[self newSwipeUpRecognizer]];
     [self.swipeView addGestureRecognizer:self.shoeImageTapRecognizer];
 
-    // iPhoneSE cannot fit the graph, so remove it.
+    // iPhoneSE cannot fit the graph, so remove it and allShoesToggle.
     if ([UIUtilities isSmallScreenSize]) {
         [self.lineChartView removeFromSuperview];
+        [self.allShoesToggle removeFromSuperview];
     }
     [self configureLineChartView];
     self.animateChart = YES;
