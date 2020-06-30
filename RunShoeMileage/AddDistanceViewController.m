@@ -529,8 +529,9 @@
         [weakSelf dismissDatePickerIfShowingWithCompletion:^{
             [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:[weakSelf.distShoe.totalDistance floatValue]]];
             [weakSelf.totalDistanceLabel pulseView];
-            [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance)}];
-            [self.logger logEventWithName:kLogTotalMileageEvent userInfo:@{kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue)}];
+            [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance),
+                                                                      kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue)
+            }];
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];
         

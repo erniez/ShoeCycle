@@ -12,8 +12,7 @@
 #import "SetupViewController.h"
 #import "EditShoesNavController.h"
 #import "ShoeStore.h"
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
-#import <FirebaseCore/FirebaseCore.h>
+@import Firebase;
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
 #import <AFNetworking/AFNetworking.h>

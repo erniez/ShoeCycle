@@ -7,24 +7,24 @@
 //
 
 #import "AnalyticsLogger.h"
-#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
+@import Firebase;
 
 // Event Constants
-NSString * const kLogMileageEvent = @"LogMileageEvent_ShoeCycle";
-NSString * const kLogTotalMileageEvent = @"LogTotalMileageEvent_ShoeCycle";
-NSString * const kStravaEvent = @"StravaEvent_ShoeCycle";
-NSString * const kHealthKitEvent = @"HealthKitEvent_ShoeCycle";
-NSString * const kAddShoeEvent = @"AddShoeEvent_ShoeCycle";
-NSString * const kShoePictureAddedEvent = @"ShoePictureAddedEvent_ShoeCycle";
-NSString * const kShowHistoryEvent = @"ShowHistoryEvent_ShoeCycle";
-NSString * const kShowFavoriteDistancesEvent = @"ShowFavoriteDistancesEvent_ShoeCylce";
-NSString * const kAddToHOFEvent = @"AddToHOFEvent_Shoecycle";
-NSString * const kRemoveFromHOFEvent = @"RemoveFromHOFEvent_Shoecycle";
+NSString * const kLogMileageEvent = @"LogMileageEvent";
+NSString * const kLogTotalMileageEvent = @"LogTotalMileageEvent";
+NSString * const kStravaEvent = @"StravaEvent";
+NSString * const kHealthKitEvent = @"HealthKitEvent";
+NSString * const kAddShoeEvent = @"AddShoeEvent";
+NSString * const kShoePictureAddedEvent = @"ShoePictureAddedEvent";
+NSString * const kShowHistoryEvent = @"ShowHistoryEvent";
+NSString * const kShowFavoriteDistancesEvent = @"ShowFavoriteDistancesEvent";
+NSString * const kAddToHOFEvent = @"AddToHOFEvent";
+NSString * const kRemoveFromHOFEvent = @"RemoveFromHOFEvent";
 
 // User Info Keys
-NSString * const kMileageNumberKey = @"MileageNumber_ShoeCycleKey";
-NSString * const kTotalMileageNumberKey = @"TotalMileageNumber_ShoeCycleKey";
-NSString * const kNumberOfFavoritesUsedKey = @"NumberOfFavoritesUsed_ShoeCycleKey";
+NSString * const kMileageNumberKey = @"numberOfMiles";
+NSString * const kTotalMileageNumberKey = @"totalMiles";
+NSString * const kNumberOfFavoritesUsedKey = @"numberOfFavorites";
 
 @implementation AnalyticsLogger
 
@@ -41,8 +41,7 @@ NSString * const kNumberOfFavoritesUsedKey = @"NumberOfFavoritesUsed_ShoeCycleKe
 - (void)logEventWithName:(NSString *)name userInfo:(nullable NSDictionary<NSString *,id> *)userInfo
 {
 #ifndef DEBUG
-    // TODO: Update to Google Analytics
-//    [Answers logCustomEventWithName:name customAttributes:userInfo];
+    [FIRAnalytics logEventWithName:name parameters:userInfo];
 #endif
 }
 
