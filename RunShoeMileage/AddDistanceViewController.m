@@ -303,6 +303,10 @@
     [self configureLineChartView];
     self.animateChart = YES;
     
+    BOOL showAllShoesSetting = [UserDistanceSetting graphAllShoeToggle];
+    [self.allShoesToggle setTitle:[self textForButtonTitle:showAllShoesSetting]
+                         forState:UIControlStateNormal];
+    
 #ifdef SetupForScreenShots
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 #endif
@@ -617,10 +621,11 @@
 }
 
 - (IBAction)didTapShowAllShoesToggle:(id)sender {
-    BOOL isShowAllShoes = [UserDistanceSetting graphAllShoeToggle];
-    [UserDistanceSetting setGraphAllShoeToggle:!isShowAllShoes];
+    BOOL showAllShoesSetting = [UserDistanceSetting graphAllShoeToggle];
+    BOOL isShowAllShoes = !showAllShoesSetting;
+    [UserDistanceSetting setGraphAllShoeToggle:isShowAllShoes];
     self.animateChart = true;
-    [self.allShoesToggle setTitle:[self textForButtonTitle:!isShowAllShoes]
+    [self.allShoesToggle setTitle:[self textForButtonTitle:isShowAllShoes]
                          forState:UIControlStateNormal];
     [self refreshChart];
 }
