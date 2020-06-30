@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */; };
-		1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0751F919D88D9C00171D48 /* Crashlytics.framework */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1665D62203FC2F00A93009 /* testData.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1B1665D52203FC2F00A93009 /* testData.csv */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
-		1B1EF7031B12C23C000ED442 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1EF7021B12C23C000ED442 /* Fabric.framework */; };
 		1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CC1C8145600081518A /* Shoe+Helpers.m */; };
 		1B2248D01C81480C0081518A /* CSVUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CF1C81480C0081518A /* CSVUtility.swift */; };
 		1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248EE1C82A3A50081518A /* EmailUtility.swift */; };
@@ -52,6 +50,7 @@
 		1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC72092377351200390E8B /* ShoeCycleTests.swift */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
 		1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */; };
+		1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
 		1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */; };
 		1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183D14A35D240033EFC3 /* SetupViewController.m */; };
@@ -73,6 +72,7 @@
 		1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE21AFDCFA600CF83EE /* StravaAPIManager.m */; };
 		1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */; };
 		1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */; };
+		D333FBFBECAAC5C7188362EC /* Pods_ShoeCycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */; };
 		EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */; };
 		EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26DB1AFF0550006C4B63 /* StravaActivity.m */; };
 		EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */; };
@@ -102,8 +102,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01BAFEEBB6079F2E0FE994C2 /* Pods-ShoeCycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoeCycle.release.xcconfig"; path = "Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle.release.xcconfig"; sourceTree = "<group>"; };
 		1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = Categories/UITableViewExtensions.swift; sourceTree = "<group>"; };
-		1B0751F919D88D9C00171D48 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
 		1B1665D52203FC2F00A93009 /* testData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = testData.csv; path = ../../../../../Downloads/testData.csv; sourceTree = "<group>"; };
@@ -169,6 +169,7 @@
 		1BAD389119E25C4000161DA8 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ShoeCycle.entitlements; path = ../ShoeCycle.entitlements; sourceTree = "<group>"; };
 		1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
+		1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1BC08E7914D42171007A4344 /* Shoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shoe.h; sourceTree = "<group>"; };
 		1BC08E7A14D42171007A4344 /* Shoe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shoe.m; sourceTree = "<group>"; };
 		1BC5183614A35CF80033EFC3 /* EditShoesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditShoesViewController.h; sourceTree = "<group>"; };
@@ -205,6 +206,9 @@
 		1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StravaAthlete.m; path = API/Strava/ModelObjects/StravaAthlete.m; sourceTree = "<group>"; };
 		1BE34AEC1AFE8F6000CF83EE /* NSDate+UTCConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+UTCConversion.h"; path = "Categories/NSDate+UTCConversion.h"; sourceTree = "<group>"; };
 		1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+UTCConversion.m"; path = "Categories/NSDate+UTCConversion.m"; sourceTree = "<group>"; };
+		34CE52DED8702F2F3C872E83 /* Pods-ShoeCycle.adhocdistro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoeCycle.adhocdistro.xcconfig"; path = "Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle.adhocdistro.xcconfig"; sourceTree = "<group>"; };
+		6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoeCycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B835969DC08BF411D837623C /* Pods-ShoeCycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoeCycle.debug.xcconfig"; path = "Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIURLStrings.h; path = API/APIURLStrings.h; sourceTree = "<group>"; };
 		EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIURLStrings.m; path = API/APIURLStrings.m; sourceTree = "<group>"; };
 		EA0F26DA1AFF0550006C4B63 /* StravaActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaActivity.h; path = API/Strava/ModelObjects/StravaActivity.h; sourceTree = "<group>"; };
@@ -227,13 +231,12 @@
 				1B7D254021FF3D2E0085E4A8 /* Charts.framework in Frameworks */,
 				1B2721D221E9AAFF002BD17E /* MBProgressHUD.framework in Frameworks */,
 				1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */,
-				1B0751FA19D88D9C00171D48 /* Crashlytics.framework in Frameworks */,
 				1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */,
-				1B1EF7031B12C23C000ED442 /* Fabric.framework in Frameworks */,
 				1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */,
 				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
 				1B2721D421E9AB21002BD17E /* AFNetworking.framework in Frameworks */,
 				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
+				D333FBFBECAAC5C7188362EC /* Pods_ShoeCycle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +394,7 @@
 				1BAC72082377351200390E8B /* ShoeCycleTests */,
 				1BCF643C148AF7E7004C0E6A /* Frameworks */,
 				1BCF643A148AF7E7004C0E6A /* Products */,
+				F4D4ED65F4C8DC6F26868939 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -411,11 +415,11 @@
 				1B2721B721E79148002BD17E /* AFNetworking.framework */,
 				1B1EF7021B12C23C000ED442 /* Fabric.framework */,
 				1BAD389119E25C4000161DA8 /* HealthKit.framework */,
-				1B0751F919D88D9C00171D48 /* Crashlytics.framework */,
 				1BD2FAED14B5D343006A4542 /* CoreData.framework */,
 				1BCF643D148AF7E7004C0E6A /* UIKit.framework */,
 				1BCF643F148AF7E7004C0E6A /* Foundation.framework */,
 				1BCF6441148AF7E7004C0E6A /* CoreGraphics.framework */,
+				6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -449,6 +453,7 @@
 		1BCF6444148AF7E7004C0E6A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */,
 				1B1665D52203FC2F00A93009 /* testData.csv */,
 				1B2248CE1C81480B0081518A /* ShoeCycle-Bridging-Header.h */,
 				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
@@ -499,6 +504,16 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
+		F4D4ED65F4C8DC6F26868939 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B835969DC08BF411D837623C /* Pods-ShoeCycle.debug.xcconfig */,
+				01BAFEEBB6079F2E0FE994C2 /* Pods-ShoeCycle.release.xcconfig */,
+				34CE52DED8702F2F3C872E83 /* Pods-ShoeCycle.adhocdistro.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -524,11 +539,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BCF6454148AF7E7004C0E6A /* Build configuration list for PBXNativeTarget "ShoeCycle" */;
 			buildPhases = (
+				408A4F3BCFF336B0F50E9C91 /* [CP] Check Pods Manifest.lock */,
 				1BCF6436148AF7E6004C0E6A /* Frameworks */,
 				1BCF6437148AF7E6004C0E6A /* Resources */,
 				1B2721D121E9A9A7002BD17E /* Embed Frameworks */,
 				1B2721BB21E79199002BD17E /* Carthage - Copy Frameworks */,
 				1BCF6435148AF7E6004C0E6A /* Sources */,
+				DC4DEFD6A6AFBC3E81228CDD /* [CP] Embed Pods Frameworks */,
 				1BA4A3A922D116F6003EB5CA /* Swift Lint */,
 			);
 			buildRules = (
@@ -612,6 +629,7 @@
 				1B1665D62203FC2F00A93009 /* testData.csv in Resources */,
 				1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */,
 				1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */,
+				1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +674,50 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		408A4F3BCFF336B0F50E9C91 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShoeCycle-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC4DEFD6A6AFBC3E81228CDD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -755,15 +817,16 @@
 		};
 		1B77CC0A14EB65D000FA6E06 /* AdHocDistro */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34CE52DED8702F2F3C872E83 /* Pods-ShoeCycle.adhocdistro.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 42;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_BITCODE = NO;
+				CURRENT_PROJECT_VERSION = 51;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1011,15 +1074,16 @@
 		};
 		1BCF6455148AF7E7004C0E6A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B835969DC08BF411D837623C /* Pods-ShoeCycle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 42;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_BITCODE = NO;
+				CURRENT_PROJECT_VERSION = 51;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1044,15 +1108,16 @@
 		};
 		1BCF6456148AF7E7004C0E6A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01BAFEEBB6079F2E0FE994C2 /* Pods-ShoeCycle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 42;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_BITCODE = NO;
+				CURRENT_PROJECT_VERSION = 51;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

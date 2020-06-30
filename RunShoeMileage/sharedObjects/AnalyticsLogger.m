@@ -7,7 +7,7 @@
 //
 
 #import "AnalyticsLogger.h"
-#import <Crashlytics/Crashlytics.h>
+#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
 
 // Event Constants
 NSString * const kLogMileageEvent = @"LogMileageEvent_ShoeCycle";
@@ -41,7 +41,8 @@ NSString * const kNumberOfFavoritesUsedKey = @"NumberOfFavoritesUsed_ShoeCycleKe
 - (void)logEventWithName:(NSString *)name userInfo:(nullable NSDictionary<NSString *,id> *)userInfo
 {
 #ifndef DEBUG
-    [Answers logCustomEventWithName:name customAttributes:userInfo];
+    // TODO: Update to Google Analytics
+//    [Answers logCustomEventWithName:name customAttributes:userInfo];
 #endif
 }
 

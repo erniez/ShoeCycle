@@ -12,7 +12,8 @@
 #import "SetupViewController.h"
 #import "EditShoesNavController.h"
 #import "ShoeStore.h"
-#import <Crashlytics/Crashlytics.h>
+#import <FirebaseCrashlytics/FirebaseCrashlytics.h>
+#import <FirebaseCore/FirebaseCore.h>
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
 #import <AFNetworking/AFNetworking.h>
@@ -82,8 +83,10 @@
     [[self window] setRootViewController:self.appViewController];
     
     // Start Crashlytics
-//    [[Crashlytics sharedInstance] setDebugMode:YES];
-    [Crashlytics startWithAPIKey:kCrashlyticsAPIKey];
+    [FIRApp configure];
+    
+    // Test for crashes
+//    [self performSelector:@selector(crashApp) withObject:nil afterDelay:5.0];
     
     [self.window makeKeyAndVisible];
     
@@ -178,6 +181,10 @@
         [defaults setObject:currentVersionString forKey:kCurrentVersionNumber];
         [defaults synchronize];
     }
+}
+
+- (void)crashApp {
+    assert(NO);
 }
 
 @end
