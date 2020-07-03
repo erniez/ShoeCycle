@@ -10,21 +10,21 @@
 @import Firebase;
 
 // Event Constants
-NSString * const kLogMileageEvent = @"LogMileageEvent";
-NSString * const kLogTotalMileageEvent = @"LogTotalMileageEvent";
-NSString * const kStravaEvent = @"StravaEvent";
-NSString * const kHealthKitEvent = @"HealthKitEvent";
-NSString * const kAddShoeEvent = @"AddShoeEvent";
-NSString * const kShoePictureAddedEvent = @"ShoePictureAddedEvent";
-NSString * const kShowHistoryEvent = @"ShowHistoryEvent";
-NSString * const kShowFavoriteDistancesEvent = @"ShowFavoriteDistancesEvent";
-NSString * const kAddToHOFEvent = @"AddToHOFEvent";
-NSString * const kRemoveFromHOFEvent = @"RemoveFromHOFEvent";
+NSString * const kLogMileageEvent = @"log_mileage";
+NSString * const kStravaEvent = @"log_mileage_strava";
+NSString * const kHealthKitEvent = @"log_mileage_health_kit";
+NSString * const kAddShoeEvent = @"add_shoe";
+NSString * const kShoePictureAddedEvent = @"add_shoe_picture";
+NSString * const kShowHistoryEvent = @"show_history";
+NSString * const kShowFavoriteDistancesEvent = @"show_favorite_distances";
+NSString * const kAddToHOFEvent = @"add_to_HOF";
+NSString * const kRemoveFromHOFEvent = @"remove_from_HOF";
 
 // User Info Keys
-NSString * const kMileageNumberKey = @"numberOfMiles";
-NSString * const kTotalMileageNumberKey = @"totalMiles";
-NSString * const kNumberOfFavoritesUsedKey = @"numberOfFavorites";
+NSString * const kMileageNumberKey = @"mileage";
+NSString * const kTotalMileageNumberKey = @"total_mileage";
+NSString * const kNumberOfFavoritesUsedKey = @"number_of_favorites";
+NSString * const kMileageUnitKey = @"distance_unit";
 
 @implementation AnalyticsLogger
 

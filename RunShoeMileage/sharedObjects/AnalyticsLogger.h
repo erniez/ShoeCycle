@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 // Event Constants
 extern NSString * const kLogMileageEvent;
-extern NSString * const kLogTotalMileageEvent;
 extern NSString * const kStravaEvent;
 extern NSString * const kHealthKitEvent;
 extern NSString * const kAddShoeEvent;
@@ -25,6 +24,7 @@ extern NSString * const kRemoveFromHOFEvent;
 extern NSString * const kMileageNumberKey;
 extern NSString * const kTotalMileageNumberKey;
 extern NSString * const kNumberOfFavoritesUsedKey;
+extern NSString * const kMileageUnitKey;
 
 @interface AnalyticsLogger : NSObject
 

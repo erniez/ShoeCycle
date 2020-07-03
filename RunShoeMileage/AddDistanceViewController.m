@@ -530,7 +530,8 @@
             [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:[weakSelf.distShoe.totalDistance floatValue]]];
             [weakSelf.totalDistanceLabel pulseView];
             [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance),
-                                                                      kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue)
+                                                                      kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue),
+                                                                      kMileageUnitKey : [UserDistanceSetting unitOfMeasure]
             }];
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];

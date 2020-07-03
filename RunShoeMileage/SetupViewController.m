@@ -245,7 +245,6 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 
 - (IBAction)aboutButton:(id)sender
 {
-    assert(NO);
     NSString *appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *aboutMessage = [NSString stringWithFormat:@"ShoeCycle is programmed by Ernie Zappacosta.\nCurrent Version is %@", appVersionString];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"About ShoeCycle" message:aboutMessage preferredStyle:UIAlertControllerStyleAlert];
