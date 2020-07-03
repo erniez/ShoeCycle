@@ -16,7 +16,9 @@
  Sorted run history. Sorting controlled by the ascending property
  */
 - (NSArray<History *> *)sortedRunHistoryAscending:(BOOL)ascending;
++ (NSArray<History *> *)sortRunHistories:(NSArray<History *> *)histories Ascending:(BOOL)ascending;
 
 - (NSArray<WeeklyCollated *> *)collatedRunHistoryByWeekAscending:(BOOL)ascending;
++ (NSArray<WeeklyCollated *> *)collatedRunHistories:(NSArray<History *> *)histories ByWeekAscending:(BOOL)ascending;
 
 @end

@@ -7,24 +7,24 @@
 //
 
 #import "AnalyticsLogger.h"
-#import <Crashlytics/Crashlytics.h>
+@import Firebase;
 
 // Event Constants
-NSString * const kLogMileageEvent = @"LogMileageEvent_ShoeCycle";
-NSString * const kLogTotalMileageEvent = @"LogTotalMileageEvent_ShoeCycle";
-NSString * const kStravaEvent = @"StravaEvent_ShoeCycle";
-NSString * const kHealthKitEvent = @"HealthKitEvent_ShoeCycle";
-NSString * const kAddShoeEvent = @"AddShoeEvent_ShoeCycle";
-NSString * const kShoePictureAddedEvent = @"ShoePictureAddedEvent_ShoeCycle";
-NSString * const kShowHistoryEvent = @"ShowHistoryEvent_ShoeCycle";
-NSString * const kShowFavoriteDistancesEvent = @"ShowFavoriteDistancesEvent_ShoeCylce";
-NSString * const kAddToHOFEvent = @"AddToHOFEvent_Shoecycle";
-NSString * const kRemoveFromHOFEvent = @"RemoveFromHOFEvent_Shoecycle";
+NSString * const kLogMileageEvent = @"log_mileage";
+NSString * const kStravaEvent = @"log_mileage_strava";
+NSString * const kHealthKitEvent = @"log_mileage_health_kit";
+NSString * const kAddShoeEvent = @"add_shoe";
+NSString * const kShoePictureAddedEvent = @"add_shoe_picture";
+NSString * const kShowHistoryEvent = @"show_history";
+NSString * const kShowFavoriteDistancesEvent = @"show_favorite_distances";
+NSString * const kAddToHOFEvent = @"add_to_HOF";
+NSString * const kRemoveFromHOFEvent = @"remove_from_HOF";
 
 // User Info Keys
-NSString * const kMileageNumberKey = @"MileageNumber_ShoeCycleKey";
-NSString * const kTotalMileageNumberKey = @"TotalMileageNumber_ShoeCycleKey";
-NSString * const kNumberOfFavoritesUsedKey = @"NumberOfFavoritesUsed_ShoeCycleKey";
+NSString * const kMileageNumberKey = @"mileage";
+NSString * const kTotalMileageNumberKey = @"total_mileage";
+NSString * const kNumberOfFavoritesUsedKey = @"number_of_favorites";
+NSString * const kMileageUnitKey = @"distance_unit";
 
 @implementation AnalyticsLogger
 
@@ -41,7 +41,7 @@ NSString * const kNumberOfFavoritesUsedKey = @"NumberOfFavoritesUsed_ShoeCycleKe
 - (void)logEventWithName:(NSString *)name userInfo:(nullable NSDictionary<NSString *,id> *)userInfo
 {
 #ifndef DEBUG
-    [Answers logCustomEventWithName:name customAttributes:userInfo];
+    [FIRAnalytics logEventWithName:name parameters:userInfo];
 #endif
 }
 

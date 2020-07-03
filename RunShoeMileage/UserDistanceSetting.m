@@ -23,6 +23,7 @@ NSString * const TreadTrackerSelecredShoePrefKey = @"TreadTrackerSelecredShoePre
 NSString * const ShoeCycleHealthKitEnabledKey = @"ShoeCycleHealthKitEnabled";
 NSString * const ShoeCycleStravaEnabledKey = @"ShoeCycleStravaEnabledKey";
 NSString * const ShoeCycleFirstDayOfWeekKey = @"ShoeCycleFirstDayOfWeekKey";
+NSString * const GraphAllShoesToggleKey = @"ShoeCycleGraphAllShoesToggle";
 
 
 @implementation UserDistanceSetting
@@ -221,5 +222,15 @@ NSString * const ShoeCycleFirstDayOfWeekKey = @"ShoeCycleFirstDayOfWeekKey";
 + (void)resetStravaConnection
 {
     [[NSUserDefaults standardUserDefaults] setValue:nil forKey:kStravaAccessToken];
+}
+
++ (BOOL)graphAllShoeToggle
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:GraphAllShoesToggleKey];
+}
+
++ (void)setGraphAllShoeToggle:(BOOL)showAllShoes
+{
+    [[NSUserDefaults standardUserDefaults] setBool:showAllShoes forKey:GraphAllShoesToggleKey];
 }
 @end

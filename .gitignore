@@ -14,8 +14,14 @@ xcshareddata
 profile
 *.moved-aside
 DerivedData
-*.hmap
+*.map
 *.ipa
+*.xcworkspace/contents.xcworkspacedata
 
 # Carthage
 Carthage
+
+# Cocoapods
+Pods
+GoogleService-Info.plist
+
