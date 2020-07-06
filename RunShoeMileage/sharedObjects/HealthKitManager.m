@@ -56,7 +56,7 @@ dispatch_once(&onceToken, ^{
 - (void)initializeHealthKitForShoeCycleWithCompletion:(void (^)(BOOL success, UIAlertController *alertController))completion
 {
     self.authorizationStatus = [self.healthStore authorizationStatusForType:self.runQuantityType];
-    if (!self.authorizationStatus || self.authorizationStatus == HKAuthorizationStatusSharingDenied)
+    if (self.authorizationStatus == HKAuthorizationStatusNotDetermined || self.authorizationStatus == HKAuthorizationStatusSharingDenied)
     {
         [self.healthStore requestAuthorizationToShareTypes:[NSSet setWithObject:self.runQuantityType] readTypes:[NSSet setWithObject:self.runQuantityType]  completion:^(BOOL success, NSError *error) {
             
@@ -89,7 +89,9 @@ dispatch_once(&onceToken, ^{
             }
             if (completion)
             {
-                completion(success, alertController);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(success, alertController);
+                });
             }
         }];
     }
