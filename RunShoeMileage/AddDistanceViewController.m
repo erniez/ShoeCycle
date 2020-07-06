@@ -536,7 +536,7 @@
             NSString *unitOfMeasure = [UserDistanceSetting unitOfMeasure];
             [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:[weakSelf.distShoe.totalDistance floatValue]]];
             [weakSelf.totalDistanceLabel pulseView];
-            [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance),
+            [weakSelf.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance),
                                                                       kTotalMileageNumberKey : @(weakSelf.distShoe.totalDistance.floatValue),
                                                                       kMileageUnitKey : unitOfMeasure
             }];
@@ -567,7 +567,6 @@
         addDistanceHandler();
     }
 }
-
 
 - (IBAction)callDP:(id)sender
 {
