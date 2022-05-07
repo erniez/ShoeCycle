@@ -3,24 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
-		1B1411942574B4B200A7D430 /* LinuxMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1411812574B4B200A7D430 /* LinuxMain.swift */; };
-		1B1411952574B4B200A7D430 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1411832574B4B200A7D430 /* XCTestManifests.swift */; };
-		1B1411962574B4B200A7D430 /* ShoeCycleUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1411842574B4B200A7D430 /* ShoeCycleUtilitiesTests.swift */; };
-		1B1411972574B4B200A7D430 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1B1411852574B4B200A7D430 /* README.md */; };
-		1B1411982574B4B200A7D430 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1B1411862574B4B200A7D430 /* .gitignore */; };
-		1B1411992574B4B200A7D430 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1411872574B4B200A7D430 /* Package.swift */; };
-		1B14119A2574B4B200A7D430 /* ShoeCycleUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14118A2574B4B200A7D430 /* ShoeCycleUtilities.swift */; };
-		1B14119B2574B4B200A7D430 /* EmailUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14118B2574B4B200A7D430 /* EmailUtility.swift */; };
-		1B14119C2574B4B200A7D430 /* CSVUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14118C2574B4B200A7D430 /* CSVUtility.swift */; };
-		1B14119D2574B4B200A7D430 /* package.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = 1B14118F2574B4B200A7D430 /* package.xcworkspace */; };
-		1B14119E2574B4B200A7D430 /* xcschememanagement.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B1411932574B4B200A7D430 /* xcschememanagement.plist */; };
-		1B1665D62203FC2F00A93009 /* testData.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1B1665D52203FC2F00A93009 /* testData.csv */; };
 		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
 		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
 		1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CC1C8145600081518A /* Shoe+Helpers.m */; };
@@ -31,8 +19,6 @@
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
 		1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */; };
 		1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C91B06F8F0004095CF /* DateUtilities.m */; };
-		1B2721D221E9AAFF002BD17E /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2721B921E7915C002BD17E /* MBProgressHUD.framework */; };
-		1B2721D421E9AB21002BD17E /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2721B721E79148002BD17E /* AFNetworking.framework */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA714C98E4400F0917C /* RunHistoryViewController.m */; };
 		1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA814C98E4400F0917C /* RunHistoryViewController.xib */; };
@@ -45,12 +31,17 @@
 		1B3CB6311B0CB9E200E19778 /* EditShoesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
+		1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; };
+		1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B59AADE2828B3FF009F7A13 /* Charts.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADC2828B3FF009F7A13 /* Charts.xcframework */; };
+		1B59AADF2828B3FF009F7A13 /* Charts.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADC2828B3FF009F7A13 /* Charts.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; };
+		1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
 		1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */; };
 		1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */; };
-		1B7D254021FF3D2E0085E4A8 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7D253F21FF3D2E0085E4A8 /* Charts.framework */; };
 		1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */; };
 		1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */; };
 		1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B876F562207E9AF00964400 /* WeeklyCollated.swift */; };
@@ -106,6 +97,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1B59AADF2828B3FF009F7A13 /* Charts.xcframework in Embed Frameworks */,
+				1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */,
+				1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,17 +111,6 @@
 		1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = Categories/UITableViewExtensions.swift; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
-		1B1411812574B4B200A7D430 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
-		1B1411832574B4B200A7D430 /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
-		1B1411842574B4B200A7D430 /* ShoeCycleUtilitiesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoeCycleUtilitiesTests.swift; sourceTree = "<group>"; };
-		1B1411852574B4B200A7D430 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		1B1411862574B4B200A7D430 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		1B1411872574B4B200A7D430 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		1B14118A2574B4B200A7D430 /* ShoeCycleUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoeCycleUtilities.swift; sourceTree = "<group>"; };
-		1B14118B2574B4B200A7D430 /* EmailUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailUtility.swift; sourceTree = "<group>"; };
-		1B14118C2574B4B200A7D430 /* CSVUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVUtility.swift; sourceTree = "<group>"; };
-		1B14118F2574B4B200A7D430 /* package.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = package.xcworkspace; sourceTree = "<group>"; };
-		1B1411932574B4B200A7D430 /* xcschememanagement.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = xcschememanagement.plist; sourceTree = "<group>"; };
 		1B1665D52203FC2F00A93009 /* testData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = testData.csv; path = ../../../../../Downloads/testData.csv; sourceTree = "<group>"; };
 		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
 		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
@@ -148,8 +131,6 @@
 		1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalStringConstants.m; sourceTree = "<group>"; };
 		1B26F6C81B06F8F0004095CF /* DateUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateUtilities.h; path = utilities/DateUtilities.h; sourceTree = "<group>"; };
 		1B26F6C91B06F8F0004095CF /* DateUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateUtilities.m; path = utilities/DateUtilities.m; sourceTree = "<group>"; };
-		1B2721B721E79148002BD17E /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
-		1B2721B921E7915C002BD17E /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunHistoryViewController.h; sourceTree = "<group>"; };
@@ -167,6 +148,9 @@
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
+		1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AFNetworking.xcframework; path = Carthage/Build/AFNetworking.xcframework; sourceTree = "<group>"; };
+		1B59AADC2828B3FF009F7A13 /* Charts.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Charts.xcframework; path = Carthage/Build/Charts.xcframework; sourceTree = "<group>"; };
+		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
 		1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
 		1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardDistancesViewController.m; sourceTree = "<group>"; };
@@ -176,7 +160,6 @@
 		1B76CA1119D5AD030063F2F2 /* UIColor+ShoeCycleColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ShoeCycleColors.m"; sourceTree = "<group>"; };
 		1B76CA1419D5AEF10063F2F2 /* UIUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIUtilities.h; path = utilities/UIUtilities.h; sourceTree = "<group>"; };
 		1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIUtilities.m; path = utilities/UIUtilities.m; sourceTree = "<group>"; };
-		1B7D253F21FF3D2E0085E4A8 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		1B7D4B1819D27F42000094DE /* RunDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunDatePickerViewController.h; sourceTree = "<group>"; };
 		1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDatePickerViewController.m; sourceTree = "<group>"; };
 		1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunDatePickerViewController.xib; sourceTree = "<group>"; };
@@ -250,14 +233,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B7D254021FF3D2E0085E4A8 /* Charts.framework in Frameworks */,
-				1B2721D221E9AAFF002BD17E /* MBProgressHUD.framework in Frameworks */,
+				1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */,
+				1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */,
 				1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */,
 				1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */,
 				1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */,
 				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
-				1B2721D421E9AB21002BD17E /* AFNetworking.framework in Frameworks */,
 				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
+				1B59AADE2828B3FF009F7A13 /* Charts.xcframework in Frameworks */,
 				D333FBFBECAAC5C7188362EC /* Pods_ShoeCycle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,97 +248,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B14117F2574B4B200A7D430 /* ShoeCycleUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				1B1411802574B4B200A7D430 /* Tests */,
-				1B1411852574B4B200A7D430 /* README.md */,
-				1B1411862574B4B200A7D430 /* .gitignore */,
-				1B1411872574B4B200A7D430 /* Package.swift */,
-				1B1411882574B4B200A7D430 /* Sources */,
-				1B14118D2574B4B200A7D430 /* .swiftpm */,
-			);
-			name = ShoeCycleUtilities;
-			path = ../ShoeCycleUtilities;
-			sourceTree = "<group>";
-		};
-		1B1411802574B4B200A7D430 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				1B1411812574B4B200A7D430 /* LinuxMain.swift */,
-				1B1411822574B4B200A7D430 /* ShoeCycleUtilitiesTests */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		1B1411822574B4B200A7D430 /* ShoeCycleUtilitiesTests */ = {
-			isa = PBXGroup;
-			children = (
-				1B1411832574B4B200A7D430 /* XCTestManifests.swift */,
-				1B1411842574B4B200A7D430 /* ShoeCycleUtilitiesTests.swift */,
-			);
-			path = ShoeCycleUtilitiesTests;
-			sourceTree = "<group>";
-		};
-		1B1411882574B4B200A7D430 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				1B1411892574B4B200A7D430 /* ShoeCycleUtilities */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		1B1411892574B4B200A7D430 /* ShoeCycleUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				1B14118A2574B4B200A7D430 /* ShoeCycleUtilities.swift */,
-				1B14118B2574B4B200A7D430 /* EmailUtility.swift */,
-				1B14118C2574B4B200A7D430 /* CSVUtility.swift */,
-			);
-			path = ShoeCycleUtilities;
-			sourceTree = "<group>";
-		};
-		1B14118D2574B4B200A7D430 /* .swiftpm */ = {
-			isa = PBXGroup;
-			children = (
-				1B14118E2574B4B200A7D430 /* xcode */,
-			);
-			path = .swiftpm;
-			sourceTree = "<group>";
-		};
-		1B14118E2574B4B200A7D430 /* xcode */ = {
-			isa = PBXGroup;
-			children = (
-				1B14118F2574B4B200A7D430 /* package.xcworkspace */,
-				1B1411902574B4B200A7D430 /* xcuserdata */,
-			);
-			path = xcode;
-			sourceTree = "<group>";
-		};
-		1B1411902574B4B200A7D430 /* xcuserdata */ = {
-			isa = PBXGroup;
-			children = (
-				1B1411912574B4B200A7D430 /* erniezappacosta.xcuserdatad */,
-			);
-			path = xcuserdata;
-			sourceTree = "<group>";
-		};
-		1B1411912574B4B200A7D430 /* erniezappacosta.xcuserdatad */ = {
-			isa = PBXGroup;
-			children = (
-				1B1411922574B4B200A7D430 /* xcschemes */,
-			);
-			path = erniezappacosta.xcuserdatad;
-			sourceTree = "<group>";
-		};
-		1B1411922574B4B200A7D430 /* xcschemes */ = {
-			isa = PBXGroup;
-			children = (
-				1B1411932574B4B200A7D430 /* xcschememanagement.plist */,
-			);
-			path = xcschemes;
-			sourceTree = "<group>";
-		};
 		1B26F6BF1B02419A004095CF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,7 +395,6 @@
 		1BCF642E148AF7E5004C0E6A = {
 			isa = PBXGroup;
 			children = (
-				1B14117F2574B4B200A7D430 /* ShoeCycleUtilities */,
 				1BCF6443148AF7E7004C0E6A /* ShoeCycle */,
 				1BAC72082377351200390E8B /* ShoeCycleTests */,
 				1BCF643C148AF7E7004C0E6A /* Frameworks */,
@@ -524,9 +415,9 @@
 		1BCF643C148AF7E7004C0E6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1B7D253F21FF3D2E0085E4A8 /* Charts.framework */,
-				1B2721B921E7915C002BD17E /* MBProgressHUD.framework */,
-				1B2721B721E79148002BD17E /* AFNetworking.framework */,
+				1B59AADC2828B3FF009F7A13 /* Charts.xcframework */,
+				1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */,
+				1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */,
 				1B1EF7021B12C23C000ED442 /* Fabric.framework */,
 				1BAD389119E25C4000161DA8 /* HealthKit.framework */,
 				1BD2FAED14B5D343006A4542 /* CoreData.framework */,
@@ -730,8 +621,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B14119D2574B4B200A7D430 /* package.xcworkspace in Resources */,
-				1B1411982574B4B200A7D430 /* .gitignore in Resources */,
 				1B3CB6311B0CB9E200E19778 /* EditShoesCell.xib in Resources */,
 				1BDDEC5F148BDF8C009E5436 /* AddDistanceViewController.xib in Resources */,
 				1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */,
@@ -739,13 +628,10 @@
 				1BC5184014A35D240033EFC3 /* SetupViewController.xib in Resources */,
 				1B30A82621EF770300AF22A7 /* Launch Screen.storyboard in Resources */,
 				1BA0E58C2262285600941A06 /* MainWindow.xib in Resources */,
-				1B14119E2574B4B200A7D430 /* xcschememanagement.plist in Resources */,
 				1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */,
 				1B30A82821EF77DC00AF22A7 /* Launch.storyboard in Resources */,
 				1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */,
-				1B1665D62203FC2F00A93009 /* testData.csv in Resources */,
 				1B2E8CAA14C98E4500F0917C /* RunHistoryViewController.xib in Resources */,
-				1B1411972574B4B200A7D430 /* README.md in Resources */,
 				1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */,
 				1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */,
 			);
@@ -762,9 +648,9 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.xcframework",
+				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.xcframework",
+				"$(SRCROOT)/Carthage/Build/iOS/Charts.xcframework",
 			);
 			name = "Carthage - Copy Frameworks";
 			outputFileListPaths = (
@@ -773,7 +659,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "# carthage copy-frameworks\n";
 		};
 		1BA4A3A922D116F6003EB5CA /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -856,7 +742,6 @@
 				1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */,
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
 				1B9EA80422068594000FA58B /* RunHistoryViewControllerDelegate.swift in Sources */,
-				1B14119A2574B4B200A7D430 /* ShoeCycleUtilities.swift in Sources */,
 				1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */,
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
@@ -869,17 +754,13 @@
 				1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
 				1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */,
-				1B14119B2574B4B200A7D430 /* EmailUtility.swift in Sources */,
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
-				1B1411952574B4B200A7D430 /* XCTestManifests.swift in Sources */,
 				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
-				1B14119C2574B4B200A7D430 /* CSVUtility.swift in Sources */,
 				1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
-				1B1411992574B4B200A7D430 /* Package.swift in Sources */,
 				1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */,
 				1B3CB6301B0CB9E200E19778 /* EditShoesCell.m in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
@@ -894,12 +775,10 @@
 				1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */,
-				1B1411962574B4B200A7D430 /* ShoeCycleUtilitiesTests.swift in Sources */,
 				1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
 				1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
-				1B1411942574B4B200A7D430 /* LinuxMain.swift in Sources */,
 				1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */,
 				1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */,
 				1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */,
@@ -961,8 +840,11 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 4.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
@@ -1018,7 +900,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShoeCycleTests;
@@ -1078,7 +964,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShoeCycleTests;
@@ -1136,7 +1026,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShoeCycleTests;
@@ -1192,7 +1086,8 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1218,8 +1113,11 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 4.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
@@ -1252,8 +1150,11 @@
 				GCC_PREFIX_HEADER = "RunShoeMileage/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RunShoeMileage/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 4.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;

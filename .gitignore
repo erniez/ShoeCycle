@@ -1,5 +1,4 @@
 # Xcode
-build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -16,12 +15,12 @@ profile
 DerivedData
 *.map
 *.ipa
-*.xcworkspace/contents.xcworkspacedata
+# *.xcworkspace/contents.xcworkspacedata
 
 # Carthage
 Carthage
-
+#
 # Cocoapods
 Pods
-GoogleService-Info.plist
+# GoogleService-Info.plist
 
