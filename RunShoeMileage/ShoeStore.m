@@ -257,7 +257,7 @@
         shoe.totalDistance = [NSNumber numberWithFloat:runTotal];
     }
     else {
-        shoe.totalDistance = [NSNumber numberWithFloat:0.0];
+        shoe.totalDistance = [NSNumber numberWithFloat:runTotal];
     }
 }
 
