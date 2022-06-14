@@ -11,6 +11,7 @@
 #import "Shoe.h"
 #import "UserDistanceSetting.h"
 #import "History.h"
+#import "ShoeStore.h"
 
 
 @interface EditShoesCell ()
@@ -36,10 +37,6 @@
 - (void)configureForShoe:(Shoe *)shoe
 {
     self.nameLabel.text = shoe.brand;
-    // TODO: This if statement is needed only for backwards compatibility.  Remove after user base is 3.0 or above.
-    if ([shoe.totalDistance floatValue] == 0 && [shoe.history count] > 0) {
-        [self updateTotalDistanceForShoe:shoe];
-    }
     float totalDistance = [shoe.totalDistance floatValue];
     NSString *distanceText = [UserDistanceSetting displayDistance:totalDistance];
     NSString *unitOfMeasure = [UserDistanceSetting getDistanceUnit] ? @"km" : @"miles";
@@ -83,19 +80,6 @@
 - (CGFloat)unselectedConstant
 {
     return self.distanceLabel.frame.origin.x - self.nameLabel.frame.origin.x;
-
-}
-
-
-// TODO: Only need this as a backwards compatibility function for displaying the table view for the first time
-// on upgrade.  This can be deleted once the user base is all 3.0 or above.
-- (void)updateTotalDistanceForShoe:(Shoe *)shoe
-{
-    float totalDistance = 0;
-    for (History *history in shoe.history) {
-        totalDistance += [history.runDistance floatValue];
-    }
-    shoe.totalDistance = [NSNumber numberWithFloat:totalDistance];
 }
 
 @end

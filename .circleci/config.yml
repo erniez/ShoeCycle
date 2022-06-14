@@ -1,17 +1,89 @@
+# .circleci/config.yml
 version: 2.1
 jobs:
-  test:
+  
+  setup-gems:
     macos:
-      xcode: "11.2.0"
+      xcode: 13.3.1
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
+    steps:
+      - run: ls
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+      - run: bundle install
+      - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+  build-and-test:
+    macos:
+      xcode: 13.3.1
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
     steps:
       - checkout
+
+      - run: ls
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+      - run: bundle check || bundle install
+      - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          key: carthage-v1-{{ checksum "Cartfile.resolved" }}
+
+      - run: carthage bootstrap --platform iOS --use-xcframeworks --cache-builds
+
+      - save_cache:
+          key: carthage-v1-{{ checksum "Cartfile.resolved" }}
+          paths:
+            - Carthage/Build
+
+      - restore_cache:
+          key: pods-v1-{{ checksum "Podfile.lock" }}
+
+      - run: bundle exec pod install
+
+      - save_cache:
+          key: pods-v1-{{ checksum "Podfile.lock" }}
+          paths:
+            - Pods
+
+      - run: cat Podfile.lock
+
       - run:
-        name: Build Carthage Libraries
-        command: carthage bootstrap --platform ios
-      - run: bundle exec fastlane scan
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+# Let's not store artifacts until we can specify which ones to store.
+# This step takes too long, and is eating up stoarage space.
+#      - store_artifacts:
+#          path: output
+      - store_test_results:
+          path: output/scan
+
+  adhoc:
+    macos:
+      xcode: 13.3.1
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: adhoc
+    steps:
+      - checkout
+      - run: bundle exec pod install
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
 
 workflows:
-  version: 2.1
-  build_and_test:
+  build-test:
     jobs:
-      - test
+      - build-and-test

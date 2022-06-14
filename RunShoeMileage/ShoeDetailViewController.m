@@ -99,6 +99,7 @@ const CGFloat TAB_BAR_HEIGHT = 49;
         self.shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.startDistance.text]];
         self.shoe.expirationDate = self.expirationDate;
         self.shoe.startDate = self.startDate;
+        [[ShoeStore defaultStore] updateTotalDistanceForShoe:self.shoe];
         
         // Save changes, if any, unless cancelled (new shoe only)
         [[ShoeStore defaultStore] saveChangesEZ];

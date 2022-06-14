@@ -67,6 +67,11 @@
     // Attach the array to the tabBarController
     [tabBarController setViewControllers:viewControllers];
     
+    if (@available(iOS 15.0, *)) {
+        UITabBarAppearance *appearance = [UITabBarAppearance new];
+        UITabBar.appearance.scrollEdgeAppearance = appearance;
+    }
+    
     LaunchViewController *launchViewController = [[UIStoryboard storyboardWithName:@"Launch" bundle:nil] instantiateInitialViewController];
     __weak typeof(self) weakSelf = self;
     launchViewController.onAnimationCompletion = ^{

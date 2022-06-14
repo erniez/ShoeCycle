@@ -184,9 +184,15 @@
     if (self.writeToHealthKit)
     {
         [self.statusIconsContainerView addArrangedSubview:self.connectedToHealthKitAlert];
+    } else {
+        [self.statusIconsContainerView removeArrangedSubview:self.connectedToHealthKitAlert];
+        [self.connectedToHealthKitAlert removeFromSuperview];
     }
     if (self.writeToStrava) {
         [self.statusIconsContainerView addArrangedSubview:self.connectedToStravaView];
+    } else {
+        [self.statusIconsContainerView removeArrangedSubview:self.connectedToStravaView];
+        [self.connectedToStravaView removeFromSuperview];
     }
 }
 
@@ -522,16 +528,17 @@
             NSURL *shoeIdenitfier = weakSelf.distShoe.objectID.URIRepresentation;
             NSString *shoeIDString = shoeIdenitfier.absoluteString;
             NSDictionary *metadata = @{@"ShoeCycleShoeIdentifier" : shoeIDString};
-            [self.logger logEventWithName:kHealthKitEvent userInfo:nil];
+            [weakSelf.logger logEventWithName:kHealthKitEvent userInfo:nil];
             [[HealthKitManager sharedManager] saveRunDistance:addDistance date:testDate metadata:metadata];
         }
         
         [weakSelf dismissDatePickerIfShowingWithCompletion:^{
+            NSString *unitOfMeasure = [UserDistanceSetting unitOfMeasure];
             [weakSelf.totalDistanceLabel setText:[UserDistanceSetting displayDistance:[weakSelf.distShoe.totalDistance floatValue]]];
             [weakSelf.totalDistanceLabel pulseView];
-            [self.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance),
-                                                                      kTotalMileageNumberKey : @(self.distShoe.totalDistance.floatValue),
-                                                                      kMileageUnitKey : [UserDistanceSetting unitOfMeasure]
+            [weakSelf.logger logEventWithName:kLogMileageEvent userInfo:@{kMileageNumberKey : @(addDistance),
+                                                                      kTotalMileageNumberKey : @(weakSelf.distShoe.totalDistance.floatValue),
+                                                                      kMileageUnitKey : unitOfMeasure
             }];
             [[NSNotificationCenter defaultCenter] postNotificationName:kShoeDataDidChange object:nil];
         }];
@@ -560,7 +567,6 @@
         addDistanceHandler();
     }
 }
-
 
 - (IBAction)callDP:(id)sender
 {
