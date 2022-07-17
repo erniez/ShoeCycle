@@ -12,7 +12,7 @@
 #import "SetupViewController.h"
 #import "EditShoesNavController.h"
 #import "ShoeStore.h"
-//@import Firebase;
+@import Firebase;
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
 #import <AFNetworking/AFNetworking.h>
@@ -87,7 +87,7 @@
     [[self window] setRootViewController:self.appViewController];
     
     // Start Crashlytics
-//    [FIRApp configure];
+    [FIRApp configure];
     
     // Test for crashes
 //    [self performSelector:@selector(crashApp) withObject:nil afterDelay:5.0];

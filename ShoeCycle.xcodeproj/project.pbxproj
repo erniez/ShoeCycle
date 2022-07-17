@@ -53,6 +53,7 @@
 		1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
 		1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC72092377351200390E8B /* ShoeCycleTests.swift */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
+		1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BB8A812288497B500B45B67 /* FirebaseAnalytics */; };
 		1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */; };
 		1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
@@ -210,7 +211,6 @@
 		1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StravaAthlete.m; path = API/Strava/ModelObjects/StravaAthlete.m; sourceTree = "<group>"; };
 		1BE34AEC1AFE8F6000CF83EE /* NSDate+UTCConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+UTCConversion.h"; path = "Categories/NSDate+UTCConversion.h"; sourceTree = "<group>"; };
 		1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+UTCConversion.m"; path = "Categories/NSDate+UTCConversion.m"; sourceTree = "<group>"; };
-		6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoeCycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIURLStrings.h; path = API/APIURLStrings.h; sourceTree = "<group>"; };
 		EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIURLStrings.m; path = API/APIURLStrings.m; sourceTree = "<group>"; };
 		EA0F26DA1AFF0550006C4B63 /* StravaActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaActivity.h; path = API/Strava/ModelObjects/StravaActivity.h; sourceTree = "<group>"; };
@@ -238,6 +238,7 @@
 				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
 				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
 				1B59AADE2828B3FF009F7A13 /* Charts.xcframework in Frameworks */,
+				1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +420,6 @@
 				1BCF643D148AF7E7004C0E6A /* UIKit.framework */,
 				1BCF643F148AF7E7004C0E6A /* Foundation.framework */,
 				1BCF6441148AF7E7004C0E6A /* CoreGraphics.framework */,
-				6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -529,13 +529,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BCF6454148AF7E7004C0E6A /* Build configuration list for PBXNativeTarget "ShoeCycle" */;
 			buildPhases = (
-				408A4F3BCFF336B0F50E9C91 /* [CP] Check Pods Manifest.lock */,
 				1BCF6436148AF7E6004C0E6A /* Frameworks */,
 				1BCF6437148AF7E6004C0E6A /* Resources */,
 				1B2721D121E9A9A7002BD17E /* Embed Frameworks */,
 				1B2721BB21E79199002BD17E /* Carthage - Copy Frameworks */,
 				1BCF6435148AF7E6004C0E6A /* Sources */,
-				DC4DEFD6A6AFBC3E81228CDD /* [CP] Embed Pods Frameworks */,
 				1BA4A3A922D116F6003EB5CA /* Swift Lint */,
 			);
 			buildRules = (
@@ -543,6 +541,9 @@
 			dependencies = (
 			);
 			name = ShoeCycle;
+			packageProductDependencies = (
+				1BB8A812288497B500B45B67 /* FirebaseAnalytics */,
+			);
 			productName = RunShoeMileage;
 			productReference = 1BCF6439148AF7E7004C0E6A /* ShoeCycle.app */;
 			productType = "com.apple.product-type.application";
@@ -584,6 +585,9 @@
 				en,
 			);
 			mainGroup = 1BCF642E148AF7E5004C0E6A;
+			packageReferences = (
+				1BB8A811288497B500B45B67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 1BCF643A148AF7E7004C0E6A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -663,60 +667,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		408A4F3BCFF336B0F50E9C91 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ShoeCycle-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exit 0\ndiff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DC4DEFD6A6AFBC3E81228CDD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
-				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreInternal.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exit 0\n\"${PODS_ROOT}/Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1196,6 +1146,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1BB8A811288497B500B45B67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1BB8A812288497B500B45B67 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BB8A811288497B500B45B67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */ = {
