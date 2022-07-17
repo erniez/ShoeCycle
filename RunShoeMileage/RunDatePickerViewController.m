@@ -22,6 +22,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 13.4, *)) {
+        self.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    }
     self.view.backgroundColor = [UIColor clearColor];
     self.infoLabel.textColor = [UIColor shoeCycleBlue];
     self.doneButton.tintColor = [UIColor shoeCycleOrange];

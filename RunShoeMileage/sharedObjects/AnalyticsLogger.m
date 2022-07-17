@@ -7,7 +7,7 @@
 //
 
 #import "AnalyticsLogger.h"
-@import Firebase;
+//@import Firebase;
 
 // Event Constants
 NSString * const kLogMileageEvent = @"log_mileage";
@@ -41,7 +41,7 @@ NSString * const kMileageUnitKey = @"distance_unit";
 - (void)logEventWithName:(NSString *)name userInfo:(nullable NSDictionary<NSString *,id> *)userInfo
 {
 #ifndef DEBUG
-    [FIRAnalytics logEventWithName:name parameters:userInfo];
+//    [FIRAnalytics logEventWithName:name parameters:userInfo];
 #endif
 }
 
