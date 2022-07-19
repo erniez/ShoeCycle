@@ -46,18 +46,6 @@ jobs:
           paths:
             - Carthage/Build
 
-      - restore_cache:
-          key: pods-v1-{{ checksum "Podfile.lock" }}
-
-      - run: bundle exec pod install
-
-      - save_cache:
-          key: pods-v1-{{ checksum "Podfile.lock" }}
-          paths:
-            - Pods
-
-      - run: cat Podfile.lock
-
       - run:
           name: Fastlane
           command: bundle exec fastlane $FASTLANE_LANE
