@@ -337,7 +337,6 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
             if (success) {
                 [self postSuccessMessage];
             }
-            // If we're successful, there's no need to do anything.
         }];
         [self presentViewController: vc animated: YES completion: nil];
     }
