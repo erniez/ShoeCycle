@@ -15,6 +15,8 @@
 		1B2248D01C81480C0081518A /* CSVUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CF1C81480C0081518A /* CSVUtility.swift */; };
 		1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248EE1C82A3A50081518A /* EmailUtility.swift */; };
 		1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore.m */; };
+		1B24358B2879D0970018AFCA /* StravaInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24358A2879D0970018AFCA /* StravaInteractionViewController.swift */; };
+		1B24358D2879D1810018AFCA /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24358C2879D1810018AFCA /* UIView+Autolayout.swift */; };
 		1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */; };
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
 		1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */; };
@@ -51,6 +53,7 @@
 		1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
 		1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC72092377351200390E8B /* ShoeCycleTests.swift */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
+		1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BB8A812288497B500B45B67 /* FirebaseAnalytics */; };
 		1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */; };
 		1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
@@ -70,11 +73,9 @@
 		1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDDEC5C148BDF8B009E5436 /* AddDistanceViewController.m */; };
 		1BDDEC5F148BDF8C009E5436 /* AddDistanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BDDEC5D148BDF8B009E5436 /* AddDistanceViewController.xib */; };
 		1BE059631E58BDC100D6225C /* HOFTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE059621E58BDC100D6225C /* HOFTableViewController.swift */; };
-		1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */; };
 		1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE21AFDCFA600CF83EE /* StravaAPIManager.m */; };
 		1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */; };
 		1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */; };
-		D333FBFBECAAC5C7188362EC /* Pods_ShoeCycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */; };
 		EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */; };
 		EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26DB1AFF0550006C4B63 /* StravaActivity.m */; };
 		EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */; };
@@ -107,7 +108,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		01BAFEEBB6079F2E0FE994C2 /* Pods-ShoeCycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoeCycle.release.xcconfig"; path = "Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle.release.xcconfig"; sourceTree = "<group>"; };
 		1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = Categories/UITableViewExtensions.swift; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
@@ -124,6 +124,8 @@
 		1B2248EE1C82A3A50081518A /* EmailUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailUtility.swift; sourceTree = "<group>"; };
 		1B23E02A14B5257F00B51A6E /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		1B23E02B14B5257F00B51A6E /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
+		1B24358A2879D0970018AFCA /* StravaInteractionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaInteractionViewController.swift; sourceTree = "<group>"; };
+		1B24358C2879D1810018AFCA /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		1B24870D1BEEA3E500777E25 /* AnalyticsLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalyticsLogger.h; path = sharedObjects/AnalyticsLogger.h; sourceTree = "<group>"; };
 		1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalyticsLogger.m; path = sharedObjects/AnalyticsLogger.m; sourceTree = "<group>"; };
 		1B26F6C31B02EFAD004095CF /* UIView+Effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Effects.h"; path = "Categories/UIView+Effects.h"; sourceTree = "<group>"; };
@@ -203,17 +205,12 @@
 		1BDDEC5C148BDF8B009E5436 /* AddDistanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDistanceViewController.m; sourceTree = "<group>"; };
 		1BDDEC5D148BDF8B009E5436 /* AddDistanceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddDistanceViewController.xib; sourceTree = "<group>"; };
 		1BE059621E58BDC100D6225C /* HOFTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HOFTableViewController.swift; sourceTree = "<group>"; };
-		1BE34ADD1AFC4FE800CF83EE /* StravaInteractionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaInteractionViewController.h; sourceTree = "<group>"; };
-		1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaInteractionViewController.m; sourceTree = "<group>"; };
 		1BE34AE11AFDCFA600CF83EE /* StravaAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StravaAPIManager.h; sourceTree = "<group>"; };
 		1BE34AE21AFDCFA600CF83EE /* StravaAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StravaAPIManager.m; sourceTree = "<group>"; };
 		1BE34AE61AFE71D800CF83EE /* StravaAthlete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaAthlete.h; path = API/Strava/ModelObjects/StravaAthlete.h; sourceTree = "<group>"; };
 		1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StravaAthlete.m; path = API/Strava/ModelObjects/StravaAthlete.m; sourceTree = "<group>"; };
 		1BE34AEC1AFE8F6000CF83EE /* NSDate+UTCConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+UTCConversion.h"; path = "Categories/NSDate+UTCConversion.h"; sourceTree = "<group>"; };
 		1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+UTCConversion.m"; path = "Categories/NSDate+UTCConversion.m"; sourceTree = "<group>"; };
-		34CE52DED8702F2F3C872E83 /* Pods-ShoeCycle.adhocdistro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoeCycle.adhocdistro.xcconfig"; path = "Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle.adhocdistro.xcconfig"; sourceTree = "<group>"; };
-		6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoeCycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B835969DC08BF411D837623C /* Pods-ShoeCycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoeCycle.debug.xcconfig"; path = "Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIURLStrings.h; path = API/APIURLStrings.h; sourceTree = "<group>"; };
 		EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIURLStrings.m; path = API/APIURLStrings.m; sourceTree = "<group>"; };
 		EA0F26DA1AFF0550006C4B63 /* StravaActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaActivity.h; path = API/Strava/ModelObjects/StravaActivity.h; sourceTree = "<group>"; };
@@ -241,7 +238,7 @@
 				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
 				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
 				1B59AADE2828B3FF009F7A13 /* Charts.xcframework in Frameworks */,
-				D333FBFBECAAC5C7188362EC /* Pods_ShoeCycle.framework in Frameworks */,
+				1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,8 +296,7 @@
 				1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */,
 				1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */,
 				1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */,
-				1BE34ADD1AFC4FE800CF83EE /* StravaInteractionViewController.h */,
-				1BE34ADE1AFC4FE800CF83EE /* StravaInteractionViewController.m */,
+				1B24358A2879D0970018AFCA /* StravaInteractionViewController.swift */,
 				1BE059621E58BDC100D6225C /* HOFTableViewController.swift */,
 				1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */,
 			);
@@ -333,6 +329,7 @@
 				1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */,
 				1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */,
 				1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */,
+				1B24358C2879D1810018AFCA /* UIView+Autolayout.swift */,
 			);
 			name = "Categories And Extensions";
 			sourceTree = "<group>";
@@ -399,7 +396,6 @@
 				1BAC72082377351200390E8B /* ShoeCycleTests */,
 				1BCF643C148AF7E7004C0E6A /* Frameworks */,
 				1BCF643A148AF7E7004C0E6A /* Products */,
-				F4D4ED65F4C8DC6F26868939 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -424,7 +420,6 @@
 				1BCF643D148AF7E7004C0E6A /* UIKit.framework */,
 				1BCF643F148AF7E7004C0E6A /* Foundation.framework */,
 				1BCF6441148AF7E7004C0E6A /* CoreGraphics.framework */,
-				6E12DC6461F8AEAAD9062641 /* Pods_ShoeCycle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -509,16 +504,6 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
-		F4D4ED65F4C8DC6F26868939 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B835969DC08BF411D837623C /* Pods-ShoeCycle.debug.xcconfig */,
-				01BAFEEBB6079F2E0FE994C2 /* Pods-ShoeCycle.release.xcconfig */,
-				34CE52DED8702F2F3C872E83 /* Pods-ShoeCycle.adhocdistro.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -544,13 +529,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BCF6454148AF7E7004C0E6A /* Build configuration list for PBXNativeTarget "ShoeCycle" */;
 			buildPhases = (
-				408A4F3BCFF336B0F50E9C91 /* [CP] Check Pods Manifest.lock */,
 				1BCF6436148AF7E6004C0E6A /* Frameworks */,
 				1BCF6437148AF7E6004C0E6A /* Resources */,
 				1B2721D121E9A9A7002BD17E /* Embed Frameworks */,
 				1B2721BB21E79199002BD17E /* Carthage - Copy Frameworks */,
 				1BCF6435148AF7E6004C0E6A /* Sources */,
-				DC4DEFD6A6AFBC3E81228CDD /* [CP] Embed Pods Frameworks */,
 				1BA4A3A922D116F6003EB5CA /* Swift Lint */,
 			);
 			buildRules = (
@@ -558,6 +541,9 @@
 			dependencies = (
 			);
 			name = ShoeCycle;
+			packageProductDependencies = (
+				1BB8A812288497B500B45B67 /* FirebaseAnalytics */,
+			);
 			productName = RunShoeMileage;
 			productReference = 1BCF6439148AF7E7004C0E6A /* ShoeCycle.app */;
 			productType = "com.apple.product-type.application";
@@ -599,6 +585,9 @@
 				en,
 			);
 			mainGroup = 1BCF642E148AF7E5004C0E6A;
+			packageReferences = (
+				1BB8A811288497B500B45B67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 1BCF643A148AF7E7004C0E6A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -679,50 +668,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		408A4F3BCFF336B0F50E9C91 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ShoeCycle-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DC4DEFD6A6AFBC3E81228CDD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShoeCycle/Pods-ShoeCycle-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -754,6 +699,7 @@
 				1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
 				1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */,
+				1B24358B2879D0970018AFCA /* StravaInteractionViewController.swift in Sources */,
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
 				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
@@ -768,6 +714,7 @@
 				1BE059631E58BDC100D6225C /* HOFTableViewController.swift in Sources */,
 				EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */,
 				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
+				1B24358D2879D1810018AFCA /* UIView+Autolayout.swift in Sources */,
 				1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */,
 				EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
@@ -777,7 +724,6 @@
 				1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */,
 				1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
-				1BE34ADF1AFC4FE800CF83EE /* StravaInteractionViewController.m in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */,
 				1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */,
@@ -810,7 +756,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=*]" = "";
@@ -821,16 +767,16 @@
 		};
 		1B77CC0A14EB65D000FA6E06 /* AdHocDistro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34CE52DED8702F2F3C872E83 /* Pods-ShoeCycle.adhocdistro.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -845,7 +791,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.0;
+				MARKETING_VERSION = 4.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
@@ -899,7 +845,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -963,7 +909,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1025,7 +971,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1062,7 +1008,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1082,7 +1028,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1094,16 +1040,16 @@
 		};
 		1BCF6455148AF7E7004C0E6A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B835969DC08BF411D837623C /* Pods-ShoeCycle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1118,7 +1064,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.0;
+				MARKETING_VERSION = 4.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
@@ -1131,16 +1077,16 @@
 		};
 		1BCF6456148AF7E7004C0E6A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01BAFEEBB6079F2E0FE994C2 /* Pods-ShoeCycle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShoeCycle.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 63;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1155,7 +1101,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.5.0;
+				MARKETING_VERSION = 4.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
@@ -1200,6 +1146,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1BB8A811288497B500B45B67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1BB8A812288497B500B45B67 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BB8A811288497B500B45B67 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */ = {

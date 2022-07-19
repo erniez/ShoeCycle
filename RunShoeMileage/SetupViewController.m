@@ -13,8 +13,8 @@
 #import "UIUtilities.h"
 #import "HealthKitManager.h"
 #import <AFNetworking/AFNetworking.h>
-#import "StravaInteractionViewController.h"
 #import "UIAlertController+CommonAlerts.h"
+#import "ShoeCycle-Swift.h"
 
 static NSString * const kStravaEnabledMessage = @"You are connected to Strava. Tap the switch to disconnect.";
 static NSString * const kStravaDisableMessage = @"Turning this option on will connect you with the Strava login screen.";
@@ -188,24 +188,6 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if ([viewController isKindOfClass:[StravaInteractionViewController class]]) {
-        StravaInteractionViewController *vc = (StravaInteractionViewController *)viewController;
-        [vc setCompletion:^(BOOL success, NSError *error) {
-            if (error) {
-                [self postErrorAlert:error];
-            }
-            if (!success) {
-                [self resetStravaSwitchToOff];
-            }
-            // If we're successful, there's no need to do anything.
-        }];
-    }
-}
-
 // ==========================================================================================
 // dismiss keyboards
 // ==========================================================================================
@@ -347,10 +329,16 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 - (IBAction)enableStravaDidChange:(UISwitch *)stravaSwitch
 {
     if (stravaSwitch.isOn) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"StravaStoryboard" bundle:nil];
-        UINavigationController *nc = [storyboard instantiateInitialViewController];
-        nc.delegate = self;
-        [self presentViewController:nc animated:YES completion:nil];
+        StravaInteractionViewController *vc = [StravaInteractionViewController new];
+        [vc setCompletion:^(BOOL success, NSError *error) {
+            if (error) {
+                [self postErrorAlert:error];
+            }
+            if (success) {
+                [self postSuccessMessage];
+            }
+        }];
+        [self presentViewController: vc animated: YES completion: nil];
     }
     else
     {
@@ -382,9 +370,22 @@ static NSString * const kStravaDisableMessage = @"Turning this option on will co
 
 - (void)postErrorAlert:(NSError *)error
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error!" message:@"There was a problem with your network connection. Please try again later." preferredStyle:UIAlertControllerStyleAlert];
+    __weak typeof(self) weakSelf = self;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error!" message:@"There was a problem with connecting to Strave, or you canceled the process. Please try again later." preferredStyle:UIAlertControllerStyleAlert];
     NSLog(@"An error ocurred when trying to log user into Strava:/n%@",error);
-    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertControllerStyleAlert handler:nil];
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertControllerStyleAlert handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf resetStravaSwitchToOff];
+    }];
+    [alertController addAction:doneAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)postSuccessMessage
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Success!" message:@"You have successfully connected to Strava!" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Return to Setup" style:UIAlertControllerStyleAlert handler:^(UIAlertAction *action) {
+        
+    }];
     [alertController addAction:doneAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
