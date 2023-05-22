@@ -271,16 +271,7 @@
     
     self.enterDistanceField.delegate = self;
     
-    NSArray *shoes = [[ShoeStore defaultStore] activeShoes];
-    
-    if ([shoes count]) {
-        if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
-            self.distShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
-        }
-        else {
-            self.distShoe = [shoes objectAtIndex:0];
-        }
-    }
+    self.distShoe = [[ShoeStore defaultStore] getCurrentlyActiveShoe];
     
     self.nameField.text = self.distShoe.brand;
     
@@ -683,7 +674,14 @@
     [[self view] endEditing:YES];           // clear any editors that may be visible
     [self dismissDatePickerIfShowing];
     
-    StandardDistancesViewController *modalViewController = [[StandardDistancesViewController alloc] initWithDistance:self];
+//    StandardDistancesViewController *modalViewController = [[StandardDistancesViewController alloc] initWithDistance:self];
+//
+//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
+//
+//    [self presentViewController:navController animated:YES completion:nil];
+    
+    // Repurposing button to test out SwiftUI view
+    UIViewController *modalViewController = [AddDistanceViewFactory create];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
 

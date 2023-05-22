@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<Shoe *> *)activeShoes;
 - (NSArray *)allRunDistances;
 - (Shoe *)createShoe;
+- (Shoe *)getCurrentlyActiveShoe;
 - (void)removeShoe:(Shoe *)s;
 - (void)moveShoeAtIndex:(NSInteger)from toIndex:(NSInteger)to;
 - (void)fetchShoesIfNecessary;

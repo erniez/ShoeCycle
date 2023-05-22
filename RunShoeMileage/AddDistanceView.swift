@@ -7,16 +7,23 @@
 
 import SwiftUI
 
+
+// For testing purposes only. So I can launch from Obj-C
+@objc class AddDistanceViewFactory: NSObject {
+    
+    @objc static func create() -> UIViewController {
+        let addDistanceView = AddDistanceView()
+        let hostingController = UIHostingController(rootView: addDistanceView)
+        return hostingController
+    }
+    
+}
+
 struct AddDistanceView: View {
-    @State var runDate = Date()
-    @State var runDistance = ""
-    let secondsInSixMonths: TimeInterval = 6 * 30.4 * 24 * 60 * 60
-    var testStartDate: Date {
-        Date() - secondsInSixMonths
-    }
-    var testEndDate: Date {
-        Date() + 20 * 24 * 60 * 60
-    }
+    @State private var runDate = Date()
+    @State private var runDistance = ""
+    // This is not dynamic, yet.
+    var shoe = ShoeStore.default().getCurrentlyActiveShoe()
     
     var body: some View {
         GeometryReader { screenGeometry in
@@ -36,7 +43,7 @@ struct AddDistanceView: View {
                     HStack {
                         Image("logo")
                         Spacer()
-                        ShoeImageView(width: width * 0.40, height: height * 0.20)
+                        ShoeImageView(width: width * 0.40, height: height * 0.20, shoeName: shoe.brand)
                             .offset(x: 0, y: 16)
                         Image("scroll-arrows")
                             .padding(.leading, 8)
@@ -49,8 +56,8 @@ struct AddDistanceView: View {
                     }
                     .padding()
                     .fixedSize(horizontal: false, vertical: true)
-                    ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: 35, endvalue: 350)
-                    ShoeCycleDateProgressView(progressWidth: progressBarWidth, startDate: testStartDate, endDate: testEndDate)
+                    ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.floatValue, endvalue: shoe.maxDistance.intValue)
+                    ShoeCycleDateProgressView(progressWidth: progressBarWidth, interactor: DateProgressViewInteractor(startDate: shoe.startDate, endDate: shoe.expirationDate))
                     Spacer()
                 }
             }
@@ -59,42 +66,10 @@ struct AddDistanceView: View {
 }
 
 struct AddDistanceView_Previews: PreviewProvider {
+    static var shoe = MockShoeGenerator().generateNewShoeWithData()
+    
     static var previews: some View {
-        AddDistanceView()
-    }
-}
-
-struct ShoeImageView: View {
-    let width: CGFloat
-    let height: CGFloat
-    var shoeImage = Image("photo-placeholder")
-
-    var body: some View {
-        VStack {
-            ZStack (alignment: .bottom) {
-                let pointerSquareSize: CGFloat = 16.0
-                Rectangle()
-                    .frame(width: pointerSquareSize, height: pointerSquareSize)
-                    .border(Color.shoeCycleOrange)
-                    .foregroundColor(Color.shoeCycleOrange)
-                    .rotationEffect(Angle(degrees: 45))
-                    .offset(x: 0, y: pointerSquareSize/2)
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(Color.shoeCycleOrange, lineWidth: 2)
-                    .frame(width: width, height: height)
-                    .background(.black)
-                shoeImage
-                    .resizable()
-                    .padding(24)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: width, height: height, alignment: .center)
-            }
-            Text("Shoe Name Big")
-                .foregroundColor(Color.white)
-                .padding(.top, 8)
-                .lineLimit(1)
-                .frame(width: width)
-        }
+        AddDistanceView(shoe: shoe)
     }
 }
 

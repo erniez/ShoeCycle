@@ -7,37 +7,34 @@
 
 import Foundation
 
-@objc
-class MockShoeGenerator: NSObject {
-    let store = ShoeStore.default()
-    let secondsInWeek: TimeInterval = 60 * 60 * 24 * 7
-    let secondsInDay: TimeInterval = 60 * 60 * 24
-    let secondsInSixMonths: TimeInterval = 6 * 30.4 * 24 * 60 * 60
 
-    @objc
-    func generateNewShoeWithData() {
+class MockShoeGenerator {
+    let store = ShoeStore.default()
+
+    func generateNewShoeWithData() -> Shoe {
         let totalWeeks = 16
         let shoeCount = store.allShoes().count
         let newShoe = store.createShoe()
         newShoe.brand = "Test Shoe \(shoeCount + 1)"
         newShoe.maxDistance = 350
         newShoe.startDistance = 0
-        newShoe.startDate = Date() - (secondsInWeek * TimeInterval(totalWeeks))
-        newShoe.expirationDate = newShoe.startDate + secondsInSixMonths
+        newShoe.startDate = Date() - (TimeInterval.secondsInWeek * TimeInterval(totalWeeks))
+        newShoe.expirationDate = newShoe.startDate + TimeInterval.secondsInSixMonths
         let dates = generateRandomDates(fromPriorWeeks: totalWeeks)
         let runHistories = addRandomDistances(toDates: dates)
         runHistories.forEach { runHistory in
             addRunHistory(toShoe: newShoe, runHistory: runHistory)
         }
+        return newShoe
     }
 
-    func generateRandomDates(fromPriorWeeks weeks: Int) -> [Date] {
+    private func generateRandomDates(fromPriorWeeks weeks: Int) -> [Date] {
         var dateArray = [Date]()
         let today = Date()
-        var priorDate = today - (secondsInWeek * TimeInterval(weeks))
+        var priorDate = today - (TimeInterval.secondsInWeek * TimeInterval(weeks))
         dateArray.append(priorDate)
         while priorDate < today {
-            priorDate += secondsInDay
+            priorDate += TimeInterval.secondsInDay
             if Bool.random() {
                 dateArray.append(priorDate)
             }
@@ -45,7 +42,7 @@ class MockShoeGenerator: NSObject {
         return dateArray
     }
 
-    func addRandomDistances(toDates dates: [Date]) -> [(Date, Float)] {
+    private func addRandomDistances(toDates dates: [Date]) -> [(Date, Float)] {
         var histories = [(Date, Float)]()
         dates.forEach { date in
             let distance = Int.random(in: 1..<10)
@@ -66,6 +63,13 @@ class MockShoeGenerator: NSObject {
         history.runDistance = NSNumber(value: runHistory.distance)
         history.runDate = runHistory.date
         shoe.addHistoryObject(history)
+        var totalDistance = 0
+        shoe.history.forEach { setData in
+            if let history = setData as? History {
+                totalDistance += history.runDistance.intValue
+            }
+        }
+        shoe.totalDistance = NSNumber(value: totalDistance)
         store.saveChangesEZ()
     }
 }

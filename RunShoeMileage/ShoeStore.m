@@ -11,6 +11,7 @@
 #import "Shoe.h"
 #import "History.h"
 #import "FileHelpers.h"
+#import "UserDistanceSetting.h"
 
 @interface ShoeStore ()
 
@@ -114,6 +115,23 @@
         return !shoe.hallOfFame;
     }];
     return [self.allShoes filteredArrayUsingPredicate:hallOfFamePredicate];
+}
+
+- (Shoe *)getCurrentlyActiveShoe
+{
+    NSArray *shoes = [self activeShoes];
+    Shoe *activeShoe;
+    
+    if ([shoes count]) {
+        if (([shoes count]-1) >= [UserDistanceSetting getSelectedShoe]){
+            activeShoe = [shoes objectAtIndex:[UserDistanceSetting getSelectedShoe]];
+        }
+        else {
+            activeShoe = [shoes objectAtIndex:0];
+        }
+    }
+    
+    return activeShoe;
 }
 
 - (void)removeShoe:(Shoe *)s

@@ -74,27 +74,10 @@ struct ShoeCycleDistanceProgressView: View {
 
 struct ShoeCycleDateProgressView: View {
     let progressWidth: CGFloat
-    let startDate: Date
-    let endDate: Date
-    private static var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter
-    }
-    private let secondsInDay: TimeInterval = 60 * 60 * 24
-    private var progressBarValue: Double {
-        let shoeDateDifference = endDate.timeIntervalSince(startDate) / secondsInDay
-        let currentDateDifference = Date().timeIntervalSince(startDate) / secondsInDay
-        let progressBarValue = min(1, currentDateDifference / shoeDateDifference)
-        return progressBarValue
-    }
-    private var daysToGo: Int {
-        let currentDateDifference = -Date().timeIntervalSince(endDate) / secondsInDay
-        return max(0, Int(currentDateDifference))
-    }
+    let interactor: DateProgressViewInteractor
     
     var body: some View {
-        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleBlue, progressBarValue: Float(progressBarValue), value: Float(daysToGo), units: "Days Left", startValue: Self.dateFormatter.string(from: startDate), endValue: Self.dateFormatter.string(from: endDate))
+        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleBlue, progressBarValue: Float(interactor.progressBarValue), value: Float(interactor.daysToGo), units: "Days Left", startValue: DateFormatter.shortDate.string(from: interactor.startDate), endValue: DateFormatter.shortDate.string(from: interactor.endDate))
     }
 }
 
@@ -103,6 +86,7 @@ struct ShoeCycleProgressView_Previews: PreviewProvider {
         VStack {
             Spacer()
             ShoeCycleProgressView(progressWidth: 200, progressColor: .shoeCycleGreen, progressBarValue: 0.3, value: 20, units: "miles", startValue: "0", endValue: "350")
+            ShoeCycleDateProgressView(progressWidth: 200, interactor: DateProgressViewInteractor(startDate: Date(timeIntervalSinceNow: -100 * TimeInterval.secondsInDay), endDate: Date(timeIntervalSinceNow: 50 * TimeInterval.secondsInDay)))
             Spacer()
         }
         .background(.black)
