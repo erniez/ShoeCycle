@@ -38,8 +38,6 @@
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
 		1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; };
 		1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1B59AADE2828B3FF009F7A13 /* Charts.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADC2828B3FF009F7A13 /* Charts.xcframework */; };
-		1B59AADF2828B3FF009F7A13 /* Charts.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADC2828B3FF009F7A13 /* Charts.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; };
 		1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */; };
@@ -73,8 +71,12 @@
 		1BCF9FE42A1AA0EE007F697E /* TimeIntervalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */; };
 		1BCF9FE62A1AA890007F697E /* DateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */; };
 		1BCF9FE82A1AC27A007F697E /* ShoeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FE72A1AC27A007F697E /* ShoeImageView.swift */; };
-		1BCF9FED2A1BC11B007F697E /* DateProgressViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FEC2A1BC11B007F697E /* DateProgressViewInteractor.swift */; };
+		1BCF9FED2A1BC11B007F697E /* DateProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */; };
 		1BCF9FEF2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */; };
+		1BCF9FF42A1BD5B9007F697E /* RunHistoryChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */; };
+		1BCF9FF92A1BF3FD007F697E /* ShoeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */; };
+		1BCF9FFB2A1BFDDD007F697E /* ShoeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FFA2A1BFDDD007F697E /* ShoeTests.swift */; };
+		1BCF9FFD2A1FE0DA007F697E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */; };
 		1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */; };
 		1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2FAED14B5D343006A4542 /* CoreData.framework */; };
 		1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDAF9081B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m */; };
@@ -106,7 +108,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1B59AADF2828B3FF009F7A13 /* Charts.xcframework in Embed Frameworks */,
 				1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */,
 				1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */,
 			);
@@ -161,7 +162,6 @@
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
 		1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AFNetworking.xcframework; path = Carthage/Build/AFNetworking.xcframework; sourceTree = "<group>"; };
-		1B59AADC2828B3FF009F7A13 /* Charts.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Charts.xcframework; path = Carthage/Build/Charts.xcframework; sourceTree = "<group>"; };
 		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
 		1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
@@ -209,8 +209,12 @@
 		1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtensions.swift; sourceTree = "<group>"; };
 		1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensions.swift; sourceTree = "<group>"; };
 		1BCF9FE72A1AC27A007F697E /* ShoeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeImageView.swift; sourceTree = "<group>"; };
-		1BCF9FEC2A1BC11B007F697E /* DateProgressViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProgressViewInteractor.swift; sourceTree = "<group>"; };
+		1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProgressViewModel.swift; sourceTree = "<group>"; };
 		1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProgressViewInteractorTests.swift; sourceTree = "<group>"; };
+		1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryChart.swift; sourceTree = "<group>"; };
+		1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeExtensions.swift; sourceTree = "<group>"; };
+		1BCF9FFA2A1BFDDD007F697E /* ShoeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeTests.swift; sourceTree = "<group>"; };
+		1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDistanceSetting.h; sourceTree = "<group>"; };
 		1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDistanceSetting.m; sourceTree = "<group>"; };
 		1BD2FAED14B5D343006A4542 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -252,7 +256,6 @@
 				1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */,
 				1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */,
 				1BCF6442148AF7E7004C0E6A /* CoreGraphics.framework in Frameworks */,
-				1B59AADE2828B3FF009F7A13 /* Charts.xcframework in Frameworks */,
 				1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,9 +267,10 @@
 			isa = PBXGroup;
 			children = (
 				1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */,
+				1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */,
+				1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */,
 				1B1738F62A15422C006D632D /* ShoeCycleProgressView.swift */,
 				1BCF9FE72A1AC27A007F697E /* ShoeImageView.swift */,
-				1BCF9FEC2A1BC11B007F697E /* DateProgressViewInteractor.swift */,
 			);
 			name = AddDistanceScreen;
 			sourceTree = "<group>";
@@ -358,6 +362,7 @@
 				1B1738E02A06BBA2006D632D /* ColorExtension.swift */,
 				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
 				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
+				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
 			);
 			name = "Categories And Extensions";
 			sourceTree = "<group>";
@@ -399,6 +404,7 @@
 			children = (
 				1BAC72092377351200390E8B /* ShoeCycleTests.swift */,
 				1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */,
+				1BCF9FFA2A1BFDDD007F697E /* ShoeTests.swift */,
 				1BAC720B2377351200390E8B /* Info.plist */,
 			);
 			path = ShoeCycleTests;
@@ -414,6 +420,7 @@
 				1B2248CB1C8145600081518A /* Shoe+Helpers.h */,
 				1B2248CC1C8145600081518A /* Shoe+Helpers.m */,
 				1B876F562207E9AF00964400 /* WeeklyCollated.swift */,
+				1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -440,7 +447,6 @@
 		1BCF643C148AF7E7004C0E6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1B59AADC2828B3FF009F7A13 /* Charts.xcframework */,
 				1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */,
 				1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */,
 				1B1EF7021B12C23C000ED442 /* Fabric.framework */,
@@ -713,6 +719,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BCF9FFB2A1BFDDD007F697E /* ShoeTests.swift in Sources */,
 				1BCF9FEF2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift in Sources */,
 				1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */,
 			);
@@ -723,12 +730,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */,
+				1BCF9FFD2A1FE0DA007F697E /* DateExtension.swift in Sources */,
 				1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */,
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
 				1B9EA80422068594000FA58B /* RunHistoryViewControllerDelegate.swift in Sources */,
 				1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */,
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
+				1BCF9FF92A1BF3FD007F697E /* ShoeExtensions.swift in Sources */,
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
@@ -755,6 +764,7 @@
 				1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
 				1BCF9FE62A1AA890007F697E /* DateFormatterExtensions.swift in Sources */,
+				1BCF9FF42A1BD5B9007F697E /* RunHistoryChart.swift in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,
 				1BE059631E58BDC100D6225C /* HOFTableViewController.swift in Sources */,
 				EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */,
@@ -768,7 +778,7 @@
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */,
 				1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */,
-				1BCF9FED2A1BC11B007F697E /* DateProgressViewInteractor.swift in Sources */,
+				1BCF9FED2A1BC11B007F697E /* DateProgressViewModel.swift in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */,
@@ -802,7 +812,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=*]" = "";
@@ -1054,7 +1064,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1074,7 +1084,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;

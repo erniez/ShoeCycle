@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 // For testing purposes only. So I can launch from Obj-C
 @objc class AddDistanceViewFactory: NSObject {
     
@@ -22,14 +21,11 @@ import SwiftUI
 struct AddDistanceView: View {
     @State private var runDate = Date()
     @State private var runDistance = ""
-    // This is not dynamic, yet.
-    var shoe = ShoeStore.default().getCurrentlyActiveShoe()
+    @State var shoe = ShoeStore.default().getCurrentlyActiveShoe()
     
     var body: some View {
         GeometryReader { screenGeometry in
-            let height = screenGeometry.size.height
-            let width = screenGeometry.size.width
-            let progressBarWidth = screenGeometry.size.width * 0.6
+            let progressBarWidth = screenGeometry.size.width * 0.55
 
             var dateFormatter: DateFormatter {
                 let formatter = DateFormatter()
@@ -43,7 +39,7 @@ struct AddDistanceView: View {
                     HStack {
                         Image("logo")
                         Spacer()
-                        ShoeImageView(width: width * 0.40, height: height * 0.20, shoeName: shoe.brand)
+                        ShoeImageView(width: 150, height: 100, shoeName: shoe.brand)
                             .offset(x: 0, y: 16)
                         Image("scroll-arrows")
                             .padding(.leading, 8)
@@ -52,12 +48,16 @@ struct AddDistanceView: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
                             .fill(Color(white: 1.0, opacity: 0.20))
-                        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance)
+                        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: $shoe)
                     }
                     .padding()
                     .fixedSize(horizontal: false, vertical: true)
                     ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.floatValue, endvalue: shoe.maxDistance.intValue)
-                    ShoeCycleDateProgressView(progressWidth: progressBarWidth, interactor: DateProgressViewInteractor(startDate: shoe.startDate, endDate: shoe.expirationDate))
+                        .padding([.horizontal], 16)
+                    ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
+                        .padding([.horizontal], 16)
+                    RunHistoryChart(collatedHistory: Shoe.collateRunHistories(Array(shoe.history), ascending: true))
+                        .padding(16)
                     Spacer()
                 }
             }
@@ -85,6 +85,7 @@ struct DateDistanceEntryView: View {
     @State private var buttonMaxHeight: CGFloat?
     @Binding var runDate: Date
     @Binding var runDistance: String
+    @Binding var shoe: Shoe
     
     var body: some View {
         HStack(alignment: .top) {
@@ -148,6 +149,7 @@ struct DateDistanceEntryView: View {
                 
                 Button {
                     print("button tapped")
+                    shoe = MockShoeGenerator().generateNewShoeWithData()
                 } label: {
                     Label("Distances", systemImage: "heart.fill")
                         .font(.caption)

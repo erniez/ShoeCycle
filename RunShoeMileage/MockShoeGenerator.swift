@@ -11,7 +11,7 @@ import Foundation
 class MockShoeGenerator {
     let store = ShoeStore.default()
 
-    func generateNewShoeWithData() -> Shoe {
+    func generateNewShoeWithData(saveData: Bool = false) -> Shoe {
         let totalWeeks = 16
         let shoeCount = store.allShoes().count
         let newShoe = store.createShoe()
@@ -23,12 +23,12 @@ class MockShoeGenerator {
         let dates = generateRandomDates(fromPriorWeeks: totalWeeks)
         let runHistories = addRandomDistances(toDates: dates)
         runHistories.forEach { runHistory in
-            addRunHistory(toShoe: newShoe, runHistory: runHistory)
+            addRunHistory(toShoe: newShoe, runHistory: runHistory, saveData: saveData)
         }
         return newShoe
     }
 
-    private func generateRandomDates(fromPriorWeeks weeks: Int) -> [Date] {
+    func generateRandomDates(fromPriorWeeks weeks: Int) -> [Date] {
         var dateArray = [Date]()
         let today = Date()
         var priorDate = today - (TimeInterval.secondsInWeek * TimeInterval(weeks))
@@ -52,24 +52,22 @@ class MockShoeGenerator {
         return histories
     }
 
-    private func addRunHistory(toShoe shoe: Shoe, runHistory: (date: Date, distance: Float)) {
+    private func addRunHistory(toShoe shoe: Shoe, runHistory: (date: Date, distance: Float), saveData: Bool) {
         guard let context = shoe.managedObjectContext else {
             fatalError("No context is available")
         }
         guard let history = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as? History else {
             fatalError("Could not create History item")
         }
-
+        
         history.runDistance = NSNumber(value: runHistory.distance)
         history.runDate = runHistory.date
         shoe.addHistoryObject(history)
         var totalDistance = 0
-        shoe.history.forEach { setData in
-            if let history = setData as? History {
-                totalDistance += history.runDistance.intValue
-            }
-        }
+        shoe.history.forEach { totalDistance += $0.runDistance.intValue }
         shoe.totalDistance = NSNumber(value: totalDistance)
-        store.saveChangesEZ()
+        if saveData {
+            store.saveChangesEZ()
+        }
     }
 }

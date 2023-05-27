@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSData * thumbnailData;
 @property (nonatomic, strong) NSNumber * totalDistance;
 @property (nonatomic, strong) NSDate * startDate;
-@property (nonatomic, strong) NSSet *history;
+@property (nonatomic, strong) NSSet<History *> *history;
 @property (nonatomic) BOOL hallOfFame;
 @end
 
@@ -32,8 +32,8 @@
 
 - (void)addHistoryObject:(History *)value;
 - (void)removeHistoryObject:(History *)value;
-- (void)addHistory:(NSSet *)values;
-- (void)removeHistory:(NSSet *)values;
+- (void)addHistory:(NSSet<History *> *)values;
+- (void)removeHistory:(NSSet<History *> *)values;
 
 - (void)setThumbnailDataFromImage:(UIImage *)image width:(CGFloat)width height:(CGFloat)height;
 

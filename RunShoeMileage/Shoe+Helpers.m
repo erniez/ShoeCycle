@@ -138,10 +138,5 @@
     return [beginningOfWeeks copy];
 }
 
-- (NSDate *)addOneWeekToDate:(NSDate *)date forCalendar:(NSCalendar *)calendar
-{
-
-    return [NSDate new];
-}
 
 @end

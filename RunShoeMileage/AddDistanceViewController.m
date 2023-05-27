@@ -29,11 +29,11 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "GlobalStringConstants.h"
 #import "AnalyticsLogger.h"
-#import <Charts/Charts.h>
+//#import <Charts/Charts.h>
 #import "ShoeCycle-Swift.h"
 
 
-@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate, IChartAxisValueFormatter, RunHistoryViewControllerDelegate>
+@interface AddDistanceViewController () <RunDatePickerViewDelegate, UIWebViewDelegate, /* IChartAxisValueFormatter,*/ RunHistoryViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addDistanceButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBlockContstraint;
@@ -60,7 +60,7 @@
 @property (weak, nonatomic) IBOutlet UIStackView *statusIconsContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageScrollIndicators;
 @property (weak, nonatomic) IBOutlet UIView *swipeView;
-@property (weak, nonatomic) IBOutlet LineChartView *lineChartView;
+//@property (weak, nonatomic) IBOutlet LineChartView *lineChartView;
 @property (weak, nonatomic) IBOutlet UIButton *allShoesToggle;
 
 // Have to use strong because I remove these views from superView in viewDidLoad.
@@ -78,8 +78,8 @@
 @property (weak, nonatomic) AnalyticsLogger *logger;
 @property (nonatomic) UITapGestureRecognizer *shoeImageTapRecognizer;
 
-@property (nonatomic, strong) LineChartDataSet *dataSet;
-@property (nonatomic, strong) ChartLimitLine *chartLimitLine;
+//@property (nonatomic, strong) LineChartDataSet *dataSet;
+//@property (nonatomic, strong) ChartLimitLine *chartLimitLine;
 @property (nonatomic, strong) NSArray<WeeklyCollated *> *weeklyCollatedArray;
 @property (nonatomic) BOOL animateChart;
 
@@ -200,7 +200,7 @@
 {
     [self updateChartData];
     if (self.animateChart) {
-        [self.lineChartView animateWithYAxisDuration:1.0];
+//        [self.lineChartView animateWithYAxisDuration:1.0];
         self.animateChart = NO;
     }
 }
@@ -226,7 +226,7 @@
     }
     [self refreshChart]; // The chart doesn't know it's entire layout until AFTER view will appear.
     // reset no data text from empty.
-    self.lineChartView.noDataText = @"Please enter a run distance to see data in this graph.";
+//    self.lineChartView.noDataText = @"Please enter a run distance to see data in this graph.";
 }
 
 - (void)viewDidLoad
@@ -295,7 +295,7 @@
 
     // iPhoneSE cannot fit the graph, so remove it and allShoesToggle.
     if ([UIUtilities isSmallScreenSize]) {
-        [self.lineChartView removeFromSuperview];
+//        [self.lineChartView removeFromSuperview];
         [self.allShoesToggle removeFromSuperview];
     }
     [self configureLineChartView];
@@ -353,103 +353,103 @@
 
 - (void)configureLineChartView
 {
-    self.lineChartView.xAxis.labelTextColor = [UIColor whiteColor];
-    self.lineChartView.legend.textColor = [UIColor whiteColor];
-    self.lineChartView.xAxis.valueFormatter = self;
-    self.lineChartView.leftAxis.labelTextColor = [UIColor whiteColor];
-    self.lineChartView.leftAxis.drawGridLinesEnabled = NO;
-    self.lineChartView.leftAxis.axisMinimum = 0.0;
-    self.lineChartView.leftAxis.granularityEnabled = YES;
-    self.lineChartView.leftAxis.spaceTop = 0.25;
-    self.lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
-    self.lineChartView.xAxis.drawGridLinesEnabled = NO;
-    self.lineChartView.xAxis.granularityEnabled = YES;
-    self.lineChartView.rightAxis.enabled = NO;
-    self.lineChartView.minOffset = 24.0; // Need to do this because dates were getting cut off.
-    self.lineChartView.scaleYEnabled = NO;
-    self.lineChartView.scaleXEnabled = NO;
-    self.lineChartView.noDataTextColor = [UIColor whiteColor];
-    self.lineChartView.noDataFont = [UIFont systemFontOfSize:16.0];
-    // Set no data text to empty to prevent it from flashing on the screen before view did appear.
-    self.lineChartView.noDataText = @"";
-    
-    self.chartLimitLine = [ChartLimitLine new];
-    self.chartLimitLine.lineColor = [UIColor shoeCycleBlue];
-    self.chartLimitLine.lineDashLengths = @[[NSNumber numberWithDouble:10.0], [NSNumber numberWithDouble:5.0]];
-    self.chartLimitLine.labelPosition = ChartLimitLabelPositionTopLeft;
-    self.chartLimitLine.valueTextColor = [UIColor shoeCycleBlue];
-    [self.lineChartView.leftAxis addLimitLine:self.chartLimitLine];
+//    self.lineChartView.xAxis.labelTextColor = [UIColor whiteColor];
+//    self.lineChartView.legend.textColor = [UIColor whiteColor];
+//    self.lineChartView.xAxis.valueFormatter = self;
+//    self.lineChartView.leftAxis.labelTextColor = [UIColor whiteColor];
+//    self.lineChartView.leftAxis.drawGridLinesEnabled = NO;
+//    self.lineChartView.leftAxis.axisMinimum = 0.0;
+//    self.lineChartView.leftAxis.granularityEnabled = YES;
+//    self.lineChartView.leftAxis.spaceTop = 0.25;
+//    self.lineChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
+//    self.lineChartView.xAxis.drawGridLinesEnabled = NO;
+//    self.lineChartView.xAxis.granularityEnabled = YES;
+//    self.lineChartView.rightAxis.enabled = NO;
+//    self.lineChartView.minOffset = 24.0; // Need to do this because dates were getting cut off.
+//    self.lineChartView.scaleYEnabled = NO;
+//    self.lineChartView.scaleXEnabled = NO;
+//    self.lineChartView.noDataTextColor = [UIColor whiteColor];
+//    self.lineChartView.noDataFont = [UIFont systemFontOfSize:16.0];
+//    // Set no data text to empty to prevent it from flashing on the screen before view did appear.
+//    self.lineChartView.noDataText = @"";
+//
+//    self.chartLimitLine = [ChartLimitLine new];
+//    self.chartLimitLine.lineColor = [UIColor shoeCycleBlue];
+//    self.chartLimitLine.lineDashLengths = @[[NSNumber numberWithDouble:10.0], [NSNumber numberWithDouble:5.0]];
+//    self.chartLimitLine.labelPosition = ChartLimitLabelPositionTopLeft;
+//    self.chartLimitLine.valueTextColor = [UIColor shoeCycleBlue];
+//    [self.lineChartView.leftAxis addLimitLine:self.chartLimitLine];
 }
 
 - (void)updateChartData
 {
-    self.lineChartView.data = nil;
-    self.dataSet = [LineChartDataSet new];
-    [self configureDataSet];
-    NSArray<Shoe *> *activeShoes = ShoeStore.defaultStore.activeShoes;
-    self.weeklyCollatedArray = NSArray.new;
-    if ([UserDistanceSetting graphAllShoeToggle]) {
-        NSArray<History *> *histories = NSArray.new;
-        for (Shoe *shoe in activeShoes) {
-            histories = [histories arrayByAddingObjectsFromArray:[shoe.history allObjects]];
-        }
-        self.weeklyCollatedArray = [Shoe collatedRunHistories:histories ByWeekAscending:YES];
-    } else {
-        self.weeklyCollatedArray = [self.distShoe collatedRunHistoryByWeekAscending:YES];
-    }
-
-
-    [self.weeklyCollatedArray enumerateObjectsUsingBlock:^(WeeklyCollated * _Nonnull weeklyCollated, NSUInteger idx, BOOL * _Nonnull stop) {
-        float runDistance = [UserDistanceSetting getDistanceFromMiles:[weeklyCollated.runDistance floatValue]];
-        double value = (double)runDistance;
-        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:idx y:value];
-        if (![self.dataSet addEntry:dataEntry]) {
-            *stop = YES;
-        }
-    }];
-
-    if (self.weeklyCollatedArray.count > 0) {
-        self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
-        self.chartLimitLine.limit = self.dataSet.yMax;
-        self.chartLimitLine.label = [NSString stringWithFormat:@"%.2f", self.dataSet.yMax];
-        // move the chart to show the latest values.
-        double moveToValue = self.dataSet.xMax; // - (12 - 1);
-        // only show 12 datapoints at a time.
-        [self.lineChartView setVisibleXRangeWithMinXRange:12 - 1 maxXRange:12 - 1];
-        // The moveViewToX method must be called last, or else unpredictable behavior happens.
-        [self.lineChartView moveViewToX: moveToValue];
-    }
+//    self.lineChartView.data = nil;
+//    self.dataSet = [LineChartDataSet new];
+//    [self configureDataSet];
+//    NSArray<Shoe *> *activeShoes = ShoeStore.defaultStore.activeShoes;
+//    self.weeklyCollatedArray = NSArray.new;
+//    if ([UserDistanceSetting graphAllShoeToggle]) {
+//        NSArray<History *> *histories = NSArray.new;
+//        for (Shoe *shoe in activeShoes) {
+//            histories = [histories arrayByAddingObjectsFromArray:[shoe.history allObjects]];
+//        }
+//        self.weeklyCollatedArray = [Shoe collatedRunHistories:histories ByWeekAscending:YES];
+//    } else {
+//        self.weeklyCollatedArray = [self.distShoe collatedRunHistoryByWeekAscending:YES];
+//    }
+//
+//
+//    [self.weeklyCollatedArray enumerateObjectsUsingBlock:^(WeeklyCollated * _Nonnull weeklyCollated, NSUInteger idx, BOOL * _Nonnull stop) {
+//        float runDistance = [UserDistanceSetting getDistanceFromMiles:[weeklyCollated.runDistance floatValue]];
+//        double value = (double)runDistance;
+//        ChartDataEntry *dataEntry = [[ChartDataEntry alloc] initWithX:idx y:value];
+//        if (![self.dataSet addEntry:dataEntry]) {
+//            *stop = YES;
+//        }
+//    }];
+//
+//    if (self.weeklyCollatedArray.count > 0) {
+//        self.lineChartView.data = [[LineChartData alloc] initWithDataSet:self.dataSet];
+//        self.chartLimitLine.limit = self.dataSet.yMax;
+//        self.chartLimitLine.label = [NSString stringWithFormat:@"%.2f", self.dataSet.yMax];
+//        // move the chart to show the latest values.
+//        double moveToValue = self.dataSet.xMax; // - (12 - 1);
+//        // only show 12 datapoints at a time.
+//        [self.lineChartView setVisibleXRangeWithMinXRange:12 - 1 maxXRange:12 - 1];
+//        // The moveViewToX method must be called last, or else unpredictable behavior happens.
+//        [self.lineChartView moveViewToX: moveToValue];
+//    }
 }
 
 - (void)configureDataSet
 {
-    self.dataSet.drawHorizontalHighlightIndicatorEnabled = NO;
-    self.dataSet.drawVerticalHighlightIndicatorEnabled = NO;
-    self.dataSet.circleRadius = 3.0;
-    self.dataSet.drawCircleHoleEnabled = NO;
-    self.dataSet.circleColor = [UIColor shoeCycleGreen];
-    self.dataSet.circleHoleColor = [UIColor shoeCycleBlue];
-    self.dataSet.color = [UIColor shoeCycleOrange];
-    self.dataSet.drawValuesEnabled = NO;
-    self.dataSet.label = [NSString stringWithFormat:@"Weekly %@", [UserDistanceSetting unitOfMeasure]];
+//    self.dataSet.drawHorizontalHighlightIndicatorEnabled = NO;
+//    self.dataSet.drawVerticalHighlightIndicatorEnabled = NO;
+//    self.dataSet.circleRadius = 3.0;
+//    self.dataSet.drawCircleHoleEnabled = NO;
+//    self.dataSet.circleColor = [UIColor shoeCycleGreen];
+//    self.dataSet.circleHoleColor = [UIColor shoeCycleBlue];
+//    self.dataSet.color = [UIColor shoeCycleOrange];
+//    self.dataSet.drawValuesEnabled = NO;
+//    self.dataSet.label = [NSString stringWithFormat:@"Weekly %@", [UserDistanceSetting unitOfMeasure]];
 }
 
 #pragma mark - IChartAxisValueFormatter
-- (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
-{
-    if (self.weeklyCollatedArray.count <= value || value < 0 ) {
-        return @"";
-    }
-    // HAX: I originally wanted to show on every odd point, but, even though it worked on the simulator
-    // it did not show correctly on my XSMax device.  There is something wrong with the Charts rendering
-    // engine where it only shows the even values.
-    // Show x values only on every other even point.
-    if (fmod(value,2.0) == 0.0) {
-        WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
-        return [self.runDateFormatter stringFromDate:weeklyCollated.date];
-    }
-    return @"";
-}
+//- (NSString * _Nonnull)stringForValue:(double)value axis:(ChartAxisBase * _Nullable)axis
+//{
+//    if (self.weeklyCollatedArray.count <= value || value < 0 ) {
+//        return @"";
+//    }
+//    // HAX: I originally wanted to show on every odd point, but, even though it worked on the simulator
+//    // it did not show correctly on my XSMax device.  There is something wrong with the Charts rendering
+//    // engine where it only shows the even values.
+//    // Show x values only on every other even point.
+//    if (fmod(value,2.0) == 0.0) {
+//        WeeklyCollated *weeklyCollated = self.weeklyCollatedArray[(int)value];
+//        return [self.runDateFormatter stringFromDate:weeklyCollated.date];
+//    }
+//    return @"";
+//}
 #pragma mark - User Interactions
 
 - (IBAction)backgroundTapped:(id)sender 

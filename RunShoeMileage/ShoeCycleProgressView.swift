@@ -20,8 +20,8 @@ fileprivate struct ShoeCycleProgressView: View {
         HStack {
             VStack(spacing: 0) {
                 ProgressView(value: progressBarValue)
-                    .scaleEffect(x: 1, y: 3, anchor: .center)
-                    .frame(width: progressWidth, height: 10)
+                    .scaleEffect(x: 1, y: 2, anchor: .bottom)
+                    .frame(width: progressWidth, height: 5)
                     .padding(0)
                     .accentColor(progressColor)
                 Image("tickmarks")
@@ -37,6 +37,7 @@ fileprivate struct ShoeCycleProgressView: View {
                 .font(.callout)
                 .frame(width: progressWidth)
             }
+            .offset(CGSize(width: 0, height: 8))
             Spacer()
             VStack(spacing: 0) {
                 Text(formatNumberForDisplay(value: value))
@@ -48,7 +49,6 @@ fileprivate struct ShoeCycleProgressView: View {
             .foregroundColor(progressColor)
             Spacer()
         }
-        .padding(16)
     }
     
     private func formatNumberForDisplay(value: Float) -> String {
@@ -74,10 +74,10 @@ struct ShoeCycleDistanceProgressView: View {
 
 struct ShoeCycleDateProgressView: View {
     let progressWidth: CGFloat
-    let interactor: DateProgressViewInteractor
+    let viewModel: DateProgressViewModel
     
     var body: some View {
-        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleBlue, progressBarValue: Float(interactor.progressBarValue), value: Float(interactor.daysToGo), units: "Days Left", startValue: DateFormatter.shortDate.string(from: interactor.startDate), endValue: DateFormatter.shortDate.string(from: interactor.endDate))
+        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleBlue, progressBarValue: Float(viewModel.progressBarValue), value: Float(viewModel.daysToGo), units: "Days Left", startValue: DateFormatter.shortDate.string(from: viewModel.startDate), endValue: DateFormatter.shortDate.string(from: viewModel.endDate))
     }
 }
 
@@ -86,7 +86,7 @@ struct ShoeCycleProgressView_Previews: PreviewProvider {
         VStack {
             Spacer()
             ShoeCycleProgressView(progressWidth: 200, progressColor: .shoeCycleGreen, progressBarValue: 0.3, value: 20, units: "miles", startValue: "0", endValue: "350")
-            ShoeCycleDateProgressView(progressWidth: 200, interactor: DateProgressViewInteractor(startDate: Date(timeIntervalSinceNow: -100 * TimeInterval.secondsInDay), endDate: Date(timeIntervalSinceNow: 50 * TimeInterval.secondsInDay)))
+            ShoeCycleDateProgressView(progressWidth: 200, viewModel: DateProgressViewModel(startDate: Date(timeIntervalSinceNow: -100 * TimeInterval.secondsInDay), endDate: Date(timeIntervalSinceNow: 50 * TimeInterval.secondsInDay)))
             Spacer()
         }
         .background(.black)

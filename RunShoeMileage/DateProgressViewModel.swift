@@ -1,4 +1,4 @@
-//  DateProgressViewInteractor.swift
+//  DateProgressViewModel.swift
 //  ShoeCycle
 //
 //  Created by Ernie Zappacosta on 5/22/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DateProgressViewInteractor {
+struct DateProgressViewModel {
     let startDate: Date
     let endDate: Date
     
