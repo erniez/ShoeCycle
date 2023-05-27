@@ -10,9 +10,7 @@ import Charts
 
 struct RunHistoryChart: View {
     let collatedHistory: [WeeklyCollatedNew]
-//    var history: [History] {
-//        Array(shoe.history)
-//    }
+
     private var xValues: [Date] {
         var dates = [Date]()
         collatedHistory.forEach { weeklyCollated in
@@ -20,13 +18,18 @@ struct RunHistoryChart: View {
         }
         return dates
     }
-    var calendar: Calendar {
+    private var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 2
         return calendar
     }
-    func weekOfYear(from date: Date) -> Int {
+    private func weekOfYear(from date: Date) -> Int {
         calendar.component(.weekOfYear, from: date)
+    }
+    var maxDistance: Float {
+        var runDistances = [Float]()
+        collatedHistory.forEach { runDistances.append($0.runDistance) }
+        return runDistances.max() ?? 0
     }
     
     var body: some View {
@@ -74,7 +77,7 @@ struct RunHistoryChart: View {
                         }
                     }
                     RuleMark(
-                        y: .value("Max Mileage", 15)
+                        y: .value("Max Mileage", maxDistance)
                     )
                     .foregroundStyle(Color.shoeCycleBlue)
                     .lineStyle(StrokeStyle(lineWidth: 3, dash: [10, 10]))
