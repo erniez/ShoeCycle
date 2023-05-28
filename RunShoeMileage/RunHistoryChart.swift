@@ -61,6 +61,7 @@ struct RunHistoryChart: View {
                 }
             }
             .foregroundColor(.clear)
+            .padding([.bottom], 8)
             
             ScrollViewReader { proxy in
                 ScrollView(.horizontal) {
@@ -118,6 +119,7 @@ struct RunHistoryChart: View {
                         .chartYAxis() {
                         }
                         .animation(.easeOut(duration: 0.5), value: collatedHistory)
+                        .padding([.bottom], 8)
                     }
                 }
             }
