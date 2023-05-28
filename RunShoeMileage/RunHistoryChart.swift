@@ -116,16 +116,6 @@ struct RunHistoryChart: View {
                             }
                         }
                         .chartYAxis() {
-                            AxisMarks {
-                                AxisGridLine()
-                                      .foregroundStyle(Color.clear)
-                            }
-                            AxisMarks() {
-                                AxisValueLabel() {
-                                    Text("Invisible")
-                                        .foregroundColor(.clear)
-                                }
-                            }
                         }
                         .animation(.easeOut(duration: 0.5), value: collatedHistory)
                     }
