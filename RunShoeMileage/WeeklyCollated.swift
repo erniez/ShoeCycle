@@ -20,7 +20,7 @@ class WeeklyCollated: NSObject {
     }
 }
 
-class WeeklyCollatedNew: Equatable {
+class WeeklyCollatedNew: Equatable, Identifiable {
     static func == (lhs: WeeklyCollatedNew, rhs: WeeklyCollatedNew) -> Bool {
         if lhs.date == rhs.date, lhs.runDistance == rhs.runDistance {
             return true
