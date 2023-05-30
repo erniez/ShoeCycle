@@ -13,11 +13,7 @@ struct RunHistoryChart: View {
     let collatedHistory: [WeeklyCollatedNew]
 
     private var xValues: [Date] {
-        var dates = [Date]()
-        collatedHistory.forEach { weeklyCollated in
-            dates.append(weeklyCollated.date)
-        }
-        return dates
+        collatedHistory.map { $0.date }
     }
     private var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
@@ -28,8 +24,7 @@ struct RunHistoryChart: View {
         calendar.component(.weekOfYear, from: date)
     }
     var maxDistance: Float {
-        var runDistances = [Float]()
-        collatedHistory.forEach { runDistances.append($0.runDistance) }
+        var runDistances = collatedHistory.map { $0.runDistance }
         return runDistances.max() ?? 0
     }
     

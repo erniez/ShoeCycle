@@ -53,9 +53,7 @@ fileprivate struct ShoeCycleProgressView: View {
     
     private func formatNumberForDisplay(value: Float) -> String {
         let number = NSNumber(value: value)
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter.string(from: number) ?? ""
+        return NumberFormatter.decimal.string(from: number) ?? ""
     }
 }
 

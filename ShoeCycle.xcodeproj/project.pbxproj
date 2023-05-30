@@ -47,6 +47,9 @@
 		1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */; };
 		1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */; };
 		1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */; };
+		1B7F36602A24012F00377485 /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F365F2A24012F00377485 /* HistoryRow.swift */; };
+		1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F36612A24039500377485 /* NumberFormatterExtension.swift */; };
+		1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F36632A2405D100377485 /* HistoryListView.swift */; };
 		1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B876F562207E9AF00964400 /* WeeklyCollated.swift */; };
 		1B9EA80422068594000FA58B /* RunHistoryViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */; };
 		1BA0E58C2262285600941A06 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BA0E58B2262285600941A06 /* MainWindow.xib */; };
@@ -175,6 +178,9 @@
 		1B7D4B1819D27F42000094DE /* RunDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunDatePickerViewController.h; sourceTree = "<group>"; };
 		1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDatePickerViewController.m; sourceTree = "<group>"; };
 		1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunDatePickerViewController.xib; sourceTree = "<group>"; };
+		1B7F365F2A24012F00377485 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
+		1B7F36612A24039500377485 /* NumberFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtension.swift; sourceTree = "<group>"; };
+		1B7F36632A2405D100377485 /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		1B80342B1A34C1C300126C59 /* GlobalStringConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalStringConstants.h; sourceTree = "<group>"; };
 		1B876F562207E9AF00964400 /* WeeklyCollated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCollated.swift; sourceTree = "<group>"; };
 		1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -363,6 +369,7 @@
 				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
 				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
 				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
+				1B7F36612A24039500377485 /* NumberFormatterExtension.swift */,
 			);
 			name = "Categories And Extensions";
 			sourceTree = "<group>";
@@ -380,6 +387,15 @@
 				1B2248EE1C82A3A50081518A /* EmailUtility.swift */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		1B7F365E2A2400F700377485 /* HistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				1B7F365F2A24012F00377485 /* HistoryRow.swift */,
+				1B7F36632A2405D100377485 /* HistoryListView.swift */,
+			);
+			name = HistoryView;
 			sourceTree = "<group>";
 		};
 		1B80342A1A34C17500126C59 /* Global */ = {
@@ -464,6 +480,7 @@
 			children = (
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
+				1B7F365E2A2400F700377485 /* HistoryView */,
 				1B9EA805220685BE000FA58B /* Protocols */,
 				1B30A82921F20FB400AF22A7 /* Scenes */,
 				1BC46D1F1E4FAC1D002204E2 /* Models */,
@@ -752,11 +769,13 @@
 				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
+				1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */,
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
 				1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCF9FE42A1AA0EE007F697E /* TimeIntervalExtensions.swift in Sources */,
+				1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */,
 				1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */,
 				1BCF9FE82A1AC27A007F697E /* ShoeImageView.swift in Sources */,
 				1B1738F72A15422C006D632D /* ShoeCycleProgressView.swift in Sources */,
@@ -780,6 +799,7 @@
 				1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */,
 				1BCF9FED2A1BC11B007F697E /* DateProgressViewModel.swift in Sources */,
 				1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */,
+				1B7F36602A24012F00377485 /* HistoryRow.swift in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */,
 				1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */,

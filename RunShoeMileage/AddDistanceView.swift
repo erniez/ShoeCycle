@@ -10,8 +10,8 @@ import SwiftUI
 // For testing purposes only. So I can launch from Obj-C
 @objc class AddDistanceViewFactory: NSObject {
     
-    @objc static func create() -> UIViewController {
-        let addDistanceView = AddDistanceView()
+    @objc static func create(with shoe: Shoe) -> UIViewController {
+        let addDistanceView = AddDistanceView(shoe: shoe)
         let hostingController = UIHostingController(rootView: addDistanceView)
         return hostingController
     }
@@ -21,7 +21,7 @@ import SwiftUI
 struct AddDistanceView: View {
     @State private var runDate = Date()
     @State private var runDistance = ""
-    @State var shoe = ShoeStore.default().getCurrentlyActiveShoe()
+    @State var shoe: Shoe
     
     var body: some View {
         GeometryReader { screenGeometry in
@@ -83,6 +83,7 @@ struct PatternedBackground: View {
 
 struct DateDistanceEntryView: View {
     @State private var buttonMaxHeight: CGFloat?
+    @State private var showHistoryView = false
     @Binding var runDate: Date
     @Binding var runDistance: String
     @Binding var shoe: Shoe
@@ -114,6 +115,7 @@ struct DateDistanceEntryView: View {
                 
                 Button {
                     print("button tapped")
+                    showHistoryView = true
                 } label: {
                     Label("History", systemImage: "calendar")
                         .font(.caption)
@@ -122,6 +124,9 @@ struct DateDistanceEntryView: View {
                         .background(.gray)
                         .cornerRadius(8)
                         .shadow(color: .black, radius: 2, x: 1, y:2)
+                }
+                .sheet(isPresented: $showHistoryView) {
+                    HistoryListView(listData: HistoryListView.listData(shoe: shoe))
                 }
             }
             .padding(.vertical, 8)

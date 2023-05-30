@@ -12,6 +12,7 @@ class MockShoeGenerator {
     let store = ShoeStore.default()
 
     func generateNewShoeWithData(saveData: Bool = false) -> Shoe {
+        print("generating new shoe data")
         let totalWeeks = 16
         let shoeCount = store.allShoes().count
         let newShoe = store.createShoe()

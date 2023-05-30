@@ -74,5 +74,41 @@ extension Shoe {
         }
         return collatedArray
     }
+
+    func runHistoriesByMonth(ascending: Bool) -> [[History]] {
+        let sortedHistories = Shoe.sortRunHistories(Array(history), ascending: ascending)
+        var runsByMonth = [[History]]()
+        var runsForCurrentMonth = [History]()
+        let calendar = Calendar.current
+        var previousMonth = 0
+        var previousYear = 0
+        
+        sortedHistories.forEach { history in
+            let components = calendar.dateComponents([.year, .month], from: history.runDate)
+            
+            guard let month = components.month, let year = components.year else {
+                return
+            }
+            
+            if month != previousMonth || year != previousYear {
+                if runsForCurrentMonth.count > 0 {
+                    runsByMonth.append(runsForCurrentMonth)
+                }
+                runsForCurrentMonth = [History]()
+            }
+            runsForCurrentMonth.append(history)
+            previousYear = year
+            previousMonth = month
+        }
+        if runsForCurrentMonth.count > 0 {
+            runsByMonth.append(runsForCurrentMonth)
+        }
+        return runsByMonth
+    }
     
+    static func runDistanceTotal(histories: [History]) -> Float {
+        var totalDistance: Float = 0
+        histories.forEach { totalDistance += $0.runDistance.floatValue }
+        return totalDistance
+    }
 }
