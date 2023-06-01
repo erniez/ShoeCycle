@@ -69,7 +69,12 @@ struct AddDistanceView_Previews: PreviewProvider {
     static var shoe = MockShoeGenerator().generateNewShoeWithData()
     
     static var previews: some View {
-        AddDistanceView(shoe: shoe)
+        Group {
+            AddDistanceView(shoe: shoe)
+            AddDistanceView(shoe: shoe)
+                .environment(\.colorScheme, .dark)
+        }
+
     }
 }
 
@@ -92,7 +97,7 @@ struct DateDistanceEntryView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Date:")
-                    .padding(.bottom, -8)
+                    .padding(.bottom, -4)
                     .foregroundColor(.white)
                 
                 DatePicker("runDate",
@@ -109,8 +114,7 @@ struct DateDistanceEntryView: View {
                     )
                 })
                 .frame(height: buttonMaxHeight)
-                .background(.black)
-                .preferredColorScheme(.dark) // Need this to get white text in the field
+                .background(Color(uiColor: .systemGray4))
                 .cornerRadius(8)
                 
                 Button {
@@ -134,12 +138,12 @@ struct DateDistanceEntryView: View {
             
             VStack(alignment: .leading) {
                 Text("Distance:")
-                    .padding(.bottom, -8)
+                    .padding(.bottom, -4)
                     .foregroundColor(.white)
                 
-                TextField(" Distance  ", text: $runDistance, prompt: Text(" Distance ").foregroundColor(.gray.opacity(0.60)))
+                TextField(" Distance  ", text: $runDistance, prompt: Text(" Distance ").foregroundColor(Color(uiColor: .systemGray2)))
                     .accentColor(.white)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(uiColor: .systemGray))
                     .background(GeometryReader { geometry in
                         Color.clear.preference(
                             key: RowHeightPreferenceKey.self,
@@ -148,7 +152,7 @@ struct DateDistanceEntryView: View {
                     })
                     .frame(height: buttonMaxHeight)
                     .frame(minWidth: 50)
-                    .background(.black)
+                    .background(Color(uiColor: .systemGray4))
                     .cornerRadius(8)
                     .fixedSize()
                 
