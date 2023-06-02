@@ -5,7 +5,7 @@
 #import "Shoe+Helpers.h"
 #import "History.h"
 #import "UIUtilities.h"
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 #import "UserDistanceSetting.h"
 #import "ShoeDetailViewController.h"
 #import "EditShoesCell.h"

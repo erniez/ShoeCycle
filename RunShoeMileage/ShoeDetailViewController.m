@@ -7,7 +7,7 @@
 //
 
 #import "ShoeDetailViewController.h"
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 #import "ImageStore.h"
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
@@ -99,10 +99,10 @@ const CGFloat TAB_BAR_HEIGHT = 49;
         self.shoe.startDistance = [NSNumber numberWithFloat:[UserDistanceSetting enterDistance:self.startDistance.text]];
         self.shoe.expirationDate = self.expirationDate;
         self.shoe.startDate = self.startDate;
-        [[ShoeStore defaultStore] updateTotalDistanceForShoe:self.shoe];
+        [[ShoeStore_Legacy defaultStore] updateTotalDistanceForShoe:self.shoe];
         
         // Save changes, if any, unless cancelled (new shoe only)
-        [[ShoeStore defaultStore] saveChangesEZ];
+        [[ShoeStore_Legacy defaultStore] saveChangesEZ];
     }
 }
 
@@ -257,7 +257,7 @@ const CGFloat TAB_BAR_HEIGHT = 49;
             
     EZLog(@"%@", self.shoe.brand);
     
-    [[ShoeStore defaultStore] saveChangesEZ];
+    [[ShoeStore_Legacy defaultStore] saveChangesEZ];
     
     // This message gets forwarded to the parentViewController  
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -269,7 +269,7 @@ const CGFloat TAB_BAR_HEIGHT = 49;
     // If the user cancelled, then remove the Possession from the store
     // This message gets forwarded to the parentViewController
 
-    [[ShoeStore defaultStore] removeShoe:self.shoe];
+    [[ShoeStore_Legacy defaultStore] removeShoe:self.shoe];
     self.newShoeIsCancelled = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 }

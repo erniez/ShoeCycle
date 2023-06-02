@@ -11,7 +11,7 @@
 #import "Shoe.h"
 #import "UserDistanceSetting.h"
 #import "History.h"
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 
 
 @interface EditShoesCell ()

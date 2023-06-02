@@ -12,7 +12,7 @@
 		1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */; };
 		1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738E02A06BBA2006D632D /* ColorExtension.swift */; };
 		1B1738F72A15422C006D632D /* ShoeCycleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738F62A15422C006D632D /* ShoeCycleProgressView.swift */; };
-		1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore.m */; };
+		1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1B144414B0D882009891D6 /* ShoeStore_Legacy.m */; };
 		1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1EF7001B101EB9000ED442 /* FTUUtility.m */; };
 		1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CC1C8145600081518A /* Shoe+Helpers.m */; };
 		1B2248D01C81480C0081518A /* CSVUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2248CF1C81480C0081518A /* CSVUtility.swift */; };
@@ -126,8 +126,8 @@
 		1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceView.swift; sourceTree = "<group>"; };
 		1B1738E02A06BBA2006D632D /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		1B1738F62A15422C006D632D /* ShoeCycleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleProgressView.swift; sourceTree = "<group>"; };
-		1B1B144314B0D882009891D6 /* ShoeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore.h; sourceTree = "<group>"; };
-		1B1B144414B0D882009891D6 /* ShoeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore.m; sourceTree = "<group>"; };
+		1B1B144314B0D882009891D6 /* ShoeStore_Legacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeStore_Legacy.h; sourceTree = "<group>"; };
+		1B1B144414B0D882009891D6 /* ShoeStore_Legacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeStore_Legacy.m; sourceTree = "<group>"; };
 		1B1EF6FF1B101EB9000ED442 /* FTUUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTUUtility.h; path = utilities/FTUUtility.h; sourceTree = "<group>"; };
 		1B1EF7001B101EB9000ED442 /* FTUUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTUUtility.m; path = utilities/FTUUtility.m; sourceTree = "<group>"; };
 		1B1EF7021B12C23C000ED442 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -325,8 +325,8 @@
 				1B42028114A97C040064C078 /* ShoeDetailViewController.h */,
 				1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */,
 				1B42028314A97C050064C078 /* ShoeDetailViewController.xib */,
-				1B1B144314B0D882009891D6 /* ShoeStore.h */,
-				1B1B144414B0D882009891D6 /* ShoeStore.m */,
+				1B1B144314B0D882009891D6 /* ShoeStore_Legacy.h */,
+				1B1B144414B0D882009891D6 /* ShoeStore_Legacy.m */,
 				1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */,
 				1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */,
 				1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */,
@@ -761,7 +761,7 @@
 				1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
-				1B1B144514B0D882009891D6 /* ShoeStore.m in Sources */,
+				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
 				1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */,
 				1B24358B2879D0970018AFCA /* StravaInteractionViewController.swift in Sources */,

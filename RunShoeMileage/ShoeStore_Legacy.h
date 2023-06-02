@@ -11,10 +11,10 @@
 
 @class Shoe;
 @class History;
-@interface ShoeStore : NSObject
+@interface ShoeStore_Legacy : NSObject
 
 NS_ASSUME_NONNULL_BEGIN
-+ (ShoeStore *)defaultStore;
++ (ShoeStore_Legacy *)defaultStore;
 - (BOOL)saveChangesEZ;
 
 #pragma mark Shoes

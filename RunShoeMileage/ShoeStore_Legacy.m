@@ -6,14 +6,14 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 #import "ImageStore.h"
 #import "Shoe.h"
 #import "History.h"
 #import "FileHelpers.h"
 #import "UserDistanceSetting.h"
 
-@interface ShoeStore ()
+@interface ShoeStore_Legacy ()
 
 @property (nonatomic) NSMutableArray *mAllShoes;
 @property (nonatomic) NSMutableArray *allRunDistances;
@@ -23,12 +23,12 @@
 @end
 
 
-@implementation ShoeStore
+@implementation ShoeStore_Legacy
 
 
-+ (ShoeStore *)defaultStore
++ (ShoeStore_Legacy *)defaultStore
 {
-    static ShoeStore *defaultStore = nil;
+    static ShoeStore_Legacy *defaultStore = nil;
     
     if (!defaultStore) {
         // Create the singleton

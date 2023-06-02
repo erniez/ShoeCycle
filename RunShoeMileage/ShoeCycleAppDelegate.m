@@ -11,7 +11,7 @@
 #import "EditShoesViewController.h"
 #import "SetupViewController.h"
 #import "EditShoesNavController.h"
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 @import Firebase;
 #import "UserDistanceSetting.h"
 #import "GlobalStringConstants.h"
@@ -76,7 +76,7 @@
     __weak typeof(self) weakSelf = self;
     launchViewController.onAnimationCompletion = ^{
         [weakSelf.appViewController transitionToViewController:tabBarController duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL success) {
-            NSArray *shoes = [[ShoeStore defaultStore] allShoes];
+            NSArray *shoes = [[ShoeStore_Legacy defaultStore] allShoes];
             if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
             {
                 [weakSelf displayNewFeaturesInfoOnViewController:vc1];
@@ -116,7 +116,7 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
-    [[ShoeStore defaultStore] saveChangesEZ];
+    [[ShoeStore_Legacy defaultStore] saveChangesEZ];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -141,7 +141,7 @@
      See also applicationDidEnterBackground:.
      */
     
-    [[ShoeStore defaultStore] saveChangesEZ];
+    [[ShoeStore_Legacy defaultStore] saveChangesEZ];
     
 }
 

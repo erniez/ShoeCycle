@@ -9,7 +9,7 @@
 #import "RunHistoryViewController.h"
 #import "History.h"
 #import "UserDistanceSetting.h"
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 #import "DateUtilities.h"
 #import "Shoe+Helpers.h"
 #import "ShoeCycle-Swift.h"
@@ -198,9 +198,9 @@
         EZLog(@"shoe.history mathched item: %@ ********", [shoe.history member:[runs objectAtIndex:[indexPath row]]]);
         NSMutableArray *runsForTheMonth = self.runsByTheMonth[indexPath.section];
         History *shoeHistoryEntry = runsForTheMonth[indexPath.row];
-        [[ShoeStore defaultStore] removeHistory:[shoe.history member:shoeHistoryEntry] atShoe:shoe];
-        [[ShoeStore defaultStore] saveChangesEZ];
-        [[ShoeStore defaultStore] updateTotalDistanceForShoe:shoe];
+        [[ShoeStore_Legacy defaultStore] removeHistory:[shoe.history member:shoeHistoryEntry] atShoe:shoe];
+        [[ShoeStore_Legacy defaultStore] saveChangesEZ];
+        [[ShoeStore_Legacy defaultStore] updateTotalDistanceForShoe:shoe];
         [runsForTheMonth removeObjectAtIndex:indexPath.row];
         EZLog(@"runs = %@",runs);
         [runs removeObjectAtIndex:[indexPath row]];
@@ -234,7 +234,7 @@
         [tableView endUpdates];
         [CATransaction commit];
 
-        [[ShoeStore defaultStore] saveChangesEZ];       // Save context
+        [[ShoeStore_Legacy defaultStore] saveChangesEZ];       // Save context
         [self.delegate runHistoryDidChangeWithShoe:self.shoe];
     }
 }

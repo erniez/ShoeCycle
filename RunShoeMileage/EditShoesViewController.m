@@ -9,7 +9,7 @@
 #import "EditShoesViewController.h"
 #import "ShoeDetailViewController.h"
 #import "ShoeCycleAppDelegate.h"
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 #import "Shoe.h"
 #import "UserDistanceSetting.h"
 #import "UIUtilities.h"
@@ -54,7 +54,7 @@
     // We don't want to grab new data if we have a shoe for editing that has become a hall of fame shoe.
     // Table will get updated in the checkForRemoval method
     if (!self.shoeForEditing) {
-        self.tableData = [[[ShoeStore defaultStore] activeShoes] mutableCopy];
+        self.tableData = [[[ShoeStore_Legacy defaultStore] activeShoes] mutableCopy];
         [self.tableView reloadData];
     }
     if (self.tableView.indexPathsForSelectedRows.count == 0) {
@@ -127,7 +127,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger cnt = [[[ShoeStore defaultStore] activeShoes] count];
+    NSInteger cnt = [[[ShoeStore_Legacy defaultStore] activeShoes] count];
     // Check to see if current shoe was deleted, then set current shoe to top shoe.
     if (self.currentShoe >= cnt) {
         self.currentShoe = 0;
@@ -142,7 +142,7 @@
 {
     EditShoesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EditShoesCell" forIndexPath:indexPath];
     
-    NSArray *shoes = [[ShoeStore defaultStore] activeShoes];
+    NSArray *shoes = [[ShoeStore_Legacy defaultStore] activeShoes];
     
     Shoe *shoe = [shoes objectAtIndex:indexPath.row];
     
@@ -186,7 +186,7 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        ShoeStore *ss = [ShoeStore defaultStore];
+        ShoeStore_Legacy *ss = [ShoeStore_Legacy defaultStore];
         Shoe *s = [self.tableData objectAtIndex:[indexPath row]];
         [ss removeShoe:s];
         [self.tableData removeObject:s];
@@ -223,7 +223,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    [[ShoeStore defaultStore] moveShoeAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
+    [[ShoeStore_Legacy defaultStore] moveShoeAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
     NSInteger fromIndex = fromIndexPath.row;
     NSInteger toIndex = toIndexPath.row;
     if (fromIndex == self.editingSelectedShoe) {
@@ -242,7 +242,7 @@
 {
     NSTimeInterval secondsInSixMonths = 6 * 30.4 * 24 * 60 * 60;
     
-    Shoe *newShoe = [[ShoeStore defaultStore] createShoe];
+    Shoe *newShoe = [[ShoeStore_Legacy defaultStore] createShoe];
     ShoeDetailViewController *detailViewController = [[ShoeDetailViewController alloc] initForNewItem:YES];
 
     newShoe.maxDistance = [NSNumber numberWithFloat:350];

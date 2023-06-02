@@ -10,7 +10,7 @@
 #import "AddDistanceViewController.h"
 #import "StandardDistancesViewController.h"
 #import "RunHistoryViewController.h"
-#import "ShoeStore.h"
+#import "ShoeStore_Legacy.h"
 #import "Shoe.h"
 #import "Shoe+Helpers.h"
 #import "History.h"
@@ -126,7 +126,7 @@
 
 - (void)loadDataSourceAndRefreshViews
 {
-    self.dataSource = [[ShoeStore defaultStore] activeShoes];
+    self.dataSource = [[ShoeStore_Legacy defaultStore] activeShoes];
     
     if ([self.dataSource count] == 0)
     {
@@ -271,7 +271,7 @@
     
     self.enterDistanceField.delegate = self;
     
-    self.distShoe = [[ShoeStore defaultStore] getCurrentlyActiveShoe];
+    self.distShoe = [[ShoeStore_Legacy defaultStore] getCurrentlyActiveShoe];
     
     self.nameField.text = self.distShoe.brand;
     
@@ -508,8 +508,8 @@
         history.runDate = testDate;
         [weakSelf.distShoe addHistoryObject:history];
         
-        [[ShoeStore defaultStore] updateTotalDistanceForShoe:weakSelf.distShoe];
-        [[ShoeStore defaultStore] saveChangesEZ];
+        [[ShoeStore_Legacy defaultStore] updateTotalDistanceForShoe:weakSelf.distShoe];
+        [[ShoeStore_Legacy defaultStore] saveChangesEZ];
         
         weakSelf.enterDistanceField.text = nil;
         weakSelf.totalDistanceProgress.progress = self.distShoe.totalDistance.floatValue/weakSelf.distShoe.maxDistance.floatValue;
@@ -710,7 +710,7 @@
     __weak typeof(self) weakSelf = self;
     [self.imagePickerDelegate setOnDidFinishPicking:^(UIImage * _Nullable image) {
         weakSelf.imageView.image = image;
-        [[ShoeStore defaultStore] saveChangesEZ];
+        [[ShoeStore_Legacy defaultStore] saveChangesEZ];
     }];
     [self.imagePickerDelegate presentImagePickerAlertViewControllerWithPresentingViewController:self];
 }
