@@ -9,12 +9,12 @@ import Foundation
 
 
 class MockShoeGenerator {
-    let store = ShoeStore_Legacy.defaultStore()
+    let store = ShoeStore.defaultStore
 
     func generateNewShoeWithData(saveData: Bool = false) -> Shoe {
         print("generating new shoe data")
         let totalWeeks = 16
-        let shoeCount = store.allShoes().count
+        let shoeCount = store.activeShoes.count
         let newShoe = store.createShoe()
         newShoe.brand = "Test Shoe \(shoeCount + 1)"
         newShoe.maxDistance = 350
@@ -68,7 +68,7 @@ class MockShoeGenerator {
         shoe.history.forEach { totalDistance += $0.runDistance.intValue }
         shoe.totalDistance = NSNumber(value: totalDistance)
         if saveData {
-            store.saveChangesEZ()
+            store.saveContext()
         }
     }
 }

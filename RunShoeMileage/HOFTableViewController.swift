@@ -41,7 +41,7 @@ class HOFTableViewController: UITableViewController {
     }
 
     private func setupDataSource() {
-        let hofShoes = ShoeStore_Legacy.default().hallOfFameShoes()
+        let hofShoes = ShoeStore_Legacy.defaultStore().hallOfFameShoes()
         tableData = hofShoes.sorted { $0.totalDistance.doubleValue > $1.totalDistance.doubleValue }
         if tableData.isEmpty {
             tableView.backgroundView = UITableView.emptyDataBackgroundView(message:
@@ -64,7 +64,7 @@ class HOFTableViewController: UITableViewController {
                 tableView.deleteRows(at: [IndexPath.init(row: index, section: 0)],
                                      with: UITableView.RowAnimation.automatic)
                 tableView.endUpdates()
-                ShoeStore_Legacy.default().move(toLastPlace: shoe)
+                ShoeStore_Legacy.defaultStore().move(toLastPlace: shoe)
                 CATransaction.commit()
             }
         }

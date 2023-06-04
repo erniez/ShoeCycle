@@ -10,8 +10,8 @@ import SwiftUI
 // For testing purposes only. So I can launch from Obj-C
 @objc class AddDistanceViewFactory: NSObject {
     
-    @objc static func create(with shoe: Shoe) -> UIViewController {
-        let addDistanceView = AddDistanceView(shoe: shoe)
+    @objc static func create() -> UIViewController {
+        let addDistanceView = AddDistanceView()
         let hostingController = UIHostingController(rootView: addDistanceView)
         return hostingController
     }
@@ -21,7 +21,8 @@ import SwiftUI
 struct AddDistanceView: View {
     @State private var runDate = Date()
     @State private var runDistance = ""
-    @State var shoe: Shoe
+    @StateObject var shoeStore = ShoeStore.defaultStore
+    var shoe = ShoeStore.defaultStore.activeShoes[0]
     
     var body: some View {
         GeometryReader { screenGeometry in
@@ -45,10 +46,13 @@ struct AddDistanceView: View {
                             .padding(.leading, 8)
                     }
                     .padding(16)
+                    .onTapGesture {
+                        dismissKeyboard()
+                    }
                     ZStack {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
                             .fill(Color(white: 1.0, opacity: 0.20))
-                        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: $shoe)
+                        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: shoe)
                     }
                     .padding()
                     .fixedSize(horizontal: false, vertical: true)
@@ -66,15 +70,12 @@ struct AddDistanceView: View {
 }
 
 struct AddDistanceView_Previews: PreviewProvider {
-    static var shoe = MockShoeGenerator().generateNewShoeWithData()
-    
     static var previews: some View {
         Group {
-            AddDistanceView(shoe: shoe)
-            AddDistanceView(shoe: shoe)
+            AddDistanceView()
+            AddDistanceView()
                 .environment(\.colorScheme, .dark)
         }
-
     }
 }
 
@@ -91,7 +92,7 @@ struct DateDistanceEntryView: View {
     @State private var showHistoryView = false
     @Binding var runDate: Date
     @Binding var runDistance: String
-    @Binding var shoe: Shoe
+    var shoe: Shoe
     
     var body: some View {
         HStack(alignment: .top) {
@@ -143,6 +144,7 @@ struct DateDistanceEntryView: View {
                 
                 TextField(" Distance  ", text: $runDistance, prompt: Text(" Distance ").foregroundColor(Color(uiColor: .systemGray2)))
                     .accentColor(.white)
+                    .keyboardType(.decimalPad)
                     .foregroundColor(Color(uiColor: .systemGray))
                     .background(GeometryReader { geometry in
                         Color.clear.preference(
@@ -155,10 +157,18 @@ struct DateDistanceEntryView: View {
                     .background(Color(uiColor: .systemGray4))
                     .cornerRadius(8)
                     .fixedSize()
+                    .toolbar {
+                        ToolbarItem(placement: .keyboard) {
+                            Button("Done") {
+                                dismissKeyboard()
+                            }
+                        }
+                    }
                 
                 Button {
                     print("button tapped")
-                    shoe = MockShoeGenerator().generateNewShoeWithData()
+//                    removeHistories(shoe: shoe, numberOfRuns: 1)
+//                    shoe = MockShoeGenerator().generateNewShoeWithData()
                 } label: {
                     Label("Distances", systemImage: "heart.fill")
                         .font(.caption)
@@ -175,6 +185,13 @@ struct DateDistanceEntryView: View {
             Spacer()
             
             Button {
+                dismissKeyboard()
+                let shoeStore = ShoeStore.defaultStore
+                guard let runDistanceNumber = Float(runDistance) else {
+                    print("Could not form a number from string entered")
+                    return
+                }
+                shoeStore.addHistory(to: shoe, date: runDate, distance: runDistanceNumber)
                 print(runDate)
             } label: {
                 Image("button-add-run")

@@ -680,8 +680,11 @@
 //
 //    [self presentViewController:navController animated:YES completion:nil];
     
+    
+    
+    
     // Repurposing button to test out SwiftUI view
-    UIViewController *modalViewController = [AddDistanceViewFactory createWith: self.distShoe];
+    UIViewController *modalViewController = [AddDistanceViewFactory create];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
 

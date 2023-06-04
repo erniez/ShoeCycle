@@ -43,7 +43,6 @@ extension Shoe {
     
     static func collateRunHistories(_ histories: [History], ascending: Bool) -> [WeeklyCollatedNew] {
         var collatedArray = [WeeklyCollatedNew]()
-        let dateFormatter = DateFormatter.shortDate
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = UserDistanceSetting.getFirstDayOfWeek()
         let sortedRuns = Shoe.sortRunHistories(histories, ascending: true)

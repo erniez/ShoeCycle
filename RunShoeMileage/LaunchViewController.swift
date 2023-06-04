@@ -96,7 +96,7 @@ class LaunchViewController: UIViewController, CAAnimationDelegate {
         // Attach the array to the tabBarController
         tabBarController.viewControllers = viewControllers
 
-        let shoes = ShoeStore_Legacy.default().allShoes()
+        let shoes = ShoeStore_Legacy.defaultStore().allShoes()
         if !shoes.isEmpty {  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
             displayNewFeaturesInfo(addDistanceViewController)
         }

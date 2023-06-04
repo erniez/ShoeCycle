@@ -24,7 +24,7 @@ struct RunHistoryChart: View {
         calendar.component(.weekOfYear, from: date)
     }
     var maxDistance: Float {
-        var runDistances = collatedHistory.map { $0.runDistance }
+        let runDistances = collatedHistory.map { $0.runDistance }
         return runDistances.max() ?? 0
     }
     
