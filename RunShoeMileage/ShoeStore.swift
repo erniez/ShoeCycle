@@ -17,11 +17,13 @@ class ShoeStore: ObservableObject {
     
     @Published var activeShoes: [Shoe] = []
     @Published var hallOfFameShoes: [Shoe] = []
+    @Published var selectedShoeURL: URL?
     
     private var allShoes: [Shoe] = []
     
     let context: NSManagedObjectContext
     
+    private let settings = UserSettings()
     
     init() {
         do {
@@ -30,6 +32,7 @@ class ShoeStore: ObservableObject {
             allShoes = try context.fetch(Shoe.allShoesFetchRequest)
             updateActiveShoes()
             updateHallOfFameShoes()
+            selectedShoeURL = settings.selectedShoeURL
         }
         catch {
             fatalError("could not open database or fetch shoes")
@@ -67,6 +70,42 @@ class ShoeStore: ObservableObject {
         newShoe.setValue(NSNumber(value: order), forKey: "orderingValue")
         activeShoes.append(newShoe)
         return newShoe
+    }
+
+    func remove(shoe: Shoe) {
+        ImageStore.default().deleteImage(forKey: shoe.imageKey)
+        context.delete(shoe)
+        saveContext()
+        updateAllShoes()
+    }
+    
+    // TODO: Account for first load where no shoes are selected.
+    func setSelected(shoe: Shoe) {
+        UserSettings().selectedShoeURL = shoe.objectID.uriRepresentation()
+        selectedShoeURL = UserSettings().selectedShoeURL
+    }
+    
+    // TODO: This code needs to be reworked.
+    func isSelected(shoe: Shoe) -> Bool {
+        // If we can't find a shoe ...
+        print("comparing \(shoe.objectID.uriRepresentation()) with \(settings.selectedShoeURL)")
+        if let selectedShoeID = settings.selectedShoeURL {
+            if shoe.objectID.uriRepresentation() == selectedShoeID {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        
+        //... then we return, assuming the first shoe is selected
+        if let selectedShoe = activeShoes.first, selectedShoe == shoe {
+            settings.selectedShoeURL = shoe.objectID.uriRepresentation()
+            return true
+        }
+
+        // If all else fails, then return false. We should only hit this when we have no active shoes.
+        return false
     }
     
     func updateTotalDistance(shoe: Shoe) {

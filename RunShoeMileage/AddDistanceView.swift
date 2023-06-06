@@ -168,7 +168,7 @@ struct DateDistanceEntryView: View {
                 
                 Button {
                     print("button tapped")
-//                    shoe = MockShoeGenerator().generateNewShoeWithData()
+//                    _ = MockShoeGenerator().generateNewShoeWithData(saveData: true)
                 } label: {
                     Label("Distances", systemImage: "heart.fill")
                         .font(.caption)

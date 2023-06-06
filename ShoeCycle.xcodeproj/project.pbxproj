@@ -11,6 +11,8 @@
 		1B0AD7F32A2AA132006AB307 /* ShoeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */; };
 		1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */; };
 		1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */; };
+		1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */; };
+		1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */; };
 		1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738E02A06BBA2006D632D /* ColorExtension.swift */; };
@@ -127,6 +129,8 @@
 		1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeStore.swift; sourceTree = "<group>"; };
 		1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionView.swift; sourceTree = "<group>"; };
+		1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShoesView.swift; sourceTree = "<group>"; };
+		1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
 		1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceView.swift; sourceTree = "<group>"; };
@@ -275,9 +279,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B0AD7F82A2FA724006AB307 /* EditShoesScreen */ = {
+			isa = PBXGroup;
+			children = (
+				1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */,
+			);
+			name = EditShoesScreen;
+			sourceTree = "<group>";
+		};
 		1B1738DD2A06A26C006D632D /* AddDistanceScreen */ = {
 			isa = PBXGroup;
 			children = (
+				1B7F365E2A2400F700377485 /* HistoryView */,
 				1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */,
 				1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */,
 				1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */,
@@ -338,6 +351,7 @@
 				1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */,
 				1B24358A2879D0970018AFCA /* StravaInteractionViewController.swift */,
 				1BE059621E58BDC100D6225C /* HOFTableViewController.swift */,
+				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -489,7 +503,7 @@
 			children = (
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
-				1B7F365E2A2400F700377485 /* HistoryView */,
+				1B0AD7F82A2FA724006AB307 /* EditShoesScreen */,
 				1B9EA805220685BE000FA58B /* Protocols */,
 				1B30A82921F20FB400AF22A7 /* Scenes */,
 				1BC46D1F1E4FAC1D002204E2 /* DatabaseModelsAndHelpers */,
@@ -770,6 +784,7 @@
 				1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */,
 				1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
+				1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
@@ -783,6 +798,7 @@
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
 				1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
+				1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCF9FE42A1AA0EE007F697E /* TimeIntervalExtensions.swift in Sources */,
 				1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */,
