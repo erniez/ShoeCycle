@@ -1,4 +1,4 @@
-//  HistoryRow.swift
+//  HistoryRowView.swift
 //  ShoeCycle
 //
 //  Created by Ernie Zappacosta on 5/28/23.
@@ -12,6 +12,7 @@ struct HistoryRowViewModel: Identifiable {
     
     let runDate: Date
     let runDistance: NSNumber
+
     var runDateString: String {
         DateFormatter.shortDate.string(from: runDate)
     }
@@ -25,11 +26,12 @@ struct HistoryRowViewModel: Identifiable {
     }
     
     init(history: History) {
-        self.init(runDate: history.runDate, runDistance: history.runDistance)
+        runDate = history.runDate
+        runDistance = history.runDistance
     }
 }
 
-struct HistoryRow: View {
+struct HistoryRowView: View {
     let viewModel: HistoryRowViewModel
     var body: some View {
         HStack {
@@ -44,6 +46,6 @@ struct HistoryRow_Previews: PreviewProvider {
     static let viewModel = HistoryRowViewModel(runDate: Date(), runDistance: NSNumber(value: 3.14))
         
     static var previews: some View {
-        HistoryRow(viewModel: viewModel)
+        HistoryRowView(viewModel: viewModel)
     }
 }

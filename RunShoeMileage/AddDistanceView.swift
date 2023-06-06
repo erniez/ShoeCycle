@@ -22,7 +22,7 @@ struct AddDistanceView: View {
     @State private var runDate = Date()
     @State private var runDistance = ""
     @StateObject var shoeStore = ShoeStore.defaultStore
-    var shoe = ShoeStore.defaultStore.activeShoes[0]
+    @ObservedObject var shoe = ShoeStore.defaultStore.activeShoes[0]
     
     var body: some View {
         GeometryReader { screenGeometry in
@@ -92,7 +92,7 @@ struct DateDistanceEntryView: View {
     @State private var showHistoryView = false
     @Binding var runDate: Date
     @Binding var runDistance: String
-    var shoe: Shoe
+    @ObservedObject var shoe: Shoe
     
     var body: some View {
         HStack(alignment: .top) {
@@ -131,7 +131,8 @@ struct DateDistanceEntryView: View {
                         .shadow(color: .black, radius: 2, x: 1, y:2)
                 }
                 .sheet(isPresented: $showHistoryView) {
-                    HistoryListView(listData: HistoryListView.listData(shoe: shoe))
+                    let listData = HistorySectionViewModel.listData(shoe: shoe)
+                    HistoryListView(listData: HistoryListViewModel(sectionViewModels: listData))
                 }
             }
             .padding(.vertical, 8)
@@ -167,7 +168,6 @@ struct DateDistanceEntryView: View {
                 
                 Button {
                     print("button tapped")
-//                    removeHistories(shoe: shoe, numberOfRuns: 1)
 //                    shoe = MockShoeGenerator().generateNewShoeWithData()
                 } label: {
                     Label("Distances", systemImage: "heart.fill")
@@ -192,6 +192,7 @@ struct DateDistanceEntryView: View {
                     return
                 }
                 shoeStore.addHistory(to: shoe, date: runDate, distance: runDistanceNumber)
+                runDistance = ""
                 print(runDate)
             } label: {
                 Image("button-add-run")

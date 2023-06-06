@@ -36,11 +36,19 @@ class ShoeStore: ObservableObject {
         }
     }
     
-    func updateActiveShoes() {
+    func updateAllShoes() {
+        if let shoes = try? context.fetch(Shoe.allShoesFetchRequest) {
+            allShoes = shoes
+            updateActiveShoes()
+            updateHallOfFameShoes()
+        }
+    }
+    
+    private func updateActiveShoes() {
         activeShoes = allShoes.filter { $0.hallOfFame == false }
     }
     
-    func updateHallOfFameShoes() {
+    private func updateHallOfFameShoes() {
         hallOfFameShoes = allShoes.filter { $0.hallOfFame == true }
     }
 
@@ -62,8 +70,8 @@ class ShoeStore: ObservableObject {
     }
     
     func updateTotalDistance(shoe: Shoe) {
-        var runTotal = shoe.startDistance.floatValue
-        shoe.history.forEach { runTotal += $0.runDistance.floatValue }
+        let runTotal = shoe.history.reduce(shoe.startDistance.floatValue) { $0 + $1.runDistance.floatValue }
+        print("Total Distance: \(String(runTotal))")
         shoe.totalDistance = NSNumber(value: runTotal)
     }
     
@@ -80,9 +88,14 @@ class ShoeStore: ObservableObject {
         saveContext()
     }
     
+    func delete(history: History) {
+        context.delete(history)
+    }
+    
     func saveContext() {
         if context.hasChanges {
             do {
+                print("saving context")
                 try context.save()
             } catch {
                 print("Error occurred while trying to save context")
@@ -98,7 +111,7 @@ class ShoeStore: ObservableObject {
 extension ShoeStore {
     // Using the ways of old to open the database because I am specifying the actual data file. There doesn't
     // appear to be a way to do that using NSPersistentContainer, which will figure out it's own filename.
-    // TODO: Research what it will take to convert to the more modern style
+    // TODO: Research what it will take to convert to the more modern style. SwiftData was just released, so update to that.
     static func openStore() throws -> NSManagedObjectContext {
         var context: NSManagedObjectContext
         let model = NSManagedObjectModel.mergedModel(from: nil) ?? NSManagedObjectModel()
