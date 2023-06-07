@@ -13,6 +13,7 @@
 		1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */; };
 		1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */; };
 		1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */; };
+		1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */; };
 		1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738E02A06BBA2006D632D /* ColorExtension.swift */; };
@@ -131,6 +132,7 @@
 		1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionView.swift; sourceTree = "<group>"; };
 		1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShoesView.swift; sourceTree = "<group>"; };
 		1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameView.swift; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
 		1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceView.swift; sourceTree = "<group>"; };
@@ -285,6 +287,14 @@
 				1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */,
 			);
 			name = EditShoesScreen;
+			sourceTree = "<group>";
+		};
+		1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */ = {
+			isa = PBXGroup;
+			children = (
+				1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */,
+			);
+			name = HallOfFameScreen;
 			sourceTree = "<group>";
 		};
 		1B1738DD2A06A26C006D632D /* AddDistanceScreen */ = {
@@ -504,6 +514,7 @@
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
 				1B0AD7F82A2FA724006AB307 /* EditShoesScreen */,
+				1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */,
 				1B9EA805220685BE000FA58B /* Protocols */,
 				1B30A82921F20FB400AF22A7 /* Scenes */,
 				1BC46D1F1E4FAC1D002204E2 /* DatabaseModelsAndHelpers */,
@@ -781,6 +792,7 @@
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
+				1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */,
 				1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */,
 				1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,

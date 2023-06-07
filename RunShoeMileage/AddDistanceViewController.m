@@ -681,10 +681,8 @@
 //    [self presentViewController:navController animated:YES completion:nil];
     
     
-    
-    
     // Repurposing button to test out SwiftUI view
-    UIViewController *modalViewController = [EditShoesViewFactory create];
+    UIViewController *modalViewController = [HallOfFameViewFactory create];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
 
