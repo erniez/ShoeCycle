@@ -51,7 +51,7 @@ struct AddDistanceView: View {
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(Color(white: 1.0, opacity: 0.20))
+                            .fill(Color.sectionBackground)
                         DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: shoe)
                     }
                     .padding()
@@ -80,10 +80,24 @@ struct AddDistanceView_Previews: PreviewProvider {
 }
 
 struct PatternedBackground: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
-        Image("perfTile")
-            .resizable(resizingMode: .tile)
-            .ignoresSafeArea()
+        if colorScheme == .dark {
+            Image("perfTile")
+                .resizable(resizingMode: .tile)
+                .ignoresSafeArea()
+        }
+        else {
+            ZStack {
+                Image("perfTile")
+                    .resizable(resizingMode: .tile)
+                    .ignoresSafeArea()
+                Rectangle()
+                    .fill(Color(white: 1, opacity: 0.30))
+                    .ignoresSafeArea()
+            }
+        }
     }
 }
 
@@ -115,7 +129,7 @@ struct DateDistanceEntryView: View {
                     )
                 })
                 .frame(height: buttonMaxHeight)
-                .background(Color(uiColor: .systemGray4))
+                .background(Color(uiColor: .systemGray6))
                 .cornerRadius(8)
                 
                 Button {
@@ -144,9 +158,6 @@ struct DateDistanceEntryView: View {
                     .foregroundColor(.white)
                 
                 TextField(" Distance  ", text: $runDistance, prompt: Text(" Distance ").foregroundColor(Color(uiColor: .systemGray2)))
-                    .accentColor(.white)
-                    .keyboardType(.decimalPad)
-                    .foregroundColor(Color(uiColor: .systemGray))
                     .background(GeometryReader { geometry in
                         Color.clear.preference(
                             key: RowHeightPreferenceKey.self,
@@ -155,8 +166,7 @@ struct DateDistanceEntryView: View {
                     })
                     .frame(height: buttonMaxHeight)
                     .frame(minWidth: 50)
-                    .background(Color(uiColor: .systemGray4))
-                    .cornerRadius(8)
+                    .textFieldStyle(.numberEntry)
                     .fixedSize()
                     .toolbar {
                         ToolbarItem(placement: .keyboard) {

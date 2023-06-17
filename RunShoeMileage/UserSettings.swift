@@ -22,6 +22,69 @@ class UserSettings {
             }
         }
     }
+       
+    enum DistanceUnit: Int {
+        case miles, km
+        
+        func displayString() -> String {
+            switch self {
+            case .miles: return "miles"
+            case .km: return "km"
+            }
+        }
+    }
+    
+    enum FirstDayOfWeek: Int {
+        case sunday = 1
+        case monday
+    }
+    
+    @propertyWrapper struct FavoriteDistance {
+        var wrappedValue: Float {
+            get {
+                UserDefaults.standard.float(forKey: key)
+            }
+            set {
+                UserDefaults.standard.set(newValue, forKey: key)
+            }
+        }
+        private let key: String
+        
+        init(key: String) {
+            self.key = key
+        }
+    }
+
+    var distanceUnit: DistanceUnit {
+        get {
+            DistanceUnit(rawValue: settings.integer(forKey: StorageKey.distanceUnit)) ?? .miles
+        }
+        set {
+            settings.set(newValue.rawValue, forKey: StorageKey.distanceUnit)
+        }
+    }
+    
+    var firstDayOfWeek: FirstDayOfWeek {
+        get {
+            FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
+        }
+        set {
+            settings.set(newValue.rawValue, forKey: StorageKey.firstDayOfWeek)
+        }
+    }
+    
+    @FavoriteDistance(key: StorageKey.userDefinedDistance1)
+    var favorite1: Float
+    
+    @FavoriteDistance(key: StorageKey.userDefinedDistance2)
+    var favorite2: Float
+    
+    @FavoriteDistance(key: StorageKey.userDefinedDistance3)
+    var favorite3: Float
+    
+    @FavoriteDistance(key: StorageKey.userDefinedDistance4)
+    var favorite4: Float
+    
 }
 
 extension UserSettings {

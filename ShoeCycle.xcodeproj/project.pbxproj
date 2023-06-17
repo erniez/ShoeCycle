@@ -14,6 +14,8 @@
 		1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */; };
 		1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */; };
 		1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */; };
+		1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD8012A3123CA006AB307 /* SettingsView.swift */; };
+		1B0AD8042A33DFDA006AB307 /* SettingsOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD8032A33DFDA006AB307 /* SettingsOptionView.swift */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */; };
 		1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738E02A06BBA2006D632D /* ColorExtension.swift */; };
@@ -40,6 +42,9 @@
 		1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B381A6819E1C2D3002C3FD7 /* HealthKitManager.m */; };
 		1B3CB6301B0CB9E200E19778 /* EditShoesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3CB62E1B0CB9E200E19778 /* EditShoesCell.m */; };
 		1B3CB6311B0CB9E200E19778 /* EditShoesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */; };
+		1B3D29D22A3E78F100BE7956 /* StyleAndModifierExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */; };
+		1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D42A3E794A00BE7956 /* Line.swift */; };
+		1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
 		1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; };
@@ -133,6 +138,8 @@
 		1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShoesView.swift; sourceTree = "<group>"; };
 		1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameView.swift; sourceTree = "<group>"; };
+		1B0AD8012A3123CA006AB307 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1B0AD8032A33DFDA006AB307 /* SettingsOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionView.swift; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
 		1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceView.swift; sourceTree = "<group>"; };
@@ -173,6 +180,9 @@
 		1B3CB62D1B0CB9E200E19778 /* EditShoesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditShoesCell.h; path = Views/EditShoesCell.h; sourceTree = "<group>"; };
 		1B3CB62E1B0CB9E200E19778 /* EditShoesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditShoesCell.m; path = Views/EditShoesCell.m; sourceTree = "<group>"; };
 		1B3CB62F1B0CB9E200E19778 /* EditShoesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditShoesCell.xib; path = Views/EditShoesCell.xib; sourceTree = "<group>"; };
+		1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleAndModifierExtensions.swift; sourceTree = "<group>"; };
+		1B3D29D42A3E794A00BE7956 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFavoriteDistancesViewModel.swift; sourceTree = "<group>"; };
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
@@ -297,6 +307,16 @@
 			name = HallOfFameScreen;
 			sourceTree = "<group>";
 		};
+		1B0AD8002A3123A3006AB307 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				1B0AD8012A3123CA006AB307 /* SettingsView.swift */,
+				1B0AD8032A33DFDA006AB307 /* SettingsOptionView.swift */,
+				1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */,
+			);
+			name = SettingsScreen;
+			sourceTree = "<group>";
+		};
 		1B1738DD2A06A26C006D632D /* AddDistanceScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +397,14 @@
 			name = "Shared Objects";
 			sourceTree = "<group>";
 		};
+		1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				1B3D29D42A3E794A00BE7956 /* Line.swift */,
+			);
+			name = CommonSwiftUI;
+			sourceTree = "<group>";
+		};
 		1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +427,7 @@
 				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
 				1B7F36612A24039500377485 /* NumberFormatterExtension.swift */,
 				1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */,
+				1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */,
 			);
 			name = "Categories And Extensions";
 			sourceTree = "<group>";
@@ -511,10 +540,12 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
 				1B0AD7F82A2FA724006AB307 /* EditShoesScreen */,
 				1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */,
+				1B0AD8002A3123A3006AB307 /* SettingsScreen */,
 				1B9EA805220685BE000FA58B /* Protocols */,
 				1B30A82921F20FB400AF22A7 /* Scenes */,
 				1BC46D1F1E4FAC1D002204E2 /* DatabaseModelsAndHelpers */,
@@ -780,6 +811,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B3D29D22A3E78F100BE7956 /* StyleAndModifierExtensions.swift in Sources */,
 				1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */,
 				1BCF9FFD2A1FE0DA007F697E /* DateExtension.swift in Sources */,
 				1B1EF7011B101EB9000ED442 /* FTUUtility.m in Sources */,
@@ -801,6 +833,7 @@
 				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
 				1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */,
+				1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */,
 				1B24358B2879D0970018AFCA /* StravaInteractionViewController.swift in Sources */,
 				1B23E02C14B5257F00B51A6E /* ImageStore.m in Sources */,
 				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
@@ -808,6 +841,7 @@
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
 				1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */,
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
+				1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */,
 				1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */,
@@ -834,6 +868,7 @@
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
 				1B30A82421EF756400AF22A7 /* LaunchViewController.swift in Sources */,
 				1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */,
+				1B0AD8042A33DFDA006AB307 /* SettingsOptionView.swift in Sources */,
 				1B2E8CA914C98E4500F0917C /* RunHistoryViewController.m in Sources */,
 				1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */,
 				1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */,
@@ -843,6 +878,7 @@
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */,
 				1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */,
+				1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */,
 				1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */,
 				1B2248D01C81480C0081518A /* CSVUtility.swift in Sources */,
 			);

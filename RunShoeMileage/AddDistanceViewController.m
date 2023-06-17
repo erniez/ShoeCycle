@@ -682,7 +682,7 @@
     
     
     // Repurposing button to test out SwiftUI view
-    UIViewController *modalViewController = [HallOfFameViewFactory create];
+    UIViewController *modalViewController = [SettingsViewFactory create];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
 
