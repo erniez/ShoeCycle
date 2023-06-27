@@ -25,19 +25,17 @@ struct SettingsOptionView<Content>: View where Content: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(color)
-                        .padding([.top], 8)
+                        .frame(width: 50)
                     Text(optionText)
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                         .padding(.horizontal)
-                        .padding([.bottom], 8)
                         .frame(width: 100)
-                        .foregroundColor(color)
                         .font(.subheadline)
                 }
+                .padding([.vertical], 8)
                 .frame(width: 100)
+                .foregroundColor(color)
                 Line()
                     .stroke(color, style: StrokeStyle(lineWidth: 1, dash: [4]))
                     .frame(width: 1)
@@ -52,6 +50,7 @@ struct SettingsOptionView<Content>: View where Content: View {
 
 struct SettingsOptionView_Previews: PreviewProvider {
     @State static var units: SettingsUnitsView.DistanceUnits = .miles
+    @State static var shoeName = ""
     
     static var previews: some View {
         SettingsOptionView(optionText: "Units",
@@ -66,5 +65,13 @@ struct SettingsOptionView_Previews: PreviewProvider {
                 print(units.rawValue)
             }
         }
+        SettingsOptionView(optionText: "Shoe", color: .shoeCycleOrange, image: Image("shoe")) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Name:")
+                            TextField("Shoe Name", text: $shoeName, prompt: Text("Shoe Name"))
+                                .textFieldStyle(TextEntryStyle())
+                        }
+                        .padding([.horizontal], 16)
+                    }
     }
 }

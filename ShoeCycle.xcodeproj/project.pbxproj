@@ -45,6 +45,7 @@
 		1B3D29D22A3E78F100BE7956 /* StyleAndModifierExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */; };
 		1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D42A3E794A00BE7956 /* Line.swift */; };
 		1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */; };
+		1B3D29DA2A46319700BE7956 /* ShoeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
 		1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; };
@@ -183,6 +184,7 @@
 		1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleAndModifierExtensions.swift; sourceTree = "<group>"; };
 		1B3D29D42A3E794A00BE7956 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFavoriteDistancesViewModel.swift; sourceTree = "<group>"; };
+		1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeDetailView.swift; sourceTree = "<group>"; };
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
@@ -405,6 +407,14 @@
 			name = CommonSwiftUI;
 			sourceTree = "<group>";
 		};
+		1B3D29D82A46316C00BE7956 /* ShoeDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */,
+			);
+			name = ShoeDetailView;
+			sourceTree = "<group>";
+		};
 		1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +550,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B3D29D82A46316C00BE7956 /* ShoeDetailView */,
 				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
@@ -839,6 +850,7 @@
 				1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */,
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
+				1B3D29DA2A46319700BE7956 /* ShoeDetailView.swift in Sources */,
 				1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */,
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
 				1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */,

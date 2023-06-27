@@ -70,12 +70,10 @@ struct AddDistanceView: View {
 }
 
 struct AddDistanceView_Previews: PreviewProvider {
+    static let shoe = MockShoeGenerator().generateNewShoeWithData()
+    
     static var previews: some View {
-        Group {
-            AddDistanceView()
-            AddDistanceView()
-                .environment(\.colorScheme, .dark)
-        }
+        AddDistanceView(shoe: shoe)
     }
 }
 

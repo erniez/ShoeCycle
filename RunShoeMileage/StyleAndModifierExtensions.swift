@@ -22,6 +22,19 @@ struct NumberEntryStyle: TextFieldStyle {
   }
 }
 
+struct TextEntryStyle: TextFieldStyle {
+  public func _body(
+    configuration: TextField<Self._Label>) -> some View {
+      return configuration
+            .lineLimit(1)
+            .foregroundColor(.oppositeBlack)
+            .accentColor(.oppositeBlack)
+            .textFieldStyle(.roundedBorder)
+            .background(Color(uiColor: .systemGray6))
+            .cornerRadius(8)
+  }
+}
+
 extension TextFieldStyle where Self == NumberEntryStyle {
     static var numberEntry: NumberEntryStyle { NumberEntryStyle() }
 }
