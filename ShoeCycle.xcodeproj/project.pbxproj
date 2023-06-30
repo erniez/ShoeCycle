@@ -46,6 +46,7 @@
 		1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D42A3E794A00BE7956 /* Line.swift */; };
 		1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */; };
 		1B3D29DA2A46319700BE7956 /* ShoeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */; };
+		1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
 		1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; };
@@ -185,6 +186,7 @@
 		1B3D29D42A3E794A00BE7956 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFavoriteDistancesViewModel.swift; sourceTree = "<group>"; };
 		1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeDetailView.swift; sourceTree = "<group>"; };
+		1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
@@ -842,6 +845,7 @@
 				1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
+				1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
 				1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */,
 				1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */,

@@ -36,55 +36,66 @@
 //    [generator generateNewShoeWithData];
 
     // Create the tabBarController
-    tabBarController = [[UITabBarController alloc] init];
-    
-    // Create viewControllers for the tabBar
-    AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] initWithNibName:@"AddDistanceViewController" bundle:nil];
-    EditShoesViewController *vc2 = [[EditShoesViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    HOFTableViewController *vc3 = [[HOFTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    SetupViewController *vc4 = [[SetupViewController alloc] init];
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc2];
-    UINavigationController *navController2 = [[UINavigationController alloc] initWithRootViewController:vc3];
-    
-    // Make an array containing the view controllers
-    NSArray *viewControllers = [NSArray arrayWithObjects: vc1, navController, navController2, vc4, nil];
-    
-    // Grab the nav controllers tab bar item (the rootViewController won't work).
-    UITabBarItem *tbi = [navController tabBarItem];
-    
-    // Give it an image and center
-    UIImage *image = [UIImage imageNamed:@"tabbar-shoe.png"];
-    [tbi setTitle:@"Add/Edit Shoes"];
-    [tbi setImage:image];
-    
-    // Set the tab bar for the Hall of Fame navigation controller.
-    UIImage *trophy = [UIImage imageNamed:@"trophy.png"];
-    tbi = [navController2 tabBarItem];
-    [tbi setTitle:@"Hall of Fame"];
-    [tbi setImage:trophy];
-
-    // Attach the array to the tabBarController
-    [tabBarController setViewControllers:viewControllers];
-    
-    if (@available(iOS 15.0, *)) {
-        UITabBarAppearance *appearance = [UITabBarAppearance new];
-        UITabBar.appearance.scrollEdgeAppearance = appearance;
-    }
+//    tabBarController = [[UITabBarController alloc] init];
+//
+//    // Create viewControllers for the tabBar
+//    AddDistanceViewController *vc1 = [[AddDistanceViewController alloc] initWithNibName:@"AddDistanceViewController" bundle:nil];
+//    EditShoesViewController *vc2 = [[EditShoesViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    HOFTableViewController *vc3 = [[HOFTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    SetupViewController *vc4 = [[SetupViewController alloc] init];
+//
+//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc2];
+//    UINavigationController *navController2 = [[UINavigationController alloc] initWithRootViewController:vc3];
+//
+//    // Make an array containing the view controllers
+//    NSArray *viewControllers = [NSArray arrayWithObjects: vc1, navController, navController2, vc4, nil];
+//
+//    // Grab the nav controllers tab bar item (the rootViewController won't work).
+//    UITabBarItem *tbi = [navController tabBarItem];
+//
+//    // Give it an image and center
+//    UIImage *image = [UIImage imageNamed:@"tabbar-shoe.png"];
+//    [tbi setTitle:@"Add/Edit Shoes"];
+//    [tbi setImage:image];
+//
+//    // Set the tab bar for the Hall of Fame navigation controller.
+//    UIImage *trophy = [UIImage imageNamed:@"trophy.png"];
+//    tbi = [navController2 tabBarItem];
+//    [tbi setTitle:@"Hall of Fame"];
+//    [tbi setImage:trophy];
+//
+//    // Attach the array to the tabBarController
+//    [tabBarController setViewControllers:viewControllers];
+//
+//    if (@available(iOS 15.0, *)) {
+//        UITabBarAppearance *appearance = [UITabBarAppearance new];
+//        UITabBar.appearance.scrollEdgeAppearance = appearance;
+//    }
     
     LaunchViewController *launchViewController = [[UIStoryboard storyboardWithName:@"Launch" bundle:nil] instantiateInitialViewController];
     __weak typeof(self) weakSelf = self;
+//    launchViewController.onAnimationCompletion = ^{
+//        [weakSelf.appViewController transitionToViewController:tabBarController duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL success) {
+//            NSArray *shoes = [[ShoeStore_Legacy defaultStore] allShoes];
+//            if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
+//            {
+//                [weakSelf displayNewFeaturesInfoOnViewController:vc1];
+//            }
+//        }];
+//    };
+    UIViewController *appView = [AppViewFactory create];
     launchViewController.onAnimationCompletion = ^{
-        [weakSelf.appViewController transitionToViewController:tabBarController duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL success) {
+        [weakSelf.appViewController transitionToViewController:appView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil completion:^(BOOL success) {
             NSArray *shoes = [[ShoeStore_Legacy defaultStore] allShoes];
             if ([shoes count] > 0)  // If this is a fresh install, we'll hold off on showing this, until they add a shoe.
             {
-                [weakSelf displayNewFeaturesInfoOnViewController:vc1];
+//                [weakSelf displayNewFeaturesInfoOnViewController:vc1];
             }
         }];
     };
     self.appViewController = [[AppViewController alloc] initWithViewController:launchViewController];
-    [[self window] setRootViewController:self.appViewController];
+//    [[self window] setRootViewController:self.appViewController];
+    [[self window] setRootViewController: appView];
     
     // Start Crashlytics
     [FIRApp configure];
