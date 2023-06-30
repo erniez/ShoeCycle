@@ -550,11 +550,11 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
-				1B3D29D82A46316C00BE7956 /* ShoeDetailView */,
-				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
+				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
 				1B0AD7F82A2FA724006AB307 /* EditShoesScreen */,
+				1B3D29D82A46316C00BE7956 /* ShoeDetailView */,
 				1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */,
 				1B0AD8002A3123A3006AB307 /* SettingsScreen */,
 				1B9EA805220685BE000FA58B /* Protocols */,

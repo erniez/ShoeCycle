@@ -7,16 +7,35 @@
 
 import SwiftUI
 
-class ShoeDetailViewModel: ObservableObject {
+class ShoeDetailViewModel: ObservableObject, Hashable {
+    
+    static func == (lhs: ShoeDetailViewModel, rhs: ShoeDetailViewModel) -> Bool {
+        return lhs.shoe.objectID == rhs.shoe.objectID
+    }
+    
     @Published var shoeName = ""
     @Published var startDistance = "0"
     @Published var maxDistance = "350"
     @Published var startDate = Date()
     @Published var expirationDate = Date() + TimeInterval.secondsInSixMonths
+    let shoe: Shoe
+    
+    init(shoe: Shoe) {
+        self.shoe = shoe
+        shoeName = shoe.brand
+        startDistance = shoe.startDistance.stringValue
+        maxDistance = shoe.maxDistance.stringValue
+        startDate = shoe.startDate
+        expirationDate = shoe.expirationDate
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(shoe.objectID)
+    }
 }
 
 struct ShoeDetailView: View {
-    @ObservedObject var viewModel = ShoeDetailViewModel()
+    @ObservedObject var viewModel: ShoeDetailViewModel
     
     var body: some View {
         ZStack {
@@ -102,7 +121,9 @@ struct ShoeDetailView: View {
 }
 
 struct ShoeDetailView_Previews: PreviewProvider {
+    static let shoe = MockShoeGenerator().generateNewShoeWithData()
+    
     static var previews: some View {
-        ShoeDetailView()
+        ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe))
     }
 }

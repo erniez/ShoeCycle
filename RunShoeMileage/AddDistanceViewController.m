@@ -682,7 +682,7 @@
     
     
     // Repurposing button to test out SwiftUI view
-    UIViewController *modalViewController = [SettingsViewFactory create];
+    UIViewController *modalViewController = [EditShoesViewFactory create];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
 
