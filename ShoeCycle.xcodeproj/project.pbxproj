@@ -53,6 +53,7 @@
 		1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; };
 		1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B62EB942A5231FC00226147 /* ImageStore.swift */; };
 		1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
@@ -192,6 +193,7 @@
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
 		1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AFNetworking.xcframework; path = Carthage/Build/AFNetworking.xcframework; sourceTree = "<group>"; };
 		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
+		1B62EB942A5231FC00226147 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
 		1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardDistancesViewController.m; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */,
 				1B23E02A14B5257F00B51A6E /* ImageStore_Legacy.h */,
 				1B23E02B14B5257F00B51A6E /* ImageStore_Legacy.m */,
+				1B62EB942A5231FC00226147 /* ImageStore.swift */,
 				1BCEEBB714B69B0200672194 /* FileHelpers.h */,
 				1BCEEBB814B69B0200672194 /* FileHelpers.m */,
 				1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */,
@@ -858,6 +861,7 @@
 				1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */,
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
 				1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */,
+				1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */,
 				1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */,
