@@ -7,7 +7,7 @@
 //
 
 #import "ShoeStore_Legacy.h"
-#import "ImageStore.h"
+#import "ImageStore_Legacy.h"
 #import "Shoe.h"
 #import "History.h"
 #import "FileHelpers.h"
@@ -137,7 +137,7 @@
 - (void)removeShoe:(Shoe *)s
 {
     NSString *key = [s imageKey];
-    [[ImageStore defaultImageStore] deleteImageForKey:key];
+    [[ImageStore_Legacy defaultImageStore] deleteImageForKey:key];
     [self.context deleteObject:s];
     [self.mAllShoes removeObjectIdenticalTo:s];
     return;

@@ -28,7 +28,7 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
         // Did the possession already have an image?
         if let oldKey = oldKey {
             // Delete the old image
-            ImageStore.default()?.deleteImage(forKey: oldKey)
+            ImageStore_Legacy.default()?.deleteImage(forKey: oldKey)
         }
 
         // Get picked image from info dictionary
@@ -46,7 +46,7 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
         // Store  image in the ImageStore with this key
         if let image = image as? UIImage {
             AnalyticsLogger.shared().logEvent(withName: kShoePictureAddedEvent, userInfo: nil)
-            ImageStore.default()?.setImage(image, withWidth: 210, withHeight: 140, forKey: shoe.imageKey)
+            ImageStore_Legacy.default()?.setImage(image, withWidth: 210, withHeight: 140, forKey: shoe.imageKey)
             shoe.setThumbnailDataFrom(image, width: 143, height: 96)
             onDidFinishPicking?(image)
         } else {

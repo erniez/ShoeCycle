@@ -70,7 +70,7 @@ class ShoeStore: ObservableObject {
     }
 
     func remove(shoe: Shoe) {
-        ImageStore.default().deleteImage(forKey: shoe.imageKey)
+        ImageStore_Legacy.default().deleteImage(forKey: shoe.imageKey)
         context.delete(shoe)
         saveContext()
         updateAllShoes()

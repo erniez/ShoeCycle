@@ -16,7 +16,7 @@
 #import "EditShoesNavController.h"
 #import "GlobalStringConstants.h"
 #import "FTUUtility.h"
-#import "ImageStore.h"
+#import "ImageStore_Legacy.h"
 #import "AnalyticsLogger.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "UIColor+ShoeCycleColors.h"

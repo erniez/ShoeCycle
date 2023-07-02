@@ -8,7 +8,7 @@
 
 #import "ShoeDetailViewController.h"
 #import "ShoeStore_Legacy.h"
-#import "ImageStore.h"
+#import "ImageStore_Legacy.h"
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
@@ -157,7 +157,7 @@ const CGFloat TAB_BAR_HEIGHT = 49;
     
     if (imageKey) {
         // Get image for image key from image store
-        UIImage *imageToDisplay = [[ImageStore defaultImageStore] imageForKey:imageKey];
+        UIImage *imageToDisplay = [[ImageStore_Legacy defaultImageStore] imageForKey:imageKey];
         
         // Use that image to put on the screen in imageView
         [self.imageView setContentMode:UIViewContentModeScaleAspectFill];

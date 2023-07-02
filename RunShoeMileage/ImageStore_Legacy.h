@@ -1,5 +1,5 @@
 //
-//  ImageStore.h
+//  ImageStore_Legacy.h
 //  RunShoeMileage
 //
 //  Created by Ernie on 1/4/12.
@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ImageStore : NSObject
+@interface ImageStore_Legacy : NSObject
 {
     NSMutableDictionary *dictionary;
 }
 
-+ (ImageStore *)defaultImageStore;
++ (ImageStore_Legacy *)defaultImageStore;
 
 
 - (void)setImage:(UIImage *)i withWidth:(int)w withHeight:(int)h forKey:(NSString *)s;

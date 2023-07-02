@@ -6,12 +6,12 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ImageStore.h"
+#import "ImageStore_Legacy.h"
 #import "FileHelpers.h"
 
 // static ImageStore *defaultImageStore = nil;
 
-@implementation ImageStore
+@implementation ImageStore_Legacy
 
 
 + (id)allocWithZone:(NSZone *)zone
@@ -20,9 +20,9 @@
 }
 
 
-+ (ImageStore *)defaultImageStore
++ (ImageStore_Legacy *)defaultImageStore
 {
-    static ImageStore *defaultImageStore = nil;
+    static ImageStore_Legacy *defaultImageStore = nil;
     if (!defaultImageStore) {
         // Create the singleton
         defaultImageStore = [[super allocWithZone:NULL] init];
