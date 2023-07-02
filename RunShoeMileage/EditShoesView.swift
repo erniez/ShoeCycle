@@ -7,20 +7,9 @@
 
 import SwiftUI
 
-// For testing purposes only. So I can launch from Obj-C
-@objc class EditShoesViewFactory: NSObject {
-    
-    @objc static func create() -> UIViewController {
-        let editShoesView = EditShoesView()
-        let hostingController = UIHostingController(rootView: editShoesView)
-        return hostingController
-    }
-    
-}
-
 struct EditShoesView: View {
-    var store = ShoeStore.defaultStore
-    @State var shoes = Self.generateViewModelsFromActiveShoes()
+    @EnvironmentObject var shoeStore: ShoeStore
+    @State var shoes: [ShoeDetailViewModel]
     
     var body: some View {
         NavigationStack {
@@ -32,8 +21,8 @@ struct EditShoesView: View {
                 }
                 .onDelete { indexSet in
                     let shoesToRemove = indexSet.map { shoes[$0] }
-                    shoesToRemove.forEach { store.remove(shoe: $0.shoe) }
-                    shoes = Self.generateViewModelsFromActiveShoes()
+                    shoesToRemove.forEach { shoeStore.remove(shoe: $0.shoe) }
+                    shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
                 }
             }
             .navigationDestination(for: ShoeDetailViewModel.self, destination: ShoeDetailView.init)
@@ -42,15 +31,17 @@ struct EditShoesView: View {
     }
 }
 
-private extension EditShoesView {
-    static func generateViewModelsFromActiveShoes() -> [ShoeDetailViewModel] {
-        return ShoeStore.defaultStore.activeShoes.compactMap { ShoeDetailViewModel(shoe: $0) }
+extension EditShoesView {
+    static func generateViewModelsFromActiveShoes(from store: ShoeStore) -> [ShoeDetailViewModel] {
+        return store.activeShoes.compactMap { ShoeDetailViewModel(shoe: $0) }
     }
 }
 
 struct EditShoesView_Previews: PreviewProvider {
+    static var shoes = EditShoesView.generateViewModelsFromActiveShoes(from: ShoeStore())
     static var previews: some View {
-        EditShoesView()
+        EditShoesView(shoes: shoes)
+            .environmentObject(ShoeStore())
     }
 }
 
@@ -60,7 +51,7 @@ struct EditShoesRowView: View {
     // Deletion is crashing app, since update the shoe store triggers a relayout
     // of the row before the UI deletes it. All values inside of shoe are nil.
     // I temporarily put nil coaelescers to protect from the crash.
-    @ObservedObject var store = ShoeStore.defaultStore
+    @EnvironmentObject var shoeStore: ShoeStore
     
     var body: some View {
         VStack {
@@ -69,7 +60,7 @@ struct EditShoesRowView: View {
                 Spacer()
             }
             HStack {
-                if (shoe.objectID.uriRepresentation() == store.selectedShoeURL) {
+                if (shoe.objectID.uriRepresentation() == shoeStore.selectedShoeURL) {
                     Text("Selected")
                         .padding([.trailing], 8)
                 }
@@ -80,8 +71,8 @@ struct EditShoesRowView: View {
         .padding([.trailing], 16)
         .onTapGesture {
             print("tap")
-            store.setSelected(shoe: shoe)
+            shoeStore.setSelected(shoe: shoe)
         }
-        .animation(.easeInOut, value: store.selectedShoeURL)
+        .animation(.easeInOut, value: shoeStore.selectedShoeURL)
     }
 }

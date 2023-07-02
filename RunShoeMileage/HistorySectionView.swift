@@ -8,7 +8,11 @@
 import SwiftUI
 
 
-struct HistorySectionViewModel: Identifiable {
+struct HistorySectionViewModel: Identifiable, Equatable {
+    static func == (lhs: HistorySectionViewModel, rhs: HistorySectionViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     let id = UUID()
     let monthDate: Date
     let runTotal: Float
@@ -37,24 +41,6 @@ struct HistorySectionViewModel: Identifiable {
         self.runTotal = Shoe.runDistanceTotal(histories: histories)
         self.histories = histories
         self.historyViewModels = histories.map { HistoryRowViewModel(history: $0) }
-    }
-    
-    func removeHistories(atOffsets: IndexSet) {
-        let store = ShoeStore.defaultStore
-        let historiesToDelete = atOffsets.map { histories[$0] }
-        historiesToDelete.forEach { store.delete(history: $0) }
-        // Have to save context here so that the history changes are reflected in the shoe
-        // before the distance gets totaled
-        store.saveContext()
-        store.updateTotalDistance(shoe: shoe)
-        store.saveContext()
-    }
-}
-
-extension HistorySectionViewModel {
-    static func listData(shoe: Shoe) -> [HistorySectionViewModel] {
-        let monthlyHistories = shoe.runHistoriesByMonth(ascending: false)
-        return monthlyHistories.map { HistorySectionViewModel(shoe: shoe, histories: $0) }
     }
 }
 

@@ -7,22 +7,11 @@
 
 import SwiftUI
 
-// For testing purposes only. So I can launch from Obj-C
-@objc class AddDistanceViewFactory: NSObject {
-    
-    @objc static func create() -> UIViewController {
-        let addDistanceView = AddDistanceView()
-        let hostingController = UIHostingController(rootView: addDistanceView)
-        return hostingController
-    }
-    
-}
-
 struct AddDistanceView: View {
     @State private var runDate = Date()
     @State private var runDistance = ""
-    @StateObject var shoeStore = ShoeStore.defaultStore
-    @ObservedObject var shoe = ShoeStore.defaultStore.activeShoes[0]
+    @ObservedObject var shoe: Shoe
+    @EnvironmentObject var shoeStore: ShoeStore
     
     var body: some View {
         GeometryReader { screenGeometry in
@@ -71,9 +60,11 @@ struct AddDistanceView: View {
 
 struct AddDistanceView_Previews: PreviewProvider {
     static let shoe = MockShoeGenerator().generateNewShoeWithData()
+    @StateObject static var store = ShoeStore()
     
     static var previews: some View {
         AddDistanceView(shoe: shoe)
+            .environmentObject(store)
     }
 }
 
@@ -105,6 +96,7 @@ struct DateDistanceEntryView: View {
     @Binding var runDate: Date
     @Binding var runDistance: String
     @ObservedObject var shoe: Shoe
+    @EnvironmentObject var shoeStore: ShoeStore
     
     var body: some View {
         HStack(alignment: .top) {
@@ -143,8 +135,8 @@ struct DateDistanceEntryView: View {
                         .shadow(color: .black, radius: 2, x: 1, y:2)
                 }
                 .sheet(isPresented: $showHistoryView) {
-                    let listData = HistorySectionViewModel.listData(shoe: shoe)
-                    HistoryListView(listData: HistoryListViewModel(sectionViewModels: listData))
+                    let viewModel = HistoryListViewModel(shoeStore: shoeStore, shoe: shoe)
+                    HistoryListView(listData: viewModel)
                 }
             }
             .padding(.vertical, 8)
@@ -194,7 +186,6 @@ struct DateDistanceEntryView: View {
             
             Button {
                 dismissKeyboard()
-                let shoeStore = ShoeStore.defaultStore
                 guard let runDistanceNumber = Float(runDistance) else {
                     print("Could not form a number from string entered")
                     return

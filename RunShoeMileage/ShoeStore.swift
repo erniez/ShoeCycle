@@ -12,9 +12,6 @@ import CoreData
 // Objective C code, so there's no need.
 class ShoeStore: ObservableObject {
     
-    // TODO: Get rid of need for default store
-    static let defaultStore = ShoeStore()
-    
     @Published var activeShoes: [Shoe] = []
     @Published var hallOfFameShoes: [Shoe] = []
     @Published var selectedShoeURL: URL?

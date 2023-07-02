@@ -10,9 +10,28 @@ import SwiftUI
 
 struct HistoryListViewModel {
     var sections: [HistorySectionViewModel] = []
+    let shoeStore: ShoeStore
+    let shoe: Shoe
     
-    init(sectionViewModels: [HistorySectionViewModel]) {
-        sections = sectionViewModels
+    init(shoeStore: ShoeStore, shoe: Shoe) {
+        self.shoeStore = shoeStore
+        self.shoe = shoe
+        let monthlyHistories = shoe.runHistoriesByMonth(ascending: false)
+        self.sections =  monthlyHistories.map { HistorySectionViewModel(shoe: shoe, histories: $0) }
+    }
+    
+    func removeHistories(from sectionViewModel: HistorySectionViewModel, atOffsets: IndexSet) {
+        guard sections.contains(sectionViewModel) else {
+            print("Error: Trying to remove histories from a section that doesn't exist in view model")
+            return
+        }
+        let historiesToDelete = atOffsets.map { sectionViewModel.histories[$0] }
+        historiesToDelete.forEach { shoeStore.delete(history: $0) }
+        // Have to save context here so that the history changes are reflected in the shoe
+        // before the distance gets totaled
+        shoeStore.saveContext()
+        shoeStore.updateTotalDistance(shoe: shoe)
+        shoeStore.saveContext()
     }
 }
 
@@ -42,7 +61,7 @@ struct HistoryListView: View {
                             HistoryRowView(viewModel: rowViewModel)
                         }
                         .onDelete { indexSet in
-                            sectionViewModel.removeHistories(atOffsets: indexSet)
+                            listData.removeHistories(from: sectionViewModel, atOffsets: indexSet)
                         }
                     }
                 }
@@ -53,10 +72,10 @@ struct HistoryListView: View {
 }
 
 struct HistoryListView_Previews: PreviewProvider {
+    static let shoeStore = ShoeStore()
     static var listData: HistoryListViewModel {
         let shoe = MockShoeGenerator().generateNewShoeWithData()
-        let listData = HistorySectionViewModel.listData(shoe: shoe)
-        return HistoryListViewModel(sectionViewModels: listData)
+        return HistoryListViewModel(shoeStore: shoeStore, shoe: shoe)
     }
     
     static var previews: some View {

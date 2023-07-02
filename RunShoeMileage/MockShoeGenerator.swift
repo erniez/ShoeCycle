@@ -9,7 +9,7 @@ import Foundation
 
 
 class MockShoeGenerator {
-    let store = ShoeStore.defaultStore
+    let store = ShoeStore()
 
     func generateNewShoeWithData(saveData: Bool = false) -> Shoe {
         print("generating new shoe data")

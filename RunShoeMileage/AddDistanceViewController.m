@@ -682,11 +682,11 @@
     
     
     // Repurposing button to test out SwiftUI view
-    UIViewController *modalViewController = [EditShoesViewFactory create];
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
-
-    [self presentViewController:navController animated:YES completion:nil];
+//    UIViewController *modalViewController = [EditShoesViewFactory create];
+//    
+//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:modalViewController];
+//
+//    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (IBAction)runHistoryButtonPressed:(id)sender 

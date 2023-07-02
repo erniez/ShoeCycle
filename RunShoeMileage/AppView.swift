@@ -18,14 +18,15 @@ import SwiftUI
 }
 
 struct AppView: View {
-    // TODO: Figure out how to change icon colors for light mode.
+    @StateObject var shoeStore = ShoeStore()
+    
     var body: some View {
         TabView {
-            AddDistanceView()
+            AddDistanceView(shoe: shoeStore.activeShoes[0])
                 .tabItem {
                     Label("Add Distance", image: "tabbar-add")
                 }
-            EditShoesView()
+            EditShoesView(shoes: EditShoesView.generateViewModelsFromActiveShoes(from: shoeStore))
                 .tabItem {
                     Label("Add/Edit Shoes", image: "tabbar-shoe")
                 }
@@ -38,6 +39,7 @@ struct AppView: View {
                     Label("Settings", image: "tabbar-gear")
                 }
         }
+        .environmentObject(shoeStore)
     }
 }
 

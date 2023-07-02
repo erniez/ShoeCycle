@@ -20,22 +20,22 @@ import SwiftUI
 }
 
 struct HallOfFameView: View {
-    @ObservedObject var store = ShoeStore.defaultStore
+    @EnvironmentObject var shoeStore: ShoeStore
     
     var body: some View {
-        if store.hallOfFameShoes.isEmpty {
+        if shoeStore.hallOfFameShoes.isEmpty {
             Text("You have no shoes in the Hall of Fame. To add one, please edit the shoe you want to add.")
                 .multilineTextAlignment(.center)
                 .padding()
         }
         else {
             List {
-                ForEach(store.hallOfFameShoes, id: \.objectID) { shoe in
+                ForEach(shoeStore.hallOfFameShoes, id: \.objectID) { shoe in
                     HallOfFameRowView(shoe: shoe)
                 }
                 .onDelete { indexSet in
-                    let shoesToRemove = indexSet.map { store.hallOfFameShoes[$0] }
-                    shoesToRemove.forEach { store.remove(shoe: $0) }
+                    let shoesToRemove = indexSet.map { shoeStore.hallOfFameShoes[$0] }
+                    shoesToRemove.forEach { shoeStore.remove(shoe: $0) }
                 }
             }
         }
