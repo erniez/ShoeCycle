@@ -16,6 +16,8 @@
 		1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */; };
 		1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD8012A3123CA006AB307 /* SettingsView.swift */; };
 		1B0AD8042A33DFDA006AB307 /* SettingsOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD8032A33DFDA006AB307 /* SettingsOptionView.swift */; };
+		1B0D52132A5345A7001D3DB9 /* CameraPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0D52122A5345A7001D3DB9 /* CameraPickerView.swift */; };
+		1B0D52152A53683C001D3DB9 /* ShoeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0D52142A53683C001D3DB9 /* ShoeImage.swift */; };
 		1B1169751B0C3449004B1A0D /* StravaActivity+DistanceConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */; };
 		1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */; };
 		1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738E02A06BBA2006D632D /* ColorExtension.swift */; };
@@ -143,6 +145,8 @@
 		1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameView.swift; sourceTree = "<group>"; };
 		1B0AD8012A3123CA006AB307 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1B0AD8032A33DFDA006AB307 /* SettingsOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionView.swift; sourceTree = "<group>"; };
+		1B0D52122A5345A7001D3DB9 /* CameraPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPickerView.swift; sourceTree = "<group>"; };
+		1B0D52142A53683C001D3DB9 /* ShoeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeImage.swift; sourceTree = "<group>"; };
 		1B1169731B0C3449004B1A0D /* StravaActivity+DistanceConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "StravaActivity+DistanceConversion.h"; path = "Categories/StravaActivity+DistanceConversion.h"; sourceTree = "<group>"; };
 		1B1169741B0C3449004B1A0D /* StravaActivity+DistanceConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "StravaActivity+DistanceConversion.m"; path = "Categories/StravaActivity+DistanceConversion.m"; sourceTree = "<group>"; };
 		1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceView.swift; sourceTree = "<group>"; };
@@ -408,6 +412,8 @@
 			isa = PBXGroup;
 			children = (
 				1B3D29D42A3E794A00BE7956 /* Line.swift */,
+				1B0D52122A5345A7001D3DB9 /* CameraPickerView.swift */,
+				1B0D52142A53683C001D3DB9 /* ShoeImage.swift */,
 			);
 			name = CommonSwiftUI;
 			sourceTree = "<group>";
@@ -707,7 +713,6 @@
 						TestTargetID = 1BCF6438148AF7E6004C0E6A;
 					};
 					1BCF6438148AF7E6004C0E6A = {
-						DevelopmentTeam = XG8D9FRJ5Q;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -842,6 +847,7 @@
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
 				1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */,
+				1B0D52152A53683C001D3DB9 /* ShoeImage.swift in Sources */,
 				1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */,
 				1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
@@ -873,6 +879,7 @@
 				1BCF9FE82A1AC27A007F697E /* ShoeImageView.swift in Sources */,
 				1B1738F72A15422C006D632D /* ShoeCycleProgressView.swift in Sources */,
 				1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */,
+				1B0D52132A5345A7001D3DB9 /* CameraPickerView.swift in Sources */,
 				1B3CB6301B0CB9E200E19778 /* EditShoesCell.m in Sources */,
 				1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
@@ -947,6 +954,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 63;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -964,7 +972,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.6.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "RunShoeMileage/ShoeCycle-Bridging-Header.h";
@@ -1220,6 +1228,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 63;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1237,7 +1246,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.6.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "RunShoeMileage/ShoeCycle-Bridging-Header.h";
@@ -1257,6 +1266,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 63;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1274,7 +1284,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 4.6.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

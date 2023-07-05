@@ -13,7 +13,9 @@ class ImageStore {
     
     let imageCache = NSCache<NSString, UIImage>()
     
-    func set(image: UIImage, width: Int, height: Int, key: NSString) {
+    func set(image: UIImage, width: Int, height: Int, on shoe: Shoe) {
+        let newUniqueID = UUID().uuidString
+        
         let originalImageSize = image.size
         let newImageRect = CGRect(origin: .zero, size: CGSize(width: width, height: height))
         let ratio = Double.maximum(newImageRect.size.width / originalImageSize.width,
@@ -31,24 +33,34 @@ class ImageStore {
         
         let reducedImage = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
         
-        imageCache.setObject(reducedImage, forKey: key)
-        guard let imagePath = pathInDocumentDirectory(key as String),
-              let imageURL = URL(string: imagePath),
+        imageCache.setObject(reducedImage, forKey: newUniqueID as NSString)
+        guard let imagePath = pathInDocumentDirectory(newUniqueID),
               let imageJPEG = reducedImage.jpegData(compressionQuality: 0.5) else {
             print("Could not create image to save")
             return
         }
         
         do {
+            let imageURL = URL(fileURLWithPath: imagePath)
             try imageJPEG.write(to: imageURL)
         }
         catch let error {
             print("Could not write immage to disk: \(error)")
+            return
         }
+        
+        // If everything goes smoothly, update the shoe image key.
+        
+        // Did the shoe already have an image? Let's delete it first.
+        if let oldKey = shoe.imageKey {
+            deleteImage(for: oldKey as NSString)
+        }
+
+        shoe.imageKey = newUniqueID
     }
     
     // TODO: create a broken image icon to return on errors.
-    func image(for key: NSString) -> UIImage {
+    func image(for key: NSString) -> UIImage? {
         if let image = imageCache.object(forKey: key) {
             return image
         }
@@ -56,7 +68,7 @@ class ImageStore {
             print("Could not generate document file path")
             return UIImage()
         }
-        let image = UIImage(contentsOfFile: filePath) ?? UIImage()
+        let image = UIImage(contentsOfFile: filePath)
         return image
     }
     

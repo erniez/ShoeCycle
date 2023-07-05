@@ -25,7 +25,10 @@ struct EditShoesView: View {
                     shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
                 }
             }
-            .navigationDestination(for: ShoeDetailViewModel.self, destination: ShoeDetailView.init)
+            .navigationDestination(for: ShoeDetailViewModel.self) { viewModel in
+                ShoeDetailView(viewModel: viewModel)
+                    .environmentObject(viewModel.shoe)
+            }
             .navigationTitle("Active Shoes")
         }
     }

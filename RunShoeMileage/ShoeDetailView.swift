@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 class ShoeDetailViewModel: ObservableObject, Hashable {
     
@@ -18,7 +19,7 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
     @Published var maxDistance = "350"
     @Published var startDate = Date()
     @Published var expirationDate = Date() + TimeInterval.secondsInSixMonths
-    let shoe: Shoe
+    var shoe: Shoe
     
     init(shoe: Shoe) {
         self.shoe = shoe
@@ -35,7 +36,22 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
 }
 
 struct ShoeDetailView: View {
+    @EnvironmentObject var shoeStore: ShoeStore
+    @EnvironmentObject var shoe: Shoe
     @ObservedObject var viewModel: ShoeDetailViewModel
+    @State private var showImagePicker = false
+    @State private var showImageSelection = false
+    @State private var showCamera = false
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
+    
+    @State private var shoeItem: PhotosPickerItem?
+    @State private var shoeImage: Image?
+    
+    init(viewModel: ShoeDetailViewModel) {
+        self.viewModel = viewModel
+        print("Initialize shoe detail view")
+        print("For shoe: \(viewModel.shoe.brand)")
+    }
     
     var body: some View {
         ZStack {
@@ -102,28 +118,24 @@ struct ShoeDetailView: View {
                     .foregroundColor(.white)
                 }
                 .fixedSize(horizontal: false, vertical: true)
-                ZStack (alignment: .bottom) {
-                    Image("photo-placeholder")
-                        .resizable()
-                        .padding(32)
-                        .aspectRatio(1.4, contentMode: .fit)
-                        .background(.black)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .stroke(Color.shoeCycleOrange, lineWidth: 2)
-                        }
-                }
+                
+                ShoeImage(shoe: $viewModel.shoe)
+                
                 Spacer()
             }
             .padding([.horizontal], 16)
+            .onChange(of: shoe) { newValue in
+                print("shoe was changed!")
+            }
         }
     }
 }
 
 struct ShoeDetailView_Previews: PreviewProvider {
     static let shoe = MockShoeGenerator().generateNewShoeWithData()
+    static let viewModel = ShoeDetailViewModel(shoe: shoe)
     
     static var previews: some View {
-        ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe))
+        ShoeDetailView(viewModel: viewModel)
     }
 }
