@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ShoeImageView: View {
+    @ObservedObject var shoe: Shoe
     let width: CGFloat
     let height: CGFloat
     var shoeImage = Image("photo-placeholder")
-    var shoeName = "Unnamed"
 
     var body: some View {
         VStack {
@@ -23,17 +23,10 @@ struct ShoeImageView: View {
                     .foregroundColor(Color.shoeCycleOrange)
                     .rotationEffect(Angle(degrees: 45))
                     .offset(x: 0, y: pointerSquareSize/2)
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(Color.shoeCycleOrange, lineWidth: 2)
-                    .frame(width: width, height: height)
-                    .background(.black)
-                shoeImage
-                    .resizable()
-                    .padding(24)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: width, height: height, alignment: .center)
+                ShoeImage(shoe: shoe, allowImageChange: false)
+                    .frame(maxWidth: width)
             }
-            Text(shoeName)
+            Text(shoe.brand)
                 .foregroundColor(Color.white)
                 .padding(.top, 8)
                 .lineLimit(1)
@@ -43,8 +36,10 @@ struct ShoeImageView: View {
 }
 
 struct ShoeImageView_Previews: PreviewProvider {
+    static let shoe = MockShoeGenerator().generateNewShoeWithData()
+    
     static var previews: some View {
-        ShoeImageView(width: 200, height: 150)
+        ShoeImageView(shoe: shoe, width: 200, height: 150)
             .background(.black)
     }
 }

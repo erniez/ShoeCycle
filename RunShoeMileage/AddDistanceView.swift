@@ -29,7 +29,7 @@ struct AddDistanceView: View {
                     HStack {
                         Image("logo")
                         Spacer()
-                        ShoeImageView(width: 150, height: 100, shoeName: shoe.brand)
+                        ShoeImageView(shoe: shoe, width: 150, height: 100)
                             .offset(x: 0, y: 16)
                         Image("scroll-arrows")
                             .padding(.leading, 8)

@@ -28,7 +28,7 @@ struct AppView: View {
                 }
             EditShoesView(shoes: EditShoesView.generateViewModelsFromActiveShoes(from: shoeStore))
                 .tabItem {
-                    Label("Add/Edit Shoes", image: "tabbar-shoe")
+                    Label("Active Shoes", image: "tabbar-shoe")
                 }
             HallOfFameView()
                 .tabItem {
