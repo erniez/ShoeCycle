@@ -10,7 +10,7 @@ import PhotosUI
 
 struct ShoeImage: View {
     @EnvironmentObject var shoeStore: ShoeStore
-    @Binding var shoe: Shoe
+    @ObservedObject var shoe: Shoe
     @State private var showImagePicker = false
     @State private var showImageSelection = false
     @State private var showCamera = false
@@ -86,6 +86,6 @@ struct ShoeImage: View {
 struct ShoeImage_Previews: PreviewProvider {
     @State static var shoe = MockShoeGenerator().generateNewShoeWithData()
     static var previews: some View {
-        ShoeImage(shoe: $shoe)
+        ShoeImage(shoe: shoe)
     }
 }

@@ -27,7 +27,6 @@ struct EditShoesView: View {
             }
             .navigationDestination(for: ShoeDetailViewModel.self) { viewModel in
                 ShoeDetailView(viewModel: viewModel)
-                    .environmentObject(viewModel.shoe)
             }
             .navigationTitle("Active Shoes")
         }

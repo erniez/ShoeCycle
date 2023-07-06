@@ -37,20 +37,12 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
 
 struct ShoeDetailView: View {
     @EnvironmentObject var shoeStore: ShoeStore
-    @EnvironmentObject var shoe: Shoe
     @ObservedObject var viewModel: ShoeDetailViewModel
-    @State private var showImagePicker = false
-    @State private var showImageSelection = false
-    @State private var showCamera = false
-    @State private var sourceType: UIImagePickerController.SourceType = .camera
-    
-    @State private var shoeItem: PhotosPickerItem?
-    @State private var shoeImage: Image?
     
     init(viewModel: ShoeDetailViewModel) {
         self.viewModel = viewModel
         print("Initialize shoe detail view")
-        print("For shoe: \(viewModel.shoe.brand)")
+        print("For shoe: \(viewModel.shoe.brand ?? "")")
     }
     
     var body: some View {
@@ -119,14 +111,11 @@ struct ShoeDetailView: View {
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 
-                ShoeImage(shoe: $viewModel.shoe)
+                ShoeImage(shoe: viewModel.shoe)
                 
                 Spacer()
             }
             .padding([.horizontal], 16)
-            .onChange(of: shoe) { newValue in
-                print("shoe was changed!")
-            }
         }
     }
 }
