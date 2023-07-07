@@ -32,15 +32,24 @@ struct AppView: View {
     
     @StateObject var shoeStore = ShoeStore()
     @State var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
-    let shoe = MockShoeGenerator().generateNewShoeWithData()
     
     var body: some View {
         TabView(selection: $activeTab) {
-            AddDistanceView(shoe: shoeStore.activeShoes[0])
-                .tabItem {
-                    Label("Add Distance", image: "tabbar-add")
-                }
-                .tag(TabIdentifier.addDistance)
+            if let shoe = shoeStore.selectedShoe {
+                AddDistanceView(shoe: shoe)
+                    .tabItem {
+                        Label("Add Distance", image: "tabbar-add")
+                    }
+                    .tag(TabIdentifier.addDistance)
+            }
+            else {
+                // TODO: Improve this screen, or make AddDistanceView able to handle an optional
+                Text("Please add a shoe")
+                    .tabItem {
+                        Label("Add Distance", image: "tabbar-add")
+                    }
+                    .tag(TabIdentifier.addDistance)
+            }
             EditShoesView(shoes: EditShoesView.generateViewModelsFromActiveShoes(from: shoeStore))
                 .tabItem {
                     Label("Active Shoes", image: "tabbar-shoe")

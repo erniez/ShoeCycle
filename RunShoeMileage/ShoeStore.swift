@@ -14,7 +14,9 @@ class ShoeStore: ObservableObject {
     
     @Published var activeShoes: [Shoe] = []
     @Published var hallOfFameShoes: [Shoe] = []
+    // TODO: Remove selected shoe URL. Should only need selectedShoe.
     @Published var selectedShoeURL: URL?
+    @Published var selectedShoe: Shoe?
     
     private var allShoes: [Shoe] = []
     
@@ -29,7 +31,7 @@ class ShoeStore: ObservableObject {
             allShoes = try context.fetch(Shoe.allShoesFetchRequest)
             updateActiveShoes()
             updateHallOfFameShoes()
-            selectedShoeURL = settings.selectedShoeURL
+            updateSelectedShoe()
         }
         catch {
             fatalError("could not open database or fetch shoes")
@@ -50,6 +52,29 @@ class ShoeStore: ObservableObject {
     
     private func updateHallOfFameShoes() {
         hallOfFameShoes = allShoes.filter { $0.hallOfFame == true }
+    }
+    
+    private func updateSelectedShoe() {
+        let settings = UserSettings()
+        // If we have a selected shoe URL, then find the first match.
+        if let selectedShoeURL = settings.selectedShoeURL {
+            let selectedShoe = activeShoes.first { shoe in
+                selectedShoeURL == shoe.objectID.uriRepresentation()
+            }
+            self.selectedShoeURL = settings.selectedShoeURL
+            self.selectedShoe = selectedShoe
+            return
+        }
+        // ... If not, then select the first shoe.
+        if let shoe = activeShoes.first {
+            settings.selectedShoeURL = shoe.objectID.uriRepresentation()
+            self.selectedShoe = shoe
+            selectedShoeURL = settings.selectedShoeURL
+            return
+        }
+        // ... If all else fails ...
+        selectedShoeURL = nil
+        self.selectedShoe = nil
     }
 
     func createShoe() -> Shoe {
@@ -76,32 +101,20 @@ class ShoeStore: ObservableObject {
         updateAllShoes()
     }
     
-    // TODO: Account for first load where no shoes are selected.
     func setSelected(shoe: Shoe) {
         UserSettings().selectedShoeURL = shoe.objectID.uriRepresentation()
-        selectedShoeURL = UserSettings().selectedShoeURL
+        updateSelectedShoe()
     }
     
-    // TODO: This code needs to be reworked.
     func isSelected(shoe: Shoe) -> Bool {
-        // If we can't find a shoe ...
-        print("comparing \(shoe.objectID.uriRepresentation()) with \(settings.selectedShoeURL)")
-        if let selectedShoeID = settings.selectedShoeURL {
-            if shoe.objectID.uriRepresentation() == selectedShoeID {
+        if let selectedShoe = self.selectedShoe {
+            if shoe == selectedShoe {
                 return true
             }
             else {
                 return false
             }
         }
-        
-        //... then we return, assuming the first shoe is selected
-        if let selectedShoe = activeShoes.first, selectedShoe == shoe {
-            settings.selectedShoeURL = shoe.objectID.uriRepresentation()
-            return true
-        }
-
-        // If all else fails, then return false. We should only hit this when we have no active shoes.
         return false
     }
     
