@@ -70,11 +70,12 @@ struct EditShoesRowView: View {
                 Spacer()
             }
         }
+        .contentShape(Rectangle())
         .padding([.trailing], 16)
         .onTapGesture {
-            print("tap")
             shoeStore.setSelected(shoe: shoe)
         }
         .animation(.easeInOut, value: shoeStore.selectedShoeURL)
+        .background(Color.gray)
     }
 }

@@ -63,5 +63,6 @@ struct HallOfFameRowView: View {
 struct HallOfFameView_Previews: PreviewProvider {
     static var previews: some View {
         HallOfFameView()
+            .environmentObject(ShoeStore())
     }
 }

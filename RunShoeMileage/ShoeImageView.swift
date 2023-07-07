@@ -34,12 +34,3 @@ struct ShoeImageView: View {
         }
     }
 }
-
-struct ShoeImageView_Previews: PreviewProvider {
-    static let shoe = MockShoeGenerator().generateNewShoeWithData()
-    
-    static var previews: some View {
-        ShoeImageView(shoe: shoe, width: 200, height: 150)
-            .background(.black)
-    }
-}

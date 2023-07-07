@@ -122,12 +122,3 @@ struct RunHistoryChart: View {
         }
     }
 }
-
-struct RunHistoryChart_Previews: PreviewProvider {
-    static var shoe = MockShoeGenerator().generateNewShoeWithData()
-    static var collated = Shoe.collateRunHistories(Array(shoe.history), ascending: true)
-
-    static var previews: some View {
-        RunHistoryChart(collatedHistory: collated)
-    }
-}
