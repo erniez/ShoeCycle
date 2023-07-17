@@ -10,6 +10,7 @@ import SwiftUI
 struct EditShoesView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @State var shoes: [ShoeDetailViewModel]
+    @State var presentNewShoeView = false
     
     var body: some View {
         NavigationStack {
@@ -29,6 +30,18 @@ struct EditShoesView: View {
                 ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe))
             }
             .navigationTitle("Active Shoes")
+            .toolbar {
+                Button("Add Shoe") {
+                    presentNewShoeView = true
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $presentNewShoeView, onDismiss: {
+            // Update view models to account for an added shoe
+            shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
+        }) {
+            let shoe = shoeStore.createShoe()
+            ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe, isNewShoe: true))
         }
     }
 }

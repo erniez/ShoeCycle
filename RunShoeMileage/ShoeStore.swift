@@ -23,6 +23,11 @@ class ShoeStore: ObservableObject {
     let context: NSManagedObjectContext
     
     private let settings = UserSettings()
+    private static let defaultStartDate = Date()
+    private static let defaultExpirationDate = Date() + TimeInterval.secondsInSixMonths
+    private static let defaultStartDistance = NSNumber(value: 0.0)
+    private static let defautlMaxDistance = NSNumber(value: 350.0)
+    private static let defaultTotalDistance = NSNumber(value: 0.0)
     
     init() {
         do {
@@ -40,6 +45,7 @@ class ShoeStore: ObservableObject {
     
     func updateAllShoes() {
         if let shoes = try? context.fetch(Shoe.allShoesFetchRequest) {
+            print("Updating Shoes")
             allShoes = shoes
             updateActiveShoes()
             updateHallOfFameShoes()
@@ -90,7 +96,12 @@ class ShoeStore: ObservableObject {
         
         let newShoe = Shoe(context: context)
         newShoe.setValue(NSNumber(value: order), forKey: "orderingValue")
-        activeShoes.append(newShoe)
+        newShoe.startDate = Self.defaultStartDate
+        newShoe.expirationDate = Self.defaultExpirationDate
+        newShoe.startDistance = Self.defaultStartDistance
+        newShoe.maxDistance = Self.defautlMaxDistance
+        newShoe.totalDistance = Self.defaultTotalDistance
+        newShoe.brand = ""
         return newShoe
     }
 

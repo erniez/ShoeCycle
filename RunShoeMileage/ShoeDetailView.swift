@@ -14,20 +14,34 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
         return lhs.shoe.objectID == rhs.shoe.objectID
     }
     
-    @Published var shoeName = ""
-    @Published var startDistance = "0"
-    @Published var maxDistance = "350"
-    @Published var startDate = Date()
-    @Published var expirationDate = Date() + TimeInterval.secondsInSixMonths
-    var shoe: Shoe
+    @Published var shoeName: String
+    @Published var startDistance: String
+    @Published var maxDistance: String
+    @Published var startDate: Date
+    @Published var expirationDate: Date
+    let shoe: Shoe
+    let isNewShoe: Bool
     
-    init(shoe: Shoe) {
+    init(shoe: Shoe, isNewShoe: Bool = false) {
         self.shoe = shoe
         shoeName = shoe.brand
         startDistance = shoe.startDistance.stringValue
         maxDistance = shoe.maxDistance.stringValue
         startDate = shoe.startDate
         expirationDate = shoe.expirationDate
+        self.isNewShoe = isNewShoe
+    }
+    
+    func updateShoeValues() {
+        shoe.brand = shoeName
+        if let startDistanceDigits = Double(startDistance) {
+            shoe.startDistance = NSNumber(value: startDistanceDigits)
+        }
+        if let maxDistanceDigits = Double(maxDistance) {
+            shoe.maxDistance = NSNumber(value: maxDistanceDigits)
+        }
+        shoe.startDate = startDate
+        shoe.expirationDate = expirationDate
     }
     
     func hash(into hasher: inout Hasher) {
@@ -38,11 +52,26 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
 struct ShoeDetailView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @ObservedObject var viewModel: ShoeDetailViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
             PatternedBackground()
             VStack {
+                if viewModel.isNewShoe == true {
+                    HStack {
+                        Button("Cancel") {
+                            dismiss()
+                        }
+                        Spacer()
+                        Button("Done") {
+                            viewModel.updateShoeValues()
+                            shoeStore.saveContext()
+                            shoeStore.updateAllShoes()
+                            dismiss()
+                        }
+                    }
+                }
                 SettingsOptionView(optionText: "Shoe", color: .shoeCycleOrange, image: Image("shoe")) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Name:")
