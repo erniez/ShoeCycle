@@ -8,17 +8,6 @@
 import SwiftUI
 
 
-// For testing purposes only. So I can launch from Obj-C
-@objc class HallOfFameViewFactory: NSObject {
-    
-    @objc static func create() -> UIViewController {
-        let hallOfFameView = HallOfFameView()
-        let hostingController = UIHostingController(rootView: hallOfFameView)
-        return hostingController
-    }
-    
-}
-
 struct HallOfFameView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     
@@ -29,14 +18,22 @@ struct HallOfFameView: View {
                 .padding()
         }
         else {
-            List {
-                ForEach(shoeStore.hallOfFameShoes, id: \.objectID) { shoe in
-                    HallOfFameRowView(shoe: shoe)
+            NavigationStack {
+                List {
+                    ForEach(shoeStore.hallOfFameShoes, id: \.objectID) { shoe in
+                        NavigationLink(value: shoe) {
+                            HallOfFameRowView(shoe: shoe)
+                        }
+                    }
+                    .onDelete { indexSet in
+                        let shoesToRemove = indexSet.map { shoeStore.hallOfFameShoes[$0] }
+                        shoesToRemove.forEach { shoeStore.remove(shoe: $0) }
+                    }
                 }
-                .onDelete { indexSet in
-                    let shoesToRemove = indexSet.map { shoeStore.hallOfFameShoes[$0] }
-                    shoesToRemove.forEach { shoeStore.remove(shoe: $0) }
+                .navigationDestination(for: Shoe.self) { shoe in
+                    ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe))
                 }
+                .navigationTitle("Hall of Fame Shoes")
             }
         }
     }

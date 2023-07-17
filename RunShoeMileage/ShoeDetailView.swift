@@ -39,12 +39,6 @@ struct ShoeDetailView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @ObservedObject var viewModel: ShoeDetailViewModel
     
-    init(viewModel: ShoeDetailViewModel) {
-        self.viewModel = viewModel
-        print("Initialize shoe detail view")
-        print("For shoe: \(viewModel.shoe.brand ?? "")")
-    }
-    
     var body: some View {
         ZStack {
             PatternedBackground()
@@ -110,8 +104,10 @@ struct ShoeDetailView: View {
                     .foregroundColor(.white)
                 }
                 .fixedSize(horizontal: false, vertical: true)
-                
                 ShoeImage(shoe: viewModel.shoe)
+                HallOfFameSelector()
+                    .padding([.top], 16)
+                    .environmentObject(viewModel.shoe)
                 
                 Spacer()
             }

@@ -14,9 +14,9 @@ struct EditShoesView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(shoes, id: \.shoe.objectID) { viewModel in
-                    NavigationLink(value: viewModel) {
-                        EditShoesRowView(shoe: viewModel.shoe)
+                ForEach(shoeStore.activeShoes, id: \.objectID) { shoe in
+                    NavigationLink(value: shoe) {
+                        EditShoesRowView(shoe: shoe)
                     }
                 }
                 .onDelete { indexSet in
@@ -25,8 +25,8 @@ struct EditShoesView: View {
                     shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
                 }
             }
-            .navigationDestination(for: ShoeDetailViewModel.self) { viewModel in
-                ShoeDetailView(viewModel: viewModel)
+            .navigationDestination(for: Shoe.self) { shoe in
+                ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe))
             }
             .navigationTitle("Active Shoes")
         }
@@ -54,17 +54,23 @@ struct EditShoesRowView: View {
     // of the row before the UI deletes it. All values inside of shoe are nil.
     // I temporarily put nil coaelescers to protect from the crash.
     @EnvironmentObject var shoeStore: ShoeStore
+    var isSelected: Bool {
+        shoeStore.isSelected(shoe: shoe)
+    }
     
     var body: some View {
         VStack {
             HStack {
                 Text(shoe.brand ?? "")
+                    .font(.title2)
+                    .bold(isSelected)
                 Spacer()
             }
             HStack {
-                if (shoe.objectID.uriRepresentation() == shoeStore.selectedShoeURL) {
+                if isSelected == true {
                     Text("Selected")
                         .padding([.trailing], 8)
+                        .foregroundColor(.shoeCycleOrange)
                 }
                 Text("Distance: \(NumberFormatter.decimal.string(from: shoe.totalDistance ?? NSNumber(value: 0)) ?? "")")
                 Spacer()
@@ -75,7 +81,6 @@ struct EditShoesRowView: View {
         .onTapGesture {
             shoeStore.setSelected(shoe: shoe)
         }
-        .animation(.easeInOut, value: shoeStore.selectedShoeURL)
-        .background(Color.gray)
+        .animation(.linear, value: shoeStore.selectedShoeURL)
     }
 }

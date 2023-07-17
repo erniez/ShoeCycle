@@ -57,7 +57,7 @@ struct AppView: View {
                 .tag(TabIdentifier.activeShoes)
             HallOfFameView()
                 .tabItem {
-                    Label("Hall of Fame", image: "trophy")
+                    Label("Hall of Fame", systemImage: "trophy.fill")
                 }
                 .tag(TabIdentifier.hallOfFame)
             SettingsView()
