@@ -9,11 +9,16 @@ import Foundation
 
 
 class MockShoeGenerator {
-    let store = ShoeStore()
+    let store: ShoeStore
+    let totalWeeks: Int
+    
+    init(store: ShoeStore = ShoeStore(), totalWeeks: Int = 16) {
+        self.store = store
+        self.totalWeeks = totalWeeks
+    }
 
     func generateNewShoeWithData(saveData: Bool = false) -> Shoe {
         print("generating new shoe data")
-        let totalWeeks = 16
         let shoeCount = store.activeShoes.count
         let newShoe = store.createShoe()
         newShoe.brand = "Test Shoe \(shoeCount + 1)"
@@ -21,12 +26,23 @@ class MockShoeGenerator {
         newShoe.startDistance = 0
         newShoe.startDate = Date() - (TimeInterval.secondsInWeek * TimeInterval(totalWeeks))
         newShoe.expirationDate = newShoe.startDate + TimeInterval.secondsInSixMonths
+        addRunHistories(to: newShoe, saveData: saveData)
+        return newShoe
+    }
+    
+    func addRunHistories(to shoe: Shoe, saveData: Bool = false) {
         let dates = generateRandomDates(fromPriorWeeks: totalWeeks)
         let runHistories = addRandomDistances(toDates: dates)
         runHistories.forEach { runHistory in
-            addRunHistory(toShoe: newShoe, runHistory: runHistory, saveData: saveData)
+            addRunHistory(toShoe: shoe, runHistory: runHistory)
         }
-        return newShoe
+        
+        if saveData {
+            guard let context = shoe.managedObjectContext else {
+                fatalError("No context is available")
+            }
+            store.saveContext()
+        }
     }
 
     func generateRandomDates(fromPriorWeeks weeks: Int) -> [Date] {
@@ -53,7 +69,7 @@ class MockShoeGenerator {
         return histories
     }
 
-    private func addRunHistory(toShoe shoe: Shoe, runHistory: (date: Date, distance: Float), saveData: Bool) {
+    private func addRunHistory(toShoe shoe: Shoe, runHistory: (date: Date, distance: Float)) {
         guard let context = shoe.managedObjectContext else {
             fatalError("No context is available")
         }
@@ -67,8 +83,5 @@ class MockShoeGenerator {
         var totalDistance = 0
         shoe.history.forEach { totalDistance += $0.runDistance.intValue }
         shoe.totalDistance = NSNumber(value: totalDistance)
-        if saveData {
-            store.saveContext()
-        }
     }
 }

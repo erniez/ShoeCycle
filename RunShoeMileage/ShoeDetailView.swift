@@ -137,6 +137,12 @@ struct ShoeDetailView: View {
                 HallOfFameSelector()
                     .padding([.top], 16)
                     .environmentObject(viewModel.shoe)
+                Spacer()
+                
+                Button("Generate Histories") {
+                    MockShoeGenerator(store: shoeStore).addRunHistories(to: viewModel.shoe, saveData: true)
+                    shoeStore.updateAllShoes()
+                }
                 
                 Spacer()
             }
