@@ -93,6 +93,7 @@ struct EditShoesRowView: View {
         .padding([.trailing], 16)
         .onTapGesture {
             shoeStore.setSelected(shoe: shoe)
+            shoeStore.updateSelectedShoe()
         }
         .animation(.linear, value: shoeStore.selectedShoeURL)
     }

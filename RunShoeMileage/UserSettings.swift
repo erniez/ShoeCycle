@@ -20,6 +20,9 @@ class UserSettings {
             if let url = newValue {
                 settings.set(url, forKey: StorageKey.selectedShoe)
             }
+            else {
+                settings.removeObject(forKey: StorageKey.selectedShoe)
+            }
         }
     }
        

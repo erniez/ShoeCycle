@@ -35,7 +35,7 @@ struct AppView: View {
     
     var body: some View {
         TabView(selection: $activeTab) {
-            if let shoe = shoeStore.selectedShoe {
+            if let shoe = shoeStore.selectedShoe, shoeStore.activeShoes.count > 0 {
                 AddDistanceView(shoe: shoe)
                     .tabItem {
                         Label("Add Distance", image: "tabbar-add")

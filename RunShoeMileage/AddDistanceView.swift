@@ -15,44 +15,54 @@ struct AddDistanceView: View {
     
     var body: some View {
         GeometryReader { screenGeometry in
-            let progressBarWidth = screenGeometry.size.width * 0.55
-
-            var dateFormatter: DateFormatter {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .short
-                return formatter
-            }
-
-            ZStack {
-                PatternedBackground()
-                VStack {
-                    HStack {
-                        Image("logo")
-                        Spacer()
-                        ShoeImageView(shoe: shoe, width: 150, height: 100)
-                            .offset(x: 0, y: 16)
-                        Image("scroll-arrows")
-                            .padding(.leading, 8)
-                    }
-                    .padding(16)
-                    .onTapGesture {
-                        dismissKeyboard()
-                    }
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .fill(Color.sectionBackground)
-                        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: shoe)
-                    }
-                    .padding()
-                    .fixedSize(horizontal: false, vertical: true)
-                    ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.floatValue, endvalue: shoe.maxDistance.intValue)
-                        .padding([.horizontal], 16)
-                    ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
-                        .padding([.horizontal], 16)
-                    RunHistoryChart(collatedHistory: Shoe.collateRunHistories(Array(shoe.history), ascending: true))
-                        .padding(16)
-                    Spacer()
+            // Fun fact: Keep If statements inside the geometry reader. It stays in memeory for some reason and
+            // can crash the app when the source data (shoe) is deleted.
+            // Also need this check for nil for a similar reason.
+            // TODO: See if I can use screen size enivronment variable, rather than a geometry reader, and remove the if statement
+            if shoeStore.selectedShoe != nil {
+                let progressBarWidth = screenGeometry.size.width * 0.55
+                
+                var dateFormatter: DateFormatter {
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .short
+                    return formatter
                 }
+                
+                ZStack {
+                    PatternedBackground()
+                    VStack {
+                        HStack {
+                            Image("logo")
+                            Spacer()
+                            ShoeImageView(shoe: shoe, width: 150, height: 100)
+                                .offset(x: 0, y: 16)
+                            Image("scroll-arrows")
+                                .padding(.leading, 8)
+                        }
+                        .padding(16)
+                        .onTapGesture {
+                            dismissKeyboard()
+                        }
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(Color.sectionBackground)
+                            DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: shoe)
+                        }
+                        .padding()
+                        .fixedSize(horizontal: false, vertical: true)
+                        ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.floatValue, endvalue: shoe.maxDistance.intValue)
+                            .padding([.horizontal], 16)
+                        ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
+                            .padding([.horizontal], 16)
+                        RunHistoryChart(collatedHistory: Shoe.collateRunHistories(Array(shoe.history), ascending: true))
+                            .padding(16)
+                        Spacer()
+                    }
+                }
+            }
+            else {
+                // Shouldn't ever see this
+                Text("Something went wrong")
             }
         }
     }

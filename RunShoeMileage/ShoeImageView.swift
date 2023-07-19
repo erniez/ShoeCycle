@@ -26,7 +26,7 @@ struct ShoeImageView: View {
                 ShoeImage(shoe: shoe, allowImageChange: false)
                     .frame(maxWidth: width)
             }
-            Text(shoe.brand)
+            Text(shoe.brand ?? "") // Another mystery crash here where view was updating unexpectedly
                 .foregroundColor(Color.white)
                 .padding(.top, 8)
                 .lineLimit(1)

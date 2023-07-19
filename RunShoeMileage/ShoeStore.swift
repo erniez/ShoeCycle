@@ -49,6 +49,7 @@ class ShoeStore: ObservableObject {
             allShoes = shoes
             updateActiveShoes()
             updateHallOfFameShoes()
+            updateSelectedShoe()
         }
     }
     
@@ -60,7 +61,7 @@ class ShoeStore: ObservableObject {
         hallOfFameShoes = allShoes.filter { $0.hallOfFame == true }
     }
     
-    private func updateSelectedShoe() {
+    func updateSelectedShoe() {
         let settings = UserSettings()
         // If we have a selected shoe URL, then find the first match.
         if let selectedShoeURL = settings.selectedShoeURL {
@@ -106,15 +107,17 @@ class ShoeStore: ObservableObject {
     }
 
     func remove(shoe: Shoe) {
+        if shoe == selectedShoe {
+            setSelected(shoe: nil)
+        }
         ImageStore_Legacy.defaultImageStore().deleteImage(forKey: shoe.imageKey)
         context.delete(shoe)
         saveContext()
         updateAllShoes()
     }
     
-    func setSelected(shoe: Shoe) {
-        UserSettings().selectedShoeURL = shoe.objectID.uriRepresentation()
-        updateSelectedShoe()
+    func setSelected(shoe: Shoe?) {
+        UserSettings().selectedShoeURL = shoe?.objectID.uriRepresentation()
     }
     
     func isSelected(shoe: Shoe) -> Bool {
