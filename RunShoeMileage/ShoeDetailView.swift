@@ -14,13 +14,35 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
         return lhs.shoe.objectID == rhs.shoe.objectID
     }
     
-    @Published var shoeName: String
-    @Published var startDistance: String
-    @Published var maxDistance: String
-    @Published var startDate: Date
-    @Published var expirationDate: Date
+    @Published var shoeName: String {
+        didSet {
+            hasChanged = true
+        }
+    }
+    @Published var startDistance: String {
+        didSet {
+            hasChanged = true
+        }
+    }
+    @Published var maxDistance: String {
+        didSet {
+            hasChanged = true
+        }
+    }
+    @Published var startDate: Date {
+        didSet {
+            hasChanged = true
+        }
+    }
+    @Published var expirationDate: Date {
+        didSet {
+            hasChanged = true
+        }
+    }
+    
     let shoe: Shoe
     let isNewShoe: Bool
+    var hasChanged = false
     
     init(shoe: Shoe, isNewShoe: Bool = false) {
         self.shoe = shoe
@@ -147,6 +169,13 @@ struct ShoeDetailView: View {
                 Spacer()
             }
             .padding([.horizontal], 16)
+        }
+        .onDisappear {
+            if viewModel.isNewShoe == false, viewModel.hasChanged == true {
+                viewModel.updateShoeValues()
+                shoeStore.saveContext()
+                shoeStore.updateAllShoes()
+            }
         }
     }
 }
