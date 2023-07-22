@@ -103,6 +103,8 @@ struct PatternedBackground: View {
 struct DateDistanceEntryView: View {
     @State private var buttonMaxHeight: CGFloat?
     @State private var showHistoryView = false
+    @State private var showFavoriteDistances = false
+    @State private var favoriteDistanceToAdd = 0.0
     @Binding var runDate: Date
     @Binding var runDistance: String
     @ObservedObject var shoe: Shoe
@@ -133,18 +135,13 @@ struct DateDistanceEntryView: View {
                 .cornerRadius(8)
                 
                 Button {
-                    print("button tapped")
                     showHistoryView = true
                 } label: {
                     Label("History", systemImage: "calendar")
                         .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(8)
-                        .background(.gray)
-                        .cornerRadius(8)
-                        .shadow(color: .black, radius: 2, x: 1, y:2)
                 }
-                .sheet(isPresented: $showHistoryView) {
+                .buttonStyle(.shoeCycle)
+                .fullScreenCover(isPresented: $showHistoryView) {
                     let viewModel = HistoryListViewModel(shoeStore: shoeStore, shoe: shoe)
                     HistoryListView(listData: viewModel)
                 }
@@ -177,20 +174,24 @@ struct DateDistanceEntryView: View {
                     }
                 
                 Button {
-                    print("button tapped")
-//                    _ = MockShoeGenerator().generateNewShoeWithData(saveData: true)
+                    showFavoriteDistances = true
                 } label: {
                     Label("Distances", systemImage: "heart.fill")
                         .font(.caption)
-                        .foregroundColor(.white)
-                        .padding(8)
-                        .background(.gray)
-                        .cornerRadius(8)
-                        .shadow(color: .black, radius: 2, x: 1, y: 2)
                 }
+                .buttonStyle(.shoeCycle)
             }
             .padding(.vertical, 8)
             .padding(.leading, 8)
+            .fullScreenCover(isPresented: $showFavoriteDistances) {
+                FavoriteDistancesView(distanceToAdd: $favoriteDistanceToAdd)
+            }
+            .onChange(of: favoriteDistanceToAdd) { newValue in
+                if newValue > 0 {
+                    let formatter = NumberFormatter.decimal
+                    runDistance = formatter.string(from: NSNumber(value: favoriteDistanceToAdd)) ?? ""
+                }
+            }
             
             Spacer()
             

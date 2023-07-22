@@ -63,6 +63,7 @@
 		1B76CA1619D5AEF10063F2F2 /* UIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B76CA1519D5AEF10063F2F2 /* UIUtilities.m */; };
 		1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */; };
 		1B7D4B1C19D27F42000094DE /* RunDatePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */; };
+		1B7ED91C2A6886AF006ABC42 /* FavoriteDistancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ED91B2A6886AF006ABC42 /* FavoriteDistancesView.swift */; };
 		1B7F36602A24012F00377485 /* HistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F365F2A24012F00377485 /* HistoryRowView.swift */; };
 		1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F36612A24039500377485 /* NumberFormatterExtension.swift */; };
 		1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F36632A2405D100377485 /* HistoryListView.swift */; };
@@ -211,6 +212,7 @@
 		1B7D4B1819D27F42000094DE /* RunDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunDatePickerViewController.h; sourceTree = "<group>"; };
 		1B7D4B1919D27F42000094DE /* RunDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDatePickerViewController.m; sourceTree = "<group>"; };
 		1B7D4B1A19D27F42000094DE /* RunDatePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RunDatePickerViewController.xib; sourceTree = "<group>"; };
+		1B7ED91B2A6886AF006ABC42 /* FavoriteDistancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteDistancesView.swift; sourceTree = "<group>"; };
 		1B7F365F2A24012F00377485 /* HistoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRowView.swift; sourceTree = "<group>"; };
 		1B7F36612A24039500377485 /* NumberFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtension.swift; sourceTree = "<group>"; };
 		1B7F36632A2405D100377485 /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */,
 				1B1738F62A15422C006D632D /* ShoeCycleProgressView.swift */,
 				1BCF9FE72A1AC27A007F697E /* ShoeImageView.swift */,
+				1B7ED91B2A6886AF006ABC42 /* FavoriteDistancesView.swift */,
 			);
 			name = AddDistanceScreen;
 			sourceTree = "<group>";
@@ -851,6 +854,7 @@
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
 				1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */,
+				1B7ED91C2A6886AF006ABC42 /* FavoriteDistancesView.swift in Sources */,
 				1B0D52152A53683C001D3DB9 /* ShoeImage.swift in Sources */,
 				1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */,
 				1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */,

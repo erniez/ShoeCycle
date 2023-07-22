@@ -42,10 +42,10 @@ struct HistoryListView: View {
     var body: some View {
         VStack {
             HStack {
+                Spacer()
                 Button("Done") {
                     dismiss()
                 }
-                Spacer()
             }
             .padding([.horizontal], 24)
             HStack {

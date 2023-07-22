@@ -39,3 +39,24 @@ extension TextFieldStyle where Self == NumberEntryStyle {
     static var numberEntry: NumberEntryStyle { NumberEntryStyle() }
 }
 
+struct ShoeCycleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .foregroundColor(configuration.isPressed ? .white.opacity(0.4) : .white)
+            .padding(8)
+            .background(configuration.isPressed ? .gray.opacity(0.4) : .gray)
+            .cornerRadius(8)
+            .shadow(color: .black, radius: 2, x: 1, y: 2)
+    }
+}
+
+extension ButtonStyle where Self == ShoeCycleButtonStyle {
+    static var shoeCycle: ShoeCycleButtonStyle { ShoeCycleButtonStyle() }
+}
+
+extension View {
+    func shoeCycleSection(title: String, color: Color, image: Image) -> some View {
+        modifier(ShoeCycleSection(title: title, color: color, image: image))
+    }
+}
+

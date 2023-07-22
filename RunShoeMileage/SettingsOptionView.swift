@@ -7,6 +7,44 @@
 
 import SwiftUI
 
+struct ShoeCycleSection: ViewModifier {
+    let title: String
+    let color: Color
+    let image: Image
+    
+    func body(content: Content) -> some View {
+        HStack(spacing: 0) {
+            VStack {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50)
+                Text(title)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .padding(.horizontal)
+                    .frame(width: 100)
+                    .font(.subheadline)
+            }
+            .padding([.vertical], 8)
+            .frame(width: 100)
+            .foregroundColor(color)
+            Line()
+                .stroke(color, style: StrokeStyle(lineWidth: 1, dash: [4]))
+                .frame(width: 1)
+            Spacer()
+            content
+            Spacer()
+        }
+        .padding(.horizontal)
+        .background {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(color, lineWidth: 2)
+                .background(Color.sectionBackground)
+                .padding(.horizontal)
+        }
+    }
+}
 
 struct SettingsOptionView<Content>: View where Content: View {
     let optionText: String
@@ -53,6 +91,39 @@ struct SettingsOptionView_Previews: PreviewProvider {
     @State static var shoeName = ""
     
     static var previews: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Button(action: {
+                    print("test")
+                }) {
+                    Text("Half Marathon")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .frame(width: 100)
+                        .lineLimit(2)
+                }
+                Button(action: { } ) {
+                    Text("10k")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            HStack {
+                Button("5 miles") {  }
+                Button("10 miles") { }
+            }
+            HStack {
+                Button("Half Marathon") {  }
+                Button("Marathon") {  }
+            }
+        }
+        .padding(8)
+        .shoeCycleSection(title: "Units",
+                          color: .shoeCycleOrange,
+                          image: Image("gear"))
+        .buttonStyle(.shoeCycle)
+        
+        
+        
         SettingsOptionView(optionText: "Units",
                            color: .shoeCycleOrange,
                            image: Image("gear")) {

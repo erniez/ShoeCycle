@@ -52,9 +52,17 @@ class UserSettings {
             }
         }
         private let key: String
+        private let formatter = NumberFormatter.decimal
         
         init(key: String) {
             self.key = key
+        }
+        
+        var projectedValue: String? {
+            if wrappedValue > 0 {
+                return formatter.string(from: NSNumber(value: wrappedValue))
+            }
+            return nil
         }
     }
 
