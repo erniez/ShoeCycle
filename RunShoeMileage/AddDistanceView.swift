@@ -13,6 +13,7 @@ struct AddDistanceView: View {
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
     let screenWidth = UIScreen.main.bounds.size.width
+    let minimumDrag: CGFloat = 20
     
     var body: some View {
         if shoeStore.selectedShoe != nil {
@@ -23,6 +24,15 @@ struct AddDistanceView: View {
                     Spacer()
                     ShoeImageView(shoe: shoe, width: 150, height: 100)
                         .offset(x: 0, y: 16)
+                        .gesture(DragGesture(minimumDistance: minimumDrag)
+                            .onEnded({ value in
+                                let translation = value.translation
+                                guard abs(translation.height) > abs(translation.width) else {
+                                    return
+                                }
+                             
+                                handleVerticalSwipe(translationHeight: translation.height)
+                            }))
                     Image("scroll-arrows")
                         .padding(.leading, 8)
                 }
@@ -50,6 +60,25 @@ struct AddDistanceView: View {
         else {
             // Shouldn't ever see this
             Text("Something went wrong")
+        }
+    }
+    
+    func handleVerticalSwipe(translationHeight: Double) {
+        switch translationHeight {
+        case -Double.infinity ..< -minimumDrag: // Swipe up
+            print("UP")
+            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex > 0 {
+                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex - 1])
+                shoeStore.updateSelectedShoe()
+            }
+        case minimumDrag ..< Double.infinity:  // Swipe down
+            print("DOWN")
+            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex < shoeStore.activeShoes.count - 1 {
+                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex + 1])
+                shoeStore.updateSelectedShoe()
+            }
+        default:
+            break // Do nothing
         }
     }
 }
