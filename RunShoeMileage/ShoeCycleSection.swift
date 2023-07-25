@@ -40,53 +40,13 @@ struct ShoeCycleSection: ViewModifier {
         .background {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .stroke(color, lineWidth: 2)
-                .background(Color.sectionBackground)
+                .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
                 .padding(.horizontal)
         }
     }
 }
 
-struct SettingsOptionView<Content>: View where Content: View {
-    let optionText: String
-    let color: Color
-    let image: Image
-    @ViewBuilder var content: () -> Content
-
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(color, lineWidth: 2)
-                .background(Color.sectionBackground)
-                .padding(.horizontal)
-            HStack(spacing: 0) {
-                VStack {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
-                    Text(optionText)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
-                        .padding(.horizontal)
-                        .frame(width: 100)
-                        .font(.subheadline)
-                }
-                .padding([.vertical], 8)
-                .frame(width: 100)
-                .foregroundColor(color)
-                Line()
-                    .stroke(color, style: StrokeStyle(lineWidth: 1, dash: [4]))
-                    .frame(width: 1)
-                Spacer()
-                content()
-                Spacer()
-            }
-            .padding(.horizontal)
-        }
-    }
-}
-
-struct SettingsOptionView_Previews: PreviewProvider {
+struct ShoeCycleSection_Previews: PreviewProvider {
     @State static var units: SettingsUnitsView.DistanceUnits = .miles
     @State static var shoeName = ""
     
@@ -122,27 +82,23 @@ struct SettingsOptionView_Previews: PreviewProvider {
                           image: Image("gear"))
         .buttonStyle(.shoeCycle)
         
-        
-        
-        SettingsOptionView(optionText: "Units",
-                           color: .shoeCycleOrange,
-                           image: Image("gear")) {
-            Picker("Please select units for distance", selection: $units) {
-                Text("Miles").tag(SettingsUnitsView.DistanceUnits.miles)
-                Text("Km").tag(SettingsUnitsView.DistanceUnits.km)
-            }
-            .pickerStyle(.segmented)
-            .onChange(of: units) { newValue in
-                print(units.rawValue)
-            }
+        Picker("Please select units for distance", selection: $units) {
+            Text("Miles").tag(SettingsUnitsView.DistanceUnits.miles)
+            Text("Km").tag(SettingsUnitsView.DistanceUnits.km)
         }
-        SettingsOptionView(optionText: "Shoe", color: .shoeCycleOrange, image: Image("shoe")) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Name:")
-                            TextField("Shoe Name", text: $shoeName, prompt: Text("Shoe Name"))
-                                .textFieldStyle(TextEntryStyle())
-                        }
-                        .padding([.horizontal], 16)
-                    }
+        .pickerStyle(.segmented)
+        .onChange(of: units) { newValue in
+            print(units.rawValue)
+        }
+        .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image("gear"))
+        
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Name:")
+            TextField("Shoe Name", text: $shoeName, prompt: Text("Shoe Name"))
+                .textFieldStyle(TextEntryStyle())
+        }
+        .padding([.horizontal], 16)
+        .shoeCycleSection(title: "Shoe", color: .shoeCycleOrange, image: Image("shoe"))
+                    
     }
 }

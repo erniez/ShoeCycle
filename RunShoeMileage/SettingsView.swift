@@ -50,18 +50,15 @@ struct SettingsUnitsView: View {
     @State var units: DistanceUnits = .miles
     
     var body: some View {
-        SettingsOptionView(optionText: "Units",
-                           color: .shoeCycleOrange,
-                           image: Image("gear")) {
-            Picker("Please select units for distance", selection: $units) {
-                Text("Miles").tag(DistanceUnits.miles)
-                Text("Km").tag(DistanceUnits.km)
-            }
-            .pickerStyle(.segmented)
-            .onChange(of: units) { newValue in
-                print(units.rawValue)
-            }
+        Picker("Please select units for distance", selection: $units) {
+            Text("Miles").tag(DistanceUnits.miles)
+            Text("Km").tag(DistanceUnits.km)
         }
+        .pickerStyle(.segmented)
+        .onChange(of: units) { newValue in
+            print(units.rawValue)
+        }
+        .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image("gear"))
     }
 }
 
@@ -74,18 +71,15 @@ struct SettingsFirstDayOfWeekView: View {
     @State var firstDay: FirstDay = .monday
     
     var body: some View {
-        SettingsOptionView(optionText: "First Day of Week",
-                           color: .shoeCycleBlue,
-                           image: Image(systemName: "calendar")) {
-            Picker("Please select the first day of week", selection: $firstDay) {
-                Text("Sunday").tag(FirstDay.sunday)
-                Text("Monday").tag(FirstDay.monday)
-            }
-            .pickerStyle(.segmented)
-            .onChange(of: firstDay) { newValue in
-                print(firstDay.rawValue)
-            }
+        Picker("Please select the first day of week", selection: $firstDay) {
+            Text("Sunday").tag(FirstDay.sunday)
+            Text("Monday").tag(FirstDay.monday)
         }
+        .pickerStyle(.segmented)
+        .onChange(of: firstDay) { newValue in
+            print(firstDay.rawValue)
+        }
+        .shoeCycleSection(title: "First Day of Week", color: .shoeCycleBlue, image: Image(systemName: "calendar"))
     }
 }
 
@@ -93,26 +87,25 @@ struct SettingsFavoriteDistancesView: View {
     @ObservedObject var viewModel = SettingsFavoriteDistancesViewModel()
     
     var body: some View {
-        SettingsOptionView(optionText: "Favorite Distances", color: .shoeCycleGreen, image: Image("heartPlus")) {
-            VStack {
-                HStack {
-                    TextField("Favorite 1", text: $viewModel.favorite1, prompt: Text("Favorite 1"))
-                    TextField("Favorite 2", text: $viewModel.favorite2, prompt: Text("Favorite 2"))
-                }
-                HStack {
-                    TextField("Favorite 3", text: $viewModel.favorite3, prompt: Text("Favorite 3"))
-                    TextField("Favorite 4", text: $viewModel.favorite4, prompt: Text("Favorite 4"))
-                }
+        VStack {
+            HStack {
+                TextField("Favorite 1", text: $viewModel.favorite1, prompt: Text("Favorite 1"))
+                TextField("Favorite 2", text: $viewModel.favorite2, prompt: Text("Favorite 2"))
             }
-            .textFieldStyle(.numberEntry)
-            .toolbar {
-                ToolbarItem(placement: .keyboard) {
-                    Button("Done") {
-                        dismissKeyboard()
-                    }
+            HStack {
+                TextField("Favorite 3", text: $viewModel.favorite3, prompt: Text("Favorite 3"))
+                TextField("Favorite 4", text: $viewModel.favorite4, prompt: Text("Favorite 4"))
+            }
+        }
+        .textFieldStyle(.numberEntry)
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                Button("Done") {
+                    dismissKeyboard()
                 }
             }
         }
+        .shoeCycleSection(title: "Favorite Distances", color: .shoeCycleGreen, image: Image("heartPlus"))
     }
 }
 

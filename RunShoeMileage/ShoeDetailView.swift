@@ -94,71 +94,74 @@ struct ShoeDetailView: View {
                         }
                     }
                 }
-                SettingsOptionView(optionText: "Shoe", color: .shoeCycleOrange, image: Image("shoe")) {
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Name:")
+                    TextField("Shoe Name", text: $viewModel.shoeName, prompt: Text("Shoe Name"))
+                        .textFieldStyle(TextEntryStyle())
+                        .padding([.bottom], 8)
+                }
+                .padding([.horizontal, .top], 16)
+                .foregroundColor(.white)
+                .shoeCycleSection(title: "Shoe", color: .shoeCycleOrange, image: Image("shoe"))
+                .fixedSize(horizontal: false, vertical: true)
+                
+                HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Name:")
-                        TextField("Shoe Name", text: $viewModel.shoeName, prompt: Text("Shoe Name"))
-                            .textFieldStyle(TextEntryStyle())
+                        Text("Start:")
+                        TextField("Start Distance", text: $viewModel.startDistance)
+                            .textFieldStyle(.numberEntry)
                     }
-                    .foregroundColor(.white)
+                    .padding([.horizontal], 16)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Max:")
+                        TextField("Max Distance", text: $viewModel.maxDistance)
+                            .textFieldStyle(.numberEntry)
+                    }
                     .padding([.horizontal], 16)
                 }
-                .padding([.top], 16)
+                .foregroundColor(.white)
+                .shoeCycleSection(title: "Distance", color: .shoeCycleGreen, image: Image("steps"))
                 .fixedSize(horizontal: false, vertical: true)
-                SettingsOptionView(optionText: "Distance", color: .shoeCycleGreen, image: Image("steps")) {
+                
+                VStack {
                     HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Start:")
-                            TextField("Start Distance", text: $viewModel.startDistance)
-                                .textFieldStyle(.numberEntry)
-                        }
-                        .padding([.horizontal], 16)
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Max:")
-                            TextField("Max Distance", text: $viewModel.maxDistance)
-                                .textFieldStyle(.numberEntry)
-                        }
-                        .padding([.horizontal], 16)
+                        Text("Start:")
+                        Spacer()
+                        DatePicker("Start Date",
+                                   selection: $viewModel.startDate,
+                                   displayedComponents: [.date])
+                        .accentColor(.shoeCycleOrange)
+                        .foregroundColor(.white)
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .background(Color(uiColor: .systemGray6))
+                        .cornerRadius(8)
+                    }
+                    HStack {
+                        Text("End:")
+                        Spacer()
+                        DatePicker("Expiration Date",
+                                   selection: $viewModel.expirationDate,
+                                   displayedComponents: [.date])
+                        .accentColor(.shoeCycleOrange)
+                        .foregroundColor(.white)
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .background(Color(uiColor: .systemGray6))
+                        .cornerRadius(8)
                     }
                 }
                 .foregroundColor(.white)
+                .shoeCycleSection(title: "Wear Time", color: .shoeCycleBlue, image: Image("clock"))
                 .fixedSize(horizontal: false, vertical: true)
-                SettingsOptionView(optionText: "Wear Time", color: .shoeCycleBlue, image: Image("clock")) {
-                    VStack {
-                        HStack {
-                            Text("Start:")
-                            Spacer()
-                            DatePicker("Start Date",
-                                       selection: $viewModel.startDate,
-                                       displayedComponents: [.date])
-                            .accentColor(.shoeCycleOrange)
-                            .foregroundColor(.white)
-                            .labelsHidden()
-                            .datePickerStyle(.compact)
-                            .background(Color(uiColor: .systemGray6))
-                            .cornerRadius(8)
-                        }
-                        HStack {
-                            Text("End:")
-                            Spacer()
-                            DatePicker("Expiration Date",
-                                       selection: $viewModel.expirationDate,
-                                       displayedComponents: [.date])
-                            .accentColor(.shoeCycleOrange)
-                            .foregroundColor(.white)
-                            .labelsHidden()
-                            .datePickerStyle(.compact)
-                            .background(Color(uiColor: .systemGray6))
-                            .cornerRadius(8)
-                        }
-                    }
-                    .foregroundColor(.white)
-                }
-                .fixedSize(horizontal: false, vertical: true)
+                
                 ShoeImage(shoe: viewModel.shoe)
+                
                 HallOfFameSelector()
                     .padding([.top], 16)
                     .environmentObject(viewModel.shoe)
+                
                 Spacer()
                 
                 Button("Generate Histories") {
