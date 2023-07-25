@@ -60,3 +60,9 @@ extension View {
     }
 }
 
+extension Shape where Self == RoundedRectangle {
+    static var shoeCycleRoundedRectangle: some Shape {
+        RoundedRectangle(cornerRadius: 8, style: .continuous)
+    }
+}
+

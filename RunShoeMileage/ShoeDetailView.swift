@@ -157,6 +157,7 @@ struct ShoeDetailView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 
                 ShoeImage(shoe: viewModel.shoe)
+                    .padding([.horizontal], 32)
                 
                 HallOfFameSelector()
                     .padding([.top], 16)
