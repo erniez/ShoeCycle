@@ -55,7 +55,7 @@ struct AddDistanceView: View {
                     .padding(16)
                 Spacer()
             }
-            .background(PatternedBackground())
+            .background(.patternedBackground)
             .dynamicTypeSize(.medium ... .xLarge)
         }
         else {
@@ -91,28 +91,6 @@ struct AddDistanceView_Previews: PreviewProvider {
     static var previews: some View {
         AddDistanceView(shoe: shoe)
             .environmentObject(store)
-    }
-}
-
-struct PatternedBackground: View {
-    @Environment(\.colorScheme) var colorScheme
-    
-    var body: some View {
-        if colorScheme == .dark {
-            Image("perfTile")
-                .resizable(resizingMode: .tile)
-                .ignoresSafeArea()
-        }
-        else {
-            ZStack {
-                Image("perfTile")
-                    .resizable(resizingMode: .tile)
-                    .ignoresSafeArea()
-                Rectangle()
-                    .fill(Color(white: 1, opacity: 0.30))
-                    .ignoresSafeArea()
-            }
-        }
     }
 }
 

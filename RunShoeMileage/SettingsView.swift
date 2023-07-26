@@ -21,11 +21,6 @@ import SwiftUI
 struct SettingsView: View {
     
     var body: some View {
-        ZStack {
-            PatternedBackground()
-                .onTapGesture {
-                    dismissKeyboard()
-                }
             VStack(spacing: 24) {
                 SettingsUnitsView()
                     .fixedSize(horizontal: false, vertical: true)
@@ -36,7 +31,10 @@ struct SettingsView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
             }
-        }
+            .background(.patternedBackground
+                .onTapGesture {
+                    dismissKeyboard()
+                })
     }
     
 }

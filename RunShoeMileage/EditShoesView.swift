@@ -35,6 +35,7 @@ struct EditShoesView: View {
                     presentNewShoeView = true
                 }
             }
+            .background(.patternedBackground)
         }
         .fullScreenCover(isPresented: $presentNewShoeView, onDismiss: {
             // Update view models to account for an added shoe

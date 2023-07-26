@@ -91,7 +91,7 @@ struct FavoriteDistancesView: View {
             
             Spacer()
         }
-        .background(PatternedBackground())
+        .background(.patternedBackground)
     }
     
     func distanceToAdd(_ distance: Double) {
