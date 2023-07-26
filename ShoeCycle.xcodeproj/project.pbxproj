@@ -76,6 +76,7 @@
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
 		1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BB8A812288497B500B45B67 /* FirebaseAnalytics */; };
 		1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */; };
+		1BBCF59D2A70834C002D28D3 /* DateDistanceEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBCF59C2A70834C002D28D3 /* DateDistanceEntryView.swift */; };
 		1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
 		1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */; };
@@ -227,6 +228,7 @@
 		1BAD389119E25C4000161DA8 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ShoeCycle.entitlements; path = ../ShoeCycle.entitlements; sourceTree = "<group>"; };
 		1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
+		1BBCF59C2A70834C002D28D3 /* DateDistanceEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDistanceEntryView.swift; sourceTree = "<group>"; };
 		1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1BC08E7914D42171007A4344 /* Shoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shoe.h; sourceTree = "<group>"; };
 		1BC08E7A14D42171007A4344 /* Shoe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shoe.m; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			children = (
 				1B7F365E2A2400F700377485 /* HistoryView */,
 				1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */,
+				1BBCF59C2A70834C002D28D3 /* DateDistanceEntryView.swift */,
 				1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */,
 				1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */,
 				1B1738F62A15422C006D632D /* ShoeCycleProgressView.swift */,
@@ -847,6 +850,7 @@
 				1BCF644A148AF7E7004C0E6A /* main.m in Sources */,
 				1B9EA80422068594000FA58B /* RunHistoryViewControllerDelegate.swift in Sources */,
 				1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */,
+				1BBCF59D2A70834C002D28D3 /* DateDistanceEntryView.swift in Sources */,
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
 				1BCF9FF92A1BF3FD007F697E /* ShoeExtensions.swift in Sources */,
