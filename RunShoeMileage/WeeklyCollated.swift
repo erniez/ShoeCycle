@@ -28,6 +28,7 @@ class WeeklyCollatedNew: Equatable, Identifiable {
         return false
     }
     
+    var id: Date { date }
     let date: Date
     var runDistance: Float
     
