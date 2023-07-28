@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ShoeImageView: View {
     @ObservedObject var shoe: Shoe
-    let width: CGFloat
-    let height: CGFloat
     var shoeImage = Image("photo-placeholder")
 
     var body: some View {
@@ -24,14 +22,12 @@ struct ShoeImageView: View {
                     .rotationEffect(Angle(degrees: 45))
                     .offset(x: 0, y: pointerSquareSize/2)
                 ShoeImage(shoe: shoe, allowImageChange: false)
-                    .frame(maxWidth: width)
             }
             Text(shoe.brand ?? "") // Another mystery crash here where view was updating unexpectedly
                 .foregroundColor(Color.white)
                 .dynamicTypeSize(.medium ... .xLarge)
                 .padding(.top, 8)
                 .lineLimit(1)
-                .frame(width: width)
         }
     }
 }

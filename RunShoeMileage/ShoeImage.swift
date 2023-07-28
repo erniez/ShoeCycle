@@ -110,7 +110,7 @@ fileprivate extension Image {
     func shoeImageContent() -> some View {
         self
             .resizable()
-            .aspectRatio(1.4, contentMode: .fill)
+            .aspectRatio(1.4, contentMode: .fit)
             .background(.black)
             .clipShape(.shoeCycleRoundedRectangle)
             .overlay {

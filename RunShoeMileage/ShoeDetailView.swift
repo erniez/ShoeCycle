@@ -77,7 +77,6 @@ struct ShoeDetailView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        
         VStack {
             if viewModel.isNewShoe == true {
                 HStack {
@@ -173,6 +172,9 @@ struct ShoeDetailView: View {
         }
         .padding([.horizontal], 16)
         .background(.patternedBackground)
+        .onTapGesture {
+            dismissKeyboard()
+        }
         .onDisappear {
             if viewModel.isNewShoe == false, viewModel.hasChanged == true {
                 viewModel.updateShoeValues()
@@ -180,6 +182,8 @@ struct ShoeDetailView: View {
                 shoeStore.updateAllShoes()
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(.keyboard, edges: [.bottom])
     }
 }
 

@@ -75,7 +75,8 @@ struct DateDistanceEntryView: View {
                     .frame(minWidth: 50)
                     .textFieldStyle(.numberEntry)
                     .toolbar {
-                        ToolbarItem(placement: .keyboard) {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
                             Button("Done") {
                                 dismissKeyboard()
                             }

@@ -22,8 +22,10 @@ struct AddDistanceView: View {
                 HStack {
                     Image("logo")
                     Spacer()
-                    ShoeImageView(shoe: shoe, width: 150, height: 100)
+                    ShoeImageView(shoe: shoe)
                         .offset(x: 0, y: 16)
+                        .frame(maxWidth: 150)
+                        .padding(.leading, 32)
                         .gesture(DragGesture(minimumDistance: minimumDrag)
                             .onEnded({ value in
                                 let translation = value.translation
@@ -36,27 +38,27 @@ struct AddDistanceView: View {
                     Image("scroll-arrows")
                         .padding(.leading, 8)
                 }
-                .padding(16)
-                .onTapGesture {
-                    dismissKeyboard()
-                }
+                .fixedSize(horizontal: false, vertical: true)
+                
                 ZStack {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .fill(Color.sectionBackground)
                     DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: shoe)
                 }
-                .padding()
+                .padding([.vertical], 16)
                 .fixedSize(horizontal: false, vertical: true)
                 ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.floatValue, endvalue: shoe.maxDistance.intValue)
-                    .padding([.horizontal], 16)
                 ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
-                    .padding([.horizontal], 16)
                 RunHistoryChart(collatedHistory: Shoe.collateRunHistories(Array(shoe.history), ascending: true))
-                    .padding(16)
-                Spacer()
+                    .padding([.vertical], 16)
             }
+            .padding([.horizontal], 16)
             .background(.patternedBackground)
             .dynamicTypeSize(.medium ... .xLarge)
+            .ignoresSafeArea(.keyboard, edges: [.bottom])
+            .onTapGesture {
+                dismissKeyboard()
+            }
         }
         else {
             // Shouldn't ever see this
@@ -67,13 +69,11 @@ struct AddDistanceView: View {
     func handleVerticalSwipe(translationHeight: Double) {
         switch translationHeight {
         case -Double.infinity ..< -minimumDrag: // Swipe up
-            print("UP")
             if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex > 0 {
                 shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex - 1])
                 shoeStore.updateSelectedShoe()
             }
         case minimumDrag ..< Double.infinity:  // Swipe down
-            print("DOWN")
             if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex < shoeStore.activeShoes.count - 1 {
                 shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex + 1])
                 shoeStore.updateSelectedShoe()
@@ -89,7 +89,7 @@ struct AddDistanceView_Previews: PreviewProvider {
     @StateObject static var store = ShoeStore()
     
     static var previews: some View {
-        AddDistanceView(shoe: shoe)
+        AddDistanceView(shoe: store.selectedShoe!)
             .environmentObject(store)
     }
 }
