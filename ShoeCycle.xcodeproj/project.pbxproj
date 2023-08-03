@@ -51,6 +51,7 @@
 		1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */; };
 		1B3EE44414DE25F000ACA601 /* ShoeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */; };
 		1B42028514A97C060064C078 /* ShoeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B42028314A97C050064C078 /* ShoeDetailViewController.xib */; };
+		1B4903602A7B4B2600422CED /* DistanceUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B49035F2A7B4B2600422CED /* DistanceUtility.swift */; };
 		1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; };
 		1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; };
@@ -199,6 +200,7 @@
 		1B3EE44314DE25F000ACA601 /* ShoeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeDetailViewController.m; sourceTree = "<group>"; };
 		1B42028114A97C040064C078 /* ShoeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoeDetailViewController.h; path = ../ShoeDetailViewController.h; sourceTree = "<group>"; };
 		1B42028314A97C050064C078 /* ShoeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShoeDetailViewController.xib; path = ../ShoeDetailViewController.xib; sourceTree = "<group>"; };
+		1B49035F2A7B4B2600422CED /* DistanceUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceUtility.swift; sourceTree = "<group>"; };
 		1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AFNetworking.xcframework; path = Carthage/Build/AFNetworking.xcframework; sourceTree = "<group>"; };
 		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
 		1B62EB942A5231FC00226147 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
@@ -401,7 +403,6 @@
 				1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */,
 				1B24358A2879D0970018AFCA /* StravaInteractionViewController.swift */,
 				1BE059621E58BDC100D6225C /* HOFTableViewController.swift */,
-				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -436,6 +437,15 @@
 				1BF005402A58C430007AE489 /* HallOfFameSelector.swift */,
 			);
 			name = ShoeDetailView;
+			sourceTree = "<group>";
+		};
+		1B49035E2A7B4AF500422CED /* Common Swift */ = {
+			isa = PBXGroup;
+			children = (
+				1B49035F2A7B4B2600422CED /* DistanceUtility.swift */,
+				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
+			);
+			name = "Common Swift";
 			sourceTree = "<group>";
 		};
 		1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */ = {
@@ -576,6 +586,7 @@
 				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
+				1B49035E2A7B4AF500422CED /* Common Swift */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
 				1B0AD7F82A2FA724006AB307 /* EditShoesScreen */,
 				1B3D29D82A46316C00BE7956 /* ShoeDetailView */,
@@ -892,6 +903,7 @@
 				1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */,
 				1B0AD7F32A2AA132006AB307 /* ShoeStore.swift in Sources */,
 				1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */,
+				1B4903602A7B4B2600422CED /* DistanceUtility.swift in Sources */,
 				1BCF9FE82A1AC27A007F697E /* ShoeImageView.swift in Sources */,
 				1B1738F72A15422C006D632D /* ShoeCycleProgressView.swift in Sources */,
 				1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */,

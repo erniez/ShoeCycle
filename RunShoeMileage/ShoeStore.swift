@@ -138,7 +138,7 @@ class ShoeStore: ObservableObject {
         shoe.totalDistance = NSNumber(value: runTotal)
     }
     
-    func addHistory(to shoe: Shoe, date: Date, distance: Float) {
+    func addHistory(to shoe: Shoe, date: Date, distance: Double) {
         guard let newHistory = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as? History else {
             print("Could not create History object")
             return

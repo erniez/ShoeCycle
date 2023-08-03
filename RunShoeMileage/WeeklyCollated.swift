@@ -30,9 +30,9 @@ class WeeklyCollatedNew: Equatable, Identifiable {
     
     var id: Date { date }
     let date: Date
-    var runDistance: Float
+    var runDistance: Double
     
-    init(date: Date, runDistance: Float) {
+    init(date: Date, runDistance: Double) {
         self.date = date
         self.runDistance = runDistance
     }

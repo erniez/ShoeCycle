@@ -10,9 +10,11 @@ import Charts
 
 
 struct RunHistoryChart: View {
+    @EnvironmentObject var settings: UserSettings
     let collatedHistory: [WeeklyCollatedNew]
     
     private let formatter = NumberFormatter.decimal
+    private let distanceUtility = DistanceUtility()
 
     private var xValues: [Date] {
         collatedHistory.map { $0.date }
@@ -25,8 +27,8 @@ struct RunHistoryChart: View {
     private func weekOfYear(from date: Date) -> Int {
         calendar.component(.weekOfYear, from: date)
     }
-    var maxDistance: Float {
-        let maxDistance = collatedHistory.reduce(Float(0)) { return max($0, $1.runDistance) }
+    var maxDistance: Double {
+        let maxDistance = collatedHistory.reduce(Double(0)) { return max($0, $1.runDistance) }
         return maxDistance
     }
     
@@ -38,18 +40,18 @@ struct RunHistoryChart: View {
                     ForEach(collatedHistory) { item in
                         LineMark(
                             x: .value("Date", item.date),
-                            y: .value("Miles", item.runDistance),
+                            y: .value(settings.distanceUnit.displayString(), distanceUtility.distance(from: item.runDistance)),
                             series: .value("Weekly Distance", "A")
                         )
                         .foregroundStyle(Color.clear)
                     }
                     RuleMark(
-                        y: .value("Max Mileage", maxDistance)
+                        y: .value("Max Mileage", distanceUtility.distance(from: maxDistance))
                     )
                     .foregroundStyle(Color.shoeCycleBlue)
                     .lineStyle(StrokeStyle(lineWidth: 3, dash: [10, 10]))
                     .annotation(position: .overlay, alignment: .bottomTrailing) {
-                        Text(formatter.string(from: NSNumber(value: maxDistance)) ?? "")
+                        Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: maxDistance))) ?? "")
                             .foregroundColor(.shoeCycleBlue)
                     }
                 }
@@ -93,7 +95,7 @@ struct RunHistoryChart: View {
                                     ForEach(collatedHistory) { item in
                                         LineMark(
                                             x: .value("Date", item.date),
-                                            y: .value("Miles", item.runDistance),
+                                            y: .value(settings.distanceUnit.displayString(), distanceUtility.distance(from: item.runDistance)),
                                             series: .value("Weekly Distance", "A")
                                         )
                                         .foregroundStyle(Color.shoeCycleOrange)
@@ -101,6 +103,9 @@ struct RunHistoryChart: View {
                                             Circle()
                                                 .fill(Color.shoeCycleGreen)
                                                 .frame(width: 7)
+                                        }
+                                        .annotation {
+                                            Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: item.runDistance))) ?? "")
                                         }
                                     }
                                 }

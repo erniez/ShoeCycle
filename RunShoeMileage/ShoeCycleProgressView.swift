@@ -10,8 +10,8 @@ import SwiftUI
 fileprivate struct ShoeCycleProgressView: View {
     let progressWidth: CGFloat
     let progressColor: Color
-    let progressBarValue: Float
-    let value: Float
+    let progressBarValue: Double
+    let value: Double
     let units: String
     let startValue: String
     let endValue: String
@@ -41,7 +41,7 @@ fileprivate struct ShoeCycleProgressView: View {
             Spacer()
             VStack(spacing: 0) {
                 Text(formatNumberForDisplay(value: value))
-                    .font(.largeTitle)
+                    .font(.title)
                 Text(units)
                     .font(.headline)
                     .padding(.top, -4)
@@ -51,22 +51,24 @@ fileprivate struct ShoeCycleProgressView: View {
         }
     }
     
-    private func formatNumberForDisplay(value: Float) -> String {
+    private func formatNumberForDisplay(value: Double) -> String {
         let number = NSNumber(value: value)
         return NumberFormatter.decimal.string(from: number) ?? ""
     }
 }
 
 struct ShoeCycleDistanceProgressView: View {
+    @EnvironmentObject var settings: UserSettings
     let progressWidth: CGFloat
-    let value: Float
+    let value: Double
     let endvalue: Int
-    private var progressBarValue: Float {
-        min(1, value / Float(endvalue))
+    private var progressBarValue: Double {
+        min(1, value / Double(endvalue))
     }
+    private let distanceUtility = DistanceUtility()
     
     var body: some View {
-        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleGreen, progressBarValue: progressBarValue, value: value, units: "miles", startValue: "0", endValue: String(endvalue))
+        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleGreen, progressBarValue: progressBarValue, value: distanceUtility.distance(from: value), units: settings.distanceUnit.displayString().capitalized, startValue: "0", endValue: String(Int(distanceUtility.distance(from: Double(endvalue)))))
     }
 }
 
@@ -75,7 +77,7 @@ struct ShoeCycleDateProgressView: View {
     let viewModel: DateProgressViewModel
     
     var body: some View {
-        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleBlue, progressBarValue: Float(viewModel.progressBarValue), value: Float(viewModel.daysToGo), units: "Days Left", startValue: DateFormatter.shortDate.string(from: viewModel.startDate), endValue: DateFormatter.shortDate.string(from: viewModel.endDate))
+        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleBlue, progressBarValue: viewModel.progressBarValue, value: Double(viewModel.daysToGo), units: "Days Left", startValue: DateFormatter.shortDate.string(from: viewModel.startDate), endValue: DateFormatter.shortDate.string(from: viewModel.endDate))
     }
 }
 

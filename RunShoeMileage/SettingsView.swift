@@ -40,21 +40,17 @@ struct SettingsView: View {
 }
 
 struct SettingsUnitsView: View {
-    enum DistanceUnits: String, Identifiable {
-        case miles, km
-        
-        var id: Self { self }
-    }
-    @State var units: DistanceUnits = .miles
+    @State var units = UserSettings().distanceUnit
+    @EnvironmentObject var settings: UserSettings
     
     var body: some View {
         Picker("Please select units for distance", selection: $units) {
-            Text("Miles").tag(DistanceUnits.miles)
-            Text("Km").tag(DistanceUnits.km)
+            Text(UserSettings.DistanceUnit.miles.displayString().capitalized).tag(UserSettings.DistanceUnit.miles)
+            Text(UserSettings.DistanceUnit.km.displayString().capitalized).tag(UserSettings.DistanceUnit.km)
         }
         .pickerStyle(.segmented)
         .onChange(of: units) { newValue in
-            print(units.rawValue)
+            settings.set(distanceUnit: units)
         }
         .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image("gear"))
     }

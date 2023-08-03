@@ -51,7 +51,7 @@ extension Shoe {
             if let currentWeeklyCollated = collatedArray.last {
                 if currentWeeklyCollated.date == beginningOfWeek {
                     // We're still within the week, so we add more distance.
-                    currentWeeklyCollated.runDistance += history.runDistance.floatValue
+                    currentWeeklyCollated.runDistance += history.runDistance.doubleValue
                 }
                 else {
                     // Check to see if there is a long time between runs, and add zero mileage dates so that they show up on the graph.
@@ -61,13 +61,13 @@ extension Shoe {
                         collatedArray.append(collatedZeroDistance)
                     }
                     // Create a new weekly collated entry to start adding miles to
-                    let newWeeklyCollated = WeeklyCollatedNew(date: beginningOfWeek, runDistance: history.runDistance.floatValue)
+                    let newWeeklyCollated = WeeklyCollatedNew(date: beginningOfWeek, runDistance: history.runDistance.doubleValue)
                     collatedArray.append(newWeeklyCollated)
                 }
             }
             else {
                 // The result array is empty, so we add the first value here.
-                let weeklyCollated = WeeklyCollatedNew(date: beginningOfWeek, runDistance: history.runDistance.floatValue)
+                let weeklyCollated = WeeklyCollatedNew(date: beginningOfWeek, runDistance: history.runDistance.doubleValue)
                 collatedArray.append(weeklyCollated)
             }
         }

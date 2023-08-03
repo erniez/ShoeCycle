@@ -12,6 +12,7 @@ struct AddDistanceView: View {
     @State private var runDistance = ""
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
+    @EnvironmentObject var settings: UserSettings
     let screenWidth = UIScreen.main.bounds.size.width
     let minimumDrag: CGFloat = 20
     
@@ -47,7 +48,7 @@ struct AddDistanceView: View {
                 }
                 .padding([.vertical], 16)
                 .fixedSize(horizontal: false, vertical: true)
-                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.floatValue, endvalue: shoe.maxDistance.intValue)
+                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue)
                 ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
                 RunHistoryChart(collatedHistory: Shoe.collateRunHistories(Array(shoe.history), ascending: true))
                     .padding([.vertical], 16)

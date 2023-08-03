@@ -17,6 +17,8 @@ struct DateDistanceEntryView: View {
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
     
+    private let distanceUtility = DistanceUtility()
+    
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 8) {
@@ -111,11 +113,7 @@ struct DateDistanceEntryView: View {
             
             Button {
                 dismissKeyboard()
-                guard let runDistanceNumber = Float(runDistance) else {
-                    print("Could not form a number from string entered")
-                    return
-                }
-                shoeStore.addHistory(to: shoe, date: runDate, distance: runDistanceNumber)
+                shoeStore.addHistory(to: shoe, date: runDate, distance: distanceUtility.distance(from: runDistance))
                 runDistance = ""
                 print(runDate)
             } label: {

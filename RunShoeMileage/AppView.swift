@@ -31,6 +31,7 @@ struct AppView: View {
     }
     
     @StateObject var shoeStore = ShoeStore()
+    @StateObject var settings = UserSettings()
     @State var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
     
     var body: some View {
@@ -67,6 +68,7 @@ struct AppView: View {
                 .tag(TabIdentifier.settings)
         }
         .environmentObject(shoeStore)
+        .environmentObject(settings)
     }
 }
 

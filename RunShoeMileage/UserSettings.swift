@@ -7,7 +7,9 @@
 
 import Foundation
 
-class UserSettings {
+class UserSettings: ObservableObject {
+    @Published private(set) var distanceUnit: DistanceUnit
+    
     let settings = UserDefaults.standard
     var selectedShoeURL: URL? {
         get {
@@ -26,7 +28,9 @@ class UserSettings {
         }
     }
        
-    enum DistanceUnit: Int {
+    enum DistanceUnit: Int, Identifiable {
+        var id: Self { self }
+        
         case miles, km
         
         func displayString() -> String {
@@ -65,14 +69,14 @@ class UserSettings {
             return nil
         }
     }
-
-    var distanceUnit: DistanceUnit {
-        get {
-            DistanceUnit(rawValue: settings.integer(forKey: StorageKey.distanceUnit)) ?? .miles
-        }
-        set {
-            settings.set(newValue.rawValue, forKey: StorageKey.distanceUnit)
-        }
+    
+    init() {
+        distanceUnit = DistanceUnit(rawValue: UserDefaults.standard.integer(forKey: StorageKey.distanceUnit)) ?? .miles
+    }
+    
+    func set(distanceUnit: DistanceUnit) {
+        settings.set(distanceUnit.rawValue, forKey: StorageKey.distanceUnit)
+        self.distanceUnit = distanceUnit
     }
     
     var firstDayOfWeek: FirstDayOfWeek {

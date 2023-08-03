@@ -47,7 +47,7 @@ struct ShoeCycleSection: ViewModifier {
 }
 
 struct ShoeCycleSection_Previews: PreviewProvider {
-    @State static var units: SettingsUnitsView.DistanceUnits = .miles
+    @State static var units: UserSettings.DistanceUnit = .miles
     @State static var shoeName = ""
     
     static var previews: some View {
@@ -83,8 +83,8 @@ struct ShoeCycleSection_Previews: PreviewProvider {
         .buttonStyle(.shoeCycle)
         
         Picker("Please select units for distance", selection: $units) {
-            Text("Miles").tag(SettingsUnitsView.DistanceUnits.miles)
-            Text("Km").tag(SettingsUnitsView.DistanceUnits.km)
+            Text("Miles").tag(UserSettings.DistanceUnit.miles)
+            Text("Km").tag(UserSettings.DistanceUnit.km)
         }
         .pickerStyle(.segmented)
         .onChange(of: units) { newValue in
