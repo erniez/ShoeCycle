@@ -104,9 +104,17 @@ struct RunHistoryChart: View {
                                                 .fill(Color.shoeCycleGreen)
                                                 .frame(width: 7)
                                         }
-                                        .annotation {
-                                            Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: item.runDistance))) ?? "")
-                                        }
+                                    }
+                                    // The RuleMark can mess with the Y-axis scaling, so we need to add an invisible one here so that the
+                                    // Y-axis scales the same as the fixed chart above.
+                                    RuleMark(
+                                        y: .value("Max Mileage", distanceUtility.distance(from: maxDistance))
+                                    )
+                                    .foregroundStyle(Color.clear)
+                                    .lineStyle(StrokeStyle(lineWidth: 3, dash: [10, 10]))
+                                    .annotation(position: .overlay, alignment: .bottomTrailing) {
+                                        Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: maxDistance))) ?? "")
+                                            .foregroundColor(Color.clear)
                                     }
                                 }
                                 .onAppear {
