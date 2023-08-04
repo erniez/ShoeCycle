@@ -52,7 +52,7 @@ struct SettingsUnitsView: View {
         .onChange(of: units) { newValue in
             settings.set(distanceUnit: units)
         }
-        .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image("gear"))
+        .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image(systemName: "gearshape.fill"))
     }
 }
 

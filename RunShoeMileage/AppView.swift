@@ -39,7 +39,7 @@ struct AppView: View {
             if let shoe = shoeStore.selectedShoe, shoeStore.activeShoes.count > 0 {
                 AddDistanceView(shoe: shoe)
                     .tabItem {
-                        Label("Add Distance", image: "tabbar-add")
+                        tabBarAddDistanceLabel
                     }
                     .tag(TabIdentifier.addDistance)
             }
@@ -47,13 +47,19 @@ struct AppView: View {
                 // TODO: Improve this screen, or make AddDistanceView able to handle an optional
                 Text("Please add a shoe")
                     .tabItem {
-                        Label("Add Distance", image: "tabbar-add")
+                        tabBarAddDistanceLabel
                     }
                     .tag(TabIdentifier.addDistance)
             }
             EditShoesView(shoes: EditShoesView.generateViewModelsFromActiveShoes(from: shoeStore))
                 .tabItem {
-                    Label("Active Shoes", image: "tabbar-shoe")
+                    Label {
+                        Text("Active Shoes")
+                    } icon: {
+                        Image("tabbar-shoe")
+                            .renderingMode(.template)
+                    }
+
                 }
                 .tag(TabIdentifier.activeShoes)
             HallOfFameView()
@@ -63,12 +69,21 @@ struct AppView: View {
                 .tag(TabIdentifier.hallOfFame)
             SettingsView()
                 .tabItem {
-                    Label("Settings", image: "tabbar-gear")
+                    Label("Settings", systemImage: "gearshape.fill")
                 }
                 .tag(TabIdentifier.settings)
         }
         .environmentObject(shoeStore)
         .environmentObject(settings)
+    }
+    
+    var tabBarAddDistanceLabel: some View {
+        Label {
+            Text("Add Distance")
+        } icon: {
+            Image("tabbar-add")
+                .renderingMode(.template)
+        }
     }
 }
 
