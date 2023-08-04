@@ -70,13 +70,13 @@ struct AddDistanceView: View {
     func handleVerticalSwipe(translationHeight: Double) {
         switch translationHeight {
         case -Double.infinity ..< -minimumDrag: // Swipe up
-            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex > 0 {
-                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex - 1])
+            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex < shoeStore.activeShoes.count - 1 {
+                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex + 1])
                 shoeStore.updateSelectedShoe()
             }
         case minimumDrag ..< Double.infinity:  // Swipe down
-            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex < shoeStore.activeShoes.count - 1 {
-                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex + 1])
+            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex > 0 {
+                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex - 1])
                 shoeStore.updateSelectedShoe()
             }
         default:
