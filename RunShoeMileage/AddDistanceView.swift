@@ -55,7 +55,6 @@ struct AddDistanceView: View {
             }
             .padding([.horizontal], 16)
             .background(.patternedBackground)
-            .dynamicTypeSize(.medium ... .xLarge)
             .ignoresSafeArea(.keyboard, edges: [.bottom])
             .onTapGesture {
                 dismissKeyboard()

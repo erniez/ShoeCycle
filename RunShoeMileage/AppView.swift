@@ -75,6 +75,7 @@ struct AppView: View {
         }
         .environmentObject(shoeStore)
         .environmentObject(settings)
+        .dynamicTypeSize(.medium ... .xLarge)
     }
     
     var tabBarAddDistanceLabel: some View {

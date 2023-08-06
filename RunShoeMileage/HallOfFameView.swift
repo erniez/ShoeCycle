@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HallOfFameView: View {
     @EnvironmentObject var shoeStore: ShoeStore
+    @EnvironmentObject var settings: UserSettings
     
     var body: some View {
         if shoeStore.hallOfFameShoes.isEmpty {
@@ -41,6 +42,8 @@ struct HallOfFameView: View {
 
 struct HallOfFameRowView: View {
     let shoe: Shoe
+    @EnvironmentObject var settings: UserSettings
+    private let distanceUtility = DistanceUtility()
     
     var body: some View {
         VStack {
@@ -49,7 +52,7 @@ struct HallOfFameRowView: View {
                 Spacer()
             }
             HStack {
-                Text("Distance: \(NumberFormatter.decimal.string(from: shoe.totalDistance) ?? "")")
+                Text("Distance: \(distanceUtility.displayString(for: shoe.totalDistance.doubleValue)) \(settings.distanceUnit.displayString())")
                 Spacer()
             }
         }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EditShoesView: View {
     @EnvironmentObject var shoeStore: ShoeStore
+    @EnvironmentObject var settings: UserSettings
     @State var shoes: [ShoeDetailViewModel]
     @State var presentNewShoeView = false
     
@@ -68,9 +69,11 @@ struct EditShoesRowView: View {
     // of the row before the UI deletes it. All values inside of shoe are nil.
     // I temporarily put nil coaelescers to protect from the crash.
     @EnvironmentObject var shoeStore: ShoeStore
+    @EnvironmentObject var settings: UserSettings
     var isSelected: Bool {
         shoeStore.isSelected(shoe: shoe)
     }
+    private let distanceUtility = DistanceUtility()
     
     var body: some View {
         VStack {
@@ -86,7 +89,7 @@ struct EditShoesRowView: View {
                         .padding([.trailing], 8)
                         .foregroundColor(.shoeCycleOrange)
                 }
-                Text("Distance: \(NumberFormatter.decimal.string(from: shoe.totalDistance ?? NSNumber(value: 0)) ?? "")")
+                Text("Distance: \(distanceUtility.displayString(for: shoe.totalDistance.doubleValue)) \(settings.distanceUnit.displayString())")
                 Spacer()
             }
         }

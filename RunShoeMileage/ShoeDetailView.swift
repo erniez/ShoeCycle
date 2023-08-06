@@ -44,11 +44,13 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
     let isNewShoe: Bool
     var hasChanged = false
     
+    private let distanceUtility = DistanceUtility()
+    
     init(shoe: Shoe, isNewShoe: Bool = false) {
         self.shoe = shoe
         shoeName = shoe.brand
-        startDistance = shoe.startDistance.stringValue
-        maxDistance = shoe.maxDistance.stringValue
+        startDistance = distanceUtility.displayString(for: shoe.startDistance.doubleValue)
+        maxDistance = distanceUtility.displayString(for: shoe.maxDistance.doubleValue)
         startDate = shoe.startDate
         expirationDate = shoe.expirationDate
         self.isNewShoe = isNewShoe
@@ -56,12 +58,8 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
     
     func updateShoeValues() {
         shoe.brand = shoeName
-        if let startDistanceDigits = Double(startDistance) {
-            shoe.startDistance = NSNumber(value: startDistanceDigits)
-        }
-        if let maxDistanceDigits = Double(maxDistance) {
-            shoe.maxDistance = NSNumber(value: maxDistanceDigits)
-        }
+        shoe.startDistance = NSNumber(value: distanceUtility.distance(from: startDistance))
+        shoe.maxDistance = NSNumber(value: distanceUtility.distance(from: maxDistance))
         shoe.startDate = startDate
         shoe.expirationDate = expirationDate
     }
@@ -170,6 +168,8 @@ struct ShoeDetailView: View {
             
             Spacer()
         }
+        // Need the font size limiter here because this view can launch modally, out of the app view heirarchy
+        .dynamicTypeSize(.medium ... .xLarge)
         .padding([.horizontal], 16)
         .background(.patternedBackground)
         .onTapGesture {

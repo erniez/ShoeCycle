@@ -25,7 +25,6 @@ struct ShoeImageView: View {
             }
             Text(shoe.brand ?? "") // Another mystery crash here where view was updating unexpectedly
                 .foregroundColor(Color.white)
-                .dynamicTypeSize(.medium ... .xLarge)
                 .padding(.top, 8)
                 .lineLimit(1)
         }
