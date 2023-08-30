@@ -57,21 +57,17 @@ struct SettingsUnitsView: View {
 }
 
 struct SettingsFirstDayOfWeekView: View {
-    enum FirstDay: String, CaseIterable, Identifiable {
-        case sunday, monday
-        
-        var id: Self { self }
-    }
-    @State var firstDay: FirstDay = .monday
+    @State var firstDayOfWeek = UserSettings().firstDayOfWeek
+    @EnvironmentObject var settings: UserSettings
     
     var body: some View {
-        Picker("Please select the first day of week", selection: $firstDay) {
-            Text("Sunday").tag(FirstDay.sunday)
-            Text("Monday").tag(FirstDay.monday)
+        Picker("Please select the first day of week", selection: $firstDayOfWeek) {
+            Text("Sunday").tag(UserSettings.FirstDayOfWeek.sunday)
+            Text("Monday").tag(UserSettings.FirstDayOfWeek.monday)
         }
         .pickerStyle(.segmented)
-        .onChange(of: firstDay) { newValue in
-            print(firstDay.rawValue)
+        .onChange(of: firstDayOfWeek) { newValue in
+            settings.set(firstDayOfWeek: newValue)
         }
         .shoeCycleSection(title: "First Day of Week", color: .shoeCycleBlue, image: Image(systemName: "calendar"))
     }

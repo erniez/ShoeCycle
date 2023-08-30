@@ -9,6 +9,7 @@ import Foundation
 
 class UserSettings: ObservableObject {
     @Published private(set) var distanceUnit: DistanceUnit
+    @Published private(set) var firstDayOfWeek: FirstDayOfWeek
     
     let settings = UserDefaults.standard
     var selectedShoeURL: URL? {
@@ -42,6 +43,7 @@ class UserSettings: ObservableObject {
     }
     
     enum FirstDayOfWeek: Int {
+        // Have to start numbering at 1 because that's what the calendar weekday units do.
         case sunday = 1
         case monday
     }
@@ -72,6 +74,7 @@ class UserSettings: ObservableObject {
     
     init() {
         distanceUnit = DistanceUnit(rawValue: UserDefaults.standard.integer(forKey: StorageKey.distanceUnit)) ?? .miles
+        firstDayOfWeek = FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
     }
     
     func set(distanceUnit: DistanceUnit) {
@@ -79,13 +82,9 @@ class UserSettings: ObservableObject {
         self.distanceUnit = distanceUnit
     }
     
-    var firstDayOfWeek: FirstDayOfWeek {
-        get {
-            FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
-        }
-        set {
-            settings.set(newValue.rawValue, forKey: StorageKey.firstDayOfWeek)
-        }
+    func set(firstDayOfWeek: FirstDayOfWeek) {
+        settings.set(firstDayOfWeek.rawValue, forKey: StorageKey.firstDayOfWeek)
+        self.firstDayOfWeek = firstDayOfWeek
     }
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance1)
