@@ -6,19 +6,11 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
-// For testing purposes only. So I can launch from Obj-C
-@objc class SettingsViewFactory: NSObject {
-    
-    @objc static func create() -> UIViewController {
-        let settingsView = SettingsView()
-        let hostingController = UIHostingController(rootView: settingsView)
-        return hostingController
-    }
-    
-}
 
 struct SettingsView: View {
+    @EnvironmentObject var settings: UserSettings
     
     var body: some View {
             VStack(spacing: 24) {
@@ -29,6 +21,7 @@ struct SettingsView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 SettingsFavoriteDistancesView()
                     .fixedSize(horizontal: false, vertical: true)
+                SettingsStravaView(interactor: StravaInteractor(settings: settings))
                 Spacer()
             }
             .background(.patternedBackground
@@ -97,6 +90,52 @@ struct SettingsFavoriteDistancesView: View {
         }
         .shoeCycleSection(title: "Favorite Distances", color: .shoeCycleGreen, image: Image("heartPlus"))
     }
+}
+
+struct SettingsStravaView: View {
+    @Environment(\.webAuthenticationSession) private var webAuthenticationSession
+    @EnvironmentObject var settings: UserSettings
+    @State private var stravaIsOn = UserSettings().isStravaEnabled()
+    private let stravaInteractor: StravaInteractor
+    
+    init(interactor: StravaInteractor) {
+        stravaInteractor = interactor
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Image("StravaNameLogo")
+                    .padding([.leading], 8)
+                Spacer()
+                Toggle("Enable", isOn: $stravaIsOn)
+                    .fixedSize()
+                    .foregroundColor(.shoeCycleOrange)
+                    .font(.title2)
+            }
+            Text("Turning on this option will connect you with the Strava login screen.")
+                .foregroundColor(.shoeCycleOrange)
+        }
+        .padding([.horizontal], 24)
+        .padding([.vertical], 16)
+        .background {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(Color.shoeCycleOrange, lineWidth: 2)
+                .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
+                .padding(.horizontal)
+        }
+        .onChange(of: stravaIsOn) { newValue in
+            if newValue == true {
+                Task {
+                    await stravaIsOn = stravaInteractor.fetchToken(with: webAuthenticationSession)
+                }
+            }
+            else {
+                stravaInteractor.resetStravaToken()
+            }
+        }
+    }
+        
 }
 
 struct SettingsView_Previews: PreviewProvider {

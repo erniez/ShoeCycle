@@ -10,6 +10,7 @@ import Foundation
 class UserSettings: ObservableObject {
     @Published private(set) var distanceUnit: DistanceUnit
     @Published private(set) var firstDayOfWeek: FirstDayOfWeek
+    @Published private(set) var stravaAccessToken: String?
     
     let settings = UserDefaults.standard
     var selectedShoeURL: URL? {
@@ -75,6 +76,7 @@ class UserSettings: ObservableObject {
     init() {
         distanceUnit = DistanceUnit(rawValue: UserDefaults.standard.integer(forKey: StorageKey.distanceUnit)) ?? .miles
         firstDayOfWeek = FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
+        stravaAccessToken = settings.string(forKey: StorageKey.stravaAccessToken)
     }
     
     func set(distanceUnit: DistanceUnit) {
@@ -85,6 +87,15 @@ class UserSettings: ObservableObject {
     func set(firstDayOfWeek: FirstDayOfWeek) {
         settings.set(firstDayOfWeek.rawValue, forKey: StorageKey.firstDayOfWeek)
         self.firstDayOfWeek = firstDayOfWeek
+    }
+    
+    func set(stravaAccessToken: String?) {
+        settings.set(stravaAccessToken, forKey: StorageKey.stravaAccessToken)
+        self.stravaAccessToken = stravaAccessToken
+    }
+    
+    func isStravaEnabled() -> Bool {
+        return stravaAccessToken?.count ?? 0 > 0
     }
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance1)
@@ -114,5 +125,6 @@ extension UserSettings {
         static let stravaEnabled = "ShoeCycleStravaEnabledKey"
         static let firstDayOfWeek = "ShoeCycleFirstDayOfWeekKey"
         static let graphAllShoesToggle = "ShoeCycleGraphAllShoesToggle"
+        static let stravaAccessToken = "ShoeCycleStravaAccessToken"
     }
 }

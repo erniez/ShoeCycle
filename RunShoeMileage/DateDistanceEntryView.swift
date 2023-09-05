@@ -16,6 +16,7 @@ struct DateDistanceEntryView: View {
     @Binding var runDistance: String
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
+    @EnvironmentObject var settings: UserSettings
     
     private let distanceUtility = DistanceUtility()
     
@@ -111,13 +112,23 @@ struct DateDistanceEntryView: View {
             
             Spacer()
             
-            Button {
-                dismissKeyboard()
-                shoeStore.addHistory(to: shoe, date: runDate, distance: distanceUtility.distance(from: runDistance))
-                runDistance = ""
-                print(runDate)
-            } label: {
-                Image("button-add-run")
+            VStack {
+                Button {
+                    dismissKeyboard()
+                    shoeStore.addHistory(to: shoe, date: runDate, distance: distanceUtility.distance(from: runDistance))
+                    runDistance = ""
+                } label: {
+                    Image("button-add-run")
+                }
+                HStack {
+                    if settings.isStravaEnabled() {
+                        Image("stravaLogo")
+                    }
+                    // TODO: Tie this to AppleHealth logic
+                    Image(systemName: "heart.fill")
+                        .renderingMode(.template)
+                        .foregroundColor(.red)
+                }
             }
             .padding(8)
             .padding([.leading], 16)

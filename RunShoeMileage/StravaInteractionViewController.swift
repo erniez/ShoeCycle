@@ -87,7 +87,7 @@ extension StravaInteractionViewController: ASWebAuthenticationPresentationContex
     }
 }
 
-fileprivate extension Dictionary {
+extension Dictionary {
     func percentEncoded() -> Data? {
         map { key, value in
             let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
@@ -99,7 +99,7 @@ fileprivate extension Dictionary {
     }
 }
 
-fileprivate extension CharacterSet {
+extension CharacterSet {
     static let urlQueryValueAllowed: CharacterSet = {
         let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
         let subDelimitersToEncode = "!$&'()*+,;="
