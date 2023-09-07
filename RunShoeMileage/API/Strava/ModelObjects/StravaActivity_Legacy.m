@@ -6,10 +6,10 @@
 //
 //
 
-#import "StravaActivity.h"
+#import "StravaActivity_Legacy.h"
 #import "NSDate+UTCConversion.h"
 
-@implementation StravaActivity
+@implementation StravaActivity_Legacy
 
 - (instancetype)initWithName:(NSString *)name distance:(NSNumber *)distance startDate:(NSDate *)startDate;
 {

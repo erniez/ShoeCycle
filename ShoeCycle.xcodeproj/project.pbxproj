@@ -110,9 +110,11 @@
 		1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */; };
 		1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */; };
 		1BE540612AA7A46700DCC109 /* StravaInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540602AA7A46700DCC109 /* StravaInteractor.swift */; };
+		1BE540642AA81E6D00DCC109 /* StravaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540632AA81E6D00DCC109 /* StravaService.swift */; };
+		1BE540662AA92CF600DCC109 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540652AA92CF600DCC109 /* NetworkService.swift */; };
 		1BF005412A58C430007AE489 /* HallOfFameSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF005402A58C430007AE489 /* HallOfFameSelector.swift */; };
 		EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */; };
-		EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26DB1AFF0550006C4B63 /* StravaActivity.m */; };
+		EA0F26DC1AFF0550006C4B63 /* StravaActivity_Legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26DB1AFF0550006C4B63 /* StravaActivity_Legacy.m */; };
 		EA7194191A4B480F00C2517A /* StravaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -279,11 +281,13 @@
 		1BE34AEC1AFE8F6000CF83EE /* NSDate+UTCConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+UTCConversion.h"; path = "Categories/NSDate+UTCConversion.h"; sourceTree = "<group>"; };
 		1BE34AED1AFE8F6000CF83EE /* NSDate+UTCConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+UTCConversion.m"; path = "Categories/NSDate+UTCConversion.m"; sourceTree = "<group>"; };
 		1BE540602AA7A46700DCC109 /* StravaInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaInteractor.swift; sourceTree = "<group>"; };
+		1BE540632AA81E6D00DCC109 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
+		1BE540652AA92CF600DCC109 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		1BF005402A58C430007AE489 /* HallOfFameSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameSelector.swift; sourceTree = "<group>"; };
 		EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIURLStrings.h; path = API/APIURLStrings.h; sourceTree = "<group>"; };
 		EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIURLStrings.m; path = API/APIURLStrings.m; sourceTree = "<group>"; };
-		EA0F26DA1AFF0550006C4B63 /* StravaActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaActivity.h; path = API/Strava/ModelObjects/StravaActivity.h; sourceTree = "<group>"; };
-		EA0F26DB1AFF0550006C4B63 /* StravaActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StravaActivity.m; path = API/Strava/ModelObjects/StravaActivity.m; sourceTree = "<group>"; };
+		EA0F26DA1AFF0550006C4B63 /* StravaActivity_Legacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StravaActivity_Legacy.h; path = API/Strava/ModelObjects/StravaActivity_Legacy.h; sourceTree = "<group>"; };
+		EA0F26DB1AFF0550006C4B63 /* StravaActivity_Legacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StravaActivity_Legacy.m; path = API/Strava/ModelObjects/StravaActivity_Legacy.m; sourceTree = "<group>"; };
 		EA7194181A4B480F00C2517A /* StravaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StravaStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -587,6 +591,7 @@
 			isa = PBXGroup;
 			children = (
 				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
+				1BE540622AA81E5100DCC109 /* Services */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1B49035E2A7B4AF500422CED /* Common Swift */,
@@ -665,10 +670,19 @@
 			children = (
 				1BE34AE61AFE71D800CF83EE /* StravaAthlete.h */,
 				1BE34AE71AFE71D800CF83EE /* StravaAthlete.m */,
-				EA0F26DA1AFF0550006C4B63 /* StravaActivity.h */,
-				EA0F26DB1AFF0550006C4B63 /* StravaActivity.m */,
+				EA0F26DA1AFF0550006C4B63 /* StravaActivity_Legacy.h */,
+				EA0F26DB1AFF0550006C4B63 /* StravaActivity_Legacy.m */,
 			);
 			name = "Model Objects";
+			sourceTree = "<group>";
+		};
+		1BE540622AA81E5100DCC109 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1BE540632AA81E6D00DCC109 /* StravaService.swift */,
+				1BE540652AA92CF600DCC109 /* NetworkService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		EA7194171A4B47ED00C2517A /* Storyboards */ = {
@@ -911,7 +925,9 @@
 				1BCF9FE82A1AC27A007F697E /* ShoeImageView.swift in Sources */,
 				1B1738F72A15422C006D632D /* ShoeCycleProgressView.swift in Sources */,
 				1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */,
+				1BE540642AA81E6D00DCC109 /* StravaService.swift in Sources */,
 				1B0D52132A5345A7001D3DB9 /* CameraPickerView.swift in Sources */,
+				1BE540662AA92CF600DCC109 /* NetworkService.swift in Sources */,
 				1B3CB6301B0CB9E200E19778 /* EditShoesCell.m in Sources */,
 				1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */,
 				1BCEEBB914B69B0200672194 /* FileHelpers.m in Sources */,
@@ -923,7 +939,7 @@
 				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
 				1B24358D2879D1810018AFCA /* UIView+Autolayout.swift in Sources */,
 				1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */,
-				EA0F26DC1AFF0550006C4B63 /* StravaActivity.m in Sources */,
+				EA0F26DC1AFF0550006C4B63 /* StravaActivity_Legacy.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
 				1B30A82421EF756400AF22A7 /* LaunchViewController.swift in Sources */,
 				1B2248CD1C8145600081518A /* Shoe+Helpers.m in Sources */,

@@ -19,6 +19,7 @@ struct DateDistanceEntryView: View {
     @EnvironmentObject var settings: UserSettings
     
     private let distanceUtility = DistanceUtility()
+    private let stravaService = StravaService()
     
     var body: some View {
         HStack(alignment: .top) {
@@ -116,6 +117,14 @@ struct DateDistanceEntryView: View {
                 Button {
                     dismissKeyboard()
                     shoeStore.addHistory(to: shoe, date: runDate, distance: distanceUtility.distance(from: runDistance))
+                    if settings.isStravaEnabled() {
+                        let activity = StravaActivity(name: "ShoeCycle Logged Run",
+                                                      distance: distanceUtility.stravaDistance(for: runDistance),
+                                                      startDate: runDate)
+                        Task {
+                            await stravaService.send(activity: activity)
+                        }
+                    }
                     runDistance = ""
                 } label: {
                     Image("button-add-run")

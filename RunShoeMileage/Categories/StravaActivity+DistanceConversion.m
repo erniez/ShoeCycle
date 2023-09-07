@@ -9,7 +9,7 @@
 #import "StravaActivity+DistanceConversion.h"
 #import "UserDistanceSetting.h"
 
-@implementation StravaActivity (DistanceConversion)
+@implementation StravaActivity_Legacy (DistanceConversion)
 
 + (NSNumber *)stravaDistanceFromAddDistance:(float)addDistance
 {

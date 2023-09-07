@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface StravaActivity : NSObject
+@interface StravaActivity_Legacy : NSObject
 
 - (instancetype)initWithName:(NSString *)name distance:(NSNumber *)distance startDate:(NSDate *)startDate;
 

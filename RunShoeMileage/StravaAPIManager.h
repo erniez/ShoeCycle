@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-@class StravaActivity;
+@class StravaActivity_Legacy;
 
 @interface StravaAPIManager : NSObject
 
-- (void)sendActivityToStrava:(StravaActivity *)activity completion:(void(^)(NSError *error))completion;
+- (void)sendActivityToStrava:(StravaActivity_Legacy *)activity completion:(void(^)(NSError *error))completion;
 - (void)fetchAthlete;
 
 @end

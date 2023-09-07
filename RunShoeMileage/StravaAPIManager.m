@@ -10,12 +10,12 @@
 #import <AFNetworking/AFNetworking.h>
 #import "NSDate+UTCConversion.h"
 #import "APIURLStrings.h"
-#import "StravaActivity.h"
+#import "StravaActivity_Legacy.h"
 #import "GlobalStringConstants.h"
 
 @implementation StravaAPIManager
 
-- (void)sendActivityToStrava:(StravaActivity *)activity completion:(void (^)(NSError *))completion
+- (void)sendActivityToStrava:(StravaActivity_Legacy *)activity completion:(void (^)(NSError *))completion
 {
     NSURL *baseURL = [NSURL URLWithString:kStravaActivitiesURL];
     NSMutableDictionary *params = [NSMutableDictionary new];

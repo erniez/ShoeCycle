@@ -6,9 +6,9 @@
 //
 //
 
-#import "StravaActivity.h"
+#import "StravaActivity_Legacy.h"
 
-@interface StravaActivity (DistanceConversion)
+@interface StravaActivity_Legacy (DistanceConversion)
 
 /** 
  Takes a float value directly from the add distance text field and converts it to an NSNumber, in meters.

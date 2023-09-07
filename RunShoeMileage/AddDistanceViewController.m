@@ -22,7 +22,7 @@
 #import "UIColor+ShoeCycleColors.h"
 #import <AFNetworking/AFNetworking.h>
 #import "StravaAPIManager.h"
-#import "StravaActivity.h"
+#import "StravaActivity_Legacy.h"
 #import "UIView+Effects.h"
 #import "UIAlertController+CommonAlerts.h"
 #import "StravaActivity+DistanceConversion.h"
@@ -540,8 +540,8 @@
     
     if ([UserDistanceSetting isStravaConnected]) {
         [self showHUD];
-        NSNumber *stravaDistance = [StravaActivity stravaDistanceFromAddDistance:addDistance];
-        StravaActivity *activity = [[StravaActivity alloc] initWithName:@"ShoeCycle Logged Run" distance:stravaDistance startDate:[NSDate date]];
+        NSNumber *stravaDistance = [StravaActivity_Legacy stravaDistanceFromAddDistance:addDistance];
+        StravaActivity_Legacy *activity = [[StravaActivity_Legacy alloc] initWithName:@"ShoeCycle Logged Run" distance:stravaDistance startDate:[NSDate date]];
         [[StravaAPIManager new] sendActivityToStrava:activity completion:^(NSError *error) {
             [self hideHUD];
             if (error) {
