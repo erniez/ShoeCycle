@@ -35,52 +35,44 @@ struct StravaActivity {
 }
 
 struct StravaService {
-    // TODO: Need to handle refresh case now that tokens are only valid for 6 hours.
-    // Example token response
-    /*
-     {
-         "token_type": "Bearer",
-         "expires_at": 1694070543,
-         "expires_in": 21600,
-         "refresh_token": "908d85ef52618ff512fcfbe409cb09c883994826",
-         "access_token": "6580706ed4dc53eb42bc1159af74b05798056c87",
-         "athlete": {
-             "id": 3019584,
-             "username": "ezappacosta",
-             "resource_state": 2,
-             "firstname": "Ernie",
-             "lastname": "Zappacosta",
-             "bio": "",
-             "city": "San Luis Obispo",
-             "state": "CA",
-             "country": "United States",
-             "sex": "M",
-             "premium": false,
-             "summit": false,
-             "created_at": "2013-09-13T00:05:16Z",
-             "updated_at": "2023-08-30T21:19:43Z",
-             "badge_type_id": 0,
-             "weight": 83.7339,
-             "profile_medium": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/3019584/4377862/2/medium.jpg",
-             "profile": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/3019584/4377862/2/large.jpg",
-             "friend": null,
-             "follower": null
-         }
-     }
-     */
     let activitiesURL = URL(string: kStravaActivitiesURL)!
-    let network = NetworkService(session: .shared)
+    let network = NetworkService()
     let keeper = StravaTokenKeeper()
+    
+    private let kStravaClientID = "4002"
+    private let kStravaClientIDkey = "client_id"
+    private let kStravaSecret = "558112ea963c3427a387549a3361bd6677083ff9"
+    private let kStravaSecretKey = "client_secret"
     
     func send(activity: StravaActivity) async {
         let dto = StravaActivityDTO(activity: activity)
         do {
-            let token = try keeper.accessToken()
+            let token = try await keeper.accessToken()
             let _ = try await network.postJSON(dto: dto, url: activitiesURL, authToken: token)
         }
         catch {
             print("error")
         }
+    }
+    
+    private func refresh(token: StravaToken) async throws -> StravaToken {
+        let url = URL(string: "https://www.strava.com/oauth/token")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            kStravaClientIDkey: kStravaClientID,
+            kStravaSecretKey: kStravaSecret,
+            "refresh_token": token.refreshToken,
+            "grant_type": "refresh_token"
+        ]
+        guard let bodyData = parameters.percentEncoded() else {
+            throw NetworkError.unknownError
+        }
+        let data = try await network.post(request: request, data: bodyData)
+        let newToken: StravaToken = try data.jsonDecode()
+        return newToken
     }
     
 }

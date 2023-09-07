@@ -10,11 +10,9 @@ import Foundation
 class UserSettings: ObservableObject {
     @Published private(set) var distanceUnit: DistanceUnit
     @Published private(set) var firstDayOfWeek: FirstDayOfWeek
-    // TODO: code smell. Settings shouldn't need to know actual token string.
-    @Published private(set) var stravaAccessToken: String?
+    @Published private(set) var stravaEnabled: Bool
     
     private let settings = UserDefaults.standard
-    private let tokenKeeper: StravaTokenKeeper
     
     var selectedShoeURL: URL? {
         get {
@@ -79,8 +77,7 @@ class UserSettings: ObservableObject {
     init() {
         distanceUnit = DistanceUnit(rawValue: UserDefaults.standard.integer(forKey: StorageKey.distanceUnit)) ?? .miles
         firstDayOfWeek = FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
-        tokenKeeper = StravaTokenKeeper()
-        stravaAccessToken = try? tokenKeeper.accessToken()
+        stravaEnabled = UserDefaults.standard.bool(forKey: StorageKey.stravaEnabled)
     }
     
     func set(distanceUnit: DistanceUnit) {
@@ -93,19 +90,9 @@ class UserSettings: ObservableObject {
         self.firstDayOfWeek = firstDayOfWeek
     }
     
-    func set(stravaAccessToken: StravaToken?) {
-        if let token = stravaAccessToken {
-            tokenKeeper.store(token: token)
-            self.stravaAccessToken = token.token
-        }
-        else {
-            tokenKeeper.eraseToken()
-            self.stravaAccessToken = nil
-        }
-    }
-    
-    func isStravaEnabled() -> Bool {
-        return stravaAccessToken?.count ?? 0 > 0
+    func set(stravaEnabled: Bool) {
+        self.stravaEnabled = stravaEnabled
+        settings.set(stravaEnabled, forKey: StorageKey.stravaEnabled)
     }
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance1)

@@ -15,6 +15,7 @@ struct StravaInteractor {
     private let kStravaSecretKey = "client_secret"
     let settings: UserSettings
     private let urlSession: URLSession = .shared
+    private let stravaTokenKeeper = StravaTokenKeeper()
     
     init(settings: UserSettings) {
         self.settings = settings
@@ -57,6 +58,7 @@ struct StravaInteractor {
         }
     }
     
+    // TODO: move this to Strava service or TokenKeeper
     func didReceiveTemporaryToken(_ token: String, session: WebAuthenticationSession) async throws {
         let keeper = StravaTokenKeeper()
         let url = URL(string: "https://www.strava.com/oauth/token")!
@@ -75,18 +77,19 @@ struct StravaInteractor {
         if let token: StravaToken = try? data.jsonDecode() {
             await MainActor.run(body: {
                 keeper.store(token: token)
-                settings.set(stravaAccessToken: token)
+                settings.set(stravaEnabled: true)
             })
         }
         else {
+            settings.set(stravaEnabled: false)
+            resetStravaToken()
             print("oops! something went wrong!")
             throw NSError(domain: "Strava Web Login", code: 0)
         }
     }
     
     func resetStravaToken() {
-        // currently, no async case is needed
-        settings.set(stravaAccessToken: nil)
+        stravaTokenKeeper.eraseToken()
     }
     
 }

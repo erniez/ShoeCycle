@@ -117,7 +117,7 @@ struct DateDistanceEntryView: View {
                 Button {
                     dismissKeyboard()
                     shoeStore.addHistory(to: shoe, date: runDate, distance: distanceUtility.distance(from: runDistance))
-                    if settings.isStravaEnabled() {
+                    if settings.stravaEnabled == true {
                         let activity = StravaActivity(name: "ShoeCycle Logged Run",
                                                       distance: distanceUtility.stravaDistance(for: runDistance),
                                                       startDate: runDate)
@@ -130,7 +130,7 @@ struct DateDistanceEntryView: View {
                     Image("button-add-run")
                 }
                 HStack {
-                    if settings.isStravaEnabled() {
+                    if settings.stravaEnabled == true {
                         Image("stravaLogo")
                     }
                     // TODO: Tie this to AppleHealth logic

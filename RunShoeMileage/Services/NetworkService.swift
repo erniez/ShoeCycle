@@ -15,7 +15,7 @@ protocol JSONNetworkService {
 class NetworkService: JSONNetworkService {
     let session: URLSession
     
-    init (session: URLSession) {
+    init (session: URLSession = .shared) {
         self.session = session
     }
     
@@ -45,8 +45,9 @@ class NetworkService: JSONNetworkService {
         if let token = authToken {
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
+        let bodyData: Data
         do {
-            request.httpBody = try JSONEncoder().encode(dto)
+            bodyData = try JSONEncoder().encode(dto)
         }
         catch(let error) {
             if let error = error as? EncodingError {
@@ -56,7 +57,11 @@ class NetworkService: JSONNetworkService {
                 throw NetworkError.unknownError
             }
         }
-        let (data, urlResponse) = try await session.upload(for: request, from: try! JSONEncoder().encode(dto))
+        return try await post(request: request, data: bodyData)
+    }
+    
+    func post(request: URLRequest, data: Data) async throws -> Data {
+        let (data, urlResponse) = try await session.upload(for: request, from: data)
         try validate(response: urlResponse)
         return data
     }

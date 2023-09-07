@@ -95,7 +95,7 @@ struct SettingsFavoriteDistancesView: View {
 struct SettingsStravaView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     @EnvironmentObject var settings: UserSettings
-    @State private var stravaIsOn = UserSettings().isStravaEnabled()
+    @State private var stravaIsOn = UserSettings().stravaEnabled
     private let stravaInteractor: StravaInteractor
     
     init(interactor: StravaInteractor) {
@@ -131,6 +131,7 @@ struct SettingsStravaView: View {
                 }
             }
             else {
+                settings.set(stravaEnabled: false)
                 stravaInteractor.resetStravaToken()
             }
         }
