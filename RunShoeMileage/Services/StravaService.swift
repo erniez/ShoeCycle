@@ -70,13 +70,12 @@ struct StravaService {
      */
     let activitiesURL = URL(string: kStravaActivitiesURL)!
     let network = NetworkService(session: .shared)
+    let keeper = StravaTokenKeeper()
     
     func send(activity: StravaActivity) async {
-        guard let token = UserDefaults.standard.value(forKey: kStravaAccessToken) as? String else {
-            return
-        }
         let dto = StravaActivityDTO(activity: activity)
         do {
+            let token = try keeper.accessToken()
             let _ = try await network.postJSON(dto: dto, url: activitiesURL, authToken: token)
         }
         catch {

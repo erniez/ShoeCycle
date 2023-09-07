@@ -10,9 +10,12 @@ import Foundation
 class UserSettings: ObservableObject {
     @Published private(set) var distanceUnit: DistanceUnit
     @Published private(set) var firstDayOfWeek: FirstDayOfWeek
+    // TODO: code smell. Settings shouldn't need to know actual token string.
     @Published private(set) var stravaAccessToken: String?
     
-    let settings = UserDefaults.standard
+    private let settings = UserDefaults.standard
+    private let tokenKeeper: StravaTokenKeeper
+    
     var selectedShoeURL: URL? {
         get {
             guard let url = settings.url(forKey: StorageKey.selectedShoe) else {
@@ -76,7 +79,8 @@ class UserSettings: ObservableObject {
     init() {
         distanceUnit = DistanceUnit(rawValue: UserDefaults.standard.integer(forKey: StorageKey.distanceUnit)) ?? .miles
         firstDayOfWeek = FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
-        stravaAccessToken = settings.string(forKey: StorageKey.stravaAccessToken)
+        tokenKeeper = StravaTokenKeeper()
+        stravaAccessToken = try? tokenKeeper.accessToken()
     }
     
     func set(distanceUnit: DistanceUnit) {
@@ -89,9 +93,15 @@ class UserSettings: ObservableObject {
         self.firstDayOfWeek = firstDayOfWeek
     }
     
-    func set(stravaAccessToken: String?) {
-        settings.set(stravaAccessToken, forKey: StorageKey.stravaAccessToken)
-        self.stravaAccessToken = stravaAccessToken
+    func set(stravaAccessToken: StravaToken?) {
+        if let token = stravaAccessToken {
+            tokenKeeper.store(token: token)
+            self.stravaAccessToken = token.token
+        }
+        else {
+            tokenKeeper.eraseToken()
+            self.stravaAccessToken = nil
+        }
     }
     
     func isStravaEnabled() -> Bool {
@@ -126,5 +136,6 @@ extension UserSettings {
         static let firstDayOfWeek = "ShoeCycleFirstDayOfWeekKey"
         static let graphAllShoesToggle = "ShoeCycleGraphAllShoesToggle"
         static let stravaAccessToken = "ShoeCycleStravaAccessToken"
+        static let stravaToken = "ShoeCycleStravaToken"
     }
 }

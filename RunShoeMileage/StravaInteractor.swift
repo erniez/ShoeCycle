@@ -58,6 +58,7 @@ struct StravaInteractor {
     }
     
     func didReceiveTemporaryToken(_ token: String, session: WebAuthenticationSession) async throws {
+        let keeper = StravaTokenKeeper()
         let url = URL(string: "https://www.strava.com/oauth/token")!
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -71,10 +72,10 @@ struct StravaInteractor {
         ]
         request.httpBody = parameters.percentEncoded()
         let (data, _) = try await urlSession.data(for: request)
-        if let dataDict = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let accessToken = dataDict["access_token"] {
+        if let token: StravaToken = try? data.jsonDecode() {
             await MainActor.run(body: {
-                settings.set(stravaAccessToken: accessToken as? String)
+                keeper.store(token: token)
+                settings.set(stravaAccessToken: token)
             })
         }
         else {

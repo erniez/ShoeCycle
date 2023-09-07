@@ -104,3 +104,9 @@ extension Data {
         return try JSONDecoder().decode(T.self, from: self)
     }
 }
+
+extension Encodable {
+    func jsonEncode() throws -> Data {
+        return try JSONEncoder().encode(self)
+    }
+}
