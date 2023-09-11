@@ -11,6 +11,7 @@ class UserSettings: ObservableObject {
     @Published private(set) var distanceUnit: DistanceUnit
     @Published private(set) var firstDayOfWeek: FirstDayOfWeek
     @Published private(set) var stravaEnabled: Bool
+    @Published private(set) var healthKitEnabled: Bool
     
     private let settings = UserDefaults.standard
     
@@ -78,6 +79,17 @@ class UserSettings: ObservableObject {
         distanceUnit = DistanceUnit(rawValue: UserDefaults.standard.integer(forKey: StorageKey.distanceUnit)) ?? .miles
         firstDayOfWeek = FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
         stravaEnabled = UserDefaults.standard.bool(forKey: StorageKey.stravaEnabled)
+        let healthKitService = HealthKitService()
+        // Health App access can be turned off outside the app, so we need to check when we init UserSettings.
+        // If access is granted, then the ShoeCycle app setting will override the device settings.
+        if healthKitService.authorizationStatus == .sharingAuthorized {
+            healthKitEnabled = UserDefaults.standard.bool(forKey: StorageKey.healthKitEnabled)
+        }
+        else {
+            healthKitEnabled = false
+            UserDefaults.standard.set(false, forKey: StorageKey.healthKitEnabled)
+        }
+        
     }
     
     func set(distanceUnit: DistanceUnit) {
@@ -93,6 +105,11 @@ class UserSettings: ObservableObject {
     func set(stravaEnabled: Bool) {
         self.stravaEnabled = stravaEnabled
         settings.set(stravaEnabled, forKey: StorageKey.stravaEnabled)
+    }
+    
+    func set(healthKitEnabled: Bool) {
+        self.healthKitEnabled = healthKitEnabled
+        settings.set(healthKitEnabled, forKey: StorageKey.healthKitEnabled)
     }
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance1)

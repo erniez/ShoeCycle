@@ -113,6 +113,7 @@
 		1BE540642AA81E6D00DCC109 /* StravaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540632AA81E6D00DCC109 /* StravaService.swift */; };
 		1BE540662AA92CF600DCC109 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540652AA92CF600DCC109 /* NetworkService.swift */; };
 		1BE540682AAA231300DCC109 /* StravaTokenKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540672AAA231300DCC109 /* StravaTokenKeeper.swift */; };
+		1BE5406A2AAB73B500DCC109 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540692AAB73B500DCC109 /* HealthKitService.swift */; };
 		1BF005412A58C430007AE489 /* HallOfFameSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF005402A58C430007AE489 /* HallOfFameSelector.swift */; };
 		EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */; };
 		EA0F26DC1AFF0550006C4B63 /* StravaActivity_Legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F26DB1AFF0550006C4B63 /* StravaActivity_Legacy.m */; };
@@ -285,6 +286,7 @@
 		1BE540632AA81E6D00DCC109 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
 		1BE540652AA92CF600DCC109 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		1BE540672AAA231300DCC109 /* StravaTokenKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaTokenKeeper.swift; sourceTree = "<group>"; };
+		1BE540692AAB73B500DCC109 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		1BF005402A58C430007AE489 /* HallOfFameSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameSelector.swift; sourceTree = "<group>"; };
 		EA0F26D71AFF016F006C4B63 /* APIURLStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIURLStrings.h; path = API/APIURLStrings.h; sourceTree = "<group>"; };
 		EA0F26D81AFF016F006C4B63 /* APIURLStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIURLStrings.m; path = API/APIURLStrings.m; sourceTree = "<group>"; };
@@ -684,6 +686,7 @@
 				1BE540632AA81E6D00DCC109 /* StravaService.swift */,
 				1BE540652AA92CF600DCC109 /* NetworkService.swift */,
 				1BE540672AAA231300DCC109 /* StravaTokenKeeper.swift */,
+				1BE540692AAB73B500DCC109 /* HealthKitService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -899,6 +902,7 @@
 				1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
 				1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */,
+				1BE5406A2AAB73B500DCC109 /* HealthKitService.swift in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
 				1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */,

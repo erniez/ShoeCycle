@@ -15,15 +15,14 @@ struct SettingsView: View {
     var body: some View {
             VStack(spacing: 24) {
                 SettingsUnitsView()
-                    .fixedSize(horizontal: false, vertical: true)
                     .padding([.top], 16)
                 SettingsFirstDayOfWeekView()
-                    .fixedSize(horizontal: false, vertical: true)
                 SettingsFavoriteDistancesView()
-                    .fixedSize(horizontal: false, vertical: true)
+                SettingsHealthKitView()
                 SettingsStravaView(interactor: StravaInteractor(settings: settings))
                 Spacer()
             }
+            .fixedSize(horizontal: false, vertical: true)
             .background(.patternedBackground
                 .onTapGesture {
                     dismissKeyboard()
@@ -92,6 +91,57 @@ struct SettingsFavoriteDistancesView: View {
     }
 }
 
+struct SettingsHealthKitView: View {
+    @Environment(\.webAuthenticationSession) private var webAuthenticationSession
+    @EnvironmentObject var settings: UserSettings
+    @EnvironmentObject var healthKitService: HealthKitService
+    @State private var healthKitIsOn = UserSettings().healthKitEnabled
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Connect to Health App")
+                    .padding([.leading], 8)
+                    .foregroundColor(.shoeCycleBlue)
+                    .font(.title2)
+                Spacer()
+                Toggle("", isOn: $healthKitIsOn)
+                    .fixedSize()
+                    .foregroundColor(.shoeCycleBlue)
+                    .font(.title2)
+            }
+            Text("Turning on this option will connect you with the Strava login screen.")
+                .foregroundColor(.shoeCycleOrange)
+        }
+        .padding([.horizontal], 24)
+        .padding([.vertical], 16)
+        .background {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(Color.shoeCycleBlue, lineWidth: 2)
+                .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
+                .padding(.horizontal)
+        }
+        .onChange(of: healthKitIsOn) { newValue in
+            if newValue == true {
+                Task {
+                    try? await healthKitService.requestAccessToHealthKitForShoeCycle()
+                    if healthKitService.authorizationStatus == .sharingAuthorized {
+                        healthKitIsOn = true
+                        settings.set(healthKitEnabled: true)
+                    }
+                    else {
+                        healthKitIsOn = false
+                        settings.set(healthKitEnabled: false)
+                    }
+                }
+            }
+            else {
+                settings.set(healthKitEnabled: false)
+            }
+        }
+    }
+}
+
 struct SettingsStravaView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     @EnvironmentObject var settings: UserSettings
@@ -136,7 +186,6 @@ struct SettingsStravaView: View {
             }
         }
     }
-        
 }
 
 struct SettingsView_Previews: PreviewProvider {

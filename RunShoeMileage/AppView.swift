@@ -30,10 +30,11 @@ struct AppView: View {
         case addDistance, activeShoes, hallOfFame, settings
     }
     
-    @StateObject var shoeStore = ShoeStore()
-    @StateObject var settings = UserSettings()
-    @State var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
-    
+    @StateObject private var shoeStore = ShoeStore()
+    @StateObject private var settings = UserSettings()
+    @StateObject private var healthKitService = HealthKitService()
+    @State private var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
+
     var body: some View {
         TabView(selection: $activeTab) {
             if let shoe = shoeStore.selectedShoe, shoeStore.activeShoes.count > 0 {
@@ -75,6 +76,7 @@ struct AppView: View {
         }
         .environmentObject(shoeStore)
         .environmentObject(settings)
+        .environmentObject(healthKitService)
         .dynamicTypeSize(.medium ... .xLarge)
     }
     
