@@ -20,6 +20,7 @@ struct DateDistanceEntryView: View {
     
     private let distanceUtility = DistanceUtility()
     private let stravaService = StravaService()
+    private let healthService = HealthKitService()
     
     var body: some View {
         HStack(alignment: .top) {
@@ -116,10 +117,24 @@ struct DateDistanceEntryView: View {
             VStack {
                 Button {
                     dismissKeyboard()
-                    shoeStore.addHistory(to: shoe, date: runDate, distance: distanceUtility.distance(from: runDistance))
+                    let distance = distanceUtility.distance(from: runDistance)
+                    shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
+                    if settings.healthKitEnabled == true {
+                        let shoeIdentifier = shoe.objectID.uriRepresentation().absoluteString
+                        let metadata = ["ShoeCycleShoeIdentifier" : shoeIdentifier]
+                        Task {
+                            do {
+                                try await healthService.saveRun(distance: distance,
+                                                                date: runDate, metadata: metadata)
+                            }
+                            catch(let error) {
+                                print(error)
+                            }
+                        }
+                    }
                     if settings.stravaEnabled == true {
                         let activity = StravaActivity(name: "ShoeCycle Logged Run",
-                                                      distance: distanceUtility.stravaDistance(for: runDistance),
+                                                      distance: distanceUtility.stravaDistance(for: distance),
                                                       startDate: runDate)
                         Task {
                             await stravaService.send(activity: activity)
@@ -133,10 +148,11 @@ struct DateDistanceEntryView: View {
                     if settings.stravaEnabled == true {
                         Image("stravaLogo")
                     }
-                    // TODO: Tie this to AppleHealth logic
-                    Image(systemName: "heart.fill")
-                        .renderingMode(.template)
-                        .foregroundColor(.red)
+                    if settings.healthKitEnabled == true {
+                        Image(systemName: "heart.fill")
+                            .renderingMode(.template)
+                            .foregroundColor(.red)
+                    }
                 }
             }
             .padding(8)

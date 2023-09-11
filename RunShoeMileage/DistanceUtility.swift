@@ -52,11 +52,7 @@ struct DistanceUtility {
     }
     
     // Strava expects distance in meters. This apps treats distance in miles, hence the conversion without taking into account user settings.
-    func stravaDistance(for distance: String) -> NSNumber {
-        guard var runDistance = Double(distance) else {
-            print("Could not form number from string")
-            return 0
-        }
-        return NSNumber(value: runDistance * milesToMeters)
+    func stravaDistance(for miles: Double) -> NSNumber {
+        return NSNumber(value: miles * milesToMeters)
     }
 }

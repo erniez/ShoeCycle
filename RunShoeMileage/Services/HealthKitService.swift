@@ -55,7 +55,25 @@ class HealthKitService: ObservableObject {
             await MainActor.run {
                 authorizationStatus = healthStore.authorizationStatus(for: runQuantityType)
             }
-            
+        }
+    }
+    
+    func saveRun(distance: Double, date: Date, metadata: [String : String]) async throws {
+        guard healthStore.authorizationStatus(for: runQuantityType) == .sharingAuthorized else {
+            throw ServiceError.healthDataSharingDenied
+        }
+        
+        let runDistanceQuantity = HKQuantity(unit: .mile(), doubleValue: distance)
+        let runSample = HKQuantitySample(type: runQuantityType,
+                                         quantity: runDistanceQuantity,
+                                         start: date,
+                                         end: date,
+                                         metadata: metadata)
+        do {
+            try await healthStore.save(runSample)
+        }
+        catch(let error) {
+            throw ServiceError.otherHealthError
         }
     }
 }
