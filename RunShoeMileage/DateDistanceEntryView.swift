@@ -12,6 +12,7 @@ struct DateDistanceEntryView: View {
     @State private var showHistoryView = false
     @State private var showFavoriteDistances = false
     @State private var favoriteDistanceToAdd = 0.0
+    @State private var showAuthorizationDeniedAlert = false
     @Binding var runDate: Date
     @Binding var runDistance: String
     @ObservedObject var shoe: Shoe
@@ -129,6 +130,10 @@ struct DateDistanceEntryView: View {
                             }
                             catch(let error) {
                                 print(error)
+                                if let serviceError = error as? HealthKitService.ServiceError, serviceError == .healthDataSharingDenied {
+                                    showAuthorizationDeniedAlert = true
+                                    settings.set(healthKitEnabled: false)
+                                }
                             }
                         }
                     }
@@ -157,6 +162,11 @@ struct DateDistanceEntryView: View {
             }
             .padding(8)
             .padding([.leading], 16)
+            .alert("Access to Health App Denied", isPresented: $showAuthorizationDeniedAlert) {
+                Button("OK") {}
+            } message: {
+                Text("Please enable access in the health app settings. Go to Settings -> Health -> Data Access & Devices -> Enable Sharing for ShoeCycle")
+            }
         }
         .onPreferenceChange(RowHeightPreferenceKey.self) {
             buttonMaxHeight = $0

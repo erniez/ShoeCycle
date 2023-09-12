@@ -14,10 +14,10 @@ class HealthKitService: ObservableObject {
     private let healthStore: HKHealthStore
     private let runQuantityType: HKQuantityType
     
-    enum ServiceError: Error {
+    enum ServiceError: Error, Equatable {
         case healthDataIsNotAvailable
         case healthDataSharingDenied
-        case otherHealthError
+        case otherHealthError(HKError)
         case unknownError
     }
     
@@ -36,15 +36,14 @@ class HealthKitService: ObservableObject {
                 await MainActor.run {
                     authorizationStatus = healthStore.authorizationStatus(for: runQuantityType)
                 }
-                
             }
-            catch(let error as HKError ) {
+            catch let error as HKError {
                 print(error)
                 if error.code == .errorAuthorizationDenied {
                     throw ServiceError.healthDataSharingDenied
                 }
                 else {
-                    throw ServiceError.otherHealthError
+                    throw ServiceError.otherHealthError(error)
                 }
             }
             catch {
@@ -72,8 +71,11 @@ class HealthKitService: ObservableObject {
         do {
             try await healthStore.save(runSample)
         }
-        catch(let error) {
-            throw ServiceError.otherHealthError
+        catch let error as HKError {
+            throw ServiceError.otherHealthError(error)
+        }
+        catch {
+            throw ServiceError.unknownError
         }
     }
 }

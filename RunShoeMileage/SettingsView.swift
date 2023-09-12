@@ -96,6 +96,8 @@ struct SettingsHealthKitView: View {
     @EnvironmentObject var settings: UserSettings
     @EnvironmentObject var healthKitService: HealthKitService
     @State private var healthKitIsOn = UserSettings().healthKitEnabled
+    @State private var showAuthorizationDeniedAlert = false
+    @State private var showUnknownErrorAlert = false
     
     var body: some View {
         VStack {
@@ -121,23 +123,42 @@ struct SettingsHealthKitView: View {
                 .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
                 .padding(.horizontal)
         }
+        .onChange(of: settings.healthKitEnabled, perform: { newValue in
+            healthKitIsOn = newValue
+        })
         .onChange(of: healthKitIsOn) { newValue in
             if newValue == true {
                 Task {
-                    try? await healthKitService.requestAccessToHealthKitForShoeCycle()
-                    if healthKitService.authorizationStatus == .sharingAuthorized {
-                        healthKitIsOn = true
-                        settings.set(healthKitEnabled: true)
+                    do {
+                        try await healthKitService.requestAccessToHealthKitForShoeCycle()
+                        if healthKitService.authorizationStatus == .sharingAuthorized {
+                            healthKitIsOn = true
+                            settings.set(healthKitEnabled: true)
+                        }
+                        else {
+                            showAuthorizationDeniedAlert = true
+                            healthKitIsOn = false
+                            settings.set(healthKitEnabled: false)
+                        }
                     }
-                    else {
-                        healthKitIsOn = false
-                        settings.set(healthKitEnabled: false)
+                    catch {
+                        showUnknownErrorAlert = true
                     }
                 }
             }
             else {
                 settings.set(healthKitEnabled: false)
             }
+        }
+        .alert("Access Denied", isPresented: $showAuthorizationDeniedAlert) {
+            Button("OK") {}
+        } message: {
+            Text("Please enable access in the health app settings. Go to Settings -> Health -> Data Access & Devices -> Enable Sharing for ShoeCycle")
+        }
+        .alert("Unknown Error", isPresented: $showUnknownErrorAlert) {
+            Button("OK") {}
+        } message: {
+            Text("Something went wrong while trying to enable access to the health app. Please try again later.")
         }
     }
 }
