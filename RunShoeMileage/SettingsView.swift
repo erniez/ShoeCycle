@@ -13,6 +13,7 @@ struct SettingsView: View {
     @EnvironmentObject var settings: UserSettings
     
     var body: some View {
+        ScrollView {
             VStack(spacing: 24) {
                 SettingsUnitsView()
                     .padding([.top], 16)
@@ -20,6 +21,7 @@ struct SettingsView: View {
                 SettingsFavoriteDistancesView()
                 SettingsHealthKitView()
                 SettingsStravaView(interactor: StravaInteractor(settings: settings))
+                AboutView()
                 Spacer()
             }
             .fixedSize(horizontal: false, vertical: true)
@@ -27,6 +29,7 @@ struct SettingsView: View {
                 .onTapGesture {
                     dismissKeyboard()
                 })
+        }
     }
     
 }
@@ -206,6 +209,26 @@ struct SettingsStravaView: View {
                 stravaInteractor.resetStravaToken()
             }
         }
+    }
+}
+
+struct AboutView: View {
+    @State var showAboutInfo = false
+    
+    var body: some View {
+        Button("About") {
+            showAboutInfo = true
+        }
+        .alert("About", isPresented: $showAboutInfo) {
+            Button("Done") {}
+        } message: {
+            Text(aboutMessageText())
+        }
+    }
+    
+    func aboutMessageText() -> String {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? ""
+        return "ShoeCycle is programmed by Ernie Zappacosta.\n\nCurrent version is \(version)"
     }
 }
 
