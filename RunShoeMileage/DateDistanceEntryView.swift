@@ -146,7 +146,6 @@ struct DateDistanceEntryView: View {
                             stravaLoading = true
                             Task {
                                 await stravaService.send(activity: activity)
-                                try await Task.sleep(for: .seconds(1))
                                 runDistance = ""
                                 stravaLoading = false
                             }
