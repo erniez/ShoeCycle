@@ -13,6 +13,7 @@ struct DateDistanceEntryView: View {
     @State private var showFavoriteDistances = false
     @State private var favoriteDistanceToAdd = 0.0
     @State private var showAuthorizationDeniedAlert = false
+    @State private var stravaLoading = false
     @Binding var runDate: Date
     @Binding var runDistance: String
     @ObservedObject var shoe: Shoe
@@ -116,39 +117,59 @@ struct DateDistanceEntryView: View {
             Spacer()
             
             VStack {
-                Button {
-                    dismissKeyboard()
-                    let distance = distanceUtility.distance(from: runDistance)
-                    shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
-                    if settings.healthKitEnabled == true {
-                        let shoeIdentifier = shoe.objectID.uriRepresentation().absoluteString
-                        let metadata = ["ShoeCycleShoeIdentifier" : shoeIdentifier]
-                        Task {
-                            do {
-                                try await healthService.saveRun(distance: distance,
-                                                                date: runDate, metadata: metadata)
-                            }
-                            catch(let error) {
-                                print(error)
-                                if let serviceError = error as? HealthKitService.ServiceError, serviceError == .healthDataSharingDenied {
-                                    showAuthorizationDeniedAlert = true
-                                    settings.set(healthKitEnabled: false)
+                ZStack {
+                    Button {
+                        dismissKeyboard()
+                        let distance = distanceUtility.distance(from: runDistance)
+                        shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
+                        if settings.healthKitEnabled == true {
+                            let shoeIdentifier = shoe.objectID.uriRepresentation().absoluteString
+                            let metadata = ["ShoeCycleShoeIdentifier" : shoeIdentifier]
+                            Task {
+                                do {
+                                    try await healthService.saveRun(distance: distance,
+                                                                    date: runDate, metadata: metadata)
+                                }
+                                catch(let error) {
+                                    print(error)
+                                    if let serviceError = error as? HealthKitService.ServiceError, serviceError == .healthDataSharingDenied {
+                                        showAuthorizationDeniedAlert = true
+                                        settings.set(healthKitEnabled: false)
+                                    }
                                 }
                             }
                         }
-                    }
-                    if settings.stravaEnabled == true {
-                        let activity = StravaActivity(name: "ShoeCycle Logged Run",
-                                                      distance: distanceUtility.stravaDistance(for: distance),
-                                                      startDate: runDate)
-                        Task {
-                            await stravaService.send(activity: activity)
+                        if settings.stravaEnabled == true {
+                            let activity = StravaActivity(name: "ShoeCycle Logged Run",
+                                                          distance: distanceUtility.stravaDistance(for: distance),
+                                                          startDate: runDate)
+                            stravaLoading = true
+                            Task {
+                                await stravaService.send(activity: activity)
+                                try await Task.sleep(for: .seconds(1))
+                                runDistance = ""
+                                stravaLoading = false
+                            }
                         }
+                        else {
+                            runDistance = ""
+                        }
+                    } label: {
+                        Image("button-add-run")
                     }
-                    runDistance = ""
-                } label: {
-                    Image("button-add-run")
+                    if stravaLoading == true {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        // TODO: Filling a shape has become simpler in iOS 17
+                        // https://www.hackingwithswift.com/quick-start/swiftui/how-to-fill-and-stroke-shapes-at-the-same-time
+                            .background(RoundedRectangle.shoeCycleRoundedRectangle
+                                .stroke(Color.shoeCycleGreen, lineWidth: 2)
+                                .background(RoundedRectangle.shoeCycleRoundedRectangle
+                                    .fill(Color.shoeCycleGreen)))
+                            .tint(.shoeCycleOrange)
+                    }
                 }
+                .fixedSize()
                 HStack {
                     if settings.stravaEnabled == true {
                         Image("stravaLogo")
@@ -159,6 +180,7 @@ struct DateDistanceEntryView: View {
                             .foregroundColor(.red)
                     }
                 }
+                Spacer()
             }
             .padding(8)
             .padding([.leading], 16)
