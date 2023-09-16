@@ -13,6 +13,15 @@ protocol JSONNetworkService {
 }
 
 class NetworkService: JSONNetworkService {
+    enum ServiceError: Error {
+        case unknown
+        case reachability
+        case timeout
+        case jsonDecodingError(error: DecodingError)
+        case jsonEncodingError(error: EncodingError)
+        case httpError(statusCode: Int)
+    }
+    
     let session: URLSession
     
     init (session: URLSession = .shared) {
@@ -24,18 +33,20 @@ class NetworkService: JSONNetworkService {
         do {
             return try data.jsonDecode()
         }
-        catch let decodingError as DecodingError {
-            throw NetworkError.jsonDecodingError(error: decodingError)
-        }
-        catch {
-            throw NetworkError.unknownError
+        catch let error {
+            throw evaluate(error: error)
         }
     }
     
     func getData(url: URL) async throws -> Data {
-        let (data, response) = try await session.data(from: url)
-        try validate(response: response)
-        return data
+        do {
+            let (data, response) = try await session.data(from: url)
+            try validate(response: response)
+            return data
+        }
+        catch let error {
+            throw evaluate(error: error)
+        }
     }
     
     func postJSON(dto: Encodable, url: URL, authToken: String?) async throws -> Data {
@@ -48,60 +59,57 @@ class NetworkService: JSONNetworkService {
         let bodyData: Data
         do {
             bodyData = try JSONEncoder().encode(dto)
+            let data = try await post(request: request, data: bodyData)
+            return data
         }
-        catch(let error) {
-            if let error = error as? EncodingError {
-                throw NetworkError.jsonEncodingError(error: error)
-            }
-            else {
-                throw NetworkError.unknownError
-            }
+        catch let error {
+            throw evaluate(error: error)
         }
-        return try await post(request: request, data: bodyData)
     }
     
     func post(request: URLRequest, data: Data) async throws -> Data {
-        let (data, urlResponse) = try await session.upload(for: request, from: data)
-        try validate(response: urlResponse)
-        return data
+        do {
+            let (data, urlResponse) = try await session.upload(for: request, from: data)
+            try validate(response: urlResponse)
+            return data
+        }
+        catch let error {
+            if error.isOtherConnectionError == true {
+                throw ServiceError.reachability
+            }
+            throw error
+        }
     }
     
     func validate(response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.unknownError
+            throw ServiceError.unknown
         }
         if (200...299).contains(httpResponse.statusCode) {
             return
         }
         else {
-            throw NetworkError.httpError(statusCode: httpResponse.statusCode)
+            throw ServiceError.httpError(statusCode: httpResponse.statusCode)
         }
     }
     
-}
-
-enum NetworkError: Error {
-    case unknownError
-    case jsonDecodingError(error: DecodingError)
-    case jsonEncodingError(error: EncodingError)
-    case httpError(statusCode: Int)
-}
-
-extension NetworkError {
-    func generateNSError() -> NSError {
-        switch self {
-        case .unknownError:
-            return NSError(domain: "Network", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown Error"])
-        case .jsonDecodingError(let error):
-            return NSError(domain: "Network", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
-        case .jsonEncodingError(let error):
-            return NSError(domain: "Network", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription])
-        case .httpError(let statusCode):
-            let errorString = HTTPURLResponse.localizedString(forStatusCode: statusCode)
-            let localizedError = NSError(domain: "Network", code: statusCode, userInfo: [NSLocalizedDescriptionKey: errorString])
-            return localizedError
+    func evaluate(error: Error) -> ServiceError {
+        if let serviceError = error as? ServiceError {
+            // Error has already been transformed to ServiceError, return it.
+            return serviceError
         }
+        if error.isOtherConnectionError == true {
+            return .reachability
+        }
+        if let error = error as? EncodingError {
+            return .jsonEncodingError(error: error)
+        }
+        if let error = error as? DecodingError {
+            return .jsonDecodingError(error: error)
+        }
+        return .unknown
     }
+    
 }
 
 extension Data {
@@ -113,5 +121,26 @@ extension Data {
 extension Encodable {
     func jsonEncode() throws -> Data {
         return try JSONEncoder().encode(self)
+    }
+}
+
+// Reachability error code from this article:
+// https://www.avanderlee.com/swift/optimizing-network-reachability/
+public var NSURLErrorConnectionFailureCodes: [Int] {
+    [
+        NSURLErrorBackgroundSessionInUseByAnotherProcess, /// Error Code: `-996`
+        NSURLErrorCannotFindHost, /// Error Code: ` -1003`
+        NSURLErrorCannotConnectToHost, /// Error Code: ` -1004`
+        NSURLErrorNetworkConnectionLost, /// Error Code: ` -1005`
+        NSURLErrorNotConnectedToInternet, /// Error Code: ` -1009`
+        NSURLErrorSecureConnectionFailed /// Error Code: ` -1200`
+    ]
+}
+
+extension Error {
+    /// Indicates an error which is caused by various connection related issue or an unaccepted status code.
+    /// See: `NSURLErrorConnectionFailureCodes`
+    var isOtherConnectionError: Bool {
+        NSURLErrorConnectionFailureCodes.contains(_code)
     }
 }

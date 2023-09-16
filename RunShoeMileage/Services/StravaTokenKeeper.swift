@@ -24,6 +24,12 @@ struct StravaToken: Codable {
 }
 
 struct StravaTokenKeeper {
+    enum KeeperError: Error {
+        case unknown
+        case jsonDecoding
+        case reachability
+    }
+    
     private let network = NetworkService()
     
     // TODO: find common storage for creds
@@ -47,14 +53,20 @@ struct StravaTokenKeeper {
                 }
                 return stravaToken
             }
-            catch(let error as DecodingError) {
-                throw NetworkError.jsonDecodingError(error: error)
+            catch is DecodingError {
+                throw KeeperError.jsonDecoding
+            }
+            catch let error as NetworkService.ServiceError {
+                if case NetworkService.ServiceError.reachability = error {
+                    throw KeeperError.reachability
+                }
+                throw KeeperError.unknown
             }
             catch {
-                throw NetworkError.unknownError
+                throw KeeperError.unknown
             }
         }
-        throw NetworkError.unknownError
+        throw KeeperError.unknown
     }
     
     func accessToken() async throws -> String {
@@ -78,7 +90,7 @@ struct StravaTokenKeeper {
             "grant_type": "refresh_token"
         ]
         guard let bodyData = parameters.percentEncoded() else {
-            throw NetworkError.unknownError
+            throw KeeperError.unknown
         }
         let data = try await network.post(request: request, data: bodyData)
         let newToken: StravaToken = try data.jsonDecode()

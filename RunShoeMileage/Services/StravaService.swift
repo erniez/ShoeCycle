@@ -55,24 +55,4 @@ struct StravaService {
         }
     }
     
-    private func refresh(token: StravaToken) async throws -> StravaToken {
-        let url = URL(string: "https://www.strava.com/oauth/token")!
-        var request = URLRequest(url: url)
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
-        let parameters: [String: Any] = [
-            kStravaClientIDkey: kStravaClientID,
-            kStravaSecretKey: kStravaSecret,
-            "refresh_token": token.refreshToken,
-            "grant_type": "refresh_token"
-        ]
-        guard let bodyData = parameters.percentEncoded() else {
-            throw NetworkError.unknownError
-        }
-        let data = try await network.post(request: request, data: bodyData)
-        let newToken: StravaToken = try data.jsonDecode()
-        return newToken
-    }
-    
 }
