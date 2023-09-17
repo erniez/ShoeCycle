@@ -94,6 +94,7 @@ struct StravaTokenKeeper {
         }
         let data = try await network.post(request: request, data: bodyData)
         let newToken: StravaToken = try data.jsonDecode()
+        store(token: newToken)
         return newToken
     }
 }

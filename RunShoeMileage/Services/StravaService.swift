@@ -35,6 +35,11 @@ struct StravaActivity {
 }
 
 struct StravaService {
+    enum ServiceError: Error {
+        case unknown
+        case reachability
+    }
+    
     let activitiesURL = URL(string: kStravaActivitiesURL)!
     let network = NetworkService()
     let keeper = StravaTokenKeeper()
@@ -44,14 +49,22 @@ struct StravaService {
     private let kStravaSecret = "558112ea963c3427a387549a3361bd6677083ff9"
     private let kStravaSecretKey = "client_secret"
     
-    func send(activity: StravaActivity) async {
+    func send(activity: StravaActivity) async throws {
         let dto = StravaActivityDTO(activity: activity)
         do {
             let token = try await keeper.accessToken()
             let _ = try await network.postJSON(dto: dto, url: activitiesURL, authToken: token)
         }
+        catch let error as NetworkService.ServiceError {
+            if case .reachability = error { throw ServiceError.reachability }
+            throw ServiceError.unknown
+        }
+        catch let error as StravaTokenKeeper.KeeperError {
+            if case .reachability = error { throw ServiceError.reachability }
+            throw ServiceError.unknown
+        }
         catch {
-            print("error")
+            throw ServiceError.unknown
         }
     }
     

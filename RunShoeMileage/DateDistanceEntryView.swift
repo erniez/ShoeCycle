@@ -14,6 +14,8 @@ struct DateDistanceEntryView: View {
     @State private var favoriteDistanceToAdd = 0.0
     @State private var showAuthorizationDeniedAlert = false
     @State private var stravaLoading = false
+    @State private var showReachabilityAlert = false
+    @State private var showUnknownNetworkErrorAlert = false
     @Binding var runDate: Date
     @Binding var runDistance: String
     @ObservedObject var shoe: Shoe
@@ -121,36 +123,13 @@ struct DateDistanceEntryView: View {
                     Button {
                         dismissKeyboard()
                         let distance = distanceUtility.distance(from: runDistance)
-                        shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
-                        if settings.healthKitEnabled == true {
-                            let shoeIdentifier = shoe.objectID.uriRepresentation().absoluteString
-                            let metadata = ["ShoeCycleShoeIdentifier" : shoeIdentifier]
+                        if settings.healthKitEnabled || settings.stravaEnabled {
                             Task {
-                                do {
-                                    try await healthService.saveRun(distance: distance,
-                                                                    date: runDate, metadata: metadata)
-                                }
-                                catch(let error) {
-                                    print(error)
-                                    if let serviceError = error as? HealthKitService.ServiceError, serviceError == .healthDataSharingDenied {
-                                        showAuthorizationDeniedAlert = true
-                                        settings.set(healthKitEnabled: false)
-                                    }
-                                }
-                            }
-                        }
-                        if settings.stravaEnabled == true {
-                            let activity = StravaActivity(name: "ShoeCycle Logged Run",
-                                                          distance: distanceUtility.stravaDistance(for: distance),
-                                                          startDate: runDate)
-                            stravaLoading = true
-                            Task {
-                                await stravaService.send(activity: activity)
-                                runDistance = ""
-                                stravaLoading = false
+                                await handleAsynchronousDistanceAdd(distance: distance)
                             }
                         }
                         else {
+                            shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
                             runDistance = ""
                         }
                     } label: {
@@ -188,9 +167,54 @@ struct DateDistanceEntryView: View {
             } message: {
                 Text("Please enable access in the health app settings. Go to Settings -> Health -> Data Access & Devices -> Enable Sharing for ShoeCycle")
             }
+            .alert("Cannot Access the Internet", isPresented: $showReachabilityAlert) {
+                Button("OK") {}
+            } message: {
+                Text("Please check your network settings and try again")
+            }
+            .alert("Unknown Error", isPresented: $showUnknownNetworkErrorAlert) {
+                Button("OK") {}
+            } message: {
+                Text("An unknown network error has occurred. Please try again later, or turn Strava access off then on in the Settings tab")
+            }
         }
         .onPreferenceChange(RowHeightPreferenceKey.self) {
             buttonMaxHeight = $0
+        }
+    }
+    
+    func handleAsynchronousDistanceAdd(distance: Double) async {
+        do {
+            if settings.healthKitEnabled == true {
+                let shoeIdentifier = shoe.objectID.uriRepresentation().absoluteString
+                let metadata = ["ShoeCycleShoeIdentifier" : shoeIdentifier]
+                try await healthService.saveRun(distance: distance,
+                                                date: runDate, metadata: metadata)
+            }
+            
+            if settings.stravaEnabled == true {
+                let activity = StravaActivity(name: "ShoeCycle Logged Run",
+                                              distance: distanceUtility.stravaDistance(for: distance),
+                                              startDate: runDate)
+                stravaLoading = true
+                try await stravaService.send(activity: activity)
+            }
+            
+            shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
+            runDistance = ""
+            stravaLoading = false
+        }
+        catch let error {
+            if case HealthKitService.ServiceError.healthDataSharingDenied = error {
+                showAuthorizationDeniedAlert = true
+            }
+            else if case StravaService.ServiceError.reachability = error {
+                showReachabilityAlert = true
+            }
+            else {
+                showUnknownNetworkErrorAlert = true
+            }
+            stravaLoading = false
         }
     }
 }
