@@ -1,4 +1,4 @@
-//  EditShoesView.swift
+//  ActiveShoesView.swift
 //  ShoeCycle
 //
 //  Created by Ernie Zappacosta on 6/6/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EditShoesView: View {
+struct ActiveShoesView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
     @State var shoes: [ShoeDetailViewModel]
@@ -18,7 +18,7 @@ struct EditShoesView: View {
             List {
                 ForEach(shoeStore.activeShoes, id: \.objectID) { shoe in
                     NavigationLink(value: shoe) {
-                        EditShoesRowView(shoe: shoe)
+                        ActiveShoesRowView(shoe: shoe)
                     }
                 }
                 .onDelete { indexSet in
@@ -48,21 +48,21 @@ struct EditShoesView: View {
     }
 }
 
-extension EditShoesView {
+extension ActiveShoesView {
     static func generateViewModelsFromActiveShoes(from store: ShoeStore) -> [ShoeDetailViewModel] {
         return store.activeShoes.compactMap { ShoeDetailViewModel(shoe: $0) }
     }
 }
 
-struct EditShoesView_Previews: PreviewProvider {
-    static var shoes = EditShoesView.generateViewModelsFromActiveShoes(from: ShoeStore())
+struct ActiveShoesView_Previews: PreviewProvider {
+    static var shoes = ActiveShoesView.generateViewModelsFromActiveShoes(from: ShoeStore())
     static var previews: some View {
-        EditShoesView(shoes: shoes)
+        ActiveShoesView(shoes: shoes)
             .environmentObject(ShoeStore())
     }
 }
 
-struct EditShoesRowView: View {
+struct ActiveShoesRowView: View {
     let shoe: Shoe
     // TODO: Breakout selectedShoeURL from ShoeStore.
     // Deletion is crashing app, since update the shoe store triggers a relayout

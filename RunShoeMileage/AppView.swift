@@ -52,7 +52,7 @@ struct AppView: View {
                     }
                     .tag(TabIdentifier.addDistance)
             }
-            EditShoesView(shoes: EditShoesView.generateViewModelsFromActiveShoes(from: shoeStore))
+            ActiveShoesView(shoes: ActiveShoesView.generateViewModelsFromActiveShoes(from: shoeStore))
                 .tabItem {
                     Label {
                         Text("Active Shoes")

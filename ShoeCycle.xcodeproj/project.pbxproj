@@ -11,7 +11,7 @@
 		1B0AD7F32A2AA132006AB307 /* ShoeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */; };
 		1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */; };
 		1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */; };
-		1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */; };
+		1B0AD7FA2A2FA76B006AB307 /* ActiveShoesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F92A2FA76B006AB307 /* ActiveShoesView.swift */; };
 		1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */; };
 		1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */; };
 		1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD8012A3123CA006AB307 /* SettingsView.swift */; };
@@ -150,7 +150,7 @@
 		1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeStore.swift; sourceTree = "<group>"; };
 		1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionView.swift; sourceTree = "<group>"; };
-		1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShoesView.swift; sourceTree = "<group>"; };
+		1B0AD7F92A2FA76B006AB307 /* ActiveShoesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveShoesView.swift; sourceTree = "<group>"; };
 		1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameView.swift; sourceTree = "<group>"; };
 		1B0AD8012A3123CA006AB307 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -321,12 +321,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B0AD7F82A2FA724006AB307 /* EditShoesScreen */ = {
+		1B0AD7F82A2FA724006AB307 /* ActiveShoesScreen */ = {
 			isa = PBXGroup;
 			children = (
-				1B0AD7F92A2FA76B006AB307 /* EditShoesView.swift */,
+				1B0AD7F92A2FA76B006AB307 /* ActiveShoesView.swift */,
 			);
-			name = EditShoesScreen;
+			name = ActiveShoesScreen;
 			sourceTree = "<group>";
 		};
 		1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */ = {
@@ -600,7 +600,7 @@
 				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1B49035E2A7B4AF500422CED /* Common Swift */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
-				1B0AD7F82A2FA724006AB307 /* EditShoesScreen */,
+				1B0AD7F82A2FA724006AB307 /* ActiveShoesScreen */,
 				1B3D29D82A46316C00BE7956 /* ShoeDetailView */,
 				1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */,
 				1B0AD8002A3123A3006AB307 /* SettingsScreen */,
@@ -901,7 +901,7 @@
 				1B30A82B21F20FD200AF22A7 /* AppViewController.swift in Sources */,
 				1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */,
 				1BC5183F14A35D240033EFC3 /* SetupViewController.m in Sources */,
-				1B0AD7FA2A2FA76B006AB307 /* EditShoesView.swift in Sources */,
+				1B0AD7FA2A2FA76B006AB307 /* ActiveShoesView.swift in Sources */,
 				1BE5406A2AAB73B500DCC109 /* HealthKitService.swift in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
