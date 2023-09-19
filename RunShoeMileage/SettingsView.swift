@@ -35,7 +35,7 @@ struct SettingsView: View {
 }
 
 struct SettingsUnitsView: View {
-    @State var units = UserSettings().distanceUnit
+    @State var units = UserSettings.shared.distanceUnit
     @EnvironmentObject var settings: UserSettings
     
     var body: some View {
@@ -52,7 +52,7 @@ struct SettingsUnitsView: View {
 }
 
 struct SettingsFirstDayOfWeekView: View {
-    @State var firstDayOfWeek = UserSettings().firstDayOfWeek
+    @State var firstDayOfWeek = UserSettings.shared.firstDayOfWeek
     @EnvironmentObject var settings: UserSettings
     
     var body: some View {
@@ -98,7 +98,7 @@ struct SettingsHealthKitView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     @EnvironmentObject var settings: UserSettings
     @EnvironmentObject var healthKitService: HealthKitService
-    @State private var healthKitIsOn = UserSettings().healthKitEnabled
+    @State private var healthKitIsOn = UserSettings.shared.healthKitEnabled
     @State private var showAuthorizationDeniedAlert = false
     @State private var showUnknownErrorAlert = false
     
@@ -169,7 +169,7 @@ struct SettingsHealthKitView: View {
 struct SettingsStravaView: View {
     @Environment(\.webAuthenticationSession) private var webAuthenticationSession
     @EnvironmentObject var settings: UserSettings
-    @State private var stravaIsOn = UserSettings().stravaEnabled
+    @State private var stravaIsOn = UserSettings.shared.stravaEnabled
     private let stravaInteractor: StravaInteractor
     
     init(interactor: StravaInteractor) {

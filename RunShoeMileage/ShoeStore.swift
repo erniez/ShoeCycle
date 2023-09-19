@@ -14,15 +14,12 @@ class ShoeStore: ObservableObject {
     
     @Published var activeShoes: [Shoe] = []
     @Published var hallOfFameShoes: [Shoe] = []
-    // TODO: Remove selected shoe URL. Should only need selectedShoe.
-    @Published var selectedShoeURL: URL?
-    @Published var selectedShoe: Shoe?
     
     private var allShoes: [Shoe] = []
     
     let context: NSManagedObjectContext
     
-    private let settings = UserSettings()
+    private let settings = UserSettings.shared
     private static let defaultStartDate = Date()
     private static let defaultExpirationDate = Date() + TimeInterval.secondsInSixMonths
     private static let defaultStartDistance = NSNumber(value: 0.0)
@@ -36,7 +33,6 @@ class ShoeStore: ObservableObject {
             allShoes = try context.fetch(Shoe.allShoesFetchRequest)
             updateActiveShoes()
             updateHallOfFameShoes()
-            updateSelectedShoe()
         }
         catch {
             fatalError("could not open database or fetch shoes")
@@ -49,7 +45,6 @@ class ShoeStore: ObservableObject {
             allShoes = shoes
             updateActiveShoes()
             updateHallOfFameShoes()
-            updateSelectedShoe()
         }
     }
     
@@ -61,28 +56,38 @@ class ShoeStore: ObservableObject {
         hallOfFameShoes = allShoes.filter { $0.hallOfFame == true }
     }
     
-    func updateSelectedShoe() {
-        let settings = UserSettings()
-        // If we have a selected shoe URL, then find the first match.
-        if let selectedShoeURL = settings.selectedShoeURL {
-            let selectedShoe = activeShoes.first { shoe in
-                selectedShoeURL == shoe.objectID.uriRepresentation()
-            }
-            self.selectedShoeURL = settings.selectedShoeURL
-            self.selectedShoe = selectedShoe
-            return
+    func getShoe(from url: URL?) -> Shoe? {
+        guard let url = url else {
+            return nil
         }
-        // ... If not, then select the first shoe.
-        if let shoe = activeShoes.first {
-            settings.selectedShoeURL = shoe.objectID.uriRepresentation()
-            self.selectedShoe = shoe
-            selectedShoeURL = settings.selectedShoeURL
-            return
+        return activeShoes.first { shoe in
+            url == shoe.objectID.uriRepresentation()
         }
-        // ... If all else fails ...
-        selectedShoeURL = nil
-        self.selectedShoe = nil
     }
+    
+    // TODO: saving this logic for a later bugfix
+//    func updateSelectedShoe() {
+//        let settings = UserSettings()
+//        // If we have a selected shoe URL, then find the first match.
+//        if let selectedShoeURL = settings.selectedShoeURL {
+//            let selectedShoe = activeShoes.first { shoe in
+//                selectedShoeURL == shoe.objectID.uriRepresentation()
+//            }
+//            self.selectedShoeURL = settings.selectedShoeURL
+//            self.selectedShoe = selectedShoe
+//            return
+//        }
+//        // ... If not, then select the first shoe.
+//        if let shoe = activeShoes.first {
+//            settings.selectedShoeURL = shoe.objectID.uriRepresentation()
+//            self.selectedShoe = shoe
+//            selectedShoeURL = settings.selectedShoeURL
+//            return
+//        }
+//        // ... If all else fails ...
+//        selectedShoeURL = nil
+//        self.selectedShoe = nil
+//    }
 
     func createShoe() -> Shoe {
         var order: Double = 0
@@ -107,29 +112,13 @@ class ShoeStore: ObservableObject {
     }
 
     func remove(shoe: Shoe) {
-        if shoe == selectedShoe {
-            setSelected(shoe: nil)
+        if shoe.objectID.uriRepresentation() == settings.selectedShoeURL {
+            settings.setSelected(shoe: nil)
         }
         ImageStore_Legacy.defaultImageStore().deleteImage(forKey: shoe.imageKey)
         context.delete(shoe)
         saveContext()
         updateAllShoes()
-    }
-    
-    func setSelected(shoe: Shoe?) {
-        UserSettings().selectedShoeURL = shoe?.objectID.uriRepresentation()
-    }
-    
-    func isSelected(shoe: Shoe) -> Bool {
-        if let selectedShoe = self.selectedShoe {
-            if shoe == selectedShoe {
-                return true
-            }
-            else {
-                return false
-            }
-        }
-        return false
     }
     
     func updateTotalDistance(shoe: Shoe) {

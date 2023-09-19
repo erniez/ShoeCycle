@@ -30,14 +30,14 @@ struct AppView: View {
         case addDistance, activeShoes, hallOfFame, settings
     }
     
-    @StateObject private var shoeStore = ShoeStore()
-    @StateObject private var settings = UserSettings()
-    @StateObject private var healthKitService = HealthKitService()
+    @State private var shoeStore = ShoeStore()
+    @State private var settings = UserSettings.shared
+    @State private var healthKitService = HealthKitService()
     @State private var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
 
     var body: some View {
         TabView(selection: $activeTab) {
-            if let shoe = shoeStore.selectedShoe, shoeStore.activeShoes.count > 0 {
+            if let shoe = shoeStore.getShoe(from: settings.selectedShoeURL), shoeStore.activeShoes.count > 0 {
                 AddDistanceView(shoe: shoe)
                     .tabItem {
                         tabBarAddDistanceLabel

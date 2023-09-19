@@ -8,28 +8,41 @@
 import Foundation
 
 class UserSettings: ObservableObject {
+    // I'm using a shared object here because there are a number of places that I need access
+    // to the settings within the initializer of views. Environment Objects are not available
+    // at this time, so I decided to go with the singleton instead of instantiating a bunch of
+    // short lived settings objects all over the code base.
+    static let shared = UserSettings()
+    
     @Published private(set) var distanceUnit: DistanceUnit
     @Published private(set) var firstDayOfWeek: FirstDayOfWeek
     @Published private(set) var stravaEnabled: Bool
     @Published private(set) var healthKitEnabled: Bool
+    @Published private(set) var selectedShoeURL: URL?
     
-    private let settings = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
-    var selectedShoeURL: URL? {
-        get {
-            guard let url = settings.url(forKey: StorageKey.selectedShoe) else {
-                return nil
-            }
-            return url
+    func setSelected(shoe: Shoe?) {
+        if let shoe = shoe {
+            selectedShoeURL = shoe.objectID.uriRepresentation()
+            defaults.set(selectedShoeURL, forKey: StorageKey.selectedShoe)
         }
-        set {
-            if let url = newValue {
-                settings.set(url, forKey: StorageKey.selectedShoe)
+        else {
+            selectedShoeURL = nil
+            defaults.removeObject(forKey: StorageKey.selectedShoe)
+        }
+    }
+    
+    func isSelected(shoe: Shoe) -> Bool {
+        if let selectedShoe = selectedShoeURL {
+            if shoe.objectID.uriRepresentation() == selectedShoe {
+                return true
             }
             else {
-                settings.removeObject(forKey: StorageKey.selectedShoe)
+                return false
             }
         }
+        return false
     }
        
     enum DistanceUnit: Int, Identifiable {
@@ -76,40 +89,41 @@ class UserSettings: ObservableObject {
     }
     
     init() {
-        distanceUnit = DistanceUnit(rawValue: UserDefaults.standard.integer(forKey: StorageKey.distanceUnit)) ?? .miles
-        firstDayOfWeek = FirstDayOfWeek(rawValue: settings.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
-        stravaEnabled = UserDefaults.standard.bool(forKey: StorageKey.stravaEnabled)
+        distanceUnit = DistanceUnit(rawValue: defaults.integer(forKey: StorageKey.distanceUnit)) ?? .miles
+        firstDayOfWeek = FirstDayOfWeek(rawValue: defaults.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
+        stravaEnabled = defaults.bool(forKey: StorageKey.stravaEnabled)
+        selectedShoeURL = defaults.url(forKey: StorageKey.selectedShoe)
         let healthKitService = HealthKitService()
         // Health App access can be turned off outside the app, so we need to check when we init UserSettings.
         // If access is granted, then the ShoeCycle app setting will override the device settings.
         if healthKitService.authorizationStatus == .sharingAuthorized {
-            healthKitEnabled = UserDefaults.standard.bool(forKey: StorageKey.healthKitEnabled)
+            healthKitEnabled = defaults.bool(forKey: StorageKey.healthKitEnabled)
         }
         else {
             healthKitEnabled = false
-            UserDefaults.standard.set(false, forKey: StorageKey.healthKitEnabled)
+            defaults.set(false, forKey: StorageKey.healthKitEnabled)
         }
         
     }
     
     func set(distanceUnit: DistanceUnit) {
-        settings.set(distanceUnit.rawValue, forKey: StorageKey.distanceUnit)
+        defaults.set(distanceUnit.rawValue, forKey: StorageKey.distanceUnit)
         self.distanceUnit = distanceUnit
     }
     
     func set(firstDayOfWeek: FirstDayOfWeek) {
-        settings.set(firstDayOfWeek.rawValue, forKey: StorageKey.firstDayOfWeek)
+        defaults.set(firstDayOfWeek.rawValue, forKey: StorageKey.firstDayOfWeek)
         self.firstDayOfWeek = firstDayOfWeek
     }
     
     func set(stravaEnabled: Bool) {
         self.stravaEnabled = stravaEnabled
-        settings.set(stravaEnabled, forKey: StorageKey.stravaEnabled)
+        defaults.set(stravaEnabled, forKey: StorageKey.stravaEnabled)
     }
     
     func set(healthKitEnabled: Bool) {
         self.healthKitEnabled = healthKitEnabled
-        settings.set(healthKitEnabled, forKey: StorageKey.healthKitEnabled)
+        defaults.set(healthKitEnabled, forKey: StorageKey.healthKitEnabled)
     }
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance1)

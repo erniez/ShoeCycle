@@ -24,7 +24,7 @@ struct FavoriteDistanceButton: View {
 }
 
 struct FavoriteDistancesView: View {
-    let settings = UserSettings()
+    let settings = UserSettings.shared
     let formatter = NumberFormatter.decimal
     @Binding var distanceToAdd: Double
     @Environment(\.dismiss) var dismiss

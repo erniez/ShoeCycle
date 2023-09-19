@@ -9,7 +9,7 @@ import Foundation
 
 
 struct DistanceUtility {
-    private let settings = UserSettings()
+    private let settings = UserSettings.shared
     
     private let milesToKilometers = 1.609344
     private let milesToMeters = 1609.34

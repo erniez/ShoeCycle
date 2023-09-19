@@ -17,7 +17,7 @@ struct AddDistanceView: View {
     let minimumDrag: CGFloat = 20
     
     var body: some View {
-        if shoeStore.selectedShoe != nil {
+        if settings.selectedShoeURL != nil {
             let progressBarWidth = screenWidth * 0.60
             VStack {
                 HStack {
@@ -70,13 +70,13 @@ struct AddDistanceView: View {
         switch translationHeight {
         case -Double.infinity ..< -minimumDrag: // Swipe up
             if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex < shoeStore.activeShoes.count - 1 {
-                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex + 1])
-                shoeStore.updateSelectedShoe()
+                let shoe = shoeStore.activeShoes[shoeIndex + 1]
+                settings.setSelected(shoe: shoe)
             }
         case minimumDrag ..< Double.infinity:  // Swipe down
             if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex > 0 {
-                shoeStore.setSelected(shoe: shoeStore.activeShoes[shoeIndex - 1])
-                shoeStore.updateSelectedShoe()
+                let shoe = shoeStore.activeShoes[shoeIndex - 1]
+                settings.setSelected(shoe: shoe)
             }
         default:
             break // Do nothing
@@ -86,10 +86,11 @@ struct AddDistanceView: View {
 
 struct AddDistanceView_Previews: PreviewProvider {
     static let shoe = MockShoeGenerator().generateNewShoeWithData()
-    @StateObject static var store = ShoeStore()
+    @State static var store = ShoeStore()
+    @State static var settings = UserSettings.shared
     
     static var previews: some View {
-        AddDistanceView(shoe: store.selectedShoe!)
+        AddDistanceView(shoe: store.getShoe(from: settings.selectedShoeURL)!)
             .environmentObject(store)
     }
 }

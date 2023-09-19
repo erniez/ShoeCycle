@@ -13,7 +13,7 @@ class SettingsFavoriteDistancesViewModel: ObservableObject {
     @Published var favorite2: String
     @Published var favorite3: String
     @Published var favorite4: String
-    private let settings = UserSettings()
+    private let settings = UserSettings.shared
     private var subscriptions = Set<AnyCancellable>()
     private let formatter: NumberFormatter = .decimal
     

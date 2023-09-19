@@ -23,6 +23,12 @@ struct ActiveShoesView: View {
                 }
                 .onDelete { indexSet in
                     let shoesToRemove = indexSet.map { shoes[$0] }
+                    shoesToRemove.forEach { viewModel in
+                        print(viewModel.shoe.objectID)
+                        if let index = shoes.firstIndex(of: viewModel) {
+                            shoes.remove(at: index)
+                        }
+                    }
                     shoesToRemove.forEach { shoeStore.remove(shoe: $0.shoe) }
                     shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
                 }
@@ -50,7 +56,9 @@ struct ActiveShoesView: View {
 
 extension ActiveShoesView {
     static func generateViewModelsFromActiveShoes(from store: ShoeStore) -> [ShoeDetailViewModel] {
-        return store.activeShoes.compactMap { ShoeDetailViewModel(shoe: $0) }
+        return store.activeShoes.compactMap { shoe in
+            return ShoeDetailViewModel(shoe: shoe)
+        }
     }
 }
 
@@ -64,14 +72,14 @@ struct ActiveShoesView_Previews: PreviewProvider {
 
 struct ActiveShoesRowView: View {
     let shoe: Shoe
-    // TODO: Breakout selectedShoeURL from ShoeStore.
-    // Deletion is crashing app, since update the shoe store triggers a relayout
-    // of the row before the UI deletes it. All values inside of shoe are nil.
-    // I temporarily put nil coaelescers to protect from the crash.
-    @EnvironmentObject var shoeStore: ShoeStore
+    // TODO: Look into the following problem closer. It's a code smell to me.
+    // Selection of a row after a Deletion is crashing app. It appears the deleted cell
+    // is still in memory somehow, and it crashes the app when the row trys to render,
+    // because the shoe has been deleted and its values are nil.
+    // I've put nil coalescers in as a bandaid.
     @EnvironmentObject var settings: UserSettings
     var isSelected: Bool {
-        shoeStore.isSelected(shoe: shoe)
+        settings.isSelected(shoe: shoe)
     }
     private let distanceUtility = DistanceUtility()
     
@@ -89,16 +97,15 @@ struct ActiveShoesRowView: View {
                         .padding([.trailing], 8)
                         .foregroundColor(.shoeCycleOrange)
                 }
-                Text("Distance: \(distanceUtility.displayString(for: shoe.totalDistance.doubleValue)) \(settings.distanceUnit.displayString())")
+                Text("Distance: \(distanceUtility.displayString(for: shoe.totalDistance?.doubleValue ?? 0.0)) \(settings.distanceUnit.displayString())")
                 Spacer()
             }
         }
         .contentShape(Rectangle())
         .padding([.trailing], 16)
         .onTapGesture {
-            shoeStore.setSelected(shoe: shoe)
-            shoeStore.updateSelectedShoe()
+            settings.setSelected(shoe: shoe)
         }
-        .animation(.linear, value: shoeStore.selectedShoeURL)
+        .animation(.linear, value: settings.selectedShoeURL)
     }
 }
