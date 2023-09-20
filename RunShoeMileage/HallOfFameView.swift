@@ -11,6 +11,7 @@ import SwiftUI
 struct HallOfFameView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
+    let selectedShoeStrategy: SelectedShoeStrategy
     
     var body: some View {
         if shoeStore.hallOfFameShoes.isEmpty {
@@ -32,7 +33,8 @@ struct HallOfFameView: View {
                     }
                 }
                 .navigationDestination(for: Shoe.self) { shoe in
-                    ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe))
+                    ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe),
+                                   selectedShoeStrategy: selectedShoeStrategy)
                 }
                 .navigationTitle("Hall of Fame Shoes")
             }
@@ -60,9 +62,3 @@ struct HallOfFameRowView: View {
     }
 }
 
-struct HallOfFameView_Previews: PreviewProvider {
-    static var previews: some View {
-        HallOfFameView()
-            .environmentObject(ShoeStore())
-    }
-}

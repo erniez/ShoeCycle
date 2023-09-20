@@ -42,7 +42,7 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
     
     let shoe: Shoe
     let isNewShoe: Bool
-    var hasChanged = false
+    @Published var hasChanged = false
     
     private let distanceUtility = DistanceUtility()
     
@@ -70,9 +70,11 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
 }
 
 struct ShoeDetailView: View {
-    @EnvironmentObject var shoeStore: ShoeStore
+    @EnvironmentObject private var shoeStore: ShoeStore
     @ObservedObject var viewModel: ShoeDetailViewModel
     @Environment(\.dismiss) var dismiss
+    
+    let selectedShoeStrategy: SelectedShoeStrategy
     
     var body: some View {
         VStack {
@@ -83,9 +85,7 @@ struct ShoeDetailView: View {
                     }
                     Spacer()
                     Button("Done") {
-                        viewModel.updateShoeValues()
-                        shoeStore.saveContext()
-                        shoeStore.updateAllShoes()
+                        updateShoes(viewModel: viewModel)
                         dismiss()
                     }
                 }
@@ -155,16 +155,17 @@ struct ShoeDetailView: View {
             ShoeImage(shoe: viewModel.shoe)
                 .padding([.horizontal], 32)
             
-            HallOfFameSelector()
+            HallOfFameSelector(viewModel: viewModel)
                 .padding([.top], 16)
-                .environmentObject(viewModel.shoe)
             
             Spacer()
             
+            #if DEBUG
             Button("Generate Histories") {
                 MockShoeGenerator(store: shoeStore).addRunHistories(to: viewModel.shoe, saveData: true)
                 shoeStore.updateAllShoes()
             }
+            #endif
             
             Spacer()
         }
@@ -175,15 +176,25 @@ struct ShoeDetailView: View {
         .onTapGesture {
             dismissKeyboard()
         }
+        // Monitor for changes of hall of fame status rather than pollute the subview with shoeStore and Settings
+        .onChange(of: viewModel.shoe.hallOfFame) { newValue in
+            updateShoes(viewModel: viewModel)
+        }
         .onDisappear {
             if viewModel.isNewShoe == false, viewModel.hasChanged == true {
-                viewModel.updateShoeValues()
-                shoeStore.saveContext()
-                shoeStore.updateAllShoes()
+                updateShoes(viewModel: viewModel)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea(.keyboard, edges: [.bottom])
+    }
+    
+    // TODO: Move this business logic into an interactor
+    func updateShoes(viewModel: ShoeDetailViewModel) {
+        viewModel.updateShoeValues()
+        shoeStore.saveContext()
+        shoeStore.updateAllShoes()
+        selectedShoeStrategy.updateSelectedShoe()
     }
 }
 
@@ -192,6 +203,8 @@ struct ShoeDetailView_Previews: PreviewProvider {
     static let viewModel = ShoeDetailViewModel(shoe: shoe)
     
     static var previews: some View {
-        ShoeDetailView(viewModel: viewModel)
+        ShoeDetailView(viewModel: viewModel,
+                       selectedShoeStrategy: SelectedShoeStrategy(store: ShoeStore(), 
+                                                                  settings: UserSettings.shared))
     }
 }

@@ -52,7 +52,8 @@ struct AppView: View {
                     }
                     .tag(TabIdentifier.addDistance)
             }
-            ActiveShoesView(shoes: ActiveShoesView.generateViewModelsFromActiveShoes(from: shoeStore))
+            ActiveShoesView(shoes: ActiveShoesView.generateViewModelsFromActiveShoes(from: shoeStore),
+                            selectedShoeStrategy: SelectedShoeStrategy(store: shoeStore, settings: settings))
                 .tabItem {
                     Label {
                         Text("Active Shoes")
@@ -63,7 +64,7 @@ struct AppView: View {
 
                 }
                 .tag(TabIdentifier.activeShoes)
-            HallOfFameView()
+            HallOfFameView(selectedShoeStrategy: SelectedShoeStrategy(store: shoeStore, settings: settings))
                 .tabItem {
                     Label("Hall of Fame", systemImage: "trophy.fill")
                 }

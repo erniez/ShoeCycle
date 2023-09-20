@@ -8,32 +8,29 @@
 import SwiftUI
 
 struct HallOfFameSelector: View {
-    @EnvironmentObject var shoe: Shoe
-    @EnvironmentObject var shoeStore: ShoeStore
+    @ObservedObject var viewModel: ShoeDetailViewModel
     
     var body: some View {
         HStack {
             Text("🏆")
             Group {
-                if shoe.hallOfFame == true {
+                if viewModel.shoe.hallOfFame == true {
                     Text("Remove from Hall of Fame")
                         .onTapGesture {
-                            shoe.hallOfFame = false
-                            shoeStore.saveContext()
-                            shoeStore.updateAllShoes()
+                            viewModel.shoe.hallOfFame = false
+                            viewModel.hasChanged = true
                         }
                 }
                 else {
                     Text("Add to Hall of Fame")
                         .onTapGesture {
-                            shoe.hallOfFame = true
-                            shoeStore.saveContext()
-                            shoeStore.updateAllShoes()
+                            viewModel.shoe.hallOfFame = true
+                            viewModel.hasChanged = true
                         }
                 }
             }
         }
-        .animation(.default, value: shoe.hallOfFame)
+        .animation(.default, value: viewModel.shoe.hallOfFame)
     }
 }
 

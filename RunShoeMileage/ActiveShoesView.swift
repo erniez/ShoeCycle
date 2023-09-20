@@ -12,6 +12,13 @@ struct ActiveShoesView: View {
     @EnvironmentObject var settings: UserSettings
     @State var shoes: [ShoeDetailViewModel]
     @State var presentNewShoeView = false
+    private var selectedShoeStrategy: SelectedShoeStrategy
+    
+    init(shoes: [ShoeDetailViewModel], presentNewShoeView: Bool = false, selectedShoeStrategy: SelectedShoeStrategy) {
+        self.shoes = shoes
+        self.presentNewShoeView = presentNewShoeView
+        self.selectedShoeStrategy = selectedShoeStrategy
+    }
     
     var body: some View {
         NavigationStack {
@@ -31,10 +38,12 @@ struct ActiveShoesView: View {
                     }
                     shoesToRemove.forEach { shoeStore.remove(shoe: $0.shoe) }
                     shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
+                    selectedShoeStrategy.updateSelectedShoe()
                 }
             }
             .navigationDestination(for: Shoe.self) { shoe in
-                ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe))
+                ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe),
+                               selectedShoeStrategy: selectedShoeStrategy)
             }
             .navigationTitle("Active Shoes")
             .toolbar {
@@ -49,7 +58,11 @@ struct ActiveShoesView: View {
             shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
         }) {
             let shoe = shoeStore.createShoe()
-            ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe, isNewShoe: true))
+            ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe, isNewShoe: true),
+                           selectedShoeStrategy: selectedShoeStrategy)
+        }
+        .onAppear {
+            selectedShoeStrategy.updateSelectedShoe()
         }
     }
 }
@@ -64,9 +77,12 @@ extension ActiveShoesView {
 
 struct ActiveShoesView_Previews: PreviewProvider {
     static var shoes = ActiveShoesView.generateViewModelsFromActiveShoes(from: ShoeStore())
+    static var shoeStore = ShoeStore()
+    
     static var previews: some View {
-        ActiveShoesView(shoes: shoes)
-            .environmentObject(ShoeStore())
+        ActiveShoesView(shoes: shoes,
+                        selectedShoeStrategy: SelectedShoeStrategy(store: shoeStore, settings: UserSettings.shared))
+            .environmentObject(shoeStore)
     }
 }
 

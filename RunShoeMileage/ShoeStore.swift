@@ -64,30 +64,6 @@ class ShoeStore: ObservableObject {
             url == shoe.objectID.uriRepresentation()
         }
     }
-    
-    // TODO: saving this logic for a later bugfix
-//    func updateSelectedShoe() {
-//        let settings = UserSettings()
-//        // If we have a selected shoe URL, then find the first match.
-//        if let selectedShoeURL = settings.selectedShoeURL {
-//            let selectedShoe = activeShoes.first { shoe in
-//                selectedShoeURL == shoe.objectID.uriRepresentation()
-//            }
-//            self.selectedShoeURL = settings.selectedShoeURL
-//            self.selectedShoe = selectedShoe
-//            return
-//        }
-//        // ... If not, then select the first shoe.
-//        if let shoe = activeShoes.first {
-//            settings.selectedShoeURL = shoe.objectID.uriRepresentation()
-//            self.selectedShoe = shoe
-//            selectedShoeURL = settings.selectedShoeURL
-//            return
-//        }
-//        // ... If all else fails ...
-//        selectedShoeURL = nil
-//        self.selectedShoe = nil
-//    }
 
     func createShoe() -> Shoe {
         var order: Double = 0

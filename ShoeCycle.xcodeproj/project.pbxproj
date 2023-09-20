@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -73,6 +73,7 @@
 		1BA0E58C2262285600941A06 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BA0E58B2262285600941A06 /* MainWindow.xib */; };
 		1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */; };
 		1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
+		1BA84A062ABBBC830020ECB0 /* SelectedShoeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */; };
 		1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC72092377351200390E8B /* ShoeCycleTests.swift */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
 		1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BB8A812288497B500B45B67 /* FirebaseAnalytics */; };
@@ -230,6 +231,7 @@
 		1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1BA0E58B2262285600941A06 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockShoeGenerator.swift; sourceTree = "<group>"; };
+		1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedShoeStrategy.swift; sourceTree = "<group>"; };
 		1BAC72072377351200390E8B /* ShoeCycleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoeCycleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BAC72092377351200390E8B /* ShoeCycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleTests.swift; sourceTree = "<group>"; };
 		1BAC720B2377351200390E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 			children = (
 				1B49035F2A7B4B2600422CED /* DistanceUtility.swift */,
 				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
+				1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */,
 			);
 			name = "Common Swift";
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
 				1BCF9FF92A1BF3FD007F697E /* ShoeExtensions.swift in Sources */,
+				1BA84A062ABBBC830020ECB0 /* SelectedShoeStrategy.swift in Sources */,
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
@@ -1305,6 +1309,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "RunShoeMileage/ShoeCycle-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
