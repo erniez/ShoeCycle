@@ -30,9 +30,9 @@ struct AppView: View {
         case addDistance, activeShoes, hallOfFame, settings
     }
     
-    @State private var shoeStore = ShoeStore()
-    @State private var settings = UserSettings.shared
-    @State private var healthKitService = HealthKitService()
+    @StateObject private var shoeStore = ShoeStore()
+    @StateObject private var settings = UserSettings.shared
+    @StateObject private var healthKitService = HealthKitService()
     @State private var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
 
     var body: some View {
