@@ -11,7 +11,7 @@
 #import "UserDistanceSetting.h"
 #import "UIColor+ShoeCycleColors.h"
 #import "UIUtilities.h"
-#import "AnalyticsLogger.h"
+#import "AnalyticsLogger_Legacy.h"
 
 
 // Standard Distance Constants
@@ -137,7 +137,7 @@ const float k10Miles = 10;
     }
 
     halfMarathonButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [[AnalyticsLogger sharedLogger] logEventWithName:kShowFavoriteDistancesEvent userInfo:@{kNumberOfFavoritesUsedKey : @(analytics_FavoritesCount)}];
+    [[AnalyticsLogger_Legacy sharedLogger] logEventWithName:kShowFavoriteDistancesEvent userInfo:@{kNumberOfFavoritesUsedKey : @(analytics_FavoritesCount)}];
 }
 
 - (void)viewDidUnload

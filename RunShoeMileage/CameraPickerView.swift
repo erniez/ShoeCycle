@@ -47,7 +47,7 @@ class CameraPickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigat
         let image = info[.originalImage]
 
         if let image = image as? UIImage {
-            AnalyticsLogger.shared().logEvent(withName: kShoePictureAddedEvent, userInfo: nil)
+            AnalyticsLogger_Legacy.shared().logEvent(withName: kShoePictureAddedEvent, userInfo: nil)
             shoe.setThumbnailDataFrom(image, width: 143, height: 96)
             ImageStore.shared.set(image: image, width: 210, height: 140, on: shoe)
             withAnimation {

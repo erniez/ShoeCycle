@@ -30,7 +30,7 @@
 		1B23E02C14B5257F00B51A6E /* ImageStore_Legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B23E02B14B5257F00B51A6E /* ImageStore_Legacy.m */; };
 		1B24358B2879D0970018AFCA /* StravaInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24358A2879D0970018AFCA /* StravaInteractionViewController.swift */; };
 		1B24358D2879D1810018AFCA /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24358C2879D1810018AFCA /* UIView+Autolayout.swift */; };
-		1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */; };
+		1B24870F1BEEA3E500777E25 /* AnalyticsLogger_Legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B24870E1BEEA3E500777E25 /* AnalyticsLogger_Legacy.m */; };
 		1B26F6C51B02EFAD004095CF /* UIView+Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C41B02EFAD004095CF /* UIView+Effects.m */; };
 		1B26F6C71B02FCB1004095CF /* GlobalStringConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */; };
 		1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B26F6C91B06F8F0004095CF /* DateUtilities.m */; };
@@ -177,8 +177,8 @@
 		1B23E02B14B5257F00B51A6E /* ImageStore_Legacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore_Legacy.m; sourceTree = "<group>"; };
 		1B24358A2879D0970018AFCA /* StravaInteractionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaInteractionViewController.swift; sourceTree = "<group>"; };
 		1B24358C2879D1810018AFCA /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
-		1B24870D1BEEA3E500777E25 /* AnalyticsLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalyticsLogger.h; path = sharedObjects/AnalyticsLogger.h; sourceTree = "<group>"; };
-		1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalyticsLogger.m; path = sharedObjects/AnalyticsLogger.m; sourceTree = "<group>"; };
+		1B24870D1BEEA3E500777E25 /* AnalyticsLogger_Legacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalyticsLogger_Legacy.h; path = sharedObjects/AnalyticsLogger_Legacy.h; sourceTree = "<group>"; };
+		1B24870E1BEEA3E500777E25 /* AnalyticsLogger_Legacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnalyticsLogger_Legacy.m; path = sharedObjects/AnalyticsLogger_Legacy.m; sourceTree = "<group>"; };
 		1B26F6C31B02EFAD004095CF /* UIView+Effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Effects.h"; path = "Categories/UIView+Effects.h"; sourceTree = "<group>"; };
 		1B26F6C41B02EFAD004095CF /* UIView+Effects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Effects.m"; path = "Categories/UIView+Effects.m"; sourceTree = "<group>"; };
 		1B26F6C61B02FCB1004095CF /* GlobalStringConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalStringConstants.m; sourceTree = "<group>"; };
@@ -425,8 +425,8 @@
 			children = (
 				1B381A6719E1C2D3002C3FD7 /* HealthKitManager.h */,
 				1B381A6819E1C2D3002C3FD7 /* HealthKitManager.m */,
-				1B24870D1BEEA3E500777E25 /* AnalyticsLogger.h */,
-				1B24870E1BEEA3E500777E25 /* AnalyticsLogger.m */,
+				1B24870D1BEEA3E500777E25 /* AnalyticsLogger_Legacy.h */,
+				1B24870E1BEEA3E500777E25 /* AnalyticsLogger_Legacy.m */,
 			);
 			name = "Shared Objects";
 			sourceTree = "<group>";
@@ -531,6 +531,13 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		1BA7B2C82ABCBCE80005958E /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
 		1BAC72082377351200390E8B /* ShoeCycleTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -597,6 +604,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1BA7B2C82ABCBCE80005958E /* Analytics */,
 				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
 				1BE540622AA81E5100DCC109 /* Services */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
@@ -911,7 +919,7 @@
 				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
 				1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,
-				1B24870F1BEEA3E500777E25 /* AnalyticsLogger.m in Sources */,
+				1B24870F1BEEA3E500777E25 /* AnalyticsLogger_Legacy.m in Sources */,
 				1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */,
 				1B24358B2879D0970018AFCA /* StravaInteractionViewController.swift in Sources */,
 				1B23E02C14B5257F00B51A6E /* ImageStore_Legacy.m in Sources */,
@@ -1396,7 +1404,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				minimumVersion = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

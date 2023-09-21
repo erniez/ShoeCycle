@@ -17,7 +17,7 @@
 #import "GlobalStringConstants.h"
 #import "FTUUtility.h"
 #import "ImageStore_Legacy.h"
-#import "AnalyticsLogger.h"
+#import "AnalyticsLogger_Legacy.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "UIColor+ShoeCycleColors.h"
 #import "GlobalStringConstants.h"

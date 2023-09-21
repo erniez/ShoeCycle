@@ -16,7 +16,7 @@
 #import "UIColor+ShoeCycleColors.h"
 #import "EditShoesCell.h"
 #import "GlobalStringConstants.h"
-#import "AnalyticsLogger.h"
+#import "AnalyticsLogger_Legacy.h"
 
 
 @interface EditShoesViewController ()
@@ -265,7 +265,7 @@
     
     navController.modalPresentationStyle = UIModalPresentationFullScreen;
     [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [[AnalyticsLogger sharedLogger] logEventWithName:kAddShoeEvent userInfo:nil];
+    [[AnalyticsLogger_Legacy sharedLogger] logEventWithName:kAddShoeEvent userInfo:nil];
     [self presentViewController:navController animated:YES completion:nil];
 }
 

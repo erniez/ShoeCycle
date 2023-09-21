@@ -28,7 +28,7 @@
 #import "StravaActivity+DistanceConversion.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "GlobalStringConstants.h"
-#import "AnalyticsLogger.h"
+#import "AnalyticsLogger_Legacy.h"
 //#import <Charts/Charts.h>
 #import "ShoeCycle-Swift.h"
 
@@ -75,7 +75,7 @@
 @property (nonatomic) BOOL writeToStrava;
 
 @property (nonatomic) NSArray *dataSource;
-@property (weak, nonatomic) AnalyticsLogger *logger;
+@property (weak, nonatomic) AnalyticsLogger_Legacy *logger;
 @property (nonatomic) UITapGestureRecognizer *shoeImageTapRecognizer;
 
 //@property (nonatomic, strong) LineChartDataSet *dataSet;
@@ -232,7 +232,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.logger = [AnalyticsLogger sharedLogger];
+    self.logger = [AnalyticsLogger_Legacy sharedLogger];
     
     self.shoeImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shoeImageTapped:)];
     

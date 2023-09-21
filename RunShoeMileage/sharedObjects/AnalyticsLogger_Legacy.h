@@ -26,7 +26,7 @@ extern NSString * const kTotalMileageNumberKey;
 extern NSString * const kNumberOfFavoritesUsedKey;
 extern NSString * const kMileageUnitKey;
 
-@interface AnalyticsLogger : NSObject
+@interface AnalyticsLogger_Legacy : NSObject
 
 + (instancetype)sharedLogger;
 - (void)logEventWithName:(NSString *)name userInfo:(nullable NSDictionary<NSString *,id> *)userInfo;

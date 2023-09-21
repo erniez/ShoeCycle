@@ -14,7 +14,7 @@
 #import "UIUtilities.h"
 #import "RunDatePickerViewController.h"
 #import "GlobalStringConstants.h"
-#import "AnalyticsLogger.h"
+#import "AnalyticsLogger_Legacy.h"
 #import "ShoeCycle-Swift.h"
 
 
@@ -356,10 +356,10 @@ const CGFloat TAB_BAR_HEIGHT = 49;
 {
     self.shoe.hallOfFame = !self.shoe.hallOfFame;
     if (self.shoe.hallOfFame) {
-        [[AnalyticsLogger sharedLogger] logEventWithName:kRemoveFromHOFEvent userInfo:nil];
+        [[AnalyticsLogger_Legacy sharedLogger] logEventWithName:kRemoveFromHOFEvent userInfo:nil];
     }
     else {
-        [[AnalyticsLogger sharedLogger] logEventWithName:kAddToHOFEvent userInfo:nil];
+        [[AnalyticsLogger_Legacy sharedLogger] logEventWithName:kAddToHOFEvent userInfo:nil];
     }
     [self updateHallOfFameButtonText];
 }

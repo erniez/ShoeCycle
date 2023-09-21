@@ -6,7 +6,7 @@
 //
 //
 
-#import "AnalyticsLogger.h"
+#import "AnalyticsLogger_Legacy.h"
 @import Firebase;
 
 // Event Constants
@@ -26,14 +26,14 @@ NSString * const kTotalMileageNumberKey = @"total_mileage";
 NSString * const kNumberOfFavoritesUsedKey = @"number_of_favorites";
 NSString * const kMileageUnitKey = @"distance_unit";
 
-@implementation AnalyticsLogger
+@implementation AnalyticsLogger_Legacy
 
 + (instancetype)sharedLogger
 {
-    static AnalyticsLogger *sharedLogger;
+    static AnalyticsLogger_Legacy *sharedLogger;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedLogger = [AnalyticsLogger new];
+        sharedLogger = [AnalyticsLogger_Legacy new];
     });
     return sharedLogger;
 }
