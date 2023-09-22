@@ -73,6 +73,10 @@
 		1BA0E58C2262285600941A06 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BA0E58B2262285600941A06 /* MainWindow.xib */; };
 		1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */; };
 		1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
+		1BA7B2CA2ABCBDC40005958E /* AnalyticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7B2C92ABCBDC40005958E /* AnalyticsLogger.swift */; };
+		1BA7B2CC2ABCBE910005958E /* FirebaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7B2CB2ABCBE910005958E /* FirebaseLogger.swift */; };
+		1BA7B2CE2ABCBEAF0005958E /* AnalyticsKeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7B2CD2ABCBEAF0005958E /* AnalyticsKeyNames.swift */; };
+		1BA7B2D02ABCC3C30005958E /* AnalyticsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7B2CF2ABCC3C30005958E /* AnalyticsFactory.swift */; };
 		1BA84A062ABBBC830020ECB0 /* SelectedShoeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */; };
 		1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC72092377351200390E8B /* ShoeCycleTests.swift */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
@@ -231,6 +235,10 @@
 		1B9EA80322068594000FA58B /* RunHistoryViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1BA0E58B2262285600941A06 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockShoeGenerator.swift; sourceTree = "<group>"; };
+		1BA7B2C92ABCBDC40005958E /* AnalyticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsLogger.swift; sourceTree = "<group>"; };
+		1BA7B2CB2ABCBE910005958E /* FirebaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLogger.swift; sourceTree = "<group>"; };
+		1BA7B2CD2ABCBEAF0005958E /* AnalyticsKeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsKeyNames.swift; sourceTree = "<group>"; };
+		1BA7B2CF2ABCC3C30005958E /* AnalyticsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsFactory.swift; sourceTree = "<group>"; };
 		1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedShoeStrategy.swift; sourceTree = "<group>"; };
 		1BAC72072377351200390E8B /* ShoeCycleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoeCycleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BAC72092377351200390E8B /* ShoeCycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleTests.swift; sourceTree = "<group>"; };
@@ -534,6 +542,10 @@
 		1BA7B2C82ABCBCE80005958E /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
+				1BA7B2C92ABCBDC40005958E /* AnalyticsLogger.swift */,
+				1BA7B2CB2ABCBE910005958E /* FirebaseLogger.swift */,
+				1BA7B2CD2ABCBEAF0005958E /* AnalyticsKeyNames.swift */,
+				1BA7B2CF2ABCC3C30005958E /* AnalyticsFactory.swift */,
 			);
 			name = Analytics;
 			sourceTree = "<group>";
@@ -906,6 +918,7 @@
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,
 				1BC5183914A35CF80033EFC3 /* EditShoesViewController.m in Sources */,
+				1BA7B2CC2ABCBE910005958E /* FirebaseLogger.swift in Sources */,
 				1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */,
 				1BBCF59F2A718163002D28D3 /* PatternedBackground.swift in Sources */,
 				1B7ED91C2A6886AF006ABC42 /* FavoriteDistancesView.swift in Sources */,
@@ -927,6 +940,7 @@
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
 				1B3D29DA2A46319700BE7956 /* ShoeDetailView.swift in Sources */,
+				1BA7B2CE2ABCBEAF0005958E /* AnalyticsKeyNames.swift in Sources */,
 				1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */,
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
 				1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */,
@@ -935,6 +949,7 @@
 				1BE540682AAA231300DCC109 /* StravaTokenKeeper.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */,
+				1BA7B2D02ABCC3C30005958E /* AnalyticsFactory.swift in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCF9FE42A1AA0EE007F697E /* TimeIntervalExtensions.swift in Sources */,
 				1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */,
@@ -959,6 +974,7 @@
 				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
 				1B24358D2879D1810018AFCA /* UIView+Autolayout.swift in Sources */,
 				1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */,
+				1BA7B2CA2ABCBDC40005958E /* AnalyticsLogger.swift in Sources */,
 				EA0F26DC1AFF0550006C4B63 /* StravaActivity_Legacy.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,
 				1B30A82421EF756400AF22A7 /* LaunchViewController.swift in Sources */,

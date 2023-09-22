@@ -63,6 +63,7 @@ fileprivate struct ShoeImagePicker: ViewModifier {
     @State private var showImageSelection = false
     @State private var showCamera = false
     @State private var shoeItem: PhotosPickerItem?
+    private let logger = AnalyticsFactory.sharedAnalyticsLogger()
     
     private let imageStore = ImageStore.shared
     
@@ -86,20 +87,21 @@ fileprivate struct ShoeImagePicker: ViewModifier {
             .photosPicker(isPresented: $showPhotoPicker, selection: $shoeItem)
             .onChange(of: shoeItem) { _ in
                 print("Shoe Item has changed")
-                        Task {
-                            if let data = try? await shoeItem?.loadTransferable(type: Data.self),
-                               let shoeUIImage = UIImage(data: data) {
-                                shoe.setThumbnailDataFrom(shoeUIImage, width: 143, height: 96)
-                                imageStore.set(image: shoeUIImage, width: 210, height: 140, on: shoe)
-                                withAnimation {
-                                    // Animate updating the shoe image, which will propagate back to the view.
-                                    shoeStore.saveContext()
-                                }
-                                return
-                            }
-                            print("Failed to create Image")
+                Task {
+                    if let data = try? await shoeItem?.loadTransferable(type: Data.self),
+                       let shoeUIImage = UIImage(data: data) {
+                        shoe.setThumbnailDataFrom(shoeUIImage, width: 143, height: 96)
+                        imageStore.set(image: shoeUIImage, width: 210, height: 140, on: shoe)
+                        withAnimation {
+                            // Animate updating the shoe image, which will propagate back to the view.
+                            shoeStore.saveContext()
                         }
+                        logger.logEvent(name: AnalyticsKeys.Event.shoePictureAddedEvent, userInfo: nil)
+                        return
                     }
+                    print("Failed to create Image")
+                }
+            }
             .sheet(isPresented: $showCamera) {
                 CameraPickerView(shoe: shoe)
             }

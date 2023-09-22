@@ -25,6 +25,7 @@ struct DateDistanceEntryView: View {
     private let distanceUtility = DistanceUtility()
     private let stravaService = StravaService()
     private let healthService = HealthKitService()
+    private let logger = AnalyticsFactory.sharedAnalyticsLogger()
     
     var body: some View {
         HStack(alignment: .top) {
@@ -51,6 +52,7 @@ struct DateDistanceEntryView: View {
                 .cornerRadius(8)
                 
                 Button {
+                    logger.logEvent(name: AnalyticsKeys.Event.showHistoryEvent, userInfo: nil)
                     showHistoryView = true
                 } label: {
                     Label("History", systemImage: "calendar")
@@ -93,6 +95,8 @@ struct DateDistanceEntryView: View {
                     }
                 
                 Button {
+                    logger.logEvent(name: AnalyticsKeys.Event.showFavoriteDistancesEvent,
+                                    userInfo: [AnalyticsKeys.UserInfo.numberOfFavoritesUsedKey : settings.favoriteDistanceCount()])
                     showFavoriteDistances = true
                 } label: {
                     Label("Distances", systemImage: "heart.fill")
@@ -126,10 +130,12 @@ struct DateDistanceEntryView: View {
                         if settings.healthKitEnabled || settings.stravaEnabled {
                             Task {
                                 await handleAsynchronousDistanceAdd(distance: distance)
+                                handleAddDistanceAnalytics(for: shoe, distance: distance)
                             }
                         }
                         else {
                             shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
+                            handleAddDistanceAnalytics(for: shoe, distance: distance)
                             runDistance = ""
                         }
                     } label: {
@@ -190,6 +196,7 @@ struct DateDistanceEntryView: View {
                 let metadata = ["ShoeCycleShoeIdentifier" : shoeIdentifier]
                 try await healthService.saveRun(distance: distance,
                                                 date: runDate, metadata: metadata)
+                logger.logEvent(name: AnalyticsKeys.Event.healthKitEvent, userInfo: nil)
             }
             
             if settings.stravaEnabled == true {
@@ -198,6 +205,7 @@ struct DateDistanceEntryView: View {
                                               startDate: runDate)
                 stravaLoading = true
                 try await stravaService.send(activity: activity)
+                logger.logEvent(name: AnalyticsKeys.Event.stravaEvent, userInfo: nil)
             }
             
             shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
@@ -216,6 +224,13 @@ struct DateDistanceEntryView: View {
             }
             stravaLoading = false
         }
+    }
+    
+    func handleAddDistanceAnalytics(for shoe: Shoe, distance: Double) {
+        let userInfo: [String : Any] = [ AnalyticsKeys.UserInfo.mileageNumberKey : NSNumber(value: distance),
+                                         AnalyticsKeys.UserInfo.totalMileageNumberKey : NSNumber(value: shoe.totalDistance.doubleValue),
+                                         AnalyticsKeys.UserInfo.mileageUnitKey : settings.distanceUnit.displayString() ]
+        logger.logEvent(name: AnalyticsKeys.Event.logMileageEvent, userInfo: userInfo)
     }
 }
 

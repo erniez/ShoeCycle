@@ -45,7 +45,7 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
 
         // Store  image in the ImageStore with this key
         if let image = image as? UIImage {
-            AnalyticsLogger_Legacy.shared().logEvent(withName: kShoePictureAddedEvent, userInfo: nil)
+            AnalyticsLogger_Legacy.sharedLogger().logEvent(withName: kShoePictureAddedEvent, userInfo: nil)
             ImageStore_Legacy.defaultImageStore().setImage(image, withWidth: 210, withHeight: 140, forKey: shoe.imageKey)
             shoe.setThumbnailDataFrom(image, width: 143, height: 96)
             onDidFinishPicking?(image)

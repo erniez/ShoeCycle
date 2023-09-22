@@ -31,25 +31,25 @@ class SettingsFavoriteDistancesViewModel: ObservableObject {
         $favorite1
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite1 = Float(newString) ?? 0
+                self?.settings.favorite1 = Double(newString) ?? 0
             } )
             .store(in: &subscriptions)
         $favorite2
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite2 = Float(newString) ?? 0
+                self?.settings.favorite2 = Double(newString) ?? 0
             } )
             .store(in: &subscriptions)
         $favorite3
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite3 = Float(newString) ?? 0
+                self?.settings.favorite3 = Double(newString) ?? 0
             } )
             .store(in: &subscriptions)
         $favorite4
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite4 = Float(newString) ?? 0
+                self?.settings.favorite4 = Double(newString) ?? 0
             } )
             .store(in: &subscriptions)
     }

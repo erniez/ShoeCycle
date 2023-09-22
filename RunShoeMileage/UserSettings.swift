@@ -8,10 +8,53 @@
 import Foundation
 
 class UserSettings: ObservableObject {
+    @propertyWrapper struct FavoriteDistance {
+        var wrappedValue: Double {
+            get {
+                UserDefaults.standard.double(forKey: key)
+            }
+            set {
+                UserDefaults.standard.set(newValue, forKey: key)
+            }
+        }
+        private let key: String
+        private let formatter = NumberFormatter.decimal
+        
+        init(key: String) {
+            self.key = key
+        }
+        
+        var projectedValue: String? {
+            if wrappedValue > 0 {
+                return formatter.string(from: NSNumber(value: wrappedValue))
+            }
+            return nil
+        }
+    }
+    
+    enum DistanceUnit: Int, Identifiable {
+        var id: Self { self }
+        
+        case miles, km
+        
+        func displayString() -> String {
+            switch self {
+            case .miles: return "miles"
+            case .km: return "km"
+            }
+        }
+    }
+    
+    enum FirstDayOfWeek: Int {
+        // Have to start numbering at 1 because that's what the calendar weekday units do.
+        case sunday = 1
+        case monday
+    }
+    
     // I'm using a shared object here because there are a number of places that I need access
     // to the settings within the initializer of views. Environment Objects are not available
-    // at this time, so I decided to go with the singleton instead of instantiating a bunch of
-    // short lived settings objects all over the code base.
+    // in the initializer, so I decided to go with the singleton instead of instantiating a 
+    // bunch of short lived settings objects all over the code base.
     static let shared = UserSettings()
     
     @Published private(set) var distanceUnit: DistanceUnit
@@ -21,6 +64,24 @@ class UserSettings: ObservableObject {
     @Published private(set) var selectedShoeURL: URL?
     
     private let defaults = UserDefaults.standard
+    
+    init() {
+        distanceUnit = DistanceUnit(rawValue: defaults.integer(forKey: StorageKey.distanceUnit)) ?? .miles
+        firstDayOfWeek = FirstDayOfWeek(rawValue: defaults.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
+        stravaEnabled = defaults.bool(forKey: StorageKey.stravaEnabled)
+        selectedShoeURL = defaults.url(forKey: StorageKey.selectedShoe)
+        let healthKitService = HealthKitService()
+        // Health App access can be turned off outside the app, so we need to check when we init UserSettings.
+        // If access is granted, then the ShoeCycle app setting will override the device settings.
+        if healthKitService.authorizationStatus == .sharingAuthorized {
+            healthKitEnabled = defaults.bool(forKey: StorageKey.healthKitEnabled)
+        }
+        else {
+            healthKitEnabled = false
+            defaults.set(false, forKey: StorageKey.healthKitEnabled)
+        }
+        
+    }
     
     func setSelected(shoe: Shoe?) {
         if let shoe = shoe {
@@ -44,67 +105,6 @@ class UserSettings: ObservableObject {
         }
         return false
     }
-       
-    enum DistanceUnit: Int, Identifiable {
-        var id: Self { self }
-        
-        case miles, km
-        
-        func displayString() -> String {
-            switch self {
-            case .miles: return "miles"
-            case .km: return "km"
-            }
-        }
-    }
-    
-    enum FirstDayOfWeek: Int {
-        // Have to start numbering at 1 because that's what the calendar weekday units do.
-        case sunday = 1
-        case monday
-    }
-    
-    @propertyWrapper struct FavoriteDistance {
-        var wrappedValue: Float {
-            get {
-                UserDefaults.standard.float(forKey: key)
-            }
-            set {
-                UserDefaults.standard.set(newValue, forKey: key)
-            }
-        }
-        private let key: String
-        private let formatter = NumberFormatter.decimal
-        
-        init(key: String) {
-            self.key = key
-        }
-        
-        var projectedValue: String? {
-            if wrappedValue > 0 {
-                return formatter.string(from: NSNumber(value: wrappedValue))
-            }
-            return nil
-        }
-    }
-    
-    init() {
-        distanceUnit = DistanceUnit(rawValue: defaults.integer(forKey: StorageKey.distanceUnit)) ?? .miles
-        firstDayOfWeek = FirstDayOfWeek(rawValue: defaults.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
-        stravaEnabled = defaults.bool(forKey: StorageKey.stravaEnabled)
-        selectedShoeURL = defaults.url(forKey: StorageKey.selectedShoe)
-        let healthKitService = HealthKitService()
-        // Health App access can be turned off outside the app, so we need to check when we init UserSettings.
-        // If access is granted, then the ShoeCycle app setting will override the device settings.
-        if healthKitService.authorizationStatus == .sharingAuthorized {
-            healthKitEnabled = defaults.bool(forKey: StorageKey.healthKitEnabled)
-        }
-        else {
-            healthKitEnabled = false
-            defaults.set(false, forKey: StorageKey.healthKitEnabled)
-        }
-        
-    }
     
     func set(distanceUnit: DistanceUnit) {
         defaults.set(distanceUnit.rawValue, forKey: StorageKey.distanceUnit)
@@ -127,16 +127,26 @@ class UserSettings: ObservableObject {
     }
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance1)
-    var favorite1: Float
+    var favorite1: Double
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance2)
-    var favorite2: Float
+    var favorite2: Double
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance3)
-    var favorite3: Float
+    var favorite3: Double
     
     @FavoriteDistance(key: StorageKey.userDefinedDistance4)
-    var favorite4: Float
+    var favorite4: Double
+    
+    /// Count of all favorite distances used. For analytics use only
+    func favoriteDistanceCount() -> Int {
+        var count = 0
+        if favorite1 > 0 { count += 1 }
+        if favorite2 > 0 { count += 1 }
+        if favorite3 > 0 { count += 1 }
+        if favorite4 > 0 { count += 1 }
+        return count
+    }
     
 }
 
