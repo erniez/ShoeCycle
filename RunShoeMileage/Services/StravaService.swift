@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct StravaActivityDTO: Codable {
     let name: String
     let elapsed_time: String
@@ -40,14 +41,9 @@ struct StravaService {
         case reachability
     }
     
-    let activitiesURL = URL(string: kStravaActivitiesURL)!
-    let network = NetworkService()
-    let keeper = StravaTokenKeeper()
-    
-    private let kStravaClientID = "4002"
-    private let kStravaClientIDkey = "client_id"
-    private let kStravaSecret = "558112ea963c3427a387549a3361bd6677083ff9"
-    private let kStravaSecretKey = "client_secret"
+    private let activitiesURL = URL(string: StravaConstants.actvitiesURL)!
+    private let network = NetworkService()
+    private let keeper = StravaTokenKeeper()
     
     func send(activity: StravaActivity) async throws {
         let dto = StravaActivityDTO(activity: activity)

@@ -32,12 +32,6 @@ struct StravaTokenKeeper {
     
     private let network = NetworkService()
     
-    // TODO: find common storage for creds
-    private let kStravaClientID = "4002"
-    private let kStravaClientIDkey = "client_id"
-    private let kStravaSecret = "558112ea963c3427a387549a3361bd6677083ff9"
-    private let kStravaSecretKey = "client_secret"
-    
     func store(token: StravaToken) {
         if let tokenData = try? token.jsonEncode() {
             UserDefaults.standard.set(tokenData, forKey: UserSettings.StorageKey.stravaToken)
@@ -78,14 +72,14 @@ struct StravaTokenKeeper {
     }
     
     private func refresh(token: StravaToken) async throws -> StravaToken {
-        let url = URL(string: "https://www.strava.com/oauth/token")!
+        let url = URL(string: StravaConstants.oauthRefreshURL)!
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
-            kStravaClientIDkey: kStravaClientID,
-            kStravaSecretKey: kStravaSecret,
+            StravaKeys.clientIDkey: StravaKeys.clientIDValue,
+            StravaKeys.secretKey: StravaKeys.secretValue,
             "refresh_token": token.refreshToken,
             "grant_type": "refresh_token"
         ]

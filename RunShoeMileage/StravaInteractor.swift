@@ -9,10 +9,6 @@ import SwiftUI
 import AuthenticationServices
 
 struct StravaInteractor {
-    private let kStravaClientID = "4002"
-    private let kStravaClientIDkey = "client_id"
-    private let kStravaSecret = "558112ea963c3427a387549a3361bd6677083ff9"
-    private let kStravaSecretKey = "client_secret"
     let settings: UserSettings
     private let urlSession: URLSession = .shared
     private let stravaTokenKeeper = StravaTokenKeeper()
@@ -24,7 +20,7 @@ struct StravaInteractor {
     func fetchToken(with session: WebAuthenticationSession) async -> Bool {
         do {
             let urlWithToken = try await session.authenticate(
-                using: URL(string: kStravaOAuthURL)!,
+                using: URL(string: StravaConstants.oauthURL)!,
                 callbackURLScheme: "ShoeCycle",
                 preferredBrowserSession: .ephemeral)
             let components = URLComponents(url: urlWithToken, resolvingAgainstBaseURL: false)
@@ -67,8 +63,8 @@ struct StravaInteractor {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
-            kStravaClientIDkey: kStravaClientID,
-            kStravaSecretKey: kStravaSecret,
+            StravaKeys.clientIDkey: StravaKeys.clientIDValue,
+            StravaKeys.secretKey: StravaKeys.secretValue,
             "code": token,
             "grant_type": "authorization_code"
         ]
