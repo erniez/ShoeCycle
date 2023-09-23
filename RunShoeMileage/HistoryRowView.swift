@@ -12,12 +12,14 @@ struct HistoryRowViewModel: Identifiable {
     
     let runDate: Date
     let runDistance: NSNumber
+    
+    private let distanceUtility = DistanceUtility()
 
     var runDateString: String {
         DateFormatter.shortDate.string(from: runDate)
     }
     var runDistanceString: String {
-        NumberFormatter.decimal.string(from: runDistance) ?? ""
+        distanceUtility.displayString(for: runDistance)
     }
     
     init(runDate: Date, runDistance: NSNumber) {
