@@ -105,9 +105,9 @@ extension Shoe {
         return runsByMonth
     }
     
-    static func runDistanceTotal(histories: [History]) -> Float {
-        var totalDistance: Float = 0
-        histories.forEach { totalDistance += $0.runDistance.floatValue }
+    static func runDistanceTotal(histories: [History]) -> Double {
+        var totalDistance: Double = 0
+        histories.forEach { totalDistance += $0.runDistance.doubleValue }
         return totalDistance
     }
 }

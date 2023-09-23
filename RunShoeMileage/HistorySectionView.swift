@@ -15,7 +15,7 @@ struct HistorySectionViewModel: Identifiable, Equatable {
     
     let id = UUID()
     let monthDate: Date
-    let runTotal: Float
+    let runTotal: Double
     let historyViewModels: [HistoryRowViewModel]
     let shoe: Shoe
     let histories: [History]

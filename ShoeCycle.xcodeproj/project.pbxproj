@@ -442,11 +442,14 @@
 		1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */,
+				1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */,
 				1B3D29D42A3E794A00BE7956 /* Line.swift */,
 				1B0D52122A5345A7001D3DB9 /* CameraPickerView.swift */,
 				1B0D52142A53683C001D3DB9 /* ShoeImage.swift */,
 				1B0AD8032A33DFDA006AB307 /* ShoeCycleSection.swift */,
 				1BBCF59E2A718163002D28D3 /* PatternedBackground.swift */,
+				1B1738E02A06BBA2006D632D /* ColorExtension.swift */,
 			);
 			name = CommonSwiftUI;
 			sourceTree = "<group>";
@@ -463,11 +466,24 @@
 		1B49035E2A7B4AF500422CED /* Common Swift */ = {
 			isa = PBXGroup;
 			children = (
+				1B7F36612A24039500377485 /* NumberFormatterExtension.swift */,
 				1B49035F2A7B4B2600422CED /* DistanceUtility.swift */,
 				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
 				1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */,
+				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
+				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
+				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
 			);
 			name = "Common Swift";
+			sourceTree = "<group>";
+		};
+		1B68ACA02ABF943800348E8A /* DatabaseAndHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */,
+				1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */,
+			);
+			name = DatabaseAndHelpers;
 			sourceTree = "<group>";
 		};
 		1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */ = {
@@ -486,13 +502,6 @@
 				1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */,
 				1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */,
 				1B24358C2879D1810018AFCA /* UIView+Autolayout.swift */,
-				1B1738E02A06BBA2006D632D /* ColorExtension.swift */,
-				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
-				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
-				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
-				1B7F36612A24039500377485 /* NumberFormatterExtension.swift */,
-				1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */,
-				1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */,
 			);
 			name = "Categories And Extensions";
 			sourceTree = "<group>";
@@ -571,10 +580,8 @@
 				1B2248CB1C8145600081518A /* Shoe+Helpers.h */,
 				1B2248CC1C8145600081518A /* Shoe+Helpers.m */,
 				1B876F562207E9AF00964400 /* WeeklyCollated.swift */,
-				1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */,
 				1B1B144314B0D882009891D6 /* ShoeStore_Legacy.h */,
 				1B1B144414B0D882009891D6 /* ShoeStore_Legacy.m */,
-				1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */,
 			);
 			name = DatabaseModelsAndHelpers;
 			sourceTree = "<group>";
@@ -616,6 +623,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B68ACA02ABF943800348E8A /* DatabaseAndHelpers */,
 				1BA7B2C82ABCBCE80005958E /* Analytics */,
 				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
 				1BE540622AA81E5100DCC109 /* Services */,
