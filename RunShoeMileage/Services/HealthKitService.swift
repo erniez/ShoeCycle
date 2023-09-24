@@ -8,7 +8,7 @@
 import Foundation
 import HealthKit
 
-class HealthKitService: ObservableObject {
+class HealthKitService: ObservableObject, ThrowingService {
     let isHealthDataAvailable: Bool
     @Published var authorizationStatus: HKAuthorizationStatus
     private let healthStore: HKHealthStore

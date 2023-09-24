@@ -35,13 +35,13 @@ struct StravaActivity {
     }
 }
 
-struct StravaService {
+struct StravaService: ThrowingService {
     enum DomainError: Error {
         case unknown
         case reachability
     }
     
-    private let activitiesURL = URL(string: StravaConstants.actvitiesURL)!
+    private let activitiesURL = URL(string: StravaURLs.actvitiesURL)!
     private let network = NetworkService()
     private let keeper = StravaTokenKeeper()
     

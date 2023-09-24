@@ -57,7 +57,7 @@
 		1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; };
 		1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B62EB942A5231FC00226147 /* ImageStore.swift */; };
-		1B68ACA32ABFA9BE00348E8A /* StravaConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA22ABFA9BE00348E8A /* StravaConstants.swift */; };
+		1B68ACA32ABFA9BE00348E8A /* StravaURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */; };
 		1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
@@ -215,7 +215,7 @@
 		1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AFNetworking.xcframework; path = Carthage/Build/AFNetworking.xcframework; sourceTree = "<group>"; };
 		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
 		1B62EB942A5231FC00226147 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
-		1B68ACA22ABFA9BE00348E8A /* StravaConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaConstants.swift; sourceTree = "<group>"; };
+		1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaURLs.swift; sourceTree = "<group>"; };
 		1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
 		1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardDistancesViewController.m; sourceTree = "<group>"; };
@@ -399,7 +399,6 @@
 				1BC5183714A35CF80033EFC3 /* EditShoesViewController.m */,
 				1B23E02A14B5257F00B51A6E /* ImageStore_Legacy.h */,
 				1B23E02B14B5257F00B51A6E /* ImageStore_Legacy.m */,
-				1B62EB942A5231FC00226147 /* ImageStore.swift */,
 				1BCEEBB714B69B0200672194 /* FileHelpers.h */,
 				1BCEEBB814B69B0200672194 /* FileHelpers.m */,
 				1B2E8CA614C98E4400F0917C /* RunHistoryViewController.h */,
@@ -475,6 +474,7 @@
 		1B68ACA02ABF943800348E8A /* DatabaseAndHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				1B62EB942A5231FC00226147 /* ImageStore.swift */,
 				1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */,
 				1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */,
 				1B876F562207E9AF00964400 /* WeeklyCollated.swift */,
@@ -728,7 +728,7 @@
 				1BE540652AA92CF600DCC109 /* NetworkService.swift */,
 				1BE540672AAA231300DCC109 /* StravaTokenKeeper.swift */,
 				1BE540692AAB73B500DCC109 /* HealthKitService.swift */,
-				1B68ACA22ABFA9BE00348E8A /* StravaConstants.swift */,
+				1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -989,7 +989,7 @@
 				1BCF9FF42A1BD5B9007F697E /* RunHistoryChart.swift in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,
 				1BE059631E58BDC100D6225C /* HOFTableViewController.swift in Sources */,
-				1B68ACA32ABFA9BE00348E8A /* StravaConstants.swift in Sources */,
+				1B68ACA32ABFA9BE00348E8A /* StravaURLs.swift in Sources */,
 				EA0F26D91AFF016F006C4B63 /* APIURLStrings.m in Sources */,
 				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
 				1B24358D2879D1810018AFCA /* UIView+Autolayout.swift in Sources */,

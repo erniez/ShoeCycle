@@ -20,7 +20,7 @@ struct StravaInteractor {
     func fetchToken(with session: WebAuthenticationSession) async -> Bool {
         do {
             let urlWithToken = try await session.authenticate(
-                using: URL(string: StravaConstants.oauthURL)!,
+                using: URL(string: StravaURLs.oauthURL)!,
                 callbackURLScheme: "ShoeCycle",
                 preferredBrowserSession: .ephemeral)
             let components = URLComponents(url: urlWithToken, resolvingAgainstBaseURL: false)

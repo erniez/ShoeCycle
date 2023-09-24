@@ -23,7 +23,7 @@ struct StravaToken: Codable {
     }
 }
 
-struct StravaTokenKeeper {
+struct StravaTokenKeeper: ThrowingService {
     enum DomainError: Error {
         case unknown
         case jsonDecoding
@@ -72,7 +72,7 @@ struct StravaTokenKeeper {
     }
     
     private func refresh(token: StravaToken) async throws -> StravaToken {
-        let url = URL(string: StravaConstants.oauthRefreshURL)!
+        let url = URL(string: StravaURLs.oauthRefreshURL)!
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
