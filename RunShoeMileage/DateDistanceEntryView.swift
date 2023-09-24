@@ -213,10 +213,10 @@ struct DateDistanceEntryView: View {
             stravaLoading = false
         }
         catch let error {
-            if case HealthKitService.ServiceError.healthDataSharingDenied = error {
+            if case HealthKitService.DomainError.healthDataSharingDenied = error {
                 showAuthorizationDeniedAlert = true
             }
-            else if case StravaService.ServiceError.reachability = error {
+            else if case StravaService.DomainError.reachability = error {
                 showReachabilityAlert = true
             }
             else {

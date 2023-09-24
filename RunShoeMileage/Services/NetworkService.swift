@@ -13,7 +13,7 @@ protocol JSONNetworkService {
 }
 
 class NetworkService: JSONNetworkService {
-    enum ServiceError: Error {
+    enum DomainError: Error {
         case unknown
         case reachability
         case timeout
@@ -75,7 +75,7 @@ class NetworkService: JSONNetworkService {
         }
         catch let error {
             if error.isOtherConnectionError == true {
-                throw ServiceError.reachability
+                throw DomainError.reachability
             }
             throw error
         }
@@ -83,18 +83,18 @@ class NetworkService: JSONNetworkService {
     
     func validate(response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw ServiceError.unknown
+            throw DomainError.unknown
         }
         if (200...299).contains(httpResponse.statusCode) {
             return
         }
         else {
-            throw ServiceError.httpError(statusCode: httpResponse.statusCode)
+            throw DomainError.httpError(statusCode: httpResponse.statusCode)
         }
     }
     
-    func evaluate(error: Error) -> ServiceError {
-        if let serviceError = error as? ServiceError {
+    func evaluate(error: Error) -> DomainError {
+        if let serviceError = error as? DomainError {
             // Error has already been transformed to ServiceError, return it.
             return serviceError
         }

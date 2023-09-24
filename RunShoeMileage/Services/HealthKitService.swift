@@ -14,7 +14,7 @@ class HealthKitService: ObservableObject {
     private let healthStore: HKHealthStore
     private let runQuantityType: HKQuantityType
     
-    enum ServiceError: Error, Equatable {
+    enum DomainError: Error, Equatable {
         case healthDataIsNotAvailable
         case healthDataSharingDenied
         case otherHealthError(HKError)
@@ -40,14 +40,14 @@ class HealthKitService: ObservableObject {
             catch let error as HKError {
                 print(error)
                 if error.code == .errorAuthorizationDenied {
-                    throw ServiceError.healthDataSharingDenied
+                    throw DomainError.healthDataSharingDenied
                 }
                 else {
-                    throw ServiceError.otherHealthError(error)
+                    throw DomainError.otherHealthError(error)
                 }
             }
             catch {
-                throw ServiceError.unknownError
+                throw DomainError.unknownError
             }
         }
         else {
@@ -59,7 +59,7 @@ class HealthKitService: ObservableObject {
     
     func saveRun(distance: Double, date: Date, metadata: [String : String]) async throws {
         guard healthStore.authorizationStatus(for: runQuantityType) == .sharingAuthorized else {
-            throw ServiceError.healthDataSharingDenied
+            throw DomainError.healthDataSharingDenied
         }
         
         let runDistanceQuantity = HKQuantity(unit: .mile(), doubleValue: distance)
@@ -72,10 +72,10 @@ class HealthKitService: ObservableObject {
             try await healthStore.save(runSample)
         }
         catch let error as HKError {
-            throw ServiceError.otherHealthError(error)
+            throw DomainError.otherHealthError(error)
         }
         catch {
-            throw ServiceError.unknownError
+            throw DomainError.unknownError
         }
     }
 }

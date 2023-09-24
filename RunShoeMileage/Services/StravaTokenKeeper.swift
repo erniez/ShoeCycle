@@ -24,7 +24,7 @@ struct StravaToken: Codable {
 }
 
 struct StravaTokenKeeper {
-    enum KeeperError: Error {
+    enum DomainError: Error {
         case unknown
         case jsonDecoding
         case reachability
@@ -48,19 +48,19 @@ struct StravaTokenKeeper {
                 return stravaToken
             }
             catch is DecodingError {
-                throw KeeperError.jsonDecoding
+                throw DomainError.jsonDecoding
             }
-            catch let error as NetworkService.ServiceError {
-                if case NetworkService.ServiceError.reachability = error {
-                    throw KeeperError.reachability
+            catch let error as NetworkService.DomainError {
+                if case NetworkService.DomainError.reachability = error {
+                    throw DomainError.reachability
                 }
-                throw KeeperError.unknown
+                throw DomainError.unknown
             }
             catch {
-                throw KeeperError.unknown
+                throw DomainError.unknown
             }
         }
-        throw KeeperError.unknown
+        throw DomainError.unknown
     }
     
     func accessToken() async throws -> String {
@@ -84,7 +84,7 @@ struct StravaTokenKeeper {
             "grant_type": "refresh_token"
         ]
         guard let bodyData = parameters.percentEncoded() else {
-            throw KeeperError.unknown
+            throw DomainError.unknown
         }
         let data = try await network.post(request: request, data: bodyData)
         let newToken: StravaToken = try data.jsonDecode()

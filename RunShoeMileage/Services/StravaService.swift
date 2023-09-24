@@ -36,7 +36,7 @@ struct StravaActivity {
 }
 
 struct StravaService {
-    enum ServiceError: Error {
+    enum DomainError: Error {
         case unknown
         case reachability
     }
@@ -51,16 +51,16 @@ struct StravaService {
             let token = try await keeper.accessToken()
             let _ = try await network.postJSON(dto: dto, url: activitiesURL, authToken: token)
         }
-        catch let error as NetworkService.ServiceError {
-            if case .reachability = error { throw ServiceError.reachability }
-            throw ServiceError.unknown
+        catch let error as NetworkService.DomainError {
+            if case .reachability = error { throw DomainError.reachability }
+            throw DomainError.unknown
         }
-        catch let error as StravaTokenKeeper.KeeperError {
-            if case .reachability = error { throw ServiceError.reachability }
-            throw ServiceError.unknown
+        catch let error as StravaTokenKeeper.DomainError {
+            if case .reachability = error { throw DomainError.reachability }
+            throw DomainError.unknown
         }
         catch {
-            throw ServiceError.unknown
+            throw DomainError.unknown
         }
     }
     
