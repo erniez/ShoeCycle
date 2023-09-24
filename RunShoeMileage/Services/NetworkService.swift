@@ -31,9 +31,9 @@ protocol JSONNetworkService: ThrowingService {
      body of the call.
      
      - Parameters:
-     - dto: Encodable DTO object (The CodingKeys must map to the parameters that the endpoint is expecting)
-     - url: The URL of the desired API endpoint.
-     - authToken: Option authorization token. If provided, it will be added to the header.
+        - dto: Encodable DTO (Data Transfer Object). The CodingKeys must map to the parameters that the endpoint is expecting.
+        - url: The URL of the desired API endpoint.
+        - authToken: Option authorization token. If provided, it will be added to the header.
      - Returns: Response Data (currently I have no domain response objects, so this is just data rather than a Decodable).
      - Throws: Domain Error of the concrete service.
      */

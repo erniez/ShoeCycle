@@ -8,33 +8,38 @@
 import Foundation
 
 
-struct StravaActivityDTO: Codable {
-    let name: String
-    let elapsed_time: String
-    let distance: String
-    let start_date_local: String
-    let type: String
+/// Activity used to send to the Strava API
+struct StravaActivity: Codable {
+    enum CodingKeys: String, CodingKey {
+        case elapsedTime = "elapsed_time"
+        case startDateLocal = "start_date_local"
+        case name
+        case type
+        case distance
+    }
     
-    init(activity: StravaActivity) {
-        name = activity.name
-        elapsed_time = activity.elapsedTime.stringValue
-        distance = activity.distance.stringValue
-        start_date_local = activity.startDateLocal
-        type = activity.type
-    }
-}
-
-struct StravaActivity {
     let name: String
-    let type = "run"
-    let distance: NSNumber // in meters
-    let elapsedTime: NSNumber = (0)
-    let startDate: Date
-    var startDateLocal: String {
-        DateFormatter.UTCDate.string(from: startDate)
+    let type: String = "run"
+    let distance: String // in meters
+    let elapsedTime: String = "0.0"
+    let startDateLocal: String
+    
+    /**
+     Activity used to send to the Strava API
+     
+     - Parameters:
+        - name: Name to appear in the title of the activity
+        - distance: Distance as an NSNumber in meters
+        - startDate: Date of the run
+     */
+    init(name: String, distance: NSNumber, startDate: Date) {
+        self.name = name
+        self.distance = distance.stringValue
+        self.startDateLocal = DateFormatter.UTCDate.string(from: startDate)
     }
 }
 
+/// Service to interact with the Strava API
 struct StravaService: ThrowingService {
     enum DomainError: Error {
         case unknown
@@ -45,11 +50,15 @@ struct StravaService: ThrowingService {
     private let network = NetworkService()
     private let keeper = StravaTokenKeeper()
     
+    /**
+     Send Strava activity to the API.
+     - Parameter activity: Strave activity, mostly just used for distance. Distance is defined in meters.
+     - Throws: StravaService.DomainError
+     */
     func send(activity: StravaActivity) async throws {
-        let dto = StravaActivityDTO(activity: activity)
         do {
             let token = try await keeper.accessToken()
-            let _ = try await network.postJSON(dto: dto, url: activitiesURL, authToken: token)
+            let _ = try await network.postJSON(dto: activity, url: activitiesURL, authToken: token)
         }
         catch let error as NetworkService.DomainError {
             if case .reachability = error { throw DomainError.reachability }
