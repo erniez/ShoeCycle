@@ -475,9 +475,9 @@
 		1B68ACA02ABF943800348E8A /* DatabaseAndHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				1B876F562207E9AF00964400 /* WeeklyCollated.swift */,
 				1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */,
 				1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */,
+				1B876F562207E9AF00964400 /* WeeklyCollated.swift */,
 			);
 			name = DatabaseAndHelpers;
 			sourceTree = "<group>";
@@ -485,8 +485,29 @@
 		1B68ACA12ABF95D400348E8A /* LegacyCode */ = {
 			isa = PBXGroup;
 			children = (
+				1B9EA805220685BE000FA58B /* Protocols */,
+				1BC46D1F1E4FAC1D002204E2 /* DatabaseModelsAndHelpers */,
+				1BE34AE01AFDCF7900CF83EE /* API */,
+				EA7194171A4B47ED00C2517A /* Storyboards */,
+				1B80342A1A34C17500126C59 /* Global */,
+				1B381A6619E1C293002C3FD7 /* Shared Objects */,
+				1B381A6519E1C230002C3FD7 /* Classes */,
+				1B76CA1319D5AE890063F2F2 /* Utilities */,
+				1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */,
 			);
 			name = LegacyCode;
+			sourceTree = "<group>";
+		};
+		1B68ACA42ABFAD4100348E8A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1B0AD7F82A2FA724006AB307 /* ActiveShoesScreen */,
+				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
+				1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */,
+				1B0AD8002A3123A3006AB307 /* SettingsScreen */,
+				1B3D29D82A46316C00BE7956 /* ShoeDetailView */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 		1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */ = {
@@ -625,36 +646,23 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
-				1B68ACA02ABF943800348E8A /* DatabaseAndHelpers */,
 				1BA7B2C82ABCBCE80005958E /* Analytics */,
-				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
-				1BE540622AA81E5100DCC109 /* Services */,
-				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
-				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
 				1B49035E2A7B4AF500422CED /* Common Swift */,
-				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
-				1B0AD7F82A2FA724006AB307 /* ActiveShoesScreen */,
-				1B3D29D82A46316C00BE7956 /* ShoeDetailView */,
-				1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */,
-				1B0AD8002A3123A3006AB307 /* SettingsScreen */,
+				1B3D29D32A3E791C00BE7956 /* CommonSwiftUI */,
+				1B68ACA02ABF943800348E8A /* DatabaseAndHelpers */,
 				1B68ACA12ABF95D400348E8A /* LegacyCode */,
-				1B9EA805220685BE000FA58B /* Protocols */,
-				1BC46D1F1E4FAC1D002204E2 /* DatabaseModelsAndHelpers */,
-				1BE34AE01AFDCF7900CF83EE /* API */,
-				EA7194171A4B47ED00C2517A /* Storyboards */,
-				1B80342A1A34C17500126C59 /* Global */,
-				1B381A6619E1C293002C3FD7 /* Shared Objects */,
-				1B381A6519E1C230002C3FD7 /* Classes */,
-				1B76CA1319D5AE890063F2F2 /* Utilities */,
-				1B76CA0C19D5ABEA0063F2F2 /* Categories And Extensions */,
+				1BE540622AA81E5100DCC109 /* Services */,
+				1B68ACA42ABFAD4100348E8A /* UI */,
+				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
+				1B30A82A21F20FD200AF22A7 /* AppViewController.swift */,
+				1B30A82521EF770300AF22A7 /* Launch Screen.storyboard */,
+				1B30A82721EF77DC00AF22A7 /* Launch.storyboard */,
+				1B30A82321EF756400AF22A7 /* LaunchViewController.swift */,
 				1BCF644C148AF7E7004C0E6A /* ShoeCycleAppDelegate.h */,
 				1BCF644D148AF7E7004C0E6A /* ShoeCycleAppDelegate.m */,
 				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
 				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
-				1B30A82321EF756400AF22A7 /* LaunchViewController.swift */,
-				1B30A82521EF770300AF22A7 /* Launch Screen.storyboard */,
-				1B30A82721EF77DC00AF22A7 /* Launch.storyboard */,
-				1B30A82A21F20FD200AF22A7 /* AppViewController.swift */,
+				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 			);
 			name = ShoeCycle;
 			path = RunShoeMileage;
