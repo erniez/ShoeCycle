@@ -16,7 +16,7 @@ protocol ThrowingService {
 /**
  Functions to implement a networking service that deals with JSON data within a REST API
  */
-protocol JSONNetworkService: ThrowingService {
+protocol RESTService: ThrowingService {
     /**
      A standard GET call that transforms the network return data to a Decodable object.
      
@@ -25,6 +25,15 @@ protocol JSONNetworkService: ThrowingService {
      - Throws: Domain Error of the concrete service.
      */
     func getJSONData<T:Decodable>(url: URL) async throws -> T
+    
+    /**
+     A pure GET call that returns raw data
+     
+     - Parameter url: Endpoint URL
+     - Returns: a raw DATA object
+     - Throws: DomainError
+     */
+    func getData(url: URL) async throws -> Data
     
     /**
      A standard POST call that transforms the encodable DTO into JSON data that is then added to the
@@ -38,9 +47,18 @@ protocol JSONNetworkService: ThrowingService {
      - Throws: Domain Error of the concrete service.
      */
     func postJSON(dto: Encodable, url: URL, authToken: String?) async throws -> Data
+    
+    /**
+     A pure POST call that adds the raw data to the body of the call.
+     
+     - Parameter url: Endpoint URL
+     - Returns: a raw DATA object
+     - Throws: DomainError
+     */
+    func post(request: URLRequest, data: Data) async throws -> Data
 }
 
-class NetworkService: JSONNetworkService {
+class NetworkService: RESTService {
     enum DomainError: Error {
         case unknown
         case reachability
@@ -66,13 +84,6 @@ class NetworkService: JSONNetworkService {
         }
     }
     
-    /**
-     A pure GET call that returns raw data
-     
-     - Parameter url: Endpoint URL
-     - Returns: a raw DATA object
-     - Throws: DomainError
-     */
     func getData(url: URL) async throws -> Data {
         do {
             let (data, response) = try await session.data(from: url)
@@ -102,13 +113,6 @@ class NetworkService: JSONNetworkService {
         }
     }
     
-    /**
-     A pure POST call that adds the raw data to the body of the call.
-     
-     - Parameter url: Endpoint URL
-     - Returns: a raw DATA object
-     - Throws: DomainError
-     */
     func post(request: URLRequest, data: Data) async throws -> Data {
         do {
             let (data, urlResponse) = try await session.upload(for: request, from: data)

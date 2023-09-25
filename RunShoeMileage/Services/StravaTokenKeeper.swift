@@ -23,6 +23,7 @@ struct StravaToken: Codable {
     }
 }
 
+/// Strava Token storage and management
 struct StravaTokenKeeper: ThrowingService {
     enum DomainError: Error {
         case unknown
@@ -30,14 +31,31 @@ struct StravaTokenKeeper: ThrowingService {
         case reachability
     }
     
-    private let network = NetworkService()
+    private let network: any RESTService
     
+    /**
+     Initialize the StravaTokenKeeper
+     - Parameter networkService: Any object that conforms to RESTService. Defaults to NetworkService().
+     */
+    init(networkService: any RESTService = NetworkService()) {
+        // Allows for dependency injection
+        network = networkService
+    }
+    
+    /**
+     Store token in User Defaults
+     - Parameter token: The StravaToken to store
+     */
     func store(token: StravaToken) {
         if let tokenData = try? token.jsonEncode() {
             UserDefaults.standard.set(tokenData, forKey: UserSettings.StorageKey.stravaToken)
         }
     }
     
+    /**
+     Grab the Strava token in storage, or reach out to the network and fetch, if necessary
+     - Returns: The token as a StravaToken object
+     */
     func stravaToken() async throws -> StravaToken {
         if let tokenData = UserDefaults.standard.object(forKey: UserSettings.StorageKey.stravaToken) as? Data {
             do {
@@ -63,14 +81,25 @@ struct StravaTokenKeeper: ThrowingService {
         throw DomainError.unknown
     }
     
+    /**
+     Grab the Strava token in storage, or reach out to the network and fetch, if necessary
+     - Returns: The token in String format
+     */
     func accessToken() async throws -> String {
         return try await stravaToken().token
     }
     
+    /// Delete the token from UserDefults
     func eraseToken() {
         UserDefaults.standard.set(nil, forKey: UserSettings.StorageKey.stravaToken)
     }
     
+    /**
+     Refresh the Strava token via the api
+     - Parameter token: Strava token to refresh
+     - Returns: New StravaToken object
+     - Throws: Domain Error
+     */
     private func refresh(token: StravaToken) async throws -> StravaToken {
         let url = URL(string: StravaURLs.oauthRefreshURL)!
         var request = URLRequest(url: url)
