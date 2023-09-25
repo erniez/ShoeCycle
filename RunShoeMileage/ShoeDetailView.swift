@@ -162,8 +162,10 @@ struct ShoeDetailView: View {
             
             #if DEBUG
             Button("Generate Histories") {
+                updateShoes(viewModel: viewModel)
                 MockShoeGenerator(store: shoeStore).addRunHistories(to: viewModel.shoe, saveData: true)
                 shoeStore.updateAllShoes()
+                dismiss()
             }
             #endif
             
