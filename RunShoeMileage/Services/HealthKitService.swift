@@ -8,6 +8,8 @@
 import Foundation
 import HealthKit
 
+
+/// HealthKit Service to store runs and handle authorization.
 class HealthKitService: ObservableObject, ThrowingService {
     let isHealthDataAvailable: Bool
     @Published var authorizationStatus: HKAuthorizationStatus
@@ -29,6 +31,13 @@ class HealthKitService: ObservableObject, ThrowingService {
         authorizationStatus = healthStore.authorizationStatus(for: runQuantityType)
     }
     
+    /**
+     Request for authorization of HealthKit
+     
+     This function will update the authorizationStatus property with HealthKit's authorization status.
+     If unknown, the system will prompt the user for authorization. Then update the authorizationStatus property
+     with the user's response.
+     */
     func requestAccessToHealthKitForShoeCycle() async throws {
         if authorizationStatus != .sharingAuthorized {
             do {
@@ -38,7 +47,6 @@ class HealthKitService: ObservableObject, ThrowingService {
                 }
             }
             catch let error as HKError {
-                print(error)
                 if error.code == .errorAuthorizationDenied {
                     throw DomainError.healthDataSharingDenied
                 }
@@ -57,6 +65,13 @@ class HealthKitService: ObservableObject, ThrowingService {
         }
     }
     
+    /**
+     Save a run to HealthKit
+     - Parameters:
+        - distance: Distance in miles.
+        - date: Date of run.
+        - metadata: Entry metadata
+     */
     func saveRun(distance: Double, date: Date, metadata: [String : String]) async throws {
         guard healthStore.authorizationStatus(for: runQuantityType) == .sharingAuthorized else {
             throw DomainError.healthDataSharingDenied
