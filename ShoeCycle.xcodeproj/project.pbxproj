@@ -485,6 +485,8 @@
 		1B68ACA12ABF95D400348E8A /* LegacyCode */ = {
 			isa = PBXGroup;
 			children = (
+				1B30A82A21F20FD200AF22A7 /* AppViewController.swift */,
+				1B30A82321EF756400AF22A7 /* LaunchViewController.swift */,
 				1B9EA805220685BE000FA58B /* Protocols */,
 				1BC46D1F1E4FAC1D002204E2 /* DatabaseModelsAndHelpers */,
 				1BE34AE01AFDCF7900CF83EE /* API */,
@@ -501,6 +503,7 @@
 		1B68ACA42ABFAD4100348E8A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
 				1B0AD7F82A2FA724006AB307 /* ActiveShoesScreen */,
 				1B1738DD2A06A26C006D632D /* AddDistanceScreen */,
 				1B0AD7FD2A30EA12006AB307 /* HallOfFameScreen */,
@@ -653,11 +656,8 @@
 				1BE540622AA81E5100DCC109 /* Services */,
 				1B68ACA42ABFAD4100348E8A /* UI */,
 				1B68ACA12ABF95D400348E8A /* LegacyCode */,
-				1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */,
-				1B30A82A21F20FD200AF22A7 /* AppViewController.swift */,
 				1B30A82521EF770300AF22A7 /* Launch Screen.storyboard */,
 				1B30A82721EF77DC00AF22A7 /* Launch.storyboard */,
-				1B30A82321EF756400AF22A7 /* LaunchViewController.swift */,
 				1BCF644C148AF7E7004C0E6A /* ShoeCycleAppDelegate.h */,
 				1BCF644D148AF7E7004C0E6A /* ShoeCycleAppDelegate.m */,
 				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
