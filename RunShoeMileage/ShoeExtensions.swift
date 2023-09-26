@@ -106,8 +106,6 @@ extension Shoe {
     }
     
     static func runDistanceTotal(histories: [History]) -> Double {
-        var totalDistance: Double = 0
-        histories.forEach { totalDistance += $0.runDistance.doubleValue }
-        return totalDistance
+        return histories.total(initialValue: 0.0, for: \.runDistance.doubleValue)
     }
 }

@@ -58,6 +58,7 @@
 		1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B62EB942A5231FC00226147 /* ImageStore.swift */; };
 		1B68ACA32ABFA9BE00348E8A /* StravaURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */; };
+		1B68ACA62AC3530C00348E8A /* SequenceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */; };
 		1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */; };
 		1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */; };
 		1B715A5614AE65EF002207FA /* StandardDistancesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B715A5414AE65EE002207FA /* StandardDistancesViewController.xib */; };
@@ -216,6 +217,7 @@
 		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
 		1B62EB942A5231FC00226147 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaURLs.swift; sourceTree = "<group>"; };
+		1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceExtension.swift; sourceTree = "<group>"; };
 		1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
 		1B715A5214AE65EE002207FA /* StandardDistancesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardDistancesViewController.h; sourceTree = "<group>"; };
 		1B715A5314AE65EE002207FA /* StandardDistancesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardDistancesViewController.m; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
 				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
 				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
+				1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */,
 			);
 			name = "Common Swift";
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */,
 				1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */,
 				1B2248EF1C82A3A50081518A /* EmailUtility.swift in Sources */,
+				1B68ACA62AC3530C00348E8A /* SequenceExtension.swift in Sources */,
 				1BE540682AAA231300DCC109 /* StravaTokenKeeper.swift in Sources */,
 				1B7D4B1B19D27F42000094DE /* RunDatePickerViewController.m in Sources */,
 				1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */,

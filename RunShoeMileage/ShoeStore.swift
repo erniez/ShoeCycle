@@ -98,7 +98,7 @@ class ShoeStore: ObservableObject {
     }
     
     func updateTotalDistance(shoe: Shoe) {
-        let runTotal = shoe.history.reduce(shoe.startDistance.floatValue) { $0 + $1.runDistance.floatValue }
+        let runTotal = shoe.history.total(initialValue: shoe.startDistance.doubleValue, for: \.runDistance.doubleValue)
         print("Total Distance: \(String(runTotal))")
         shoe.totalDistance = NSNumber(value: runTotal)
     }
