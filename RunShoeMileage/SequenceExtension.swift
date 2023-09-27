@@ -9,8 +9,8 @@ import Foundation
 
 
 extension Sequence {
-    func total<T: Numeric>(initialValue: T, for keyPath: KeyPath<Element, T>) -> T {
-        return reduce(0) { total, element in
+    func total<T: AdditiveArithmetic>(initialValue: T, for keyPath: KeyPath<Element, T>) -> T {
+        return reduce(initialValue) { total, element in
             total + element[keyPath: keyPath]
         }
     }
