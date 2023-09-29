@@ -19,7 +19,7 @@ struct SelectedShoeStrategy {
     
     func updateSelectedShoe() {
         guard store.activeShoes.count > 0 else {
-            settings.setSelected(shoe: nil)
+            settings.setSelected(shoeUrl: nil)
             return
         }
         // If we have a selected shoe URL, then find the first match.
@@ -44,8 +44,7 @@ struct SelectedShoeStrategy {
     
     private func selectFirstActiveShoe() {
         if let shoe = store.activeShoes.first {
-            settings.setSelected(shoe: shoe)
-            return
+            settings.setSelected(shoeUrl: shoe.objectID.uriRepresentation())
         }
     }
 }

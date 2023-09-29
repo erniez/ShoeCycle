@@ -89,7 +89,7 @@ class ShoeStore: ObservableObject {
 
     func remove(shoe: Shoe) {
         if shoe.objectID.uriRepresentation() == settings.selectedShoeURL {
-            settings.setSelected(shoe: nil)
+            settings.setSelected(shoeUrl: nil)
         }
         ImageStore_Legacy.defaultImageStore().deleteImage(forKey: shoe.imageKey)
         context.delete(shoe)

@@ -8,6 +8,11 @@
 import Foundation
 
 class UserSettings: ObservableObject {
+    
+    @propertyWrapper struct MyTestWrapper {
+        var wrappedValue: Double
+    }
+    
     @propertyWrapper struct FavoriteDistance {
         var wrappedValue: Double {
             get {
@@ -83,10 +88,10 @@ class UserSettings: ObservableObject {
         
     }
     
-    func setSelected(shoe: Shoe?) {
-        if let shoe = shoe {
-            selectedShoeURL = shoe.objectID.uriRepresentation()
-            defaults.set(selectedShoeURL, forKey: StorageKey.selectedShoe)
+    func setSelected(shoeUrl: URL?) {
+        if let url = shoeUrl {
+            selectedShoeURL = url
+            defaults.set(url, forKey: StorageKey.selectedShoe)
         }
         else {
             selectedShoeURL = nil
@@ -94,9 +99,9 @@ class UserSettings: ObservableObject {
         }
     }
     
-    func isSelected(shoe: Shoe) -> Bool {
+    func isSelected(shoeURL: URL) -> Bool {
         if let selectedShoe = selectedShoeURL {
-            if shoe.objectID.uriRepresentation() == selectedShoe {
+            if shoeURL == selectedShoe {
                 return true
             }
             else {

@@ -71,12 +71,12 @@ struct AddDistanceView: View {
         case -Double.infinity ..< -minimumDrag: // Swipe up
             if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex < shoeStore.activeShoes.count - 1 {
                 let shoe = shoeStore.activeShoes[shoeIndex + 1]
-                settings.setSelected(shoe: shoe)
+                settings.setSelected(shoeUrl: shoe.objectID.uriRepresentation())
             }
         case minimumDrag ..< Double.infinity:  // Swipe down
             if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex > 0 {
                 let shoe = shoeStore.activeShoes[shoeIndex - 1]
-                settings.setSelected(shoe: shoe)
+                settings.setSelected(shoeUrl: shoe.objectID.uriRepresentation())
             }
         default:
             break // Do nothing

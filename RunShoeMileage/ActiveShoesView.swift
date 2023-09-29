@@ -25,7 +25,9 @@ struct ActiveShoesView: View {
             List {
                 ForEach(shoeStore.activeShoes, id: \.objectID) { shoe in
                     NavigationLink(value: shoe) {
-                        ActiveShoesRowView(shoe: shoe)
+                        ActiveShoesRowView(viewModel: ActiveShoesRowViewModel(brand: shoe.brand,
+                                                                              totalDistance: shoe.totalDistance.doubleValue,
+                                                                              shoeURL: shoe.objectID.uriRepresentation()))
                     }
                 }
                 .onDelete { indexSet in
@@ -88,23 +90,25 @@ struct ActiveShoesView_Previews: PreviewProvider {
     }
 }
 
+struct ActiveShoesRowViewModel {
+    let brand: String
+    let totalDistance: Double
+    let shoeURL: URL
+}
+
 struct ActiveShoesRowView: View {
-    let shoe: Shoe
-    // TODO: Look into the following problem closer. It's a code smell to me.
-    // Selection of a row after a Deletion is crashing app. It appears the deleted cell
-    // is still in memory somehow, and it crashes the app when the row trys to render,
-    // because the shoe has been deleted and its values are nil.
-    // I've put nil coalescers in as a bandaid.
+    let viewModel: ActiveShoesRowViewModel
     @EnvironmentObject var settings: UserSettings
     var isSelected: Bool {
-        settings.isSelected(shoe: shoe)
+        settings.isSelected(shoeURL: viewModel.shoeURL)
     }
+    
     private let distanceUtility = DistanceUtility()
     
     var body: some View {
         VStack {
             HStack {
-                Text(shoe.brand ?? "")
+                Text(viewModel.brand)
                     .font(.title2)
                     .bold(isSelected)
                 Spacer()
@@ -115,14 +119,14 @@ struct ActiveShoesRowView: View {
                         .padding([.trailing], 8)
                         .foregroundColor(.shoeCycleOrange)
                 }
-                Text("Distance: \(distanceUtility.displayString(for: shoe.totalDistance?.doubleValue ?? 0.0)) \(settings.distanceUnit.displayString())")
+                Text("Distance: \(distanceUtility.displayString(for: viewModel.totalDistance)) \(settings.distanceUnit.displayString())")
                 Spacer()
             }
         }
         .contentShape(Rectangle())
         .padding([.trailing], 16)
         .onTapGesture {
-            settings.setSelected(shoe: shoe)
+            settings.setSelected(shoeUrl: viewModel.shoeURL)
         }
         .animation(.linear, value: settings.selectedShoeURL)
     }
