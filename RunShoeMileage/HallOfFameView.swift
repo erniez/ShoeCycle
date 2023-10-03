@@ -15,7 +15,7 @@ struct HallOfFameView: View {
     
     var body: some View {
         if shoeStore.hallOfFameShoes.isEmpty {
-            Text("You have no shoes in the Hall of Fame. To add one, please edit the shoe you want to add.")
+            Text("You have no shoes in the Hall of Fame. Please go to the Active Shoes tab and edit the shoe you want to add.")
                 .multilineTextAlignment(.center)
                 .padding()
         }
@@ -33,14 +33,18 @@ struct HallOfFameView: View {
                     }
                 }
                 .navigationDestination(for: Shoe.self) { shoe in
-                    ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe),
-                                   selectedShoeStrategy: selectedShoeStrategy)
+                    if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: shoe.objectID.uriRepresentation()) {
+                        ShoeDetailView(viewModel: viewModel,
+                                       selectedShoeStrategy: selectedShoeStrategy)
+                    }
                 }
                 .navigationTitle("Hall of Fame Shoes")
             }
         }
     }
 }
+
+
 
 struct HallOfFameRowView: View {
     let shoe: Shoe

@@ -33,19 +33,26 @@ struct ActiveShoesView: View {
                 .onDelete { indexSet in
                     let shoesToRemove = indexSet.map { shoes[$0] }
                     shoesToRemove.forEach { viewModel in
-                        print(viewModel.shoe.objectID)
                         if let index = shoes.firstIndex(of: viewModel) {
                             shoes.remove(at: index)
                         }
                     }
-                    shoesToRemove.forEach { shoeStore.remove(shoe: $0.shoe) }
+                    shoesToRemove.forEach { viewModel in
+                        guard let shoe = viewModel.getShoe() else {
+                            return
+                        }
+                        shoeStore.remove(shoe: shoe)
+                    }
                     shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
                     selectedShoeStrategy.updateSelectedShoe()
                 }
             }
             .navigationDestination(for: Shoe.self) { shoe in
-                ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe),
-                               selectedShoeStrategy: selectedShoeStrategy)
+                if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: shoe.objectID.uriRepresentation()) {
+                    ShoeDetailView(viewModel: viewModel,
+                                   selectedShoeStrategy: selectedShoeStrategy)
+                }
+
             }
             .navigationTitle("Active Shoes")
             .toolbar {
@@ -61,32 +68,27 @@ struct ActiveShoesView: View {
             // Update view models to account for an added shoe
             shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
         }) {
-            let shoe = shoeStore.createShoe()
-            ShoeDetailView(viewModel: ShoeDetailViewModel(shoe: shoe, isNewShoe: true),
+            let shoe = createShoe()
+            ShoeDetailView(viewModel: ShoeDetailViewModel(store: shoeStore, shoeURL: shoe.objectID.uriRepresentation(), newShoe: shoe)!,
                            selectedShoeStrategy: selectedShoeStrategy)
         }
         .onAppear {
             selectedShoeStrategy.updateSelectedShoe()
         }
     }
+    
+    func createShoe() -> Shoe {
+        let shoe = shoeStore.createShoe()
+        shoeStore.saveContext()
+        return shoe
+    }
 }
 
 extension ActiveShoesView {
     static func generateViewModelsFromActiveShoes(from store: ShoeStore) -> [ShoeDetailViewModel] {
         return store.activeShoes.compactMap { shoe in
-            return ShoeDetailViewModel(shoe: shoe)
+            return ShoeDetailViewModel(store: store, shoeURL: shoe.objectID.uriRepresentation())
         }
-    }
-}
-
-struct ActiveShoesView_Previews: PreviewProvider {
-    static var shoes = ActiveShoesView.generateViewModelsFromActiveShoes(from: ShoeStore())
-    static var shoeStore = ShoeStore()
-    
-    static var previews: some View {
-        ActiveShoesView(shoes: shoes,
-                        selectedShoeStrategy: SelectedShoeStrategy(store: shoeStore, settings: UserSettings.shared))
-            .environmentObject(shoeStore)
     }
 }
 
@@ -131,3 +133,15 @@ struct ActiveShoesRowView: View {
         .animation(.linear, value: settings.selectedShoeURL)
     }
 }
+
+struct ActiveShoesView_Previews: PreviewProvider {
+    static var shoes = ActiveShoesView.generateViewModelsFromActiveShoes(from: ShoeStore())
+    static var shoeStore = ShoeStore()
+    
+    static var previews: some View {
+        ActiveShoesView(shoes: shoes,
+                        selectedShoeStrategy: SelectedShoeStrategy(store: shoeStore, settings: UserSettings.shared))
+            .environmentObject(shoeStore)
+    }
+}
+

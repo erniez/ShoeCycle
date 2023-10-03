@@ -8,8 +8,7 @@
 import Foundation
 import CoreData
 
-// I can make this class usable in Objective C, but my intent is to get rid of all
-// Objective C code, so there's no need.
+
 class ShoeStore: ObservableObject {
     
     @Published var activeShoes: [Shoe] = []
@@ -60,7 +59,7 @@ class ShoeStore: ObservableObject {
         guard let url = url else {
             return nil
         }
-        return activeShoes.first { shoe in
+        return allShoes.first { shoe in
             url == shoe.objectID.uriRepresentation()
         }
     }

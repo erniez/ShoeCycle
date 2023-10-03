@@ -15,24 +15,24 @@ struct HallOfFameSelector: View {
         HStack {
             Text("🏆")
             Group {
-                if viewModel.shoe.hallOfFame == true {
+                if viewModel.hallOfFame == true {
                     Text("Remove from Hall of Fame")
                         .onTapGesture {
-                            viewModel.shoe.hallOfFame = false
+                            viewModel.hallOfFame = false
                             viewModel.hasChanged = true
                         }
                 }
                 else {
                     Text("Add to Hall of Fame")
                         .onTapGesture {
-                            viewModel.shoe.hallOfFame = true
+                            viewModel.hallOfFame = true
                             viewModel.hasChanged = true
                         }
                 }
             }
         }
-        .animation(.default, value: viewModel.shoe.hallOfFame)
-        .onChange(of: viewModel.shoe.hallOfFame) { newValue in
+        .animation(.default, value: viewModel.hallOfFame)
+        .onChange(of: viewModel.hallOfFame) { newValue in
             if newValue == true {
                 logger.logEvent(name: AnalyticsKeys.Event.addToHOFEvent, userInfo: nil)
             }

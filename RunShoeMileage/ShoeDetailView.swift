@@ -11,7 +11,7 @@ import PhotosUI
 class ShoeDetailViewModel: ObservableObject, Hashable {
     
     static func == (lhs: ShoeDetailViewModel, rhs: ShoeDetailViewModel) -> Bool {
-        return lhs.shoe.objectID == rhs.shoe.objectID
+        return lhs.shoeURL == rhs.shoeURL
     }
     
     @Published var shoeName: String {
@@ -40,23 +40,72 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
         }
     }
     
-    let shoe: Shoe
-    let isNewShoe: Bool
-    @Published var hasChanged = false
-    
-    private let distanceUtility = DistanceUtility()
-    
-    init(shoe: Shoe, isNewShoe: Bool = false) {
-        self.shoe = shoe
-        shoeName = shoe.brand
-        startDistance = distanceUtility.displayString(for: shoe.startDistance.doubleValue)
-        maxDistance = distanceUtility.displayString(for: shoe.maxDistance.doubleValue)
-        startDate = shoe.startDate
-        expirationDate = shoe.expirationDate
-        self.isNewShoe = isNewShoe
+    var isNewShoe: Bool {
+        return newShoe != nil
     }
     
+    var hallOfFame: Bool {
+        get {
+            guard let shoe = getShoe() else {
+                return false
+            }
+            return shoe.hallOfFame
+        }
+        set {
+            guard let shoe = getShoe() else {
+                return
+            }
+            shoe.hallOfFame = newValue
+        }
+    }
+    
+    let shoeURL: URL
+    let newShoe: Shoe?
+    @Published var hasChanged = false
+    
+    private let store: ShoeStore
+    private let distanceUtility = DistanceUtility()
+    
+    init?(store: ShoeStore, shoeURL: URL, newShoe: Shoe? = nil) {
+        self.shoeURL = shoeURL
+        self.store = store
+        if let shoe = newShoe {
+            shoeName = shoe.brand
+            startDistance = distanceUtility.displayString(for: shoe.startDistance.doubleValue)
+            maxDistance = distanceUtility.displayString(for: shoe.maxDistance.doubleValue)
+            startDate = shoe.startDate
+            expirationDate = shoe.expirationDate
+        }
+        else {
+            guard let shoe = store.getShoe(from: shoeURL) else {
+                return nil
+            }
+            shoeName = shoe.brand
+            startDistance = distanceUtility.displayString(for: shoe.startDistance.doubleValue)
+            maxDistance = distanceUtility.displayString(for: shoe.maxDistance.doubleValue)
+            startDate = shoe.startDate
+            expirationDate = shoe.expirationDate
+        }
+        self.newShoe = newShoe
+    }
+    
+    /**
+     Picks which shoe to update. If it's a new shoe, we update that one.
+     Otherwise, we update the one pointed to by the URL, if it still exists.
+     If neither shoe exists, we return with no action.
+    */
     func updateShoeValues() {
+        let shoeToUpdate: Shoe?
+        if isNewShoe {
+            shoeToUpdate = newShoe
+        }
+        else {
+            shoeToUpdate = store.getShoe(from: shoeURL)
+        }
+        
+        guard let shoe = shoeToUpdate else {
+            return
+        }
         shoe.brand = shoeName
         shoe.startDistance = NSNumber(value: distanceUtility.distance(from: startDistance))
         shoe.maxDistance = NSNumber(value: distanceUtility.distance(from: maxDistance))
@@ -64,8 +113,15 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
         shoe.expirationDate = expirationDate
     }
     
+    func getShoe() -> Shoe? {
+        if let shoe = newShoe {
+            return shoe
+        }
+        return store.getShoe(from: shoeURL)
+    }
+    
     func hash(into hasher: inout Hasher) {
-        hasher.combine(shoe.objectID)
+        hasher.combine(shoeURL)
     }
 }
 
@@ -77,118 +133,126 @@ struct ShoeDetailView: View {
     let selectedShoeStrategy: SelectedShoeStrategy
     
     var body: some View {
-        VStack {
-            if viewModel.isNewShoe == true {
-                HStack {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                    Spacer()
-                    Button("Done") {
-                        updateShoes(viewModel: viewModel)
-                        dismiss()
-                    }
-                }
-            }
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Name:")
-                TextField("Shoe Name", text: $viewModel.shoeName, prompt: Text("Shoe Name"))
-                    .textFieldStyle(TextEntryStyle())
-                    .padding([.bottom], 8)
-            }
-            .padding([.horizontal, .top], 16)
-            .foregroundColor(.white)
-            .shoeCycleSection(title: "Shoe", color: .shoeCycleOrange, image: Image("shoe"))
-            .fixedSize(horizontal: false, vertical: true)
-            
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Start:")
-                    TextField("Start Distance", text: $viewModel.startDistance)
-                        .textFieldStyle(.numberEntry)
-                }
-                .padding([.horizontal], 16)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Max:")
-                    TextField("Max Distance", text: $viewModel.maxDistance)
-                        .textFieldStyle(.numberEntry)
-                }
-                .padding([.horizontal], 16)
-            }
-            .foregroundColor(.white)
-            .shoeCycleSection(title: "Distance", color: .shoeCycleGreen, image: Image("steps"))
-            .fixedSize(horizontal: false, vertical: true)
-            
+        if let shoe = viewModel.getShoe() {
             VStack {
-                HStack {
-                    Text("Start:")
-                    Spacer()
-                    DatePicker("Start Date",
-                               selection: $viewModel.startDate,
-                               displayedComponents: [.date])
-                    .accentColor(.shoeCycleOrange)
-                    .foregroundColor(.white)
-                    .labelsHidden()
-                    .datePickerStyle(.compact)
-                    .background(Color(uiColor: .systemGray6))
-                    .cornerRadius(8)
+                if viewModel.isNewShoe == true {
+                    HStack {
+                        Button("Cancel") {
+                            dismiss()
+                        }
+                        Spacer()
+                        Button("Done") {
+                            updateShoes(viewModel: viewModel)
+                            dismiss()
+                        }
+                    }
                 }
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Name:")
+                    TextField("Shoe Name", text: $viewModel.shoeName, prompt: Text("Shoe Name"))
+                        .textFieldStyle(TextEntryStyle())
+                        .padding([.bottom], 8)
+                }
+                .padding([.horizontal, .top], 16)
+                .foregroundColor(.white)
+                .shoeCycleSection(title: "Shoe", color: .shoeCycleOrange, image: Image("shoe"))
+                .fixedSize(horizontal: false, vertical: true)
+                
                 HStack {
-                    Text("End:")
-                    Spacer()
-                    DatePicker("Expiration Date",
-                               selection: $viewModel.expirationDate,
-                               displayedComponents: [.date])
-                    .accentColor(.shoeCycleOrange)
-                    .foregroundColor(.white)
-                    .labelsHidden()
-                    .datePickerStyle(.compact)
-                    .background(Color(uiColor: .systemGray6))
-                    .cornerRadius(8)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Start:")
+                        TextField("Start Distance", text: $viewModel.startDistance)
+                            .textFieldStyle(.numberEntry)
+                    }
+                    .padding([.horizontal], 16)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Max:")
+                        TextField("Max Distance", text: $viewModel.maxDistance)
+                            .textFieldStyle(.numberEntry)
+                    }
+                    .padding([.horizontal], 16)
+                }
+                .foregroundColor(.white)
+                .shoeCycleSection(title: "Distance", color: .shoeCycleGreen, image: Image("steps"))
+                .fixedSize(horizontal: false, vertical: true)
+                
+                VStack {
+                    HStack {
+                        Text("Start:")
+                        Spacer()
+                        DatePicker("Start Date",
+                                   selection: $viewModel.startDate,
+                                   displayedComponents: [.date])
+                        .accentColor(.shoeCycleOrange)
+                        .foregroundColor(.white)
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .background(Color(uiColor: .systemGray6))
+                        .cornerRadius(8)
+                    }
+                    HStack {
+                        Text("End:")
+                        Spacer()
+                        DatePicker("Expiration Date",
+                                   selection: $viewModel.expirationDate,
+                                   displayedComponents: [.date])
+                        .accentColor(.shoeCycleOrange)
+                        .foregroundColor(.white)
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .background(Color(uiColor: .systemGray6))
+                        .cornerRadius(8)
+                    }
+                }
+                .foregroundColor(.white)
+                .shoeCycleSection(title: "Wear Time", color: .shoeCycleBlue, image: Image("clock"))
+                .fixedSize(horizontal: false, vertical: true)
+                
+                ShoeImage(shoe: shoe)
+                    .padding([.horizontal], 32)
+                
+                HallOfFameSelector(viewModel: viewModel)
+                    .padding([.top], 16)
+                
+                Spacer()
+                
+                #if DEBUG
+                Button("Generate Histories") {
+                    updateShoes(viewModel: viewModel)
+                    MockShoeGenerator(store: shoeStore).addRunHistories(to: shoe, saveData: true)
+                    shoeStore.updateAllShoes()
+                    dismiss()
+                }
+                #endif
+                
+                Spacer()
+            }
+            // Need the font size limiter here because this view can launch modally, out of the app view heirarchy
+            .dynamicTypeSize(.medium ... .xLarge)
+            .padding([.horizontal], 16)
+            .background(.patternedBackground)
+            .onTapGesture {
+                dismissKeyboard()
+            }
+            // Monitor for changes of hall of fame status rather than pollute the subview with shoeStore and Settings
+            .onChange(of: shoe.hallOfFame) { newValue in
+                updateShoes(viewModel: viewModel)
+            }
+            .onDisappear {
+                if viewModel.isNewShoe == false, viewModel.hasChanged == true {
+                    updateShoes(viewModel: viewModel)
                 }
             }
-            .foregroundColor(.white)
-            .shoeCycleSection(title: "Wear Time", color: .shoeCycleBlue, image: Image("clock"))
-            .fixedSize(horizontal: false, vertical: true)
-            
-            ShoeImage(shoe: viewModel.shoe)
-                .padding([.horizontal], 32)
-            
-            HallOfFameSelector(viewModel: viewModel)
-                .padding([.top], 16)
-            
-            Spacer()
-            
-            #if DEBUG
-            Button("Generate Histories") {
-                updateShoes(viewModel: viewModel)
-                MockShoeGenerator(store: shoeStore).addRunHistories(to: viewModel.shoe, saveData: true)
-                shoeStore.updateAllShoes()
-                dismiss()
-            }
-            #endif
-            
-            Spacer()
+            .navigationBarTitleDisplayMode(.inline)
+            .ignoresSafeArea(.keyboard, edges: [.bottom])
         }
-        // Need the font size limiter here because this view can launch modally, out of the app view heirarchy
-        .dynamicTypeSize(.medium ... .xLarge)
-        .padding([.horizontal], 16)
-        .background(.patternedBackground)
-        .onTapGesture {
-            dismissKeyboard()
+        else {
+            Text("Error: Shoe does not exist.")
+                .font(.largeTitle)
+                .foregroundColor(.white)
         }
-        // Monitor for changes of hall of fame status rather than pollute the subview with shoeStore and Settings
-        .onChange(of: viewModel.shoe.hallOfFame) { newValue in
-            updateShoes(viewModel: viewModel)
-        }
-        .onDisappear {
-            if viewModel.isNewShoe == false, viewModel.hasChanged == true {
-                updateShoes(viewModel: viewModel)
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .ignoresSafeArea(.keyboard, edges: [.bottom])
+        
     }
     
     // TODO: Move this business logic into an interactor
@@ -201,8 +265,8 @@ struct ShoeDetailView: View {
 }
 
 struct ShoeDetailView_Previews: PreviewProvider {
-    static let shoe = MockShoeGenerator().generateNewShoeWithData()
-    static let viewModel = ShoeDetailViewModel(shoe: shoe)
+    static let shoe = MockShoeGenerator().generateNewShoeWithData(saveData: true)
+    static let viewModel = ShoeDetailViewModel(store: ShoeStore(), shoeURL: shoe.objectID.uriRepresentation())!
     
     static var previews: some View {
         ShoeDetailView(viewModel: viewModel,
