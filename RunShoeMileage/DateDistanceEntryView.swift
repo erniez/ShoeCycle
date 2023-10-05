@@ -135,6 +135,7 @@ struct DateDistanceEntryView: View {
                         }
                         else {
                             shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
+                            shoeStore.updateActiveShoes()
                             handleAddDistanceAnalytics(for: shoe, distance: distance)
                             runDistance = ""
                         }

@@ -38,9 +38,6 @@ class MockShoeGenerator {
         }
         
         if saveData {
-            guard let context = shoe.managedObjectContext else {
-                fatalError("No context is available")
-            }
             store.saveContext()
         }
     }

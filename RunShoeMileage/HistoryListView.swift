@@ -32,6 +32,7 @@ struct HistoryListViewModel {
         shoeStore.saveContext()
         shoeStore.updateTotalDistance(shoe: shoe)
         shoeStore.saveContext()
+        shoeStore.updateActiveShoes()
     }
 }
 

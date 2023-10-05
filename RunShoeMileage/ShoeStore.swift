@@ -47,7 +47,7 @@ class ShoeStore: ObservableObject {
         }
     }
     
-    private func updateActiveShoes() {
+    func updateActiveShoes() {
         activeShoes = allShoes.filter { $0.hallOfFame == false }
     }
     
@@ -84,6 +84,12 @@ class ShoeStore: ObservableObject {
         newShoe.totalDistance = Self.defaultTotalDistance
         newShoe.brand = ""
         return newShoe
+    }
+    
+    func removeShoe(with url: URL) {
+        if let shoe = getShoe(from: url) {
+            remove(shoe: shoe)
+        }
     }
 
     func remove(shoe: Shoe) {

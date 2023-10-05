@@ -97,8 +97,10 @@
 //    [[self window] setRootViewController:self.appViewController];
     [[self window] setRootViewController: appView];
     
+#ifndef DEBUG
     // Start Crashlytics
     [FIRApp configure];
+#endif
     
     // Test for crashes
 //    [self performSelector:@selector(crashApp) withObject:nil afterDelay:5.0];

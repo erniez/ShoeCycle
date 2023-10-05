@@ -10,12 +10,14 @@ import SwiftUI
 struct ActiveShoesView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
-    @State var shoes: [ShoeDetailViewModel]
-    @State var presentNewShoeView = false
+    // Need the following array to keep track of deletions and additions, otherwise
+    // we will get out of sink of the actually datasource, activeShoes
+    @State private var shoeRowViewModels: [ActiveShoesRowViewModel]
+    @State private var presentNewShoeView = false
     private var selectedShoeStrategy: SelectedShoeStrategy
     
-    init(shoes: [ShoeDetailViewModel], presentNewShoeView: Bool = false, selectedShoeStrategy: SelectedShoeStrategy) {
-        self.shoes = shoes
+    init(viewModels: [ActiveShoesRowViewModel], presentNewShoeView: Bool = false, selectedShoeStrategy: SelectedShoeStrategy) {
+        self.shoeRowViewModels = viewModels
         self.presentNewShoeView = presentNewShoeView
         self.selectedShoeStrategy = selectedShoeStrategy
     }
@@ -23,32 +25,30 @@ struct ActiveShoesView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(shoeStore.activeShoes, id: \.objectID) { shoe in
+                ForEach(Self.generateActiveShoeViewModels(from: shoeStore.activeShoes), id: \.shoeURL) { shoe in
+                    // TODO: Ideally we want to only deal with view models (as below)
+//                ForEach(shoeRowViewModels, id: \.shoeURL) { shoe in
+                    // Unfortunately, we can't key off of onChange: activeShoes, because when we only modify the shoe, the
+                    // activeShoes array doesn't publish a change, because the shoes are reference types. I need to come back to this
+                    // once I have a better idea.
                     NavigationLink(value: shoe) {
-                        ActiveShoesRowView(viewModel: ActiveShoesRowViewModel(brand: shoe.brand,
-                                                                              totalDistance: shoe.totalDistance.doubleValue,
-                                                                              shoeURL: shoe.objectID.uriRepresentation()))
+                        ActiveShoesRowView(viewModel: shoe)
                     }
                 }
                 .onDelete { indexSet in
-                    let shoesToRemove = indexSet.map { shoes[$0] }
+                    let shoesToRemove = indexSet.map { shoeRowViewModels[$0] }
                     shoesToRemove.forEach { viewModel in
-                        if let index = shoes.firstIndex(of: viewModel) {
-                            shoes.remove(at: index)
+                        if let index = shoeRowViewModels.firstIndex(of: viewModel) {
+                            shoeRowViewModels.remove(at: index)
                         }
                     }
-                    shoesToRemove.forEach { viewModel in
-                        guard let shoe = viewModel.getShoe() else {
-                            return
-                        }
-                        shoeStore.remove(shoe: shoe)
-                    }
-                    shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
+                    shoesToRemove.forEach { shoeStore.removeShoe(with: $0.shoeURL) }
+                    shoeRowViewModels = Self.generateActiveShoeViewModels(from: shoeStore.activeShoes)
                     selectedShoeStrategy.updateSelectedShoe()
                 }
             }
-            .navigationDestination(for: Shoe.self) { shoe in
-                if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: shoe.objectID.uriRepresentation()) {
+            .navigationDestination(for: ActiveShoesRowViewModel.self) { viewModel in
+                if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: viewModel.shoeURL) {
                     ShoeDetailView(viewModel: viewModel,
                                    selectedShoeStrategy: selectedShoeStrategy)
                 }
@@ -64,10 +64,7 @@ struct ActiveShoesView: View {
             }
             .background(.patternedBackground)
         }
-        .fullScreenCover(isPresented: $presentNewShoeView, onDismiss: {
-            // Update view models to account for an added shoe
-            shoes = Self.generateViewModelsFromActiveShoes(from: shoeStore)
-        }) {
+        .fullScreenCover(isPresented: $presentNewShoeView) {
             let shoe = createShoe()
             ShoeDetailView(viewModel: ShoeDetailViewModel(store: shoeStore, shoeURL: shoe.objectID.uriRepresentation(), newShoe: shoe)!,
                            selectedShoeStrategy: selectedShoeStrategy)
@@ -85,14 +82,16 @@ struct ActiveShoesView: View {
 }
 
 extension ActiveShoesView {
-    static func generateViewModelsFromActiveShoes(from store: ShoeStore) -> [ShoeDetailViewModel] {
-        return store.activeShoes.compactMap { shoe in
-            return ShoeDetailViewModel(store: store, shoeURL: shoe.objectID.uriRepresentation())
+    static func generateActiveShoeViewModels(from shoes: [Shoe]) -> [ActiveShoesRowViewModel] {
+        return shoes.compactMap { shoe in
+            return ActiveShoesRowViewModel(brand: shoe.brand,
+                                           totalDistance: shoe.totalDistance.doubleValue,
+                                           shoeURL: shoe.objectID.uriRepresentation())
         }
     }
 }
 
-struct ActiveShoesRowViewModel {
+struct ActiveShoesRowViewModel: Hashable {
     let brand: String
     let totalDistance: Double
     let shoeURL: URL
@@ -135,11 +134,11 @@ struct ActiveShoesRowView: View {
 }
 
 struct ActiveShoesView_Previews: PreviewProvider {
-    static var shoes = ActiveShoesView.generateViewModelsFromActiveShoes(from: ShoeStore())
+    static var shoes = ActiveShoesView.generateActiveShoeViewModels(from: ShoeStore().activeShoes)
     static var shoeStore = ShoeStore()
     
     static var previews: some View {
-        ActiveShoesView(shoes: shoes,
+        ActiveShoesView(viewModels: shoes,
                         selectedShoeStrategy: SelectedShoeStrategy(store: shoeStore, settings: UserSettings.shared))
             .environmentObject(shoeStore)
     }
