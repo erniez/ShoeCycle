@@ -14,7 +14,7 @@ struct PatternedBackground: View {
         if colorScheme == .dark {
             Image("perfTile")
                 .resizable(resizingMode: .tile)
-                .ignoresSafeArea()
+                .ignoresSafeArea(edges: [.top, .leading, .trailing])
         }
         else {
             ZStack {

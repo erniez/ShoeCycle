@@ -22,14 +22,13 @@ struct SettingsView: View {
                 SettingsHealthKitView()
                 SettingsStravaView(interactor: StravaInteractor(settings: settings))
                 AboutView()
-                Spacer()
             }
             .fixedSize(horizontal: false, vertical: true)
-            .background(.patternedBackground
-                .onTapGesture {
-                    dismissKeyboard()
-                })
         }
+        .background(.patternedBackground
+            .onTapGesture {
+                dismissKeyboard()
+            })
     }
     
 }
