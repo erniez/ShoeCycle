@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import Combine
+
+class ShoeDataObserver: ObservableObject {
+    @Published var shoe: Shoe
+    
+    init(shoe: Shoe) {
+        self.shoe = shoe
+    }
+}
 
 struct ActiveShoesView: View {
-    @EnvironmentObject var shoeStore: ShoeStore
-    @EnvironmentObject var settings: UserSettings
-    // Need the following array to keep track of deletions and additions, otherwise
-    // we will get out of sink of the actually datasource, activeShoes
+    @EnvironmentObject private var shoeStore: ShoeStore
+    @EnvironmentObject private var settings: UserSettings
     @State private var shoeRowViewModels: [ActiveShoesRowViewModel]
     @State private var presentNewShoeView = false
     private var selectedShoeStrategy: SelectedShoeStrategy
@@ -25,12 +32,7 @@ struct ActiveShoesView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(Self.generateActiveShoeViewModels(from: shoeStore.activeShoes), id: \.shoeURL) { shoe in
-                    // TODO: Ideally we want to only deal with view models (as below)
-//                ForEach(shoeRowViewModels, id: \.shoeURL) { shoe in
-                    // Unfortunately, we can't key off of onChange: activeShoes, because when we only modify the shoe, the
-                    // activeShoes array doesn't publish a change, because the shoes are reference types. I need to come back to this
-                    // once I have a better idea.
+                ForEach(shoeRowViewModels, id: \.shoeURL) { shoe in
                     NavigationLink(value: shoe) {
                         ActiveShoesRowView(viewModel: shoe)
                     }
@@ -43,7 +45,6 @@ struct ActiveShoesView: View {
                         }
                     }
                     shoesToRemove.forEach { shoeStore.removeShoe(with: $0.shoeURL) }
-                    shoeRowViewModels = Self.generateActiveShoeViewModels(from: shoeStore.activeShoes)
                     selectedShoeStrategy.updateSelectedShoe()
                 }
             }
@@ -72,6 +73,11 @@ struct ActiveShoesView: View {
         .onAppear {
             selectedShoeStrategy.updateSelectedShoe()
         }
+        // Monitor active shoes for deletions and additions.
+        // Individual shoe detail changes are observed from within the view model
+        .onChange(of: shoeStore.activeShoes) { newValue in
+            shoeRowViewModels = Self.generateActiveShoeViewModels(from: newValue)
+        }
     }
     
     func createShoe() -> Shoe {
@@ -84,17 +90,44 @@ struct ActiveShoesView: View {
 extension ActiveShoesView {
     static func generateActiveShoeViewModels(from shoes: [Shoe]) -> [ActiveShoesRowViewModel] {
         return shoes.compactMap { shoe in
-            return ActiveShoesRowViewModel(brand: shoe.brand,
+            let shoeObserver = ShoeDataObserver(shoe: shoe)
+            return ActiveShoesRowViewModel(shoeObserver: shoeObserver,
+                                           brand: shoe.brand,
                                            totalDistance: shoe.totalDistance.doubleValue,
                                            shoeURL: shoe.objectID.uriRepresentation())
         }
     }
 }
 
-struct ActiveShoesRowViewModel: Hashable {
-    let brand: String
-    let totalDistance: Double
+class ActiveShoesRowViewModel: Hashable {
+    
+    private let shoeObserver: ShoeDataObserver
+    private var shoeCancellabe: AnyCancellable?
+    var brand: String
+    var totalDistance: Double
     let shoeURL: URL
+    
+    init(shoeObserver: ShoeDataObserver, brand: String, totalDistance: Double, shoeURL: URL) {
+        self.shoeObserver = shoeObserver
+        self.brand = brand
+        self.totalDistance = totalDistance
+        self.shoeURL = shoeURL
+    }
+    
+    func startObservingShoe() {
+        shoeCancellabe = shoeObserver.$shoe.sink(receiveValue: { [weak self] shoe in
+            self?.brand = shoe.brand
+            self?.totalDistance = shoe.totalDistance.doubleValue
+        })
+    }
+    
+    static func == (lhs: ActiveShoesRowViewModel, rhs: ActiveShoesRowViewModel) -> Bool {
+        lhs.shoeURL == rhs.shoeURL
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(shoeURL)
+    }
 }
 
 struct ActiveShoesRowView: View {
@@ -102,6 +135,11 @@ struct ActiveShoesRowView: View {
     @EnvironmentObject var settings: UserSettings
     var isSelected: Bool {
         settings.isSelected(shoeURL: viewModel.shoeURL)
+    }
+    
+    init(viewModel: ActiveShoesRowViewModel) {
+        viewModel.startObservingShoe()
+        self.viewModel = viewModel
     }
     
     private let distanceUtility = DistanceUtility()
