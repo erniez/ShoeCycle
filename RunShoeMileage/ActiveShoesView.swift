@@ -19,11 +19,11 @@ class ShoeDataObserver: ObservableObject {
 struct ActiveShoesView: View {
     @EnvironmentObject private var shoeStore: ShoeStore
     @EnvironmentObject private var settings: UserSettings
-    @State private var shoeRowViewModels: [ActiveShoesRowViewModel]
+    @State private var shoeRowViewModels: [ShoeListRowViewModel]
     @State private var presentNewShoeView = false
     private var selectedShoeStrategy: SelectedShoeStrategy
     
-    init(viewModels: [ActiveShoesRowViewModel], presentNewShoeView: Bool = false, selectedShoeStrategy: SelectedShoeStrategy) {
+    init(viewModels: [ShoeListRowViewModel], presentNewShoeView: Bool = false, selectedShoeStrategy: SelectedShoeStrategy) {
         self.shoeRowViewModels = viewModels
         self.presentNewShoeView = presentNewShoeView
         self.selectedShoeStrategy = selectedShoeStrategy
@@ -48,7 +48,7 @@ struct ActiveShoesView: View {
                     selectedShoeStrategy.updateSelectedShoe()
                 }
             }
-            .navigationDestination(for: ActiveShoesRowViewModel.self) { viewModel in
+            .navigationDestination(for: ShoeListRowViewModel.self) { viewModel in
                 if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: viewModel.shoeURL) {
                     ShoeDetailView(viewModel: viewModel,
                                    selectedShoeStrategy: selectedShoeStrategy)
@@ -76,7 +76,7 @@ struct ActiveShoesView: View {
         // Monitor active shoes for deletions and additions.
         // Individual shoe detail changes are observed from within the view model
         .onChange(of: shoeStore.activeShoes) { newValue in
-            shoeRowViewModels = Self.generateActiveShoeViewModels(from: newValue)
+            shoeRowViewModels = ShoeListRowViewModel.generateShoeViewModels(from: newValue)
         }
     }
     
@@ -87,20 +87,7 @@ struct ActiveShoesView: View {
     }
 }
 
-extension ActiveShoesView {
-    static func generateActiveShoeViewModels(from shoes: [Shoe]) -> [ActiveShoesRowViewModel] {
-        return shoes.compactMap { shoe in
-            let shoeObserver = ShoeDataObserver(shoe: shoe)
-            return ActiveShoesRowViewModel(shoeObserver: shoeObserver,
-                                           brand: shoe.brand,
-                                           totalDistance: shoe.totalDistance.doubleValue,
-                                           shoeURL: shoe.objectID.uriRepresentation())
-        }
-    }
-}
-
-class ActiveShoesRowViewModel: Hashable {
-    
+class ShoeListRowViewModel: Hashable {
     private let shoeObserver: ShoeDataObserver
     private var shoeCancellabe: AnyCancellable?
     var brand: String
@@ -121,7 +108,7 @@ class ActiveShoesRowViewModel: Hashable {
         })
     }
     
-    static func == (lhs: ActiveShoesRowViewModel, rhs: ActiveShoesRowViewModel) -> Bool {
+    static func == (lhs: ShoeListRowViewModel, rhs: ShoeListRowViewModel) -> Bool {
         lhs.shoeURL == rhs.shoeURL
     }
     
@@ -130,19 +117,31 @@ class ActiveShoesRowViewModel: Hashable {
     }
 }
 
+extension ShoeListRowViewModel {
+    static func generateShoeViewModels(from shoes: [Shoe]) -> [ShoeListRowViewModel] {
+        return shoes.compactMap { shoe in
+            let shoeObserver = ShoeDataObserver(shoe: shoe)
+            return ShoeListRowViewModel(shoeObserver: shoeObserver,
+                                        brand: shoe.brand,
+                                        totalDistance: shoe.totalDistance.doubleValue,
+                                        shoeURL: shoe.objectID.uriRepresentation())
+        }
+    }
+}
+
+
 struct ActiveShoesRowView: View {
-    let viewModel: ActiveShoesRowViewModel
     @EnvironmentObject var settings: UserSettings
-    var isSelected: Bool {
+    private let viewModel: ShoeListRowViewModel
+    private let distanceUtility = DistanceUtility()
+    private var isSelected: Bool {
         settings.isSelected(shoeURL: viewModel.shoeURL)
     }
     
-    init(viewModel: ActiveShoesRowViewModel) {
+    init(viewModel: ShoeListRowViewModel) {
         viewModel.startObservingShoe()
         self.viewModel = viewModel
     }
-    
-    private let distanceUtility = DistanceUtility()
     
     var body: some View {
         VStack {
@@ -172,7 +171,7 @@ struct ActiveShoesRowView: View {
 }
 
 struct ActiveShoesView_Previews: PreviewProvider {
-    static var shoes = ActiveShoesView.generateActiveShoeViewModels(from: ShoeStore().activeShoes)
+    static var shoes = ShoeListRowViewModel.generateShoeViewModels(from: ShoeStore().activeShoes)
     static var shoeStore = ShoeStore()
     
     static var previews: some View {

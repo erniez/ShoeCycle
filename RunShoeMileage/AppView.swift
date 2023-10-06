@@ -52,7 +52,7 @@ struct AppView: View {
                     }
                     .tag(TabIdentifier.addDistance)
             }
-            ActiveShoesView(viewModels: ActiveShoesView.generateActiveShoeViewModels(from: shoeStore.activeShoes),
+            ActiveShoesView(viewModels: ShoeListRowViewModel.generateShoeViewModels(from: shoeStore.activeShoes),
                             selectedShoeStrategy: SelectedShoeStrategy(store: shoeStore, settings: settings))
                 .tabItem {
                     Label {
