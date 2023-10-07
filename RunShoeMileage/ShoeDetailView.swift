@@ -129,8 +129,12 @@ struct ShoeDetailView: View {
     @EnvironmentObject private var shoeStore: ShoeStore
     @ObservedObject var viewModel: ShoeDetailViewModel
     @Environment(\.dismiss) var dismiss
+    let selectedShoeStrategy: SelectedShoeStrategy?
     
-    let selectedShoeStrategy: SelectedShoeStrategy
+    init(viewModel: ShoeDetailViewModel, selectedShoeStrategy: SelectedShoeStrategy? = nil) {
+        self.viewModel = viewModel
+        self.selectedShoeStrategy = selectedShoeStrategy
+    }
     
     var body: some View {
         if let shoe = viewModel.getShoe() {
@@ -260,7 +264,7 @@ struct ShoeDetailView: View {
         viewModel.updateShoeValues()
         shoeStore.saveContext()
         shoeStore.updateAllShoes()
-        selectedShoeStrategy.updateSelectedShoe()
+        selectedShoeStrategy?.updateSelectedShoe()
     }
 }
 

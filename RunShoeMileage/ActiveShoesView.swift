@@ -24,18 +24,13 @@ struct ActiveShoesView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(shoeRowViewModels, id: \.shoeURL) { shoe in
-                    NavigationLink(value: shoe) {
-                        ActiveShoesRowView(viewModel: shoe)
+                ForEach(shoeRowViewModels, id: \.shoeURL) { viewModel in
+                    NavigationLink(value: viewModel) {
+                        ActiveShoesRowView(viewModel: viewModel)
                     }
                 }
                 .onDelete { indexSet in
                     let shoesToRemove = indexSet.map { shoeRowViewModels[$0] }
-                    shoesToRemove.forEach { viewModel in
-                        if let index = shoeRowViewModels.firstIndex(of: viewModel) {
-                            shoeRowViewModels.remove(at: index)
-                        }
-                    }
                     shoesToRemove.forEach { shoeStore.removeShoe(with: $0.shoeURL) }
                     selectedShoeStrategy.updateSelectedShoe()
                 }
@@ -80,12 +75,12 @@ struct ActiveShoesView: View {
 }
 
 class ShoeListRowViewModel: Hashable {
-    private let shoeObserver: DataObserver<Shoe>
+    private let shoeObserver: CoreDataObserver<Shoe>
     var brand: String
     var totalDistance: Double
     let shoeURL: URL
     
-    init(shoeObserver: DataObserver<Shoe>, brand: String, totalDistance: Double, shoeURL: URL) {
+    init(shoeObserver: CoreDataObserver<Shoe>, brand: String, totalDistance: Double, shoeURL: URL) {
         self.shoeObserver = shoeObserver
         self.brand = brand
         self.totalDistance = totalDistance
@@ -111,7 +106,7 @@ class ShoeListRowViewModel: Hashable {
 extension ShoeListRowViewModel {
     static func generateShoeViewModels(from shoes: [Shoe]) -> [ShoeListRowViewModel] {
         return shoes.compactMap { shoe in
-            let shoeObserver = DataObserver(object: shoe)
+            let shoeObserver = CoreDataObserver(object: shoe)
             return ShoeListRowViewModel(shoeObserver: shoeObserver,
                                         brand: shoe.brand,
                                         totalDistance: shoe.totalDistance.doubleValue,

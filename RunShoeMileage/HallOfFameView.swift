@@ -11,35 +11,41 @@ import SwiftUI
 struct HallOfFameView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
-    let selectedShoeStrategy: SelectedShoeStrategy
+    @State var shoeRowViewModels: [ShoeListRowViewModel]
     
     var body: some View {
-        if shoeStore.hallOfFameShoes.isEmpty {
-            Text("You have no shoes in the Hall of Fame. Please go to the Active Shoes tab and edit the shoe you want to add.")
-                .multilineTextAlignment(.center)
-                .padding()
-        }
-        else {
-            NavigationStack {
-                List {
-                    ForEach(shoeStore.hallOfFameShoes, id: \.objectID) { shoe in
-                        NavigationLink(value: shoe) {
-                            HallOfFameRowView(shoe: shoe)
+        Group {
+            if shoeStore.hallOfFameShoes.isEmpty {
+                Text("You have no shoes in the Hall of Fame. Please go to the Active Shoes tab and edit the shoe you want to add.")
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
+            else {
+                NavigationStack {
+                    List {
+                        ForEach(shoeRowViewModels, id: \.shoeURL) { viewModel in
+                            NavigationLink(value: viewModel) {
+                                HallOfFameRowView(viewModel: viewModel)
+                            }
+                        }
+                        .onDelete { indexSet in
+                            let shoesToRemove = indexSet.map { shoeRowViewModels[$0] }
+                            shoesToRemove.forEach { shoeStore.removeShoe(with: $0.shoeURL) }
                         }
                     }
-                    .onDelete { indexSet in
-                        let shoesToRemove = indexSet.map { shoeStore.hallOfFameShoes[$0] }
-                        shoesToRemove.forEach { shoeStore.remove(shoe: $0) }
+                    .navigationDestination(for: ShoeListRowViewModel.self) { viewModel in
+                        if let detailViewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: viewModel.shoeURL) {
+                            ShoeDetailView(viewModel: detailViewModel)
+                        }
                     }
+                    .navigationTitle("Hall of Fame Shoes")
                 }
-                .navigationDestination(for: Shoe.self) { shoe in
-                    if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: shoe.objectID.uriRepresentation()) {
-                        ShoeDetailView(viewModel: viewModel,
-                                       selectedShoeStrategy: selectedShoeStrategy)
-                    }
-                }
-                .navigationTitle("Hall of Fame Shoes")
             }
+        }
+        // Monitor hall of fame shoes for deletions and additions.
+        // Individual shoe detail changes are observed from within the view model
+        .onChange(of: shoeStore.hallOfFameShoes) { newValue in
+            shoeRowViewModels = ShoeListRowViewModel.generateShoeViewModels(from: newValue)
         }
     }
 }
@@ -47,18 +53,23 @@ struct HallOfFameView: View {
 
 
 struct HallOfFameRowView: View {
-    let shoe: Shoe
     @EnvironmentObject var settings: UserSettings
+    private let viewModel: ShoeListRowViewModel
     private let distanceUtility = DistanceUtility()
+    
+    init(viewModel: ShoeListRowViewModel) {
+        viewModel.startObservingShoe()
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         VStack {
             HStack {
-                Text(shoe.brand)
+                Text(viewModel.brand)
                 Spacer()
             }
             HStack {
-                Text("Distance: \(distanceUtility.displayString(for: shoe.totalDistance.doubleValue)) \(settings.distanceUnit.displayString())")
+                Text("Distance: \(distanceUtility.displayString(for: viewModel.totalDistance)) \(settings.distanceUnit.displayString())")
                 Spacer()
             }
         }
