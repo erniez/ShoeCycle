@@ -9,10 +9,6 @@ import Foundation
 
 class UserSettings: ObservableObject {
     
-    @propertyWrapper struct MyTestWrapper {
-        var wrappedValue: Double
-    }
-    
     @propertyWrapper struct FavoriteDistance {
         var wrappedValue: Double {
             get {

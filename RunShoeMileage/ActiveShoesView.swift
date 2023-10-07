@@ -6,15 +6,7 @@
 //
 
 import SwiftUI
-import Combine
 
-class ShoeDataObserver: ObservableObject {
-    @Published var shoe: Shoe
-    
-    init(shoe: Shoe) {
-        self.shoe = shoe
-    }
-}
 
 struct ActiveShoesView: View {
     @EnvironmentObject private var shoeStore: ShoeStore
@@ -88,13 +80,12 @@ struct ActiveShoesView: View {
 }
 
 class ShoeListRowViewModel: Hashable {
-    private let shoeObserver: ShoeDataObserver
-    private var shoeCancellabe: AnyCancellable?
+    private let shoeObserver: DataObserver<Shoe>
     var brand: String
     var totalDistance: Double
     let shoeURL: URL
     
-    init(shoeObserver: ShoeDataObserver, brand: String, totalDistance: Double, shoeURL: URL) {
+    init(shoeObserver: DataObserver<Shoe>, brand: String, totalDistance: Double, shoeURL: URL) {
         self.shoeObserver = shoeObserver
         self.brand = brand
         self.totalDistance = totalDistance
@@ -102,10 +93,10 @@ class ShoeListRowViewModel: Hashable {
     }
     
     func startObservingShoe() {
-        shoeCancellabe = shoeObserver.$shoe.sink(receiveValue: { [weak self] shoe in
+        shoeObserver.startObserving { [weak self] shoe in
             self?.brand = shoe.brand
             self?.totalDistance = shoe.totalDistance.doubleValue
-        })
+        }
     }
     
     static func == (lhs: ShoeListRowViewModel, rhs: ShoeListRowViewModel) -> Bool {
@@ -120,7 +111,7 @@ class ShoeListRowViewModel: Hashable {
 extension ShoeListRowViewModel {
     static func generateShoeViewModels(from shoes: [Shoe]) -> [ShoeListRowViewModel] {
         return shoes.compactMap { shoe in
-            let shoeObserver = ShoeDataObserver(shoe: shoe)
+            let shoeObserver = DataObserver(object: shoe)
             return ShoeListRowViewModel(shoeObserver: shoeObserver,
                                         brand: shoe.brand,
                                         totalDistance: shoe.totalDistance.doubleValue,

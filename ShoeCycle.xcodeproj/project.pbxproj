@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */; };
+		1B09C8C72AD0DF1A00AD0A21 /* DataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09C8C62AD0DF1A00AD0A21 /* DataObserver.swift */; };
 		1B0AD7F32A2AA132006AB307 /* ShoeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */; };
 		1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */; };
 		1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */; };
@@ -154,6 +155,7 @@
 
 /* Begin PBXFileReference section */
 		1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = Categories/UITableViewExtensions.swift; sourceTree = "<group>"; };
+		1B09C8C62AD0DF1A00AD0A21 /* DataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataObserver.swift; sourceTree = "<group>"; };
 		1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeStore.swift; sourceTree = "<group>"; };
 		1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionView.swift; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
 				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
 				1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */,
+				1B09C8C62AD0DF1A00AD0A21 /* DataObserver.swift */,
 			);
 			name = "Common Swift";
 			sourceTree = "<group>";
@@ -962,6 +965,7 @@
 				1BE34AE31AFDCFA600CF83EE /* StravaAPIManager.m in Sources */,
 				1B381A6919E1C2D3002C3FD7 /* HealthKitManager.m in Sources */,
 				1B3D29DA2A46319700BE7956 /* ShoeDetailView.swift in Sources */,
+				1B09C8C72AD0DF1A00AD0A21 /* DataObserver.swift in Sources */,
 				1BA7B2CE2ABCBEAF0005958E /* AnalyticsKeyNames.swift in Sources */,
 				1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */,
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
