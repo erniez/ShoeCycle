@@ -1,4 +1,4 @@
-//  ShoeExtensions.swift
+//  ShoeDistanceCalcExtensions.swift
 //  ShoeCycle
 //
 //  Created by Ernie Zappacosta on 5/22/23.
@@ -8,44 +8,21 @@
 import Foundation
 
 
-extension Shoe {
-    
-    static func sortRunHistories(_ histories: [History], ascending: Bool) -> [History] {
-        var sortedRuns = Array(histories)
+extension Set where Element == History {
+    // TODO: Conform History to Comparable once I update the data models to Swift
+    func sortHistories(ascending: Bool) -> [History] {
+        var sortedRuns = Array(self)
         sortedRuns.sort {
             ascending ? $0.runDate < $1.runDate : $0.runDate > $1.runDate
         }
         return sortedRuns
     }
     
-    static func datesForTheBeginningOfWeeksBetweenDates(startDate: Date, endDate:Date, calendar: Calendar) -> [Date] {
-        var beginningOfWeekDates = [Date]()
-        let beginningOfStartDateWeek = startDate.beginningOfWeek(forCalendar: calendar)
-        let beginningOfEndDateWeek = endDate.beginningOfWeek(forCalendar: calendar)
-        var dateComponents = DateComponents()
-        dateComponents.weekday = calendar.firstWeekday
-        calendar.enumerateDates(startingAfter: beginningOfStartDateWeek, matching: dateComponents, matchingPolicy: .nextTime) { currentDate, exactMatch, stop in
-            guard let date = currentDate else {
-                stop = true
-                return
-            }
-            
-            let dateCompare = date.compare(beginningOfEndDateWeek)
-            if dateCompare == .orderedDescending || dateCompare == .orderedSame {
-                stop = true
-            }
-            else {
-                beginningOfWeekDates.append(date)
-            }
-        }
-        return beginningOfWeekDates
-    }
-    
-    static func collateRunHistories(_ histories: [History], ascending: Bool) -> [WeeklyCollatedNew] {
+    func collateHistories(ascending: Bool) -> [WeeklyCollatedNew] {
         var collatedArray = [WeeklyCollatedNew]()
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = UserDistanceSetting.getFirstDayOfWeek()
-        let sortedRuns = Shoe.sortRunHistories(histories, ascending: true)
+        let sortedRuns = self.sortHistories(ascending: ascending)
         sortedRuns.forEach { history in
             let beginningOfWeek = history.runDate.beginningOfWeek(forCalendar: calendar)
             if let currentWeeklyCollated = collatedArray.last {
@@ -55,7 +32,7 @@ extension Shoe {
                 }
                 else {
                     // Check to see if there is a long time between runs, and add zero mileage dates so that they show up on the graph.
-                    let zeroMilageDates = Self.datesForTheBeginningOfWeeksBetweenDates(startDate: currentWeeklyCollated.date, endDate: history.runDate, calendar: calendar)
+                    let zeroMilageDates = calendar.datesForTheBeginningOfWeeksBetweenDates(startDate: currentWeeklyCollated.date, endDate: history.runDate)
                     zeroMilageDates.forEach { date in
                         let collatedZeroDistance = WeeklyCollatedNew(date: date, runDistance: 0.0)
                         collatedArray.append(collatedZeroDistance)
@@ -73,9 +50,9 @@ extension Shoe {
         }
         return collatedArray
     }
-
-    func runHistoriesByMonth(ascending: Bool) -> [[History]] {
-        let sortedHistories = Shoe.sortRunHistories(Array(history), ascending: ascending)
+    
+    func historiesByMonth(ascending: Bool) -> [[History]] {
+        let sortedHistories = self.sortHistories(ascending: ascending)
         var runsByMonth = [[History]]()
         var runsForCurrentMonth = [History]()
         let calendar = Calendar.current
@@ -105,7 +82,29 @@ extension Shoe {
         return runsByMonth
     }
     
-    static func runDistanceTotal(histories: [History]) -> Double {
-        return histories.total(initialValue: 0.0, for: \.runDistance.doubleValue)
+}
+
+extension Calendar {
+    func datesForTheBeginningOfWeeksBetweenDates(startDate: Date, endDate:Date) -> [Date] {
+        var beginningOfWeekDates: [Date] = []
+        let beginningOfStartDateWeek = startDate.beginningOfWeek(forCalendar: self)
+        let beginningOfEndDateWeek = endDate.beginningOfWeek(forCalendar: self)
+        var dateComponents = DateComponents()
+        dateComponents.weekday = self.firstWeekday
+        self.enumerateDates(startingAfter: beginningOfStartDateWeek, matching: dateComponents, matchingPolicy: .nextTime) { currentDate, exactMatch, stop in
+            guard let date = currentDate else {
+                stop = true
+                return
+            }
+            
+            let dateCompare = date.compare(beginningOfEndDateWeek)
+            if dateCompare == .orderedDescending || dateCompare == .orderedSame {
+                stop = true
+            }
+            else {
+                beginningOfWeekDates.append(date)
+            }
+        }
+        return beginningOfWeekDates
     }
 }

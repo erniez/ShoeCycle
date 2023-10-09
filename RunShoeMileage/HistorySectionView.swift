@@ -38,7 +38,7 @@ struct HistorySectionViewModel: Identifiable, Equatable {
     init(shoe: Shoe, histories: [History]) {
         self.shoe = shoe
         self.monthDate = histories.first?.runDate ?? Date()
-        self.runTotal = Shoe.runDistanceTotal(histories: histories)
+        self.runTotal = histories.total(initialValue: 0.0, for: \.runDistance.doubleValue)
         self.histories = histories
         self.historyViewModels = histories.map { HistoryRowViewModel(history: $0) }
     }
@@ -56,6 +56,6 @@ struct HistorySectionView: View {
 struct HistorySectionView_Previews: PreviewProvider {
     static let shoe = MockShoeGenerator().generateNewShoeWithData()
     static var previews: some View {
-        HistorySectionView(viewModel: HistorySectionViewModel(shoe: shoe, histories: shoe.runHistoriesByMonth(ascending: false)[0]))
+        HistorySectionView(viewModel: HistorySectionViewModel(shoe: shoe, histories: shoe.history.historiesByMonth(ascending: false)[0]))
     }
 }

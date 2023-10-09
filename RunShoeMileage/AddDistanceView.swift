@@ -50,7 +50,7 @@ struct AddDistanceView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue)
                 ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
-                RunHistoryChart(collatedHistory: Shoe.collateRunHistories(Array(shoe.history), ascending: true))
+                RunHistoryChart(collatedHistory: shoe.history.collateHistories(ascending: true))
                     .padding([.vertical], 16)
             }
             .padding([.horizontal], 16)

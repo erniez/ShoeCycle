@@ -106,7 +106,7 @@
 		1BCF9FED2A1BC11B007F697E /* DateProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */; };
 		1BCF9FEF2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */; };
 		1BCF9FF42A1BD5B9007F697E /* RunHistoryChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */; };
-		1BCF9FF92A1BF3FD007F697E /* ShoeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */; };
+		1BCF9FF92A1BF3FD007F697E /* ShoeDistanceCalcExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FF82A1BF3FD007F697E /* ShoeDistanceCalcExtensions.swift */; };
 		1BCF9FFB2A1BFDDD007F697E /* ShoeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FFA2A1BFDDD007F697E /* ShoeTests.swift */; };
 		1BCF9FFD2A1FE0DA007F697E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */; };
 		1BCFA80A14CED3DF00D56D6C /* UserDistanceSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFA80914CED3DF00D56D6C /* UserDistanceSetting.m */; };
@@ -282,7 +282,7 @@
 		1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProgressViewModel.swift; sourceTree = "<group>"; };
 		1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProgressViewInteractorTests.swift; sourceTree = "<group>"; };
 		1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryChart.swift; sourceTree = "<group>"; };
-		1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeExtensions.swift; sourceTree = "<group>"; };
+		1BCF9FF82A1BF3FD007F697E /* ShoeDistanceCalcExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeDistanceCalcExtensions.swift; sourceTree = "<group>"; };
 		1BCF9FFA2A1BFDDD007F697E /* ShoeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeTests.swift; sourceTree = "<group>"; };
 		1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		1BCFA80814CED3DF00D56D6C /* UserDistanceSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDistanceSetting.h; sourceTree = "<group>"; };
@@ -466,15 +466,16 @@
 		1B49035E2A7B4AF500422CED /* Common Swift */ = {
 			isa = PBXGroup;
 			children = (
-				1B7F36612A24039500377485 /* NumberFormatterExtension.swift */,
-				1B49035F2A7B4B2600422CED /* DistanceUtility.swift */,
-				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
-				1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */,
-				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
+				1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */,
 				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
 				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
+				1B49035F2A7B4B2600422CED /* DistanceUtility.swift */,
+				1B7F36612A24039500377485 /* NumberFormatterExtension.swift */,
+				1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */,
 				1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */,
-				1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */,
+				1BCF9FF82A1BF3FD007F697E /* ShoeDistanceCalcExtensions.swift */,
+				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
+				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
 			);
 			name = "Common Swift";
 			sourceTree = "<group>";
@@ -483,7 +484,6 @@
 			isa = PBXGroup;
 			children = (
 				1B62EB942A5231FC00226147 /* ImageStore.swift */,
-				1BCF9FF82A1BF3FD007F697E /* ShoeExtensions.swift */,
 				1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */,
 				1B876F562207E9AF00964400 /* WeeklyCollated.swift */,
 			);
@@ -941,7 +941,7 @@
 				1BBCF59D2A70834C002D28D3 /* DateDistanceEntryView.swift in Sources */,
 				1BE34AEE1AFE8F6000CF83EE /* NSDate+UTCConversion.m in Sources */,
 				1BCF644E148AF7E7004C0E6A /* ShoeCycleAppDelegate.m in Sources */,
-				1BCF9FF92A1BF3FD007F697E /* ShoeExtensions.swift in Sources */,
+				1BCF9FF92A1BF3FD007F697E /* ShoeDistanceCalcExtensions.swift in Sources */,
 				1BA84A062ABBBC830020ECB0 /* SelectedShoeStrategy.swift in Sources */,
 				1BDDEC5E148BDF8B009E5436 /* AddDistanceViewController.m in Sources */,
 				1B76CA1219D5AD030063F2F2 /* UIColor+ShoeCycleColors.m in Sources */,

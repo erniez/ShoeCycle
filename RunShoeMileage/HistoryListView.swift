@@ -16,7 +16,7 @@ struct HistoryListViewModel {
     init(shoeStore: ShoeStore, shoe: Shoe) {
         self.shoeStore = shoeStore
         self.shoe = shoe
-        let monthlyHistories = shoe.runHistoriesByMonth(ascending: false)
+        let monthlyHistories = shoe.history.historiesByMonth(ascending: false)
         self.sections =  monthlyHistories.map { HistorySectionViewModel(shoe: shoe, histories: $0) }
     }
     
