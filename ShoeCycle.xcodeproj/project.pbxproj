@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B06EA461FED710C00E430AA /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */; };
 		1B09C8C72AD0DF1A00AD0A21 /* CoreDataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */; };
+		1B09C8CB2AD4694F00AD0A21 /* ConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09C8CA2AD4694F00AD0A21 /* ConsoleLogger.swift */; };
 		1B0AD7F32A2AA132006AB307 /* ShoeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */; };
 		1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */; };
 		1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */; };
@@ -156,6 +157,7 @@
 /* Begin PBXFileReference section */
 		1B06EA451FED710C00E430AA /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = Categories/UITableViewExtensions.swift; sourceTree = "<group>"; };
 		1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataObserver.swift; sourceTree = "<group>"; };
+		1B09C8CA2AD4694F00AD0A21 /* ConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogger.swift; sourceTree = "<group>"; };
 		1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeStore.swift; sourceTree = "<group>"; };
 		1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionView.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 			children = (
 				1BA7B2C92ABCBDC40005958E /* AnalyticsLogger.swift */,
 				1BA7B2CB2ABCBE910005958E /* FirebaseLogger.swift */,
+				1B09C8CA2AD4694F00AD0A21 /* ConsoleLogger.swift */,
 				1BA7B2CD2ABCBEAF0005958E /* AnalyticsKeyNames.swift */,
 				1BA7B2CF2ABCC3C30005958E /* AnalyticsFactory.swift */,
 			);
@@ -1002,6 +1005,7 @@
 				1B26F6CA1B06F8F0004095CF /* DateUtilities.m in Sources */,
 				1B24358D2879D1810018AFCA /* UIView+Autolayout.swift in Sources */,
 				1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */,
+				1B09C8CB2AD4694F00AD0A21 /* ConsoleLogger.swift in Sources */,
 				1BA7B2CA2ABCBDC40005958E /* AnalyticsLogger.swift in Sources */,
 				EA0F26DC1AFF0550006C4B63 /* StravaActivity_Legacy.m in Sources */,
 				1BE34AE81AFE71D800CF83EE /* StravaAthlete.m in Sources */,

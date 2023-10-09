@@ -10,6 +10,10 @@ import Foundation
 
 struct AnalyticsFactory {
     static func sharedAnalyticsLogger() -> AnalyticsLogger {
+        #if DEBUG
+        return ConsoleLogger()
+        #else
         return FirebaseLogger.shared
+        #endif
     }
 }
