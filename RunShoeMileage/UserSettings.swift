@@ -63,6 +63,7 @@ class UserSettings: ObservableObject {
     @Published private(set) var stravaEnabled: Bool
     @Published private(set) var healthKitEnabled: Bool
     @Published private(set) var selectedShoeURL: URL?
+    @Published private(set) var graphAllShoes: Bool
     
     private let defaults = UserDefaults.standard
     
@@ -71,6 +72,7 @@ class UserSettings: ObservableObject {
         firstDayOfWeek = FirstDayOfWeek(rawValue: defaults.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
         stravaEnabled = defaults.bool(forKey: StorageKey.stravaEnabled)
         selectedShoeURL = defaults.url(forKey: StorageKey.selectedShoe)
+        graphAllShoes = defaults.bool(forKey: StorageKey.graphAllShoesToggle)
         let healthKitService = HealthKitService()
         // Health App access can be turned off outside the app, so we need to check when we init UserSettings.
         // If access is granted, then the ShoeCycle app setting will override the device settings.
@@ -82,6 +84,11 @@ class UserSettings: ObservableObject {
             defaults.set(false, forKey: StorageKey.healthKitEnabled)
         }
         
+    }
+    
+    func set(graphAllShoes: Bool) {
+        defaults.set(graphAllShoes, forKey: StorageKey.graphAllShoesToggle)
+        self.graphAllShoes = graphAllShoes
     }
     
     func setSelected(shoeUrl: URL?) {

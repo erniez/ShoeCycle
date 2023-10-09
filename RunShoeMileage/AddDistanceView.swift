@@ -10,6 +10,7 @@ import SwiftUI
 struct AddDistanceView: View {
     @State private var runDate = Date()
     @State private var runDistance = ""
+    @State private var graphAllShoes = UserSettings.shared.graphAllShoes
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
@@ -50,7 +51,7 @@ struct AddDistanceView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue)
                 ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
-                RunHistoryChart(collatedHistory: shoe.history.collateHistories(ascending: true))
+                RunHistoryChart(collatedHistory: historiesToShow().collateHistories(ascending: true), graphAllShoes: $graphAllShoes)
                     .padding([.vertical], 16)
             }
             .padding([.horizontal], 16)
@@ -63,6 +64,19 @@ struct AddDistanceView: View {
         else {
             // Shouldn't ever see this
             Text("Something went wrong")
+        }
+    }
+    
+    func historiesToShow() -> Set<History> {
+        if graphAllShoes == true {
+            var allHistories: Set<History> = []
+            shoeStore.activeShoes.forEach { shoe in
+                allHistories.formUnion(shoe.history)
+            }
+            return allHistories
+        }
+        else {
+            return shoe.history
         }
     }
     

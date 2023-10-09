@@ -12,6 +12,7 @@ import Charts
 struct RunHistoryChart: View {
     @EnvironmentObject var settings: UserSettings
     let collatedHistory: [WeeklyCollatedNew]
+    @Binding var graphAllShoes: Bool
     
     private let formatter = NumberFormatter.decimal
     private let distanceUtility = DistanceUtility()
@@ -169,7 +170,23 @@ struct RunHistoryChart: View {
                     .font(.footnote)
                     .dynamicTypeSize(.medium)
                 Spacer()
+                Button  {
+                    graphAllShoes.toggle()
+                    settings.set(graphAllShoes: graphAllShoes)
+                } label: {
+                    Text(graphAllShoesToggleText())
+                        .font(.callout)
+                }
             }
+        }
+    }
+    
+    func graphAllShoesToggleText() -> String {
+        if settings.graphAllShoes == true {
+            return "Graph Current Shoe"
+        }
+        else {
+            return "Graph All Active Shoes"
         }
     }
 }
