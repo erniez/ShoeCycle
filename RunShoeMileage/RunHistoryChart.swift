@@ -16,6 +16,7 @@ struct RunHistoryChart: View {
     
     private let formatter = NumberFormatter.decimal
     private let distanceUtility = DistanceUtility()
+    private let pointsPerGraphData = 50
 
     private var xValues: [Date] {
         collatedHistory.map { $0.date }
@@ -121,7 +122,13 @@ struct RunHistoryChart: View {
                                 .onAppear {
                                     proxy.scrollTo(collatedHistory.last!.id)
                                 }
-                                .frame(width: 1000)
+                                .onChange(of: graphAllShoes, perform: { _ in
+                                    proxy.scrollTo(collatedHistory.last!.id)
+                                })
+                                .onChange(of: collatedHistory, perform: { _ in
+                                    proxy.scrollTo(collatedHistory.last!.id)
+                                })
+                                .frame(width: CGFloat(collatedHistory.count * pointsPerGraphData))
                                 .chartXAxis() {
                                     AxisMarks(preset: .aligned, values: xValues) { value in
                                         if let date = value.as(Date.self) {
