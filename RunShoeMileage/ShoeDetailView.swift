@@ -142,6 +142,9 @@ struct ShoeDetailView: View {
                 if viewModel.isNewShoe == true {
                     HStack {
                         Button("Cancel") {
+                            if let shoe = viewModel.newShoe {
+                                shoeStore.remove(shoe: shoe)
+                            }
                             dismiss()
                         }
                         Spacer()
@@ -216,8 +219,10 @@ struct ShoeDetailView: View {
                 ShoeImage(shoe: shoe)
                     .padding([.horizontal], 32)
                 
-                HallOfFameSelector(viewModel: viewModel)
-                    .padding([.top], 16)
+                if viewModel.newShoe == nil {
+                    HallOfFameSelector(viewModel: viewModel)
+                        .padding([.top], 16)
+                }
                 
                 Spacer()
                 
@@ -238,10 +243,6 @@ struct ShoeDetailView: View {
             .background(.patternedBackground)
             .onTapGesture {
                 dismissKeyboard()
-            }
-            // Monitor for changes of hall of fame status rather than pollute the subview with shoeStore and Settings
-            .onChange(of: shoe.hallOfFame) { newValue in
-                updateShoes(viewModel: viewModel)
             }
             .onDisappear {
                 if viewModel.isNewShoe == false, viewModel.hasChanged == true {

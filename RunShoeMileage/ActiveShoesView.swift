@@ -69,7 +69,6 @@ struct ActiveShoesView: View {
     
     func createShoe() -> Shoe {
         let shoe = shoeStore.createShoe()
-        shoeStore.saveContext()
         return shoe
     }
 }
