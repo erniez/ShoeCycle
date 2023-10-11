@@ -14,7 +14,7 @@ struct DateProgressViewModel {
     var progressBarValue: Double {
         let shoeDateDifference = endDate.timeIntervalSince(startDate) / TimeInterval.secondsInDay
         let currentDateDifference = Date().timeIntervalSince(startDate) / TimeInterval.secondsInDay
-        let progressBarValue = currentDateDifference / shoeDateDifference
+        let progressBarValue = min((currentDateDifference / shoeDateDifference), 1)
         return progressBarValue
     }
     
