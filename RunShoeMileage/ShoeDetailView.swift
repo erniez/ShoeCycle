@@ -109,6 +109,7 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
         shoe.brand = shoeName
         shoe.startDistance = NSNumber(value: distanceUtility.distance(from: startDistance))
         shoe.maxDistance = NSNumber(value: distanceUtility.distance(from: maxDistance))
+        store.updateTotalDistance(shoe: shoe)
         shoe.startDate = startDate
         shoe.expirationDate = expirationDate
     }
