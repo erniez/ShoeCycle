@@ -16,6 +16,9 @@ fileprivate struct ShoeCycleProgressView: View {
     let startValue: String
     let endValue: String
     
+    @State private var bounceState = false
+    private let animationDuration: TimeInterval = 0.25
+    
     var body: some View {
         HStack {
             VStack(spacing: 0) {
@@ -46,14 +49,28 @@ fileprivate struct ShoeCycleProgressView: View {
                     .font(.headline)
                     .padding(.top, -4)
             }
+            .scaleEffect(bounceState ? 1.75 : 1.0)
             .foregroundColor(progressColor)
             Spacer()
         }
+        .onChange(of: value, perform: { _ in
+            self.bounce()
+        })
+        .animation(.bouncy(duration: animationDuration, extraBounce: 0.3), value: bounceState)
     }
     
     private func formatNumberForDisplay(value: Double) -> String {
         let number = NSNumber(value: value)
         return NumberFormatter.decimal.string(from: number) ?? ""
+    }
+    
+    private func bounce() {
+        bounceState.toggle()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationDuration, execute: {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            bounceState.toggle()
+        })
     }
 }
 
