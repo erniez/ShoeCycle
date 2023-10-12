@@ -59,6 +59,7 @@
 		1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; };
 		1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B62EB942A5231FC00226147 /* ImageStore.swift */; };
+		1B6505832AD8467E002B0A6C /* FTUHintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6505822AD8467E002B0A6C /* FTUHintManager.swift */; };
 		1B68ACA32ABFA9BE00348E8A /* StravaURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */; };
 		1B68ACA62AC3530C00348E8A /* SequenceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */; };
 		1B69E107225A741A0081F580 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */; };
@@ -220,6 +221,7 @@
 		1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AFNetworking.xcframework; path = Carthage/Build/AFNetworking.xcframework; sourceTree = "<group>"; };
 		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
 		1B62EB942A5231FC00226147 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
+		1B6505822AD8467E002B0A6C /* FTUHintManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTUHintManager.swift; sourceTree = "<group>"; };
 		1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaURLs.swift; sourceTree = "<group>"; };
 		1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceExtension.swift; sourceTree = "<group>"; };
 		1B69E106225A741A0081F580 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				1BCF9FF82A1BF3FD007F697E /* ShoeDistanceCalcExtensions.swift */,
 				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
 				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
+				1B6505822AD8467E002B0A6C /* FTUHintManager.swift */,
 			);
 			name = "Common Swift";
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				1B0AD7FA2A2FA76B006AB307 /* ActiveShoesView.swift in Sources */,
 				1BE5406A2AAB73B500DCC109 /* HealthKitService.swift in Sources */,
 				1B715A5514AE65EF002207FA /* StandardDistancesViewController.m in Sources */,
+				1B6505832AD8467E002B0A6C /* FTUHintManager.swift in Sources */,
 				1B1B144514B0D882009891D6 /* ShoeStore_Legacy.m in Sources */,
 				1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */,
 				1BDAF9091B0AE6A400ADDE92 /* UIAlertController+CommonAlerts.m in Sources */,

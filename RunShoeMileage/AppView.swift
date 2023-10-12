@@ -34,6 +34,9 @@ struct AppView: View {
     @StateObject private var settings = UserSettings.shared
     @StateObject private var healthKitService = HealthKitService()
     @State private var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
+    @State private var shoeFTUHint = false
+    
+    private let ftuManager = FTUHintManager()
 
     var body: some View {
         TabView(selection: $activeTab) {
@@ -82,7 +85,21 @@ struct AppView: View {
         .onAppear {
             let selectedShoeStrategy = SelectedShoeStrategy(store: shoeStore, settings: settings)
             selectedShoeStrategy.updateSelectedSelectedShoeStorageFromLegacyIfNeeded()
+            if let _ = ftuManager.hintMessage() {
+                shoeFTUHint = true
+            }
         }
+        .alert("Hint", isPresented: $shoeFTUHint) {
+            HStack {
+                Button("Don't show again") {
+                    ftuManager.completeHint()
+                }
+                Button("OK") {}
+            }
+        } message: {
+            Text(ftuManager.hintMessage() ?? "")
+        }
+
     }
     
     var tabBarAddDistanceLabel: some View {
