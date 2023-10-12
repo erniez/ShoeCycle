@@ -42,6 +42,25 @@ struct SelectedShoeStrategy {
         }
     }
     
+    /**
+     If we have active shoes but no selected shoe, then we're most likely coming from a legacy version.
+     We check for this condition, pull the old shoe index from the legacy storage key, select the appropriate
+     shoe from the activeShoes array, and store its URL under the new key. If all else fails, we select the
+     first active shoe. If we have a valid selected shoe condition, then nothing happens.
+     */
+    func updateSelectedSelectedShoeStorageFromLegacyIfNeeded() {
+        if store.activeShoes.count > 0 && settings.selectedShoeURL == nil {
+            let shoeOrderNumber = settings.legacySelectedShoe
+            if (0..<store.activeShoes.count).contains(shoeOrderNumber) {
+                let shoe = store.activeShoes[shoeOrderNumber]
+                settings.setSelected(shoeUrl: shoe.objectID.uriRepresentation())
+            }
+            else {
+                selectFirstActiveShoe()
+            }
+        }
+    }
+    
     private func selectFirstActiveShoe() {
         if let shoe = store.activeShoes.first {
             settings.setSelected(shoeUrl: shoe.objectID.uriRepresentation())

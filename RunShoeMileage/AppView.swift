@@ -79,6 +79,10 @@ struct AppView: View {
         .environmentObject(settings)
         .environmentObject(healthKitService)
         .dynamicTypeSize(.medium ... .xLarge)
+        .onAppear {
+            let selectedShoeStrategy = SelectedShoeStrategy(store: shoeStore, settings: settings)
+            selectedShoeStrategy.updateSelectedSelectedShoeStorageFromLegacyIfNeeded()
+        }
     }
     
     var tabBarAddDistanceLabel: some View {

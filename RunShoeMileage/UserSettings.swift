@@ -65,6 +65,8 @@ class UserSettings: ObservableObject {
     @Published private(set) var selectedShoeURL: URL?
     @Published private(set) var graphAllShoes: Bool
     
+    let legacySelectedShoe = UserDefaults.standard.integer(forKey: StorageKey.legacySelectedShoe)
+    
     private let defaults = UserDefaults.standard
     
     init() {
