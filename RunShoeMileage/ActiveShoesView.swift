@@ -23,6 +23,18 @@ struct ActiveShoesView: View {
     
     var body: some View {
         NavigationStack {
+            if shoeRowViewModels.count == 0 {
+                // TODO: Use TipKit for this when targeting iOS 17
+                Text("Please tap the \"Add Shoe\" button in the top right of the screen to add a shoe.")
+                    .frame(maxWidth: 300)
+                    .padding()
+                    .background {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .stroke(Color.shoeCycleBlue, lineWidth: 2)
+                            .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
+                            .padding(.horizontal)
+                    }
+            }
             List {
                 ForEach(shoeRowViewModels, id: \.shoeURL) { viewModel in
                     NavigationLink(value: viewModel) {
