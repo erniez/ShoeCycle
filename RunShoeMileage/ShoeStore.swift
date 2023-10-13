@@ -86,6 +86,39 @@ class ShoeStore: ObservableObject {
         return newShoe
     }
     
+    func adjustShoeOrderingValue(fromOffsetURL: URL, toOffsetURL: URL) {
+        guard let fromShoe = getShoe(from: fromOffsetURL),
+              let toIndex = allShoes.index(of: toOffsetURL) else {
+            return
+        }
+        let newOrderingValue = getNewOrderingValue(toOffset: toIndex)
+        fromShoe.orderingValue = NSNumber(value: newOrderingValue)
+        saveContext()
+        updateAllShoes()
+    }
+    
+    private func getNewOrderingValue(toOffset: Int) -> Double {
+        var lowerBound = 0.0
+        var upperBound = 0.0
+        
+        if toOffset > 0 {
+            lowerBound = allShoes[toOffset - 1].orderingValue.doubleValue
+        }
+        else {
+            lowerBound = allShoes[1].orderingValue.doubleValue - 2.0
+        }
+        
+        if toOffset < (allShoes.count - 1) {
+            upperBound = allShoes[toOffset + 1].orderingValue.doubleValue
+        }
+        else {
+            upperBound = allShoes[toOffset - 1].orderingValue.doubleValue + 2.0
+        }
+        
+        let newOrderingValue = (lowerBound + upperBound) / 2
+        return newOrderingValue
+    }
+    
     func removeShoe(with url: URL) {
         if let shoe = getShoe(from: url) {
             remove(shoe: shoe)
@@ -174,4 +207,10 @@ extension Shoe {
     }
 }
 
+fileprivate extension Array where Element == Shoe {
+    func index(of shoeURL: URL) -> Int? {
+        let shoeIndex = firstIndex { $0.objectID.uriRepresentation() == shoeURL }
+        return shoeIndex
+    }
+}
 

@@ -46,6 +46,15 @@ struct ActiveShoesView: View {
                     shoesToRemove.forEach { shoeStore.removeShoe(with: $0.shoeURL) }
                     selectedShoeStrategy.updateSelectedShoe()
                 }
+                .onMove { fromOffsets, toOffset in
+                    let urls = shoeRowViewModels.getShoeURLs(fromOffsets: fromOffsets, toOffset: toOffset)
+                    // Short circuiting the UDF here to allow for smooth UI
+                    shoeRowViewModels.move(fromOffsets: fromOffsets, toOffset: toOffset)
+                    Task {
+                        // We don't want to interrupt the UI, so we put this operation in a background thread.
+                        shoeStore.adjustShoeOrderingValue(fromOffsetURL: urls.fromURL, toOffsetURL: urls.toURL)
+                    }
+                }
             }
             .navigationDestination(for: ShoeListRowViewModel.self) { viewModel in
                 if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: viewModel.shoeURL) {
@@ -123,6 +132,19 @@ extension ShoeListRowViewModel {
                                         totalDistance: shoe.totalDistance.doubleValue,
                                         shoeURL: shoe.objectID.uriRepresentation())
         }
+    }
+}
+
+extension Array where Element == ShoeListRowViewModel {
+    func getShoeURLs(fromOffsets: IndexSet, toOffset: Int) -> (fromURL: URL, toURL: URL) {
+        let fromOffset = fromOffsets[fromOffsets.startIndex]
+        // When the destination offset is greater than the source offset, we need
+        // to subtract 1 from it because the array move operation has to make an
+        // extra slot to insert into, before it deletes the original.
+        let actualToOffset = toOffset > fromOffset ? toOffset - 1 : toOffset
+        let fromURL = self[fromOffset].shoeURL
+        let toURL = self[actualToOffset].shoeURL
+        return (fromURL, toURL)
     }
 }
 

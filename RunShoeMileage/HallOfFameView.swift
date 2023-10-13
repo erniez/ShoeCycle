@@ -32,6 +32,15 @@ struct HallOfFameView: View {
                             let shoesToRemove = indexSet.map { shoeRowViewModels[$0] }
                             shoesToRemove.forEach { shoeStore.removeShoe(with: $0.shoeURL) }
                         }
+                        .onMove { fromOffsets, toOffset in
+                            let urls = shoeRowViewModels.getShoeURLs(fromOffsets: fromOffsets, toOffset: toOffset)
+                            // Short circuiting the UDF here to allow for smooth UI
+                            shoeRowViewModels.move(fromOffsets: fromOffsets, toOffset: toOffset)
+                            Task {
+                                // We don't want to interrupt the UI, so we put this operation in a background thread.
+                                shoeStore.adjustShoeOrderingValue(fromOffsetURL: urls.fromURL, toOffsetURL: urls.toURL)
+                            }
+                        }
                     }
                     .navigationDestination(for: ShoeListRowViewModel.self) { viewModel in
                         if let detailViewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: viewModel.shoeURL) {
