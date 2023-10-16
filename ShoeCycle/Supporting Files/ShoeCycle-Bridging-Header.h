@@ -13,7 +13,6 @@
 #import "AddDistanceViewController.h"
 #import "EditShoesViewController.h"
 #import "SetupViewController.h"
-#import "EditShoesNavController.h"
 #import "GlobalStringConstants.h"
 #import "FTUUtility.h"
 #import "ImageStore_Legacy.h"

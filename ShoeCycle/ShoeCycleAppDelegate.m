@@ -10,7 +10,6 @@
 #import "AddDistanceViewController.h"
 #import "EditShoesViewController.h"
 #import "SetupViewController.h"
-#import "EditShoesNavController.h"
 #import "ShoeStore_Legacy.h"
 @import Firebase;
 #import "UserDistanceSetting.h"
