@@ -12,6 +12,7 @@ struct StravaInteractor {
     let settings: UserSettings
     private let urlSession: URLSession = .shared
     private let stravaTokenKeeper = StravaTokenKeeper()
+    private let stravaSecretKeyFactory: SecretKeyFactory = .strava
     
     init(settings: UserSettings) {
         self.settings = settings
@@ -64,7 +65,8 @@ struct StravaInteractor {
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
             StravaKeys.clientIDkey: StravaKeys.clientIDValue,
-            StravaKeys.secretKey: StravaKeys.secretValue,
+            StravaKeys.secretKey: stravaSecretKeyFactory.getClearString()
+            ,
             "code": token,
             "grant_type": "authorization_code"
         ]

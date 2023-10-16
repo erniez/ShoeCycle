@@ -27,7 +27,6 @@ TODO: for further protection.
 enum StravaKeys {
     static let clientIDValue = "4002"
     static let clientIDkey = "client_id"
-    static let secretValue = "558112ea963c3427a387549a3361bd6677083ff9"
     static let secretKey = "client_secret"
 }
 

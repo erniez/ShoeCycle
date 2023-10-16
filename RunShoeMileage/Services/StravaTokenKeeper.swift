@@ -32,6 +32,7 @@ struct StravaTokenKeeper: ThrowingService {
     }
     
     private let network: any RESTService
+    private let stravaSecretKeyFactory: SecretKeyFactory = .strava
     
     /**
      Initialize the StravaTokenKeeper
@@ -108,7 +109,7 @@ struct StravaTokenKeeper: ThrowingService {
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
             StravaKeys.clientIDkey: StravaKeys.clientIDValue,
-            StravaKeys.secretKey: StravaKeys.secretValue,
+            StravaKeys.secretKey: stravaSecretKeyFactory.getClearString(),
             "refresh_token": token.refreshToken,
             "grant_type": "refresh_token"
         ]
