@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ShoeDetailViewController.h"
-#import "ShoesTestData.h"
+//#import "ShoesTestData.h"
 #import "Shoe.h"
 
 @interface EditShoesViewController : UITableViewController<UITableViewDelegate>
