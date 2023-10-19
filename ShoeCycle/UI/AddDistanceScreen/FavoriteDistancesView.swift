@@ -92,6 +92,7 @@ struct FavoriteDistancesView: View {
             Spacer()
         }
         .background(.patternedBackground)
+        .dynamicTypeSize(.medium ... .xLarge)
     }
     
     func distanceToAdd(_ distance: Double) {

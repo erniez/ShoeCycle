@@ -69,6 +69,7 @@ struct HistoryListView: View {
             }
             .listStyle(.insetGrouped)
         }
+        .dynamicTypeSize(.medium ... .xLarge)
     }
 }
 
