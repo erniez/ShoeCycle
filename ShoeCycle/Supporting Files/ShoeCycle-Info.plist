@@ -71,7 +71,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs to access your camera so that you can take awesome pictures of your running shoes.</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>This app needs to access your health data in order to track your mileage.</string>
+	<string>This app needs to access your health data in order to read your mileage.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>This app needs to access your health data in order to update your mileage.</string>
 	<key>NSMainNibFile</key>
