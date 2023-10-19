@@ -94,6 +94,7 @@ struct DateDistanceEntryView: View {
                             }
                         }
                     }
+                    .font(.title3)
                 
                 Button {
                     logger.logEvent(name: AnalyticsKeys.Event.showFavoriteDistancesEvent,
