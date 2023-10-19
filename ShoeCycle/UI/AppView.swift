@@ -85,7 +85,9 @@ struct AppView: View {
         .onAppear {
             let selectedShoeStrategy = SelectedShoeStrategy(store: shoeStore, settings: settings)
             selectedShoeStrategy.updateSelectedSelectedShoeStorageFromLegacyIfNeeded()
-            if let _ = ftuManager.hintMessage() {
+            // These hints are only valuable when there are 2 or more active shoes. This logic will be moved into
+            // TipKit when I adopt it.
+            if shoeStore.activeShoes.count >= 2, let _ = ftuManager.hintMessage() {
                 shoeFTUHint = true
             }
         }
