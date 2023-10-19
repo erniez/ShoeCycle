@@ -18,6 +18,7 @@ struct DateDistanceEntryView: View {
     @State private var showUnknownNetworkErrorAlert = false
     @Binding var runDate: Date
     @Binding var runDistance: String
+    @Binding var shouldBounce: Bool
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
@@ -126,6 +127,7 @@ struct DateDistanceEntryView: View {
                 ZStack {
                     Button {
                         dismissKeyboard()
+                        shouldBounce = true
                         let distance = distanceUtility.distance(from: runDistance)
                         if settings.healthKitEnabled || settings.stravaEnabled {
                             Task {
@@ -249,9 +251,10 @@ private extension DateDistanceEntryView {
 struct DateDistanceEntryView_Previews: PreviewProvider {
     @State static var runDate = Date()
     @State static var runDistance = "5"
+    @State static var shouldBounce = false
     static var shoe = MockShoeGenerator().generateNewShoeWithData()
     
     static var previews: some View {
-        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: shoe)
+        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shouldBounce: $shouldBounce, shoe: shoe)
     }
 }

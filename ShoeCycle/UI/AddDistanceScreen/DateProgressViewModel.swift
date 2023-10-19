@@ -5,11 +5,12 @@
 //  
 //
 
-import Foundation
+import SwiftUI
 
 struct DateProgressViewModel {
     let startDate: Date
     let endDate: Date
+    @Binding var shouldBounce: Bool
     
     var progressBarValue: Double {
         let shoeDateDifference = endDate.timeIntervalSince(startDate) / TimeInterval.secondsInDay

@@ -11,6 +11,7 @@ struct AddDistanceView: View {
     @State private var runDate = Date()
     @State private var runDistance = ""
     @State private var graphAllShoes = UserSettings.shared.graphAllShoes
+    @State private var shouldBounce = false
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
@@ -45,12 +46,12 @@ struct AddDistanceView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .fill(Color.sectionBackground)
-                    DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shoe: shoe)
+                    DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shouldBounce: $shouldBounce, shoe: shoe)
                 }
                 .padding([.vertical], 16)
                 .fixedSize(horizontal: false, vertical: true)
-                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue)
-                ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate))
+                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue, shouldBounce: $shouldBounce)
+                ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate, shouldBounce: $shouldBounce))
                 RunHistoryChart(collatedHistory: historiesToShow().collateHistories(ascending: true), graphAllShoes: $graphAllShoes)
                     .padding([.vertical], 16)
             }
