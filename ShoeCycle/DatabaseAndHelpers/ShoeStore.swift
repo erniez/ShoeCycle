@@ -38,12 +38,17 @@ class ShoeStore: ObservableObject {
         }
     }
     
-    func updateAllShoes() {
+    func updateAllShoes(publishChanges: Bool = true) {
         if let shoes = try? context.fetch(Shoe.allShoesFetchRequest) {
             print("Updating Shoes")
             allShoes = shoes
-            updateActiveShoes()
-            updateHallOfFameShoes()
+            if publishChanges == true {
+                // UI depends on these values and we may not always be coming from the main thread
+                DispatchQueue.main.async { [weak self] in
+                    self?.updateActiveShoes()
+                    self?.updateHallOfFameShoes()
+                }
+            }
         }
     }
     
@@ -94,7 +99,13 @@ class ShoeStore: ObservableObject {
         let newOrderingValue = getNewOrderingValue(toOffset: toIndex)
         fromShoe.orderingValue = NSNumber(value: newOrderingValue)
         saveContext()
-        updateAllShoes()
+        // We don't need to publish order changes. Client code doesn't instantly need to
+        // know about the change. Only the calling List view needs to know, and it is
+        // updated locally.
+        // NOTE: In keeping with UDF, I tried to feed back the changes via the publishers
+        // instead, but there's too much magic happening inside the List implementation
+        // causing UI glitches and ordering errors.
+        updateAllShoes(publishChanges: false)
     }
     
     private func getNewOrderingValue(toOffset: Int) -> Double {

@@ -58,6 +58,7 @@ class UserSettings: ObservableObject {
     // bunch of short lived settings objects all over the code base.
     static let shared = UserSettings()
     
+    // These published values are responding to UI changes and are already on the main thread.
     @Published private(set) var distanceUnit: DistanceUnit
     @Published private(set) var firstDayOfWeek: FirstDayOfWeek
     @Published private(set) var stravaEnabled: Bool
