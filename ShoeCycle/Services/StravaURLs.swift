@@ -16,11 +16,6 @@ enum StravaURLs {
     static let actvitiesURL = "https://www.strava.com/api/v3/activities"
 }
 
-/*
-TODO: Move these keys to a secrets file that isn't part of the repo.
-TODO: If I'm feeling particulary motivated, use obfuscation techniques
-TODO: for further protection.
- */
 /**
  Constants used in Strava API Authentication
  */

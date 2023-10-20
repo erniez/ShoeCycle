@@ -17,12 +17,13 @@ class SettingsFavoriteDistancesViewModel: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     private let formatter: NumberFormatter = .decimal
     
+    private let distanceUtility = DistanceUtility()
+    
     init() {
-        // TODO: Need to take into account the unit of measure setting.
-        favorite1 = formatter.string(from: NSNumber(value: settings.favorite1)) ?? ""
-        favorite2 = formatter.string(from: NSNumber(value: settings.favorite2)) ?? ""
-        favorite3 = formatter.string(from: NSNumber(value: settings.favorite3)) ?? ""
-        favorite4 = formatter.string(from: NSNumber(value: settings.favorite4)) ?? ""
+        favorite1 = distanceUtility.displayString(for: settings.favorite1)
+        favorite2 = distanceUtility.displayString(for: settings.favorite2)
+        favorite3 = distanceUtility.displayString(for: settings.favorite3)
+        favorite4 = distanceUtility.displayString(for: settings.favorite4)
         initDebouncers()
     }
     
@@ -31,25 +32,25 @@ class SettingsFavoriteDistancesViewModel: ObservableObject {
         $favorite1
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite1 = Double(newString) ?? 0
+                self?.settings.favorite1 = self?.distanceUtility.distance(from: newString) ?? 0
             } )
             .store(in: &subscriptions)
         $favorite2
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite2 = Double(newString) ?? 0
+                self?.settings.favorite2 = self?.distanceUtility.distance(from: newString) ?? 0
             } )
             .store(in: &subscriptions)
         $favorite3
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite3 = Double(newString) ?? 0
+                self?.settings.favorite3 = self?.distanceUtility.distance(from: newString) ?? 0
             } )
             .store(in: &subscriptions)
         $favorite4
             .debounce(for: debounceTime, scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] newString in
-                self?.settings.favorite4 = Double(newString) ?? 0
+                self?.settings.favorite4 = self?.distanceUtility.distance(from: newString) ?? 0
             } )
             .store(in: &subscriptions)
     }

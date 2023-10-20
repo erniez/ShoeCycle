@@ -117,8 +117,7 @@ struct DateDistanceEntryView: View {
             }
             .onChange(of: favoriteDistanceToAdd) { newValue in
                 if newValue > 0 {
-                    let formatter = NumberFormatter.decimal
-                    runDistance = formatter.string(from: NSNumber(value: favoriteDistanceToAdd)) ?? ""
+                    runDistance = distanceUtility.displayString(for: newValue)
                 }
             }
             

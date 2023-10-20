@@ -29,7 +29,8 @@ struct FavoriteDistancesView: View {
     @Binding var distanceToAdd: Double
     @Environment(\.dismiss) var dismiss
     
-    let padding = 8.0
+    private let padding = 8.0
+    private let distanceUtility = DistanceUtility()
     
     var body: some View {
         VStack {
@@ -68,18 +69,18 @@ struct FavoriteDistancesView: View {
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: settings.$favorite1 ?? "Favorite 1") {
+                    FavoriteDistanceButton(title: displayString(for: settings.favorite1) ?? "Favorite 1") {
                         distanceToAdd(Double(settings.favorite1))
                     }
-                    FavoriteDistanceButton(title: settings.$favorite2 ?? "Favorite 2") {
+                    FavoriteDistanceButton(title: displayString(for: settings.favorite2) ?? "Favorite 2") {
                         distanceToAdd(Double(settings.favorite2))
                     }
                 }
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: settings.$favorite3 ?? "Favorite 3") {
+                    FavoriteDistanceButton(title: displayString(for: settings.favorite3) ?? "Favorite 3") {
                         distanceToAdd(Double(settings.favorite3))
                     }
-                    FavoriteDistanceButton(title: settings.$favorite4 ?? "Favorite 4") {
+                    FavoriteDistanceButton(title: displayString(for: settings.favorite4) ?? "Favorite 4") {
                         distanceToAdd(Double(settings.favorite4))
                     }
                 }
@@ -98,6 +99,14 @@ struct FavoriteDistancesView: View {
     func distanceToAdd(_ distance: Double) {
         distanceToAdd = distance
         dismiss()
+    }
+    
+    func displayString(for distance: Double) -> String? {
+        let displayString = distanceUtility.displayString(for: distance)
+        if displayString.count > 0 {
+            return displayString
+        }
+        return nil
     }
 }
 
