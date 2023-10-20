@@ -23,10 +23,12 @@ struct ShoeImageView: View {
                     .offset(x: 0, y: pointerSquareSize/2)
                 ShoeImage(shoe: shoe, allowImageChange: false)
             }
-            Text(shoe.brand ?? "") // Another mystery crash here where view was updating unexpectedly
+            Text(shoe.brand)
                 .foregroundColor(Color.white)
                 .padding(.top, 8)
                 .lineLimit(1)
+                .truncationMode(.middle)
+                .font(.callout)
         }
     }
 }
