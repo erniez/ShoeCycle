@@ -32,7 +32,6 @@ struct ActiveShoesView: View {
                         RoundedRectangle(cornerRadius: 8, style: .continuous)
                             .stroke(Color.shoeCycleBlue, lineWidth: 2)
                             .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
-                            .padding(.horizontal)
                     }
             }
             List {
