@@ -16,4 +16,11 @@ struct AnalyticsFactory {
         return FirebaseLogger.shared
         #endif
     }
+    static func initializeAnalytics() {
+        #if DEBUG
+        ConsoleLogger.initializeLogger()
+        #else
+        FirebaseLogger.initializeLogger()
+        #endif
+    }
 }
