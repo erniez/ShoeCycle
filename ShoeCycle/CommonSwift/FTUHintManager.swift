@@ -32,7 +32,7 @@ struct FTUHintManager {
         hintGraphAllShoesFeature : hintInfoGraphAllShoesFeature
     ]
     
-    let allHints = [hintInfoSwipeFeature, hintStravaFeature, hintHOFFeature, hintGraphAllShoesFeature]
+    let allHintKeys = [hintSwipeFeature, hintStravaFeature, hintHOFFeature, hintGraphAllShoesFeature]
     
     let completedHints: [String] = UserDefaults.standard.array(forKey: completedHintsKey) as? [String] ?? []
     
@@ -53,7 +53,7 @@ struct FTUHintManager {
     }
     
     private func currentHintKey() -> String? {
-        let availableHints = allHints.reduce([String]()) { partialResult, hint in
+        let availableHints = allHintKeys.reduce([String]()) { partialResult, hint in
             if completedHints.contains(hint) == false {
                 return partialResult + [hint]
             }
