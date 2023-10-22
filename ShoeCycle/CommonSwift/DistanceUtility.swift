@@ -30,6 +30,13 @@ struct DistanceUtility {
         return formatter.string(from: NSNumber(value: runDistance)) ?? ""
     }
     
+    func favoriteDistanceDisplayString(for distance: Double) -> String {
+        guard distance > 0 else {
+            return ""
+        }
+        return displayString(for: distance)
+    }
+    
     func distance(from string: String) -> Double {
         guard var runDistance = Double(string) else {
             print("Could not form number from string")

@@ -102,7 +102,7 @@ struct FavoriteDistancesView: View {
     }
     
     func displayString(for distance: Double) -> String? {
-        let displayString = distanceUtility.displayString(for: distance)
+        let displayString = distanceUtility.favoriteDistanceDisplayString(for: distance)
         if displayString.count > 0 {
             return displayString
         }

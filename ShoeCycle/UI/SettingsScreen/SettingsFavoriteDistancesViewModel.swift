@@ -20,10 +20,10 @@ class SettingsFavoriteDistancesViewModel: ObservableObject {
     private let distanceUtility = DistanceUtility()
     
     init() {
-        favorite1 = distanceUtility.displayString(for: settings.favorite1)
-        favorite2 = distanceUtility.displayString(for: settings.favorite2)
-        favorite3 = distanceUtility.displayString(for: settings.favorite3)
-        favorite4 = distanceUtility.displayString(for: settings.favorite4)
+        favorite1 = distanceUtility.favoriteDistanceDisplayString(for: settings.favorite1)
+        favorite2 = distanceUtility.favoriteDistanceDisplayString(for: settings.favorite2)
+        favorite3 = distanceUtility.favoriteDistanceDisplayString(for: settings.favorite3)
+        favorite4 = distanceUtility.favoriteDistanceDisplayString(for: settings.favorite4)
         initDebouncers()
     }
     
