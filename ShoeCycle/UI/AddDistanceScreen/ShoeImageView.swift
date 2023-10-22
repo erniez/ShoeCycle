@@ -23,7 +23,9 @@ struct ShoeImageView: View {
                     .offset(x: 0, y: pointerSquareSize/2)
                 ShoeImage(shoe: shoe, allowImageChange: false)
             }
-            Text(shoe.brand)
+            // This check for nil needs to be here for when the shoe is deleted from the CoreData context and the
+            // object is in a faulted state.
+            Text(shoe.brand ?? "")
                 .foregroundColor(Color.white)
                 .padding(.top, 8)
                 .lineLimit(1)

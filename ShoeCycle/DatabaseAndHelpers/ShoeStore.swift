@@ -8,7 +8,11 @@
 import Foundation
 import CoreData
 
-
+// TODO: Investigate threading for CoreData or switch to SwiftData
+// NOTE: The context is created on the main thread. I've been lucky that all interactions with
+// CoreData have been on the main thread, but this is not a good practice. I should be writing
+// to a context on a background thread, and then publish changes via a different context to the
+// main thread.
 class ShoeStore: ObservableObject {
     
     @Published var activeShoes: [Shoe] = []
@@ -43,11 +47,11 @@ class ShoeStore: ObservableObject {
             print("Updating Shoes")
             allShoes = shoes
             if publishChanges == true {
-                // UI depends on these values and we may not always be coming from the main thread
-                DispatchQueue.main.async { [weak self] in
-                    self?.updateActiveShoes()
-                    self?.updateHallOfFameShoes()
-                }
+                // These published values were changed on the main thread, but it caused many issues
+                // within the app and exposed some architectual flaws with the way I implemented CoreData.
+                // These issues will be addressed at a later date.
+                updateActiveShoes()
+                updateHallOfFameShoes()
             }
         }
     }
