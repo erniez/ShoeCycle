@@ -1082,7 +1082,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ShoeCycle/Supporting Files/ShoeCycle.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
@@ -1101,7 +1101,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6.0;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
@@ -1359,7 +1359,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ShoeCycle/Supporting Files/ShoeCycle.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
@@ -1378,7 +1378,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6.0;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
@@ -1398,7 +1398,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ShoeCycle/Supporting Files/ShoeCycle.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
@@ -1417,7 +1417,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6.0;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
