@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AuthenticationServices
+import OSLog
 
 struct StravaInteractor {
     let settings: UserSettings
@@ -43,10 +44,10 @@ struct StravaInteractor {
         {
             if error.domain == "com.apple.AuthenticationServices.WebAuthenticationSession",
                error.code == 1 {
-                print("User cancelled web login flow")
+                Logger.app.info("User cancelled web login flow")
             }
             else {
-                print("oops! something went wrong! \(error)")
+                Logger.app.error("oops! something went wrong! \(error)")
             }
             return false
         }
@@ -81,7 +82,7 @@ struct StravaInteractor {
         else {
             settings.set(stravaEnabled: false)
             resetStravaToken()
-            print("oops! something went wrong!")
+            Logger.app.error("oops! something went wrong!")
             throw NSError(domain: "Strava Web Login", code: 0)
         }
     }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 struct ConsoleLogger: AnalyticsLogger {
     
@@ -16,10 +17,11 @@ struct ConsoleLogger: AnalyticsLogger {
     }
     
     func logEvent(name: String, userInfo: [String : Any]?) {
-        print("*** Shoecycle Analytic Event Log: \(name)")
+        Logger.app.info("*** Shoecycle Analytic Event Log: \(name)")
         if let userInfo = userInfo {
             userInfo.keys.forEach({ key in
-                print("*** \(key): \(userInfo[key] ?? "")")
+                let value = userInfo[key] ?? ""
+                Logger.app.info("*** \(key): \(String(describing: value))")
             })
         }
     }

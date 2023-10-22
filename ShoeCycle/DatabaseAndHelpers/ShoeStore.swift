@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import OSLog
 
 // TODO: Investigate threading for CoreData or switch to SwiftData
 // NOTE: The context is created on the main thread. I've been lucky that all interactions with
@@ -44,7 +45,7 @@ class ShoeStore: ObservableObject {
     
     func updateAllShoes(publishChanges: Bool = true) {
         if let shoes = try? context.fetch(Shoe.allShoesFetchRequest) {
-            print("Updating Shoes")
+            Logger.app.trace("Updating Shoes")
             allShoes = shoes
             if publishChanges == true {
                 // These published values were changed on the main thread, but it caused many issues
@@ -152,13 +153,12 @@ class ShoeStore: ObservableObject {
     
     func updateTotalDistance(shoe: Shoe) {
         let runTotal = shoe.history.total(initialValue: shoe.startDistance.doubleValue, for: \.runDistance.doubleValue)
-        print("Total Distance: \(String(runTotal))")
         shoe.totalDistance = NSNumber(value: runTotal)
     }
     
     func addHistory(to shoe: Shoe, date: Date, distance: Double) {
         guard let newHistory = NSEntityDescription.insertNewObject(forEntityName: "History", into: context) as? History else {
-            print("Could not create History object")
+            Logger.app.error("Could not create History object")
             return
         }
         
@@ -176,10 +176,10 @@ class ShoeStore: ObservableObject {
     func saveContext() {
         if context.hasChanges {
             do {
-                print("saving context")
+                Logger.app.trace("saving context")
                 try context.save()
             } catch {
-                print("Error occurred while trying to save context")
+                Logger.app.error("Error occurred while trying to save context")
                 if let error = error as NSError? {
                     fatalError("Unresolved error \(error), \(error.userInfo)")
                 }

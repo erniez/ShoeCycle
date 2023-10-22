@@ -95,6 +95,7 @@
 		1BBA7ACC22087126006C6EDF /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA7ACB22087126006C6EDF /* Date+Helpers.swift */; };
 		1BBC605E2AE44278008B0FE0 /* ShoeCycleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBC605D2AE44278008B0FE0 /* ShoeCycleApp.swift */; };
 		1BBC60612AE44CEB008B0FE0 /* ShoeCycleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBC605F2AE44CEB008B0FE0 /* ShoeCycleAppDelegate.m */; };
+		1BBC60632AE4CD19008B0FE0 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBC60622AE4CD19008B0FE0 /* Logging.swift */; };
 		1BBCF59D2A70834C002D28D3 /* DateDistanceEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBCF59C2A70834C002D28D3 /* DateDistanceEntryView.swift */; };
 		1BBCF59F2A718163002D28D3 /* PatternedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBCF59E2A718163002D28D3 /* PatternedBackground.swift */; };
 		1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */; };
@@ -273,6 +274,7 @@
 		1BBC605D2AE44278008B0FE0 /* ShoeCycleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleApp.swift; sourceTree = "<group>"; };
 		1BBC605F2AE44CEB008B0FE0 /* ShoeCycleAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoeCycleAppDelegate.m; sourceTree = "<group>"; };
 		1BBC60602AE44CEB008B0FE0 /* ShoeCycleAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoeCycleAppDelegate.h; sourceTree = "<group>"; };
+		1BBC60622AE4CD19008B0FE0 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		1BBCF59C2A70834C002D28D3 /* DateDistanceEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDistanceEntryView.swift; sourceTree = "<group>"; };
 		1BBCF59E2A718163002D28D3 /* PatternedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternedBackground.swift; sourceTree = "<group>"; };
 		1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -707,14 +709,15 @@
 		1BCF6444148AF7E7004C0E6A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
 				1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */,
+				1BBC60622AE4CD19008B0FE0 /* Logging.swift */,
+				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
+				1B6505892ADCA6AB002B0A6C /* Secrets.swift */,
 				1B2248CE1C81480B0081518A /* ShoeCycle-Bridging-Header.h */,
-				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
-				1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */,
 				1BCF6445148AF7E7004C0E6A /* ShoeCycle-Info.plist */,
 				1BCF644B148AF7E7004C0E6A /* ShoeCycle-Prefix.pch */,
-				1B6505892ADCA6AB002B0A6C /* Secrets.swift */,
+				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
+				1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -996,6 +999,7 @@
 				1BCF9FE82A1AC27A007F697E /* ShoeImageView.swift in Sources */,
 				1B1738F72A15422C006D632D /* ShoeCycleProgressView.swift in Sources */,
 				1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */,
+				1BBC60632AE4CD19008B0FE0 /* Logging.swift in Sources */,
 				1B6505AE2ADDF5F3002B0A6C /* UIAlertController+CommonAlerts.m in Sources */,
 				1BE540642AA81E6D00DCC109 /* StravaService.swift in Sources */,
 				1B65058E2ADDF0B1002B0A6C /* APIURLStrings.m in Sources */,

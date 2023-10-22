@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import OSLog
 
 struct ShoeImage: View {
     @ObservedObject var shoe: Shoe
@@ -72,13 +73,11 @@ fileprivate struct ShoeImagePicker: ViewModifier {
             .confirmationDialog("Image Picker", isPresented: $showImageSelection) {
                 
                 Button("Photo Library") {
-                    print("Photo Library")
                     showPhotoPicker = true
                 }
                 
                 Button("Camera") {
                     showCamera = true
-                    print("Camera")
                 }
             }
             .onTapGesture {
@@ -86,7 +85,6 @@ fileprivate struct ShoeImagePicker: ViewModifier {
             }
             .photosPicker(isPresented: $showPhotoPicker, selection: $shoeItem)
             .onChange(of: shoeItem) { _ in
-                print("Shoe Item has changed")
                 Task {
                     if let data = try? await shoeItem?.loadTransferable(type: Data.self),
                        let shoeUIImage = UIImage(data: data) {
@@ -99,7 +97,7 @@ fileprivate struct ShoeImagePicker: ViewModifier {
                         logger.logEvent(name: AnalyticsKeys.Event.shoePictureAddedEvent, userInfo: nil)
                         return
                     }
-                    print("Failed to create Image")
+                    Logger.app.error("Failed to create Image")
                 }
             }
             .sheet(isPresented: $showCamera) {

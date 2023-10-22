@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import OSLog
 
 struct HistoryListViewModel {
     var sections: [HistorySectionViewModel] = []
@@ -22,7 +22,7 @@ struct HistoryListViewModel {
     
     func removeHistories(from sectionViewModel: HistorySectionViewModel, atOffsets: IndexSet) {
         guard sections.contains(sectionViewModel) else {
-            print("Error: Trying to remove histories from a section that doesn't exist in view model")
+            Logger.app.error("Error: Trying to remove histories from a section that doesn't exist in view model")
             return
         }
         let historiesToDelete = atOffsets.map { sectionViewModel.histories[$0] }

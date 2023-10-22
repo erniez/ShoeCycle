@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import OSLog
 
 class MockShoeGenerator {
     let store: ShoeStore
@@ -18,7 +18,7 @@ class MockShoeGenerator {
     }
 
     func generateNewShoeWithData(saveData: Bool = false) -> Shoe {
-        print("generating new shoe data")
+        Logger.app.trace("generating new shoe data")
         let shoeCount = store.activeShoes.count
         let newShoe = store.createShoe()
         newShoe.brand = "Test Shoe \(shoeCount + 1)"

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct ShoeCycleSection: ViewModifier {
     let title: String
@@ -54,7 +55,7 @@ struct ShoeCycleSection_Previews: PreviewProvider {
         VStack(alignment: .leading) {
             HStack {
                 Button(action: {
-                    print("test")
+                    Logger.app.debug("test")
                 }) {
                     Text("Half Marathon")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -88,7 +89,7 @@ struct ShoeCycleSection_Previews: PreviewProvider {
         }
         .pickerStyle(.segmented)
         .onChange(of: units) { newValue in
-            print(units.rawValue)
+            Logger.app.debug("\(String(describing: units.rawValue))")
         }
         .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image("gear"))
         

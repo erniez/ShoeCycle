@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 
 class ImageStore {
@@ -36,7 +37,7 @@ class ImageStore {
         imageCache.setObject(reducedImage, forKey: newUniqueID as NSString)
         guard let imagePath = pathInDocumentDirectory(newUniqueID),
               let imageJPEG = reducedImage.jpegData(compressionQuality: 0.5) else {
-            print("Could not create image to save")
+            Logger.app.error("Could not create image to save")
             return
         }
         
@@ -45,7 +46,7 @@ class ImageStore {
             try imageJPEG.write(to: imageURL)
         }
         catch let error {
-            print("Could not write immage to disk: \(error)")
+            Logger.app.error("Could not write immage to disk: \(error)")
             return
         }
         
@@ -65,7 +66,7 @@ class ImageStore {
             return image
         }
         guard let filePath = pathInDocumentDirectory(key as String) else {
-            print("Could not generate document file path")
+            Logger.app.error("Could not generate document file path")
             return UIImage()
         }
         let image = UIImage(contentsOfFile: filePath)
@@ -75,14 +76,14 @@ class ImageStore {
     func deleteImage(for key: NSString) {
         imageCache.removeObject(forKey: key)
         guard let filePath = pathInDocumentDirectory(key as String) else {
-            print("Could not generate document file path")
+            Logger.app.error("Could not generate document file path")
             return
         }
         do {
             try FileManager.default.removeItem(atPath: filePath)
         }
         catch let error {
-            print("Could not remove image file: \(error)")
+            Logger.app.error("Could not remove image file: \(error)")
         }
     }
 }

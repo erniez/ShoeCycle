@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 
 struct DistanceUtility {
@@ -39,7 +40,7 @@ struct DistanceUtility {
     
     func distance(from string: String) -> Double {
         guard var runDistance = Double(string) else {
-            print("Could not form number from string")
+            Logger.app.error("Could not form number from string")
             return 0
         }
         

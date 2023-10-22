@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct CameraPickerView: UIViewControllerRepresentable {
     let shoe: Shoe
@@ -54,7 +55,7 @@ class CameraPickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigat
                 shoeStore.saveContext()
             }
         } else {
-            print("Could not capture image with camera")
+            Logger.app.error("Could not capture image with camera")
         }
         onFinishPicking()
     }
