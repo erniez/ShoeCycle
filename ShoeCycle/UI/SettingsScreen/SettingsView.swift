@@ -22,6 +22,7 @@ struct SettingsView: View {
                 SettingsHealthKitView()
                 SettingsStravaView(interactor: StravaInteractor(settings: settings))
                 AboutView()
+                    .padding([.bottom])
             }
             .fixedSize(horizontal: false, vertical: true)
         }

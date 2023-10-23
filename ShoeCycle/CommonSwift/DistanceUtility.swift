@@ -40,7 +40,10 @@ struct DistanceUtility {
     
     func distance(from string: String) -> Double {
         guard var runDistance = Double(string) else {
-            Logger.app.error("Could not form number from string")
+            // We don't want to show an error for an empty string.
+            if string.count > 0 {
+                Logger.app.error("Could not form number from string")
+            }
             return 0
         }
         
