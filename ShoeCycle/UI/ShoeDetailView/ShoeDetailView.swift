@@ -85,6 +85,7 @@ class ShoeDetailViewModel: ObservableObject, Hashable {
             maxDistance = distanceUtility.displayString(for: shoe.maxDistance.doubleValue)
             startDate = shoe.startDate
             expirationDate = shoe.expirationDate
+            AnalyticsFactory.sharedAnalyticsLogger().logEvent(name: AnalyticsKeys.Event.viewShoeDetail, userInfo: nil)
         }
         self.newShoe = newShoe
     }
@@ -247,6 +248,7 @@ struct ShoeDetailView: View {
             }
             .onDisappear {
                 if viewModel.isNewShoe == false, viewModel.hasChanged == true {
+                    AnalyticsFactory.sharedAnalyticsLogger().logEvent(name: AnalyticsKeys.Event.didEditShoe, userInfo: nil)
                     updateShoes(viewModel: viewModel)
                 }
             }

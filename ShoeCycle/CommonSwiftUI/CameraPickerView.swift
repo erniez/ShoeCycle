@@ -35,6 +35,7 @@ class CameraPickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigat
     let shoeStore: ShoeStore
     let shoe: Shoe
     let onFinishPicking: () -> Void
+    let analytics = AnalyticsFactory.sharedAnalyticsLogger()
     
     init(shoeStore: ShoeStore, shoe: Shoe, onFinishPicking: @escaping () -> Void) {
         self.shoeStore = shoeStore
@@ -48,7 +49,7 @@ class CameraPickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigat
         let image = info[.originalImage]
 
         if let image = image as? UIImage {
-            AnalyticsLogger_Legacy.sharedLogger().logEvent(withName: kShoePictureAddedEvent, userInfo: nil)
+            analytics.logEvent(name: AnalyticsKeys.Event.shoePictureAddedEvent, userInfo: nil)
             shoe.setThumbnailDataFrom(image, width: 143, height: 96)
             ImageStore.shared.set(image: image, width: 210, height: 140, on: shoe)
             withAnimation {

@@ -18,6 +18,8 @@ enum AnalyticsKeys {
         static let showFavoriteDistancesEvent = "show_favorite_distances"
         static let addToHOFEvent = "add_to_HOF"
         static let removeFromHOFEvent = "remove_from_HOF"
+        static let viewShoeDetail = "view_shoe_detail"
+        static let didEditShoe = "did_edit_shoe"
     }
     
     enum UserInfo {

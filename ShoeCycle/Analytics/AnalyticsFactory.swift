@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct AnalyticsFactory {
+enum AnalyticsFactory {
     static func sharedAnalyticsLogger() -> AnalyticsLogger {
         #if DEBUG
         return ConsoleLogger()

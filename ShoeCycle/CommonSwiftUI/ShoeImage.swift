@@ -64,7 +64,7 @@ fileprivate struct ShoeImagePicker: ViewModifier {
     @State private var showImageSelection = false
     @State private var showCamera = false
     @State private var shoeItem: PhotosPickerItem?
-    private let logger = AnalyticsFactory.sharedAnalyticsLogger()
+    private let analytics = AnalyticsFactory.sharedAnalyticsLogger()
     
     private let imageStore = ImageStore.shared
     
@@ -94,7 +94,7 @@ fileprivate struct ShoeImagePicker: ViewModifier {
                             // Animate updating the shoe image, which will propagate back to the view.
                             shoeStore.saveContext()
                         }
-                        logger.logEvent(name: AnalyticsKeys.Event.shoePictureAddedEvent, userInfo: nil)
+                        analytics.logEvent(name: AnalyticsKeys.Event.shoePictureAddedEvent, userInfo: nil)
                         return
                     }
                     Logger.app.error("Failed to create Image")

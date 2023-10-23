@@ -65,8 +65,8 @@ struct ActiveShoesView: View {
             .navigationTitle("Active Shoes")
             .toolbar {
                 Button("Add Shoe") {
-                    let logger = AnalyticsFactory.sharedAnalyticsLogger()
-                    logger.logEvent(name: AnalyticsKeys.Event.addShoeEvent, userInfo: nil)
+                    let analytics = AnalyticsFactory.sharedAnalyticsLogger()
+                    analytics.logEvent(name: AnalyticsKeys.Event.addShoeEvent, userInfo: nil)
                     presentNewShoeView = true
                 }
             }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HallOfFameSelector: View {
     @ObservedObject var viewModel: ShoeDetailViewModel
-    private let logger = AnalyticsFactory.sharedAnalyticsLogger()
+    private let analytics = AnalyticsFactory.sharedAnalyticsLogger()
     
     var body: some View {
         HStack {
@@ -34,10 +34,10 @@ struct HallOfFameSelector: View {
         .animation(.default, value: viewModel.hallOfFame)
         .onChange(of: viewModel.hallOfFame) { newValue in
             if newValue == true {
-                logger.logEvent(name: AnalyticsKeys.Event.addToHOFEvent, userInfo: nil)
+                analytics.logEvent(name: AnalyticsKeys.Event.addToHOFEvent, userInfo: nil)
             }
             else {
-                logger.logEvent(name: AnalyticsKeys.Event.removeFromHOFEvent, userInfo: nil)
+                analytics.logEvent(name: AnalyticsKeys.Event.removeFromHOFEvent, userInfo: nil)
             }
         }
     }
