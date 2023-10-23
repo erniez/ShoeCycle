@@ -49,7 +49,9 @@ struct AppView: View {
             }
             else {
                 // TODO: Improve this screen, or make AddDistanceView able to handle an optional
-                Text("Please add a shoe")
+                Text("Please add a shoe in the Active Shoes tab")
+                    .padding(48)
+                    .multilineTextAlignment(.center)
                     .tabItem {
                         tabBarAddDistanceLabel
                     }
