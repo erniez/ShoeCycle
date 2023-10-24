@@ -23,8 +23,20 @@ These are my near-term plans for updates:
 - Unit Tests (I want this app to have as many tests as possible)
 - Making a more valuable Strava integration.
 
-## Installation
-I don't recommend trying to run this app in Xcode at the momement. You would need to run Carthage due to all of the legacy code. I will remove all the coupling to the legacy code and delete the references. Once done, all you'll need to do is clone the repo, download the Swift Packages, and hit run.
+## Running the App
+### To Install
+- Clone repo
+- Checkout develop
+- Load ShoeCycle.xcodeproj
+- Wait for packages to load
+- Remove the Secrets.swift file in the Supporting Files directory
+- Run 
+
+### To play around with the app:
+- Tap the “Add Shoe” button
+- Name your shoe
+- Tap the “Generate Histories” button
+- Repeat as desired
 
 ## License
 
