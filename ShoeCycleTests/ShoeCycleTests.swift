@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import ShoeCycle
 
 class ShoeCycleTests: XCTestCase {
 

@@ -22,5 +22,8 @@ Carthage
 #
 # Cocoapods
 Pods
-# GoogleService-Info.plist
+
+# Secrets
+GoogleService-Info.plist
+Secrets.swift
 
