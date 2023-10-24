@@ -31,10 +31,6 @@
 		1B3D29DA2A46319700BE7956 /* ShoeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */; };
 		1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */; };
 		1B4903602A7B4B2600422CED /* DistanceUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B49035F2A7B4B2600422CED /* DistanceUtility.swift */; };
-		1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; };
-		1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; };
-		1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B62EB942A5231FC00226147 /* ImageStore.swift */; };
 		1B6505832AD8467E002B0A6C /* FTUHintManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6505822AD8467E002B0A6C /* FTUHintManager.swift */; };
 		1B6505882ADB1F58002B0A6C /* Obfuscation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6505872ADB1F58002B0A6C /* Obfuscation.swift */; };
@@ -101,8 +97,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1B59AAE12828B3FF009F7A13 /* MBProgressHUD.xcframework in Embed Frameworks */,
-				1B59AADB2828B3D9009F7A13 /* AFNetworking.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,8 +131,6 @@
 		1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeDetailView.swift; sourceTree = "<group>"; };
 		1B3D29DB2A4F2BFC00BE7956 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1B49035F2A7B4B2600422CED /* DistanceUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceUtility.swift; sourceTree = "<group>"; };
-		1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AFNetworking.xcframework; path = Carthage/Build/AFNetworking.xcframework; sourceTree = "<group>"; };
-		1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MBProgressHUD.xcframework; path = Carthage/Build/MBProgressHUD.xcframework; sourceTree = "<group>"; };
 		1B62EB942A5231FC00226147 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		1B6505822AD8467E002B0A6C /* FTUHintManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTUHintManager.swift; sourceTree = "<group>"; };
 		1B6505872ADB1F58002B0A6C /* Obfuscation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Obfuscation.swift; sourceTree = "<group>"; };
@@ -206,8 +198,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B59AADA2828B3D9009F7A13 /* AFNetworking.xcframework in Frameworks */,
-				1B59AAE02828B3FF009F7A13 /* MBProgressHUD.xcframework in Frameworks */,
 				1BD2FAEE14B5D343006A4542 /* CoreData.framework in Frameworks */,
 				1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */,
 				1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */,
@@ -395,8 +385,6 @@
 		1BCF643C148AF7E7004C0E6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1B59AADD2828B3FF009F7A13 /* MBProgressHUD.xcframework */,
-				1B59AAD92828B3D9009F7A13 /* AFNetworking.xcframework */,
 				1B1EF7021B12C23C000ED442 /* Fabric.framework */,
 				1BAD389119E25C4000161DA8 /* HealthKit.framework */,
 				1BD2FAED14B5D343006A4542 /* CoreData.framework */,
