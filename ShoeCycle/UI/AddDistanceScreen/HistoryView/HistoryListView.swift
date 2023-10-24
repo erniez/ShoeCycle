@@ -38,6 +38,7 @@ struct HistoryListViewModel {
 
 struct HistoryListView: View {
     var listData: HistoryListViewModel
+    @EnvironmentObject var settings: UserSettings
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -52,7 +53,7 @@ struct HistoryListView: View {
             HStack {
                 Text("Run Date")
                 Spacer()
-                Text("Distance(\(UserDistanceSetting.unitOfMeasure()))")
+                Text("Distance(\(settings.distanceUnit.displayString()))")
             }
             .padding([.horizontal], 24)
             List {
