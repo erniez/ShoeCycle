@@ -17,7 +17,7 @@ class StravaInteractionViewController: UIViewController {
 
     private let kStravaClientID = "4002"
     private let kStravaClientIDkey = "client_id"
-    private let kStravaSecret = "558112ea963c3427a387549a3361bd6677083ff9"
+    private let kStravaSecret = "558112ea963c3427a387549a3361bd6677083ff9" // Not valid anymore
     private let kStravaSecretKey = "client_secret"
     private lazy var hud = MBProgressHUD(view: view)
 
