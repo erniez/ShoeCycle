@@ -45,8 +45,8 @@ struct FavoriteDistancesView: View {
 
             VStack(alignment: .leading, spacing: 16) {
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: "5k") { distanceToAdd(3.1) }
-                    FavoriteDistanceButton(title: "10k") { distanceToAdd(6.2) }
+                    FavoriteDistanceButton(title: "5k") { distanceToAdd(3.10686) }
+                    FavoriteDistanceButton(title: "10k") { distanceToAdd(6.21371) }
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 
