@@ -49,6 +49,8 @@ struct HistorySectionView: View {
 
     var body: some View {
         Text("Total for \(viewModel.monthString): \(NumberFormatter.decimal.string(from: NSNumber(value: viewModel.runTotal)) ?? "")")
+            .font(.headline)
+            .foregroundStyle(Color.shoeCycleOrange)
     }
     
 }
