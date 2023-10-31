@@ -40,21 +40,29 @@ struct HistoryListView: View {
     var listData: HistoryListViewModel
     @EnvironmentObject var settings: UserSettings
     @Environment(\.dismiss) var dismiss
+    @State var showMailComposer = false
     
     var body: some View {
         VStack {
             HStack {
+                if MailComposeView.canSendMail() == true {
+                    Button("Email") {
+                        showMailComposer = true
+                    }
+                }
                 Spacer()
                 Button("Done") {
                     dismiss()
                 }
             }
             .padding([.horizontal], 24)
+            .padding([.bottom], 16)
             HStack {
                 Text("Run Date")
                 Spacer()
                 Text("Distance(\(settings.distanceUnit.displayString()))")
             }
+            .font(.headline)
             .padding([.horizontal], 24)
             List {
                 ForEach(listData.sections) { sectionViewModel in
@@ -71,6 +79,10 @@ struct HistoryListView: View {
             .listStyle(.insetGrouped)
         }
         .dynamicTypeSize(.medium ... .xLarge)
+        .fullScreenCover(isPresented: $showMailComposer, content: {
+            MailComposeView(shoe: listData.shoe)
+                .ignoresSafeArea(edges: [.bottom])
+        })
     }
 }
 

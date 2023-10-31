@@ -17,6 +17,8 @@
 		1B0AD7FF2A30EA56006AB307 /* HallOfFameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */; };
 		1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD8012A3123CA006AB307 /* SettingsView.swift */; };
 		1B0AD8042A33DFDA006AB307 /* ShoeCycleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD8032A33DFDA006AB307 /* ShoeCycleSection.swift */; };
+		1B0CEA032AF07744003D427A /* MailComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CEA022AF07744003D427A /* MailComposeView.swift */; };
+		1B0CEA052AF158F8003D427A /* CSVUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0CEA042AF158F8003D427A /* CSVUtility.swift */; };
 		1B0D52132A5345A7001D3DB9 /* CameraPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0D52122A5345A7001D3DB9 /* CameraPickerView.swift */; };
 		1B0D52152A53683C001D3DB9 /* ShoeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0D52142A53683C001D3DB9 /* ShoeImage.swift */; };
 		1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */; };
@@ -114,6 +116,8 @@
 		1B0AD7FE2A30EA56006AB307 /* HallOfFameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameView.swift; sourceTree = "<group>"; };
 		1B0AD8012A3123CA006AB307 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1B0AD8032A33DFDA006AB307 /* ShoeCycleSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleSection.swift; sourceTree = "<group>"; };
+		1B0CEA022AF07744003D427A /* MailComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeView.swift; sourceTree = "<group>"; };
+		1B0CEA042AF158F8003D427A /* CSVUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVUtility.swift; sourceTree = "<group>"; };
 		1B0D52122A5345A7001D3DB9 /* CameraPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPickerView.swift; sourceTree = "<group>"; };
 		1B0D52142A53683C001D3DB9 /* ShoeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeImage.swift; sourceTree = "<group>"; };
 		1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceView.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 				1B0D52142A53683C001D3DB9 /* ShoeImage.swift */,
 				1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */,
 				1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */,
+				1B0CEA022AF07744003D427A /* MailComposeView.swift */,
 			);
 			path = CommonSwiftUI;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */,
+				1B0CEA042AF158F8003D427A /* CSVUtility.swift */,
 				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
 				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
 				1B49035F2A7B4B2600422CED /* DistanceUtility.swift */,
@@ -651,6 +657,7 @@
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCF9FE42A1AA0EE007F697E /* TimeIntervalExtensions.swift in Sources */,
 				1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */,
+				1B0CEA052AF158F8003D427A /* CSVUtility.swift in Sources */,
 				1B0AD7F32A2AA132006AB307 /* ShoeStore.swift in Sources */,
 				1B4903602A7B4B2600422CED /* DistanceUtility.swift in Sources */,
 				1B22C7A62AE84F4700B4E1D2 /* FileHelpers.swift in Sources */,
@@ -676,6 +683,7 @@
 				1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */,
 				1BCF9FED2A1BC11B007F697E /* DateProgressViewModel.swift in Sources */,
 				1B7F36602A24012F00377485 /* HistoryRowView.swift in Sources */,
+				1B0CEA032AF07744003D427A /* MailComposeView.swift in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */,
 			);
@@ -742,7 +750,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ShoeCycle/Supporting Files/ShoeCycle-Bridging-Header.h";
@@ -1019,7 +1027,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = DEBUG;
@@ -1058,7 +1066,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
