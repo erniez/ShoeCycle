@@ -750,7 +750,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ShoeCycle/Supporting Files/ShoeCycle-Bridging-Header.h";
@@ -1027,7 +1027,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = DEBUG;
@@ -1066,7 +1066,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle.beta;
+				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
