@@ -39,6 +39,8 @@ struct MailComposeView: UIViewControllerRepresentable {
 
 final class MailComposeViewDelegate: NSObject,  MFMailComposeViewControllerDelegate {
     
+    let analytics = AnalyticsFactory.sharedAnalyticsLogger()
+    
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         
         switch result {
@@ -48,6 +50,7 @@ final class MailComposeViewDelegate: NSObject,  MFMailComposeViewControllerDeleg
         case .saved:
             Logger.app.info("Mail saved: you saved the email message in the drafts folder.")
         case .sent:
+            analytics.logEvent(name: AnalyticsKeys.Event.didEmailShoe, userInfo: nil)
             Logger.app.info("Mail send: the email message is queued in the outbox. It is ready to send.")
         case .failed:
             Logger.app.error("Mail failed: the email message was not saved or queued, possibly due to an error.")

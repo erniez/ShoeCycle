@@ -20,6 +20,8 @@ enum AnalyticsKeys {
         static let removeFromHOFEvent = "remove_from_HOF"
         static let viewShoeDetail = "view_shoe_detail"
         static let didEditShoe = "did_edit_shoe"
+        static let emailShoeTapped = "email_shoe_tapped"
+        static let didEmailShoe = "did_email_shoe"
     }
     
     enum UserInfo {

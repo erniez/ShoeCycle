@@ -277,7 +277,6 @@
 				1B0D52142A53683C001D3DB9 /* ShoeImage.swift */,
 				1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */,
 				1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */,
-				1B0CEA022AF07744003D427A /* MailComposeView.swift */,
 			);
 			path = CommonSwiftUI;
 			sourceTree = "<group>";
@@ -299,15 +298,15 @@
 				1BCF9FFC2A1FE0DA007F697E /* DateExtension.swift */,
 				1BCF9FE52A1AA890007F697E /* DateFormatterExtensions.swift */,
 				1B49035F2A7B4B2600422CED /* DistanceUtility.swift */,
+				1B22C7A52AE84F4700B4E1D2 /* FileHelpers.swift */,
 				1B6505822AD8467E002B0A6C /* FTUHintManager.swift */,
 				1B7F36612A24039500377485 /* NumberFormatterExtension.swift */,
 				1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */,
 				1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */,
 				1BCF9FF82A1BF3FD007F697E /* ShoeDistanceCalcExtensions.swift */,
 				1BCF9FE32A1AA0EE007F697E /* TimeIntervalExtensions.swift */,
-				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
 				1B22C7A32AE84D0000B4E1D2 /* UIColorExtension.swift */,
-				1B22C7A52AE84F4700B4E1D2 /* FileHelpers.swift */,
+				1B0AD7FB2A2FC49A006AB307 /* UserSettings.swift */,
 			);
 			name = "Common Swift";
 			path = CommonSwift;
@@ -342,6 +341,7 @@
 				1B7F365F2A24012F00377485 /* HistoryRowView.swift */,
 				1B7F36632A2405D100377485 /* HistoryListView.swift */,
 				1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */,
+				1B0CEA022AF07744003D427A /* MailComposeView.swift */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";

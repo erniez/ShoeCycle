@@ -41,12 +41,14 @@ struct HistoryListView: View {
     @EnvironmentObject var settings: UserSettings
     @Environment(\.dismiss) var dismiss
     @State var showMailComposer = false
+    let analytics = AnalyticsFactory.sharedAnalyticsLogger()
     
     var body: some View {
         VStack {
             HStack {
                 if MailComposeView.canSendMail() == true {
-                    Button("Email") {
+                    Button("Email Data") {
+                        analytics.logEvent(name: AnalyticsKeys.Event.emailShoeTapped, userInfo: nil)
                         showMailComposer = true
                     }
                 }
