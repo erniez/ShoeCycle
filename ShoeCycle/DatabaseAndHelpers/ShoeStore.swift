@@ -145,7 +145,9 @@ class ShoeStore: ObservableObject {
         if shoe.objectID.uriRepresentation() == settings.selectedShoeURL {
             settings.setSelected(shoeUrl: nil)
         }
-        ImageStore.shared.deleteImage(for: shoe.imageKey)
+        if shoe.imageKey != nil {
+            ImageStore.shared.deleteImage(for: shoe.imageKey)
+        }
         context.delete(shoe)
         saveContext()
         updateAllShoes()
