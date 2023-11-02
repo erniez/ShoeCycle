@@ -26,10 +26,7 @@ struct SettingsView: View {
             }
             .fixedSize(horizontal: false, vertical: true)
         }
-        .background(.patternedBackground
-            .onTapGesture {
-                dismissKeyboard()
-            })
+        .background(.patternedBackground)
     }
     
 }

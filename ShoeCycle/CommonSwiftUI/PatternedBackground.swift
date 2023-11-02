@@ -15,6 +15,9 @@ struct PatternedBackground: View {
             Image("perfTile")
                 .resizable(resizingMode: .tile)
                 .ignoresSafeArea(edges: [.top, .leading, .trailing])
+                .onTapGesture {
+                    dismissKeyboard()
+                }
         }
         else {
             ZStack {

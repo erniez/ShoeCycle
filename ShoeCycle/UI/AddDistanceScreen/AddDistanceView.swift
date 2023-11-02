@@ -58,9 +58,6 @@ struct AddDistanceView: View {
             .padding([.horizontal], 16)
             .background(.patternedBackground)
             .ignoresSafeArea(.keyboard, edges: [.bottom])
-            .onTapGesture {
-                dismissKeyboard()
-            }
         }
         else {
             // Shouldn't ever see this

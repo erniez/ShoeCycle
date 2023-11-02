@@ -243,9 +243,6 @@ struct ShoeDetailView: View {
             .dynamicTypeSize(.medium ... .xLarge)
             .padding([.horizontal], 16)
             .background(.patternedBackground)
-            .onTapGesture {
-                dismissKeyboard()
-            }
             .onDisappear {
                 if viewModel.isNewShoe == false, viewModel.hasChanged == true {
                     AnalyticsFactory.sharedAnalyticsLogger().logEvent(name: AnalyticsKeys.Event.didEditShoe, userInfo: nil)
