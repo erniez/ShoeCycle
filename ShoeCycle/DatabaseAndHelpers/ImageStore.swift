@@ -35,7 +35,7 @@ class ImageStore {
         let reducedImage = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
         
         imageCache.setObject(reducedImage, forKey: newUniqueID as NSString)
-        guard let imagePath = pathInDocumentDirectory(newUniqueID),
+        guard let imagePath = FileHelpers.pathInDocumentDirectory(with: newUniqueID),
               let imageJPEG = reducedImage.jpegData(compressionQuality: 0.5) else {
             Logger.app.error("Could not create image to save")
             return
@@ -54,18 +54,18 @@ class ImageStore {
         
         // Did the shoe already have an image? Let's delete it first.
         if let oldKey = shoe.imageKey {
-            deleteImage(for: oldKey as NSString)
+            deleteImage(for: oldKey)
         }
 
         shoe.imageKey = newUniqueID
     }
     
     // TODO: create a broken image icon to return on errors.
-    func image(for key: NSString) -> UIImage? {
-        if let image = imageCache.object(forKey: key) {
+    func image(for key: String) -> UIImage? {
+        if let image = imageCache.object(forKey: key as NSString) {
             return image
         }
-        guard let filePath = pathInDocumentDirectory(key as String) else {
+        guard let filePath = FileHelpers.pathInDocumentDirectory(with: key) else {
             Logger.app.error("Could not generate document file path")
             return UIImage()
         }
@@ -73,9 +73,9 @@ class ImageStore {
         return image
     }
     
-    func deleteImage(for key: NSString) {
-        imageCache.removeObject(forKey: key)
-        guard let filePath = pathInDocumentDirectory(key as String) else {
+    func deleteImage(for key: String) {
+        imageCache.removeObject(forKey: key as NSString)
+        guard let filePath = FileHelpers.pathInDocumentDirectory(with: key) else {
             Logger.app.error("Could not generate document file path")
             return
         }

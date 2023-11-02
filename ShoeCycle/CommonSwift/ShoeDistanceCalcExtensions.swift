@@ -19,9 +19,10 @@ extension Set where Element == History {
     }
     
     func collateHistories(ascending: Bool) -> [WeeklyCollatedNew] {
+        let settings = UserSettings.shared
         var collatedArray = [WeeklyCollatedNew]()
         var calendar = Calendar(identifier: .gregorian)
-        calendar.firstWeekday = UserDistanceSetting.getFirstDayOfWeek()
+        calendar.firstWeekday = settings.firstDayOfWeek.rawValue
         let sortedRuns = self.sortHistories(ascending: ascending)
         sortedRuns.forEach { history in
             let beginningOfWeek = history.runDate.beginningOfWeek(forCalendar: calendar)

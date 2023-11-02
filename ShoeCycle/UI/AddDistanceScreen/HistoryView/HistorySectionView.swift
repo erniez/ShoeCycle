@@ -46,9 +46,24 @@ struct HistorySectionViewModel: Identifiable, Equatable {
 
 struct HistorySectionView: View {
     var viewModel: HistorySectionViewModel
+    let distanceUtility = DistanceUtility()
+    
+    var runTotalString: AttributedString {
+        var runTotal = AttributedString(distanceUtility.displayString(for: viewModel.runTotal))
+        runTotal.font = .title3
+        runTotal.foregroundColor = .shoeCycleOrange
+        return runTotal
+    }
+    
+    var monthTotalString: AttributedString {
+        var monthTotalString = AttributedString("Total for \(viewModel.monthString):  ")
+        monthTotalString.font = .subheadline
+        monthTotalString.foregroundColor = .shoeCycleOrange
+        return monthTotalString
+    }
 
     var body: some View {
-        Text("Total for \(viewModel.monthString): \(NumberFormatter.decimal.string(from: NSNumber(value: viewModel.runTotal)) ?? "")")
+        Text(monthTotalString + runTotalString)
     }
     
 }

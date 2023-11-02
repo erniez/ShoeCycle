@@ -23,7 +23,7 @@ struct ShoeImage: View {
     var body: some View {
             Group {
                 if let imagekey = shoe.imageKey,
-                   let image = imageStore.image(for: imagekey as NSString) {
+                   let image = imageStore.image(for: imagekey) {
                     if allowImageChange {
                         Image(uiImage: image)
                             .shoeImageContent()

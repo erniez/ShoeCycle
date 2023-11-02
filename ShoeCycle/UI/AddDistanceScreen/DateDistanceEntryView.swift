@@ -121,7 +121,7 @@ struct DateDistanceEntryView: View {
                 }
             }
             
-            Spacer()
+            Spacer(minLength: 0)
             
             VStack {
                 ZStack {
@@ -156,7 +156,6 @@ struct DateDistanceEntryView: View {
                             .tint(.shoeCycleOrange)
                     }
                 }
-                .fixedSize()
                 HStack {
                     if settings.stravaEnabled == true {
                         Image("stravaLogo")
@@ -167,10 +166,8 @@ struct DateDistanceEntryView: View {
                             .foregroundColor(.red)
                     }
                 }
-                Spacer()
             }
-            .padding(8)
-            .padding([.leading], 16)
+            .padding([.top, .bottom, .trailing], 8)
             .alert("Access to Health App Denied", isPresented: $showAuthorizationDeniedAlert) {
                 Button("OK") {}
             } message: {
@@ -187,6 +184,7 @@ struct DateDistanceEntryView: View {
                 Text("An unknown network error has occurred. Please try again later, or turn Strava access off then on in the Settings tab")
             }
         }
+        .dynamicTypeSize(.medium ... .large)
         .onPreferenceChange(RowHeightPreferenceKey.self) {
             buttonMaxHeight = $0
         }
@@ -252,9 +250,12 @@ struct DateDistanceEntryView_Previews: PreviewProvider {
     @State static var runDate = Date()
     @State static var runDistance = "5"
     @State static var shouldBounce = false
+    @StateObject static var settings = UserSettings.shared
     static var shoe = MockShoeGenerator().generateNewShoeWithData()
     
     static var previews: some View {
         DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shouldBounce: $shouldBounce, shoe: shoe)
+            .environmentObject(settings)
+            .background(Color.gray)
     }
 }

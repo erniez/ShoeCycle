@@ -115,7 +115,7 @@ struct SettingsHealthKitView: View {
                     .foregroundColor(.shoeCycleBlue)
                     .font(.title2)
             }
-            Text("Turning on this option will connect you with the Strava login screen.")
+            Text("Turning this option on will write directly to the Walk + Run Section of the Health App.")
                 .foregroundColor(.shoeCycleOrange)
         }
         .padding([.horizontal], 24)
