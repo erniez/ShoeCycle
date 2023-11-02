@@ -39,6 +39,7 @@
 		1B65058A2ADCA6AB002B0A6C /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6505892ADCA6AB002B0A6C /* Secrets.swift */; };
 		1B68ACA32ABFA9BE00348E8A /* StravaURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */; };
 		1B68ACA62AC3530C00348E8A /* SequenceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */; };
+		1B765D212AF31C2900C78394 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B765D202AF31C2900C78394 /* MainWindow.xib */; };
 		1B7ED91C2A6886AF006ABC42 /* FavoriteDistancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ED91B2A6886AF006ABC42 /* FavoriteDistancesView.swift */; };
 		1B7F36602A24012F00377485 /* HistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F365F2A24012F00377485 /* HistoryRowView.swift */; };
 		1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F36612A24039500377485 /* NumberFormatterExtension.swift */; };
@@ -141,6 +142,7 @@
 		1B6505892ADCA6AB002B0A6C /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaURLs.swift; sourceTree = "<group>"; };
 		1B68ACA52AC3530C00348E8A /* SequenceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceExtension.swift; sourceTree = "<group>"; };
+		1B765D202AF31C2900C78394 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = ShoeCycle/LegacyCode/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		1B7ED91B2A6886AF006ABC42 /* FavoriteDistancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteDistancesView.swift; sourceTree = "<group>"; };
 		1B7F365F2A24012F00377485 /* HistoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRowView.swift; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */,
+				1B765D202AF31C2900C78394 /* MainWindow.xib */,
 				1BBC60622AE4CD19008B0FE0 /* Logging.swift */,
 				1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */,
 				1B6505892ADCA6AB002B0A6C /* Secrets.swift */,
@@ -562,6 +565,7 @@
 			files = (
 				1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */,
 				1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */,
+				1B765D212AF31C2900C78394 /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
