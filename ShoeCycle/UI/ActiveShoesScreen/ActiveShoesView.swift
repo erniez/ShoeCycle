@@ -108,8 +108,13 @@ class ShoeListRowViewModel: Hashable {
     
     func startObservingShoe() {
         shoeObserver.startObserving { [weak self] shoe in
-            self?.brand = shoe.brand
-            self?.totalDistance = shoe.totalDistance.doubleValue
+            // TODO: I had to put the nil coaelescers in because of a weird customer crash.
+            // I had to put the nil coaelescers in because of a weird customer crash. I am
+            // unsure of the root cause because none of these default values showed up in his
+            // data. We're just going to go with it for now and hope my CoreData refactor
+            // takes care of it.
+            self?.brand = shoe.brand ?? "N/A"
+            self?.totalDistance = shoe.totalDistance?.doubleValue ?? 0.0
         }
     }
     
@@ -127,8 +132,8 @@ extension ShoeListRowViewModel {
         return shoes.compactMap { shoe in
             let shoeObserver = CoreDataObserver(object: shoe)
             return ShoeListRowViewModel(shoeObserver: shoeObserver,
-                                        brand: shoe.brand,
-                                        totalDistance: shoe.totalDistance.doubleValue,
+                                        brand: shoe.brand ?? "N/A",
+                                        totalDistance: shoe.totalDistance?.doubleValue ?? 0.0,
                                         shoeURL: shoe.objectID.uriRepresentation())
         }
     }
