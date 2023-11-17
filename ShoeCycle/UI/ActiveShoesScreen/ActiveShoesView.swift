@@ -108,8 +108,8 @@ class ShoeListRowViewModel: Hashable {
     
     func startObservingShoe() {
         shoeObserver.startObserving { [weak self] shoe in
-            self?.brand = shoe.brand
-            self?.totalDistance = shoe.totalDistance.doubleValue
+            self?.brand = shoe.brand ?? "N/A"
+            self?.totalDistance = shoe.totalDistance?.doubleValue ?? 0.0
         }
     }
     
@@ -127,8 +127,8 @@ extension ShoeListRowViewModel {
         return shoes.compactMap { shoe in
             let shoeObserver = CoreDataObserver(object: shoe)
             return ShoeListRowViewModel(shoeObserver: shoeObserver,
-                                        brand: shoe.brand,
-                                        totalDistance: shoe.totalDistance.doubleValue,
+                                        brand: shoe.brand ?? "N/A",
+                                        totalDistance: shoe.totalDistance?.doubleValue ?? 0.0,
                                         shoeURL: shoe.objectID.uriRepresentation())
         }
     }

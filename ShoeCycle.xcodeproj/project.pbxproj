@@ -44,6 +44,8 @@
 		1B7F36602A24012F00377485 /* HistoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F365F2A24012F00377485 /* HistoryRowView.swift */; };
 		1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F36612A24039500377485 /* NumberFormatterExtension.swift */; };
 		1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7F36632A2405D100377485 /* HistoryListView.swift */; };
+		1B8627F82AFD8A3F002497DA /* TSCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8627F72AFD8A3F002497DA /* TSCoordinator.swift */; };
+		1B8627FA2AFD8A52002497DA /* TSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8627F92AFD8A52002497DA /* TSView.swift */; };
 		1B876F572207E9AF00964400 /* WeeklyCollated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B876F562207E9AF00964400 /* WeeklyCollated.swift */; };
 		1BA4A3AC22DA5992003EB5CA /* MockShoeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */; };
 		1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B76CA0A19D3CD6B0063F2F2 /* Media.xcassets */; };
@@ -148,6 +150,8 @@
 		1B7F365F2A24012F00377485 /* HistoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRowView.swift; sourceTree = "<group>"; };
 		1B7F36612A24039500377485 /* NumberFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtension.swift; sourceTree = "<group>"; };
 		1B7F36632A2405D100377485 /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
+		1B8627F72AFD8A3F002497DA /* TSCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSCoordinator.swift; sourceTree = "<group>"; };
+		1B8627F92AFD8A52002497DA /* TSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSView.swift; sourceTree = "<group>"; };
 		1B876F562207E9AF00964400 /* WeeklyCollated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCollated.swift; sourceTree = "<group>"; };
 		1BA4A3AB22DA5992003EB5CA /* MockShoeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockShoeGenerator.swift; sourceTree = "<group>"; };
 		1BA7B2C92ABCBDC40005958E /* AnalyticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsLogger.swift; sourceTree = "<group>"; };
@@ -348,6 +352,15 @@
 			path = HistoryView;
 			sourceTree = "<group>";
 		};
+		1B8627F62AFD8A28002497DA /* Troubleshooting */ = {
+			isa = PBXGroup;
+			children = (
+				1B8627F72AFD8A3F002497DA /* TSCoordinator.swift */,
+				1B8627F92AFD8A52002497DA /* TSView.swift */,
+			);
+			path = Troubleshooting;
+			sourceTree = "<group>";
+		};
 		1BA7B2C82ABCBCE80005958E /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +419,7 @@
 		1BCF6443148AF7E7004C0E6A /* ShoeCycle */ = {
 			isa = PBXGroup;
 			children = (
+				1B8627F62AFD8A28002497DA /* Troubleshooting */,
 				1B22C7A22AE84A5F00B4E1D2 /* FilesToUpdateToSwift */,
 				1BA7B2C82ABCBCE80005958E /* Analytics */,
 				1B49035E2A7B4AF500422CED /* Common Swift */,
@@ -643,6 +657,7 @@
 				1B0D52152A53683C001D3DB9 /* ShoeImage.swift in Sources */,
 				1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */,
 				1B0AD7FA2A2FA76B006AB307 /* ActiveShoesView.swift in Sources */,
+				1B8627F82AFD8A3F002497DA /* TSCoordinator.swift in Sources */,
 				1BE5406A2AAB73B500DCC109 /* HealthKitService.swift in Sources */,
 				1B6505832AD8467E002B0A6C /* FTUHintManager.swift in Sources */,
 				1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */,
@@ -668,6 +683,7 @@
 				1BE540612AA7A46700DCC109 /* StravaInteractor.swift in Sources */,
 				1BCF9FE82A1AC27A007F697E /* ShoeImageView.swift in Sources */,
 				1B1738F72A15422C006D632D /* ShoeCycleProgressView.swift in Sources */,
+				1B8627FA2AFD8A52002497DA /* TSView.swift in Sources */,
 				1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */,
 				1BBC60632AE4CD19008B0FE0 /* Logging.swift in Sources */,
 				1BE540642AA81E6D00DCC109 /* StravaService.swift in Sources */,
@@ -734,7 +750,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ShoeCycle/Supporting Files/ShoeCycle.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
@@ -753,7 +769,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.2;
+				MARKETING_VERSION = 5.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
@@ -1011,7 +1027,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ShoeCycle/Supporting Files/ShoeCycle.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
@@ -1030,7 +1046,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.2;
+				MARKETING_VERSION = 5.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
@@ -1050,7 +1066,7 @@
 				CODE_SIGN_ENTITLEMENTS = "ShoeCycle/Supporting Files/ShoeCycle.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XG8D9FRJ5Q;
 				ENABLE_BITCODE = NO;
@@ -1069,7 +1085,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.2;
+				MARKETING_VERSION = 5.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = ZappaDev.ShoeCycle;
 				PRODUCT_NAME = ShoeCycle;
 				PROVISIONING_PROFILE = "";
