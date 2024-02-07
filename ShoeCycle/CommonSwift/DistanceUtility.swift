@@ -39,7 +39,9 @@ struct DistanceUtility {
     }
     
     func distance(from string: String) -> Double {
-        guard var runDistance = Double(string) else {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = Locale.current
+        guard var runDistance = formatter.number(from: string)?.doubleValue else {
             // We don't want to show an error for an empty string.
             if string.count > 0 {
                 Logger.app.error("Could not form number from string")
