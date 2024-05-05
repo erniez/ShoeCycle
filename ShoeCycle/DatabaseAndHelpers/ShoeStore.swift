@@ -18,8 +18,9 @@ class ShoeStore: ObservableObject {
     
     @Published var activeShoes: [Shoe] = []
     @Published var hallOfFameShoes: [Shoe] = []
+    @Published var allShoes: [Shoe] = []
     
-    private var allShoes: [Shoe] = []
+    private var privateAllShoes: [Shoe] = []
     
     let context: NSManagedObjectContext
     
@@ -34,9 +35,8 @@ class ShoeStore: ObservableObject {
         do {
             context = try ShoeStore.openStore()
 
-            allShoes = try context.fetch(Shoe.allShoesFetchRequest)
-            updateActiveShoes()
-            updateHallOfFameShoes()
+            privateAllShoes = try context.fetch(Shoe.allShoesFetchRequest)
+            updateAllShoeSets()
         }
         catch {
             fatalError("could not open database or fetch shoes")
@@ -46,30 +46,39 @@ class ShoeStore: ObservableObject {
     func updateAllShoes(publishChanges: Bool = true) {
         if let shoes = try? context.fetch(Shoe.allShoesFetchRequest) {
             Logger.app.trace("Updating Shoes")
-            allShoes = shoes
+            privateAllShoes = shoes
             if publishChanges == true {
                 // These published values were changed on the main thread, but it caused many issues
                 // within the app and exposed some architectual flaws with the way I implemented CoreData.
                 // These issues will be addressed at a later date.
-                updateActiveShoes()
-                updateHallOfFameShoes()
+                updateAllShoeSets()
             }
         }
     }
     
     func updateActiveShoes() {
-        activeShoes = allShoes.filter { $0.hallOfFame == false }
+        activeShoes = privateAllShoes.filter { $0.hallOfFame == false }
     }
     
     private func updateHallOfFameShoes() {
-        hallOfFameShoes = allShoes.filter { $0.hallOfFame == true }
+        hallOfFameShoes = privateAllShoes.filter { $0.hallOfFame == true }
+    }
+    
+    private func updateAllShoeSets() {
+        updateActiveShoes()
+        updateHallOfFameShoes()
+        publishAllShoes()
+    }
+    
+    func publishAllShoes() {
+        allShoes = privateAllShoes
     }
     
     func getShoe(from url: URL?) -> Shoe? {
         guard let url = url else {
             return nil
         }
-        return allShoes.first { shoe in
+        return privateAllShoes.first { shoe in
             url == shoe.objectID.uriRepresentation()
         }
     }
@@ -98,7 +107,7 @@ class ShoeStore: ObservableObject {
     
     func adjustShoeOrderingValue(fromOffsetURL: URL, toOffsetURL: URL) {
         guard let fromShoe = getShoe(from: fromOffsetURL),
-              let toIndex = allShoes.index(of: toOffsetURL) else {
+              let toIndex = privateAllShoes.index(of: toOffsetURL) else {
             return
         }
         let newOrderingValue = getNewOrderingValue(toOffset: toIndex)
@@ -118,17 +127,17 @@ class ShoeStore: ObservableObject {
         var upperBound = 0.0
         
         if toOffset > 0 {
-            lowerBound = allShoes[toOffset - 1].orderingValue.doubleValue
+            lowerBound = privateAllShoes[toOffset - 1].orderingValue.doubleValue
         }
         else {
-            lowerBound = allShoes[1].orderingValue.doubleValue - 2.0
+            lowerBound = privateAllShoes[1].orderingValue.doubleValue - 2.0
         }
         
-        if toOffset < (allShoes.count - 1) {
-            upperBound = allShoes[toOffset + 1].orderingValue.doubleValue
+        if toOffset < (privateAllShoes.count - 1) {
+            upperBound = privateAllShoes[toOffset + 1].orderingValue.doubleValue
         }
         else {
-            upperBound = allShoes[toOffset - 1].orderingValue.doubleValue + 2.0
+            upperBound = privateAllShoes[toOffset - 1].orderingValue.doubleValue + 2.0
         }
         
         let newOrderingValue = (lowerBound + upperBound) / 2

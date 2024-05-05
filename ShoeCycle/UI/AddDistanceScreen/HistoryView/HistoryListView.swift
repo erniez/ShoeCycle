@@ -12,12 +12,56 @@ struct HistoryListViewModel {
     var sections: [HistorySectionViewModel] = []
     let shoeStore: ShoeStore
     let shoe: Shoe
+    let yearlyTotals: [YearlyTotalDistance]
+    
+    let showAllShoes = true
+    
+    static func collatedHistoriesByYear(runsByMonth: [HistorySectionViewModel]) -> [YearlyTotalDistance] {
+        var runsByYear = [YearlyTotalDistance]()
+        var totalDistanceForYear: Double = 0
+        let calendar = Calendar.current
+        var currentYear = 0
+        
+        let components = calendar.dateComponents([.year], from: Date())
+        currentYear = components.year ?? 0
+        
+        runsByMonth.forEach { runMonth in
+            let components = calendar.dateComponents([.year], from: runMonth.monthDate)
+            
+            guard let year = components.year else {
+                return
+            }
+            
+            if year != currentYear {
+                if totalDistanceForYear > 0 {
+                    runsByYear.append(YearlyTotalDistance(total: totalDistanceForYear, year: currentYear))
+                } else {
+                    runsByYear.append(YearlyTotalDistance(total: 0, year: currentYear))
+                }
+                totalDistanceForYear = 0
+            }
+            totalDistanceForYear += runMonth.runTotal
+            currentYear = year
+        }
+        runsByYear.append(YearlyTotalDistance(total: totalDistanceForYear, year: currentYear))
+        return runsByYear
+    }
     
     init(shoeStore: ShoeStore, shoe: Shoe) {
         self.shoeStore = shoeStore
         self.shoe = shoe
-        let monthlyHistories = shoe.history.historiesByMonth(ascending: false)
+        var monthlyHistories: [[History]] = []
+        if showAllShoes {
+            var allHistories: Set<History> = []
+            for shoe in shoeStore.allShoes {
+                allHistories.formUnion(shoe.history)
+            }
+            monthlyHistories = allHistories.historiesByMonth(ascending: false)
+        } else {
+            monthlyHistories = shoe.history.historiesByMonth(ascending: false)
+        }
         self.sections =  monthlyHistories.map { HistorySectionViewModel(shoe: shoe, histories: $0) }
+        self.yearlyTotals = Self.collatedHistoriesByYear(runsByMonth: self.sections)
     }
     
     func removeHistories(from sectionViewModel: HistorySectionViewModel, atOffsets: IndexSet) {
@@ -32,7 +76,11 @@ struct HistoryListViewModel {
         shoeStore.saveContext()
         shoeStore.updateTotalDistance(shoe: shoe)
         shoeStore.saveContext()
-        shoeStore.updateActiveShoes()
+        if showAllShoes {
+            shoeStore.updateAllShoes()
+        } else {
+            shoeStore.updateActiveShoes()
+        }
     }
 }
 
