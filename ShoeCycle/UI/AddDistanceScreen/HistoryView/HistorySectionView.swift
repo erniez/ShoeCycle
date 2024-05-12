@@ -16,6 +16,7 @@ struct HistorySectionViewModel: Identifiable, Equatable {
     let id = UUID()
     let monthDate: Date
     let runTotal: Double
+    var yearlyRunTotal: Double? = nil
     let historyViewModels: [HistoryRowViewModel]
     let shoe: Shoe
     let histories: [History]
@@ -44,9 +45,32 @@ struct HistorySectionViewModel: Identifiable, Equatable {
     }
 }
 
+extension HistorySectionViewModel {
+    static func populate(yearlyTotals: YearlyTotalDistance, for sections: [HistorySectionViewModel]) -> [HistorySectionViewModel] {
+        let currentYear = Date.currentYear
+        let calendar = Calendar.current
+        let updatedSections = sections.map { viewModel in
+            let components = calendar.dateComponents([.year, .month], from: viewModel.monthDate)
+            let sectionYear = components.year ?? 0
+            if currentYear == sectionYear {
+                return viewModel
+            }
+            if components.month == calendar.monthSymbols.count {
+                var updatedViewModel = viewModel
+                updatedViewModel.yearlyRunTotal = yearlyTotals[sectionYear] ?? 0
+                return updatedViewModel
+            } else {
+                return viewModel
+            }
+        }
+        return updatedSections
+    }
+}
+
 struct HistorySectionView: View {
     var viewModel: HistorySectionViewModel
     let distanceUtility = DistanceUtility()
+    let settings = UserSettings()
     
     var runTotalString: AttributedString {
         var runTotal = AttributedString(distanceUtility.displayString(for: viewModel.runTotal))
@@ -63,7 +87,14 @@ struct HistorySectionView: View {
     }
 
     var body: some View {
-        Text(monthTotalString + runTotalString)
+        VStack (alignment: .leading) {
+            Text(monthTotalString + runTotalString)
+            if let totalForYear = viewModel.yearlyRunTotal {
+                Text("Total for the year: \(distanceUtility.displayString(for: NSNumber(value: totalForYear))) \(settings.distanceUnit.displayString())")
+                    .foregroundColor(.shoeCycleOrange)
+            }
+        }
+        
     }
     
 }

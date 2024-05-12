@@ -8,22 +8,20 @@
 import SwiftUI
 import OSLog
 
+typealias YearlyTotalDistance = [Int : Double]
+
 struct HistoryListViewModel {
     var sections: [HistorySectionViewModel] = []
     let shoeStore: ShoeStore
     let shoe: Shoe
-    let yearlyTotals: [YearlyTotalDistance]
+    let yearlyTotals: YearlyTotalDistance
+    let settings = UserSettings()
     
-    let showAllShoes = true
-    
-    static func collatedHistoriesByYear(runsByMonth: [HistorySectionViewModel]) -> [YearlyTotalDistance] {
-        var runsByYear = [YearlyTotalDistance]()
+    static func collatedHistoriesByYear(runsByMonth: [HistorySectionViewModel]) -> YearlyTotalDistance {
+        var runsByYear: YearlyTotalDistance = [:]
         var totalDistanceForYear: Double = 0
         let calendar = Calendar.current
-        var currentYear = 0
-        
-        let components = calendar.dateComponents([.year], from: Date())
-        currentYear = components.year ?? 0
+        var currentYear = Date.currentYear
         
         runsByMonth.forEach { runMonth in
             let components = calendar.dateComponents([.year], from: runMonth.monthDate)
@@ -34,16 +32,16 @@ struct HistoryListViewModel {
             
             if year != currentYear {
                 if totalDistanceForYear > 0 {
-                    runsByYear.append(YearlyTotalDistance(total: totalDistanceForYear, year: currentYear))
+                    runsByYear[currentYear] = totalDistanceForYear
                 } else {
-                    runsByYear.append(YearlyTotalDistance(total: 0, year: currentYear))
+                    runsByYear[currentYear] = 0
                 }
                 totalDistanceForYear = 0
             }
             totalDistanceForYear += runMonth.runTotal
             currentYear = year
         }
-        runsByYear.append(YearlyTotalDistance(total: totalDistanceForYear, year: currentYear))
+        runsByYear[currentYear] = totalDistanceForYear
         return runsByYear
     }
     
@@ -51,7 +49,7 @@ struct HistoryListViewModel {
         self.shoeStore = shoeStore
         self.shoe = shoe
         var monthlyHistories: [[History]] = []
-        if showAllShoes {
+        if settings.graphAllShoes {
             var allHistories: Set<History> = []
             for shoe in shoeStore.allShoes {
                 allHistories.formUnion(shoe.history)
@@ -60,8 +58,9 @@ struct HistoryListViewModel {
         } else {
             monthlyHistories = shoe.history.historiesByMonth(ascending: false)
         }
-        self.sections =  monthlyHistories.map { HistorySectionViewModel(shoe: shoe, histories: $0) }
-        self.yearlyTotals = Self.collatedHistoriesByYear(runsByMonth: self.sections)
+        let interimSections =  monthlyHistories.map { HistorySectionViewModel(shoe: shoe, histories: $0) }
+        self.yearlyTotals = Self.collatedHistoriesByYear(runsByMonth: interimSections)
+        self.sections = HistorySectionViewModel.populate(yearlyTotals: yearlyTotals, for: interimSections)
     }
     
     func removeHistories(from sectionViewModel: HistorySectionViewModel, atOffsets: IndexSet) {
@@ -76,7 +75,7 @@ struct HistoryListViewModel {
         shoeStore.saveContext()
         shoeStore.updateTotalDistance(shoe: shoe)
         shoeStore.saveContext()
-        if showAllShoes {
+        if settings.graphAllShoes {
             shoeStore.updateAllShoes()
         } else {
             shoeStore.updateActiveShoes()
@@ -89,10 +88,11 @@ struct HistoryListView: View {
     @EnvironmentObject var settings: UserSettings
     @Environment(\.dismiss) var dismiss
     @State var showMailComposer = false
-    let analytics = AnalyticsFactory.sharedAnalyticsLogger()
+    private let analytics = AnalyticsFactory.sharedAnalyticsLogger()
+    private let currentYear = Date.currentYear
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 if MailComposeView.canSendMail() == true {
                     Button("Email Data") {
@@ -107,6 +107,13 @@ struct HistoryListView: View {
             }
             .padding([.horizontal], 24)
             .padding([.bottom], 16)
+            HStack {
+                let ytd = listData.yearlyTotals[currentYear] ?? 0
+                Text("YTD: \(DistanceUtility().displayString(for: NSNumber(value: ytd))) \(settings.distanceUnit.displayString())")
+            }
+            .font(.headline)
+            .foregroundColor(.shoeCycleOrange)
+            .padding([.horizontal], 24)
             HStack {
                 Text("Run Date")
                 Spacer()

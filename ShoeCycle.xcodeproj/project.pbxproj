@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B09C8C72AD0DF1A00AD0A21 /* CoreDataObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */; };
 		1B09C8CB2AD4694F00AD0A21 /* ConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09C8CA2AD4694F00AD0A21 /* ConsoleLogger.swift */; };
-		1B0A9C4C2BE7E8F5005458C1 /* YearlyTotalDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A9C4B2BE7E8F5005458C1 /* YearlyTotalDistance.swift */; };
 		1B0AD7F32A2AA132006AB307 /* ShoeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */; };
 		1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */; };
 		1B0AD7F72A2F7FDB006AB307 /* HistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */; };
@@ -110,7 +109,6 @@
 /* Begin PBXFileReference section */
 		1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataObserver.swift; sourceTree = "<group>"; };
 		1B09C8CA2AD4694F00AD0A21 /* ConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogger.swift; sourceTree = "<group>"; };
-		1B0A9C4B2BE7E8F5005458C1 /* YearlyTotalDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyTotalDistance.swift; sourceTree = "<group>"; };
 		1B0AD7F22A2AA132006AB307 /* ShoeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeStore.swift; sourceTree = "<group>"; };
 		1B0AD7F42A2CE7C2006AB307 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySectionView.swift; sourceTree = "<group>"; };
@@ -346,7 +344,6 @@
 				1B7F36632A2405D100377485 /* HistoryListView.swift */,
 				1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */,
 				1B0CEA022AF07744003D427A /* MailComposeView.swift */,
-				1B0A9C4B2BE7E8F5005458C1 /* YearlyTotalDistance.swift */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";
@@ -661,7 +658,6 @@
 				1BE540682AAA231300DCC109 /* StravaTokenKeeper.swift in Sources */,
 				1B0AD7FC2A2FC49A006AB307 /* UserSettings.swift in Sources */,
 				1BA7B2D02ABCC3C30005958E /* AnalyticsFactory.swift in Sources */,
-				1B0A9C4C2BE7E8F5005458C1 /* YearlyTotalDistance.swift in Sources */,
 				1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */,
 				1BCF9FE42A1AA0EE007F697E /* TimeIntervalExtensions.swift in Sources */,
 				1B7F36642A2405D100377485 /* HistoryListView.swift in Sources */,
