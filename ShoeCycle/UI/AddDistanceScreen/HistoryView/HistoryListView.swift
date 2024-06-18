@@ -59,6 +59,8 @@ struct HistoryListViewModel {
             monthlyHistories = shoe.history.historiesByMonth(ascending: false)
         }
         let interimSections =  monthlyHistories.map { HistorySectionViewModel(shoe: shoe, histories: $0) }
+        // Getting yearly totals from viewmodels instead of doing a pure data calculation so that we don't
+        // do monthly totaling more than once. 
         self.yearlyTotals = Self.collatedHistoriesByYear(runsByMonth: interimSections)
         self.sections = HistorySectionViewModel.populate(yearlyTotals: yearlyTotals, for: interimSections)
     }
