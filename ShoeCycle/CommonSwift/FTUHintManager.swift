@@ -15,6 +15,7 @@ struct FTUHintManager {
     static let hintEmailHistoryFeature = "ShoeCycleFTUEmailHistoryFeature"
     static let hintHOFFeature = "ShoeCycleFTUHOFFeature"
     static let hintGraphAllShoesFeature = "ShoeCycleFTUGraphAllShoesFeature"
+    static let hintYearlyHistoryFeature = "ShoeCycleFTUYearlyHistoryFeature"
     static let completedHintsKey = "ShoeCycleFTUCompletedFeatures"
 
     // Hint Info Strings
@@ -23,16 +24,18 @@ struct FTUHintManager {
     static let hintInfoEmailHistoryFeature = "You can export your run history as a CSV file via email!  Just tap \"Email Data\" at the top left of the Run History screen."
     static let hintInfoHOFFeature = "You can now add shoes to the Hall of Fame section, so they don't crowd your active sneakers."
     static let hintInfoGraphAllShoesFeature = "You can tap the button at the bottom right of the graph to toggle between showing data for all active shoes or just the currently selected shoe."
+    static let hintInfoYearlyHistoryFeature = "You can see yearly distances in the History view. The shoes tracked will match what the graph tracks."
     
     let hintDictionary = [
         hintStravaFeature : hintInfoStravaFeature,
         hintSwipeFeature : hintInfoSwipeFeature,
         hintEmailHistoryFeature : hintInfoEmailHistoryFeature,
         hintHOFFeature : hintInfoHOFFeature,
-        hintGraphAllShoesFeature : hintInfoGraphAllShoesFeature
+        hintGraphAllShoesFeature : hintInfoGraphAllShoesFeature,
+        hintYearlyHistoryFeature : hintInfoYearlyHistoryFeature
     ]
     
-    let allHintKeys = [hintSwipeFeature, hintStravaFeature, hintHOFFeature, hintGraphAllShoesFeature, hintEmailHistoryFeature]
+    let allHintKeys = [hintSwipeFeature, hintStravaFeature, hintHOFFeature, hintGraphAllShoesFeature, hintEmailHistoryFeature, hintYearlyHistoryFeature]
     
     let completedHints: [String] = UserDefaults.standard.array(forKey: completedHintsKey) as? [String] ?? []
     
