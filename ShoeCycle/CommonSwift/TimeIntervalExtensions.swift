@@ -10,5 +10,5 @@ import Foundation
 extension TimeInterval {
     static let secondsInDay: TimeInterval = 60 * 60 * 24
     static let secondsInWeek: TimeInterval = TimeInterval.secondsInDay * 7
-    static let secondsInSixMonths: TimeInterval = TimeInterval.secondsInDay * 30.4 * 6
+    static let secondsInSixMonths: TimeInterval = TimeInterval.secondsInDay * (30.42) * 6
 }

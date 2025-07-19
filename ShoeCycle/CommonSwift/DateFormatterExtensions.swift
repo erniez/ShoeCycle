@@ -17,7 +17,7 @@ extension DateFormatter {
     
     static var UTCDate: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyy-MM-dd'T'HH:mm:ss'Z'"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         return formatter
     }
 }

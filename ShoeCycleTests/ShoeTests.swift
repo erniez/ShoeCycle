@@ -8,13 +8,27 @@
 import XCTest
 @testable import ShoeCycle
 
-final class ShoeTests: XCTestCase {
+final class ShoeTests: DBInteractiveTestCase {
 
     func testShoeHistorySort() throws {
-        let shoe = MockShoeGenerator().generateNewShoeWithData()
+        let shoe = createTestShoe()
+        
+        // Add some test history entries with different dates
+        let dates = [
+            Date().addingTimeInterval(-TimeInterval.secondsInDay * 3),
+            Date().addingTimeInterval(-TimeInterval.secondsInDay * 1),
+            Date().addingTimeInterval(-TimeInterval.secondsInDay * 2),
+            Date().addingTimeInterval(-TimeInterval.secondsInDay * 5),
+            Date().addingTimeInterval(-TimeInterval.secondsInDay * 4)
+        ]
+        
+        for (index, date) in dates.enumerated() {
+            _ = createTestHistory(for: shoe, date: date, distance: Double(index + 1))
+        }
         
         // Test Ascending Case
-        let ascSortedHistory = shoe.history.sortHistories(ascending: true)
+        let histories = shoe.history ?? Set<History>()
+        let ascSortedHistory = histories.sortHistories(ascending: true)
         XCTAssertTrue(ascSortedHistory.count > 0, "Empty run history")
         var priorHistory = ascSortedHistory[0]
         ascSortedHistory.forEach { history in
@@ -23,7 +37,7 @@ final class ShoeTests: XCTestCase {
         }
 
         // Test Descending Case
-        let decSortedHistory = shoe.history.sortHistories(ascending: false)
+        let decSortedHistory = histories.sortHistories(ascending: false)
         XCTAssertTrue(decSortedHistory.count > 0, "Empty run history")
         priorHistory = decSortedHistory[0]
         decSortedHistory.forEach { history in
@@ -69,8 +83,15 @@ final class ShoeTests: XCTestCase {
     }
     
     func testBeginningOfTheWeekGeneratorBetweenTwoDatesWithZeroDatesInsertedForZeroMilageWeeks() throws {
-        let shoe = MockShoeGenerator().generateNewShoeWithData()
-        let histories = Array(shoe.history) as! [History]
+        let shoe = createTestShoe()
+        
+        // Add some test history entries
+        for i in 1...5 {
+            let date = Date().addingTimeInterval(-TimeInterval.secondsInWeek * TimeInterval(i))
+            _ = createTestHistory(for: shoe, date: date, distance: Double(i))
+        }
+        
+        let histories = Array(shoe.history ?? Set<History>())
         let formatter = DateFormatter.shortDate
         
         var calendar = Calendar(identifier: .gregorian)
