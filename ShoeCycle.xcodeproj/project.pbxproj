@@ -32,6 +32,9 @@
 		1B2464302E2B42E9001BA533 /* TimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24642C2E2B42E9001BA533 /* TimeIntervalExtensionTests.swift */; };
 		1B2464312E2B42E9001BA533 /* DateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464292E2B42E9001BA533 /* DateExtensionTests.swift */; };
 		1B2464372E2BF07B001BA533 /* DBInteractiveTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464362E2BF07B001BA533 /* DBInteractiveTestCase.swift */; };
+		1B24643B2E2C242A001BA533 /* HistoryAggregationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */; };
+		1B24643C2E2C242A001BA533 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464382E2C242A001BA533 /* DataValidationTests.swift */; };
+		1B24643D2E2C242A001BA533 /* ShoeBusinessLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B3D29D22A3E78F100BE7956 /* StyleAndModifierExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */; };
 		1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D42A3E794A00BE7956 /* Line.swift */; };
@@ -140,6 +143,9 @@
 		1B24642B2E2B42E9001BA533 /* HistoryCollationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollationTests.swift; sourceTree = "<group>"; };
 		1B24642C2E2B42E9001BA533 /* TimeIntervalExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtensionTests.swift; sourceTree = "<group>"; };
 		1B2464362E2BF07B001BA533 /* DBInteractiveTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBInteractiveTestCase.swift; sourceTree = "<group>"; };
+		1B2464382E2C242A001BA533 /* DataValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
+		1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAggregationTests.swift; sourceTree = "<group>"; };
+		1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeBusinessLogicTests.swift; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleAndModifierExtensions.swift; sourceTree = "<group>"; };
@@ -375,6 +381,9 @@
 		1BAC72082377351200390E8B /* ShoeCycleTests */ = {
 			isa = PBXGroup;
 			children = (
+				1B2464382E2C242A001BA533 /* DataValidationTests.swift */,
+				1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */,
+				1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */,
 				1BAC72092377351200390E8B /* ShoeCycleTests.swift */,
 				1B2464282E2B42E9001BA533 /* CalendarExtensionTests.swift */,
 				1B2464292E2B42E9001BA533 /* DateExtensionTests.swift */,
@@ -636,6 +645,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B24643B2E2C242A001BA533 /* HistoryAggregationTests.swift in Sources */,
+				1B24643C2E2C242A001BA533 /* DataValidationTests.swift in Sources */,
+				1B24643D2E2C242A001BA533 /* ShoeBusinessLogicTests.swift in Sources */,
 				1BCF9FFB2A1BFDDD007F697E /* ShoeTests.swift in Sources */,
 				1BCF9FEF2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift in Sources */,
 				1B24642D2E2B42E9001BA533 /* CalendarExtensionTests.swift in Sources */,
