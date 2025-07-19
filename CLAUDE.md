@@ -59,6 +59,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Uses standard XCTest framework
 - Run via `fastlane test` command
 
+#### Testing Best Practices
+- **Database Safety**: Use `DBInteractiveTestCase` base class for Core Data tests to prevent database pollution
+- **Focus on App Logic**: Test your app's behavior, not Foundation APIs (avoid testing `Calendar`, `DateFormatter`, etc.)
+- **Meaningful Edge Cases**: Test boundary conditions your app encounters, not hypothetical scenarios
+- **Avoid Cargo Cult Testing**: Remove tests that only verify system behavior (thread safety, locale handling, etc.)
+- **Simple Validation**: Prefer direct constant validation over complex approximation testing
+
 ### Key Design Patterns
 - **Strategy Pattern**: `SelectedShoeStrategy` for shoe selection logic
 - **Factory Pattern**: `AnalyticsFactory` for analytics initialization
