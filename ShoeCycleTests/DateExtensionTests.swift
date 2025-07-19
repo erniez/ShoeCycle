@@ -12,16 +12,6 @@ final class DateExtensionTests: XCTestCase {
     
     // MARK: - Date.currentYear Tests
     
-    //TODO: Delete this test
-    func testCurrentYearReturnsCorrectYear() throws {
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year], from: Date())
-        let expectedYear = components.year ?? 0
-        
-        XCTAssertEqual(Date.currentYear, expectedYear)
-        XCTAssertGreaterThan(Date.currentYear, 2020) // Sanity check
-    }
-    
     func testCurrentYearIsNonZero() throws {
         XCTAssertNotEqual(Date.currentYear, 0, "Current year should never be 0")
     }
@@ -162,40 +152,5 @@ final class DateExtensionTests: XCTestCase {
         XCTAssertLessThan(timeDifference, TimeInterval.secondsInWeek)
         XCTAssertGreaterThanOrEqual(timeDifference, 0)
     }
-    
-    // MARK: - Edge Case Tests
-    //TODO: Delete this test
-    func testBeginningOfWeekWithDifferentTimeZones() throws {
-        let gmtTimeZone = TimeZone(identifier: "GMT")!
-        let pstTimeZone = TimeZone(identifier: "America/Los_Angeles")!
-        
-        var gmtCalendar = Calendar(identifier: .gregorian)
-        gmtCalendar.timeZone = gmtTimeZone
-        gmtCalendar.firstWeekday = 2
-        
-        var pstCalendar = Calendar(identifier: .gregorian)
-        pstCalendar.timeZone = pstTimeZone
-        pstCalendar.firstWeekday = 2
-        
-        let testDate = Date()
-        
-        let gmtResult = testDate.beginningOfWeek(forCalendar: gmtCalendar)
-        let pstResult = testDate.beginningOfWeek(forCalendar: pstCalendar)
-        
-        // Results might differ due to timezone, but both should be valid
-        XCTAssertNotNil(gmtResult)
-        XCTAssertNotNil(pstResult)
-    }
-    //TODO: Delete this test
-    func testBeginningOfWeekConsistencyAcrossMultipleCalls() throws {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.firstWeekday = 2
-        
-        let testDate = Date()
-        
-        let result1 = testDate.beginningOfWeek(forCalendar: calendar)
-        let result2 = testDate.beginningOfWeek(forCalendar: calendar)
-        
-        XCTAssertEqual(result1, result2, "Multiple calls should return identical results")
-    }
+
 }

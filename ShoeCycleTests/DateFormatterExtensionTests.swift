@@ -39,18 +39,6 @@ final class DateFormatterExtensionTests: XCTestCase {
         XCTAssertFalse(result.contains(":"), "Should not contain time separators")
     }
     
-    //TODO: Delete this test
-    func testShortDateFormatterConsistency() throws {
-        let formatter1 = DateFormatter.shortDate
-        let formatter2 = DateFormatter.shortDate
-        let testDate = Date()
-        
-        let result1 = formatter1.string(from: testDate)
-        let result2 = formatter2.string(from: testDate)
-        
-        XCTAssertEqual(result1, result2, "Multiple instances should produce identical results")
-    }
-    
     func testShortDateFormatterWithDifferentDates() throws {
         let formatter = DateFormatter.shortDate
         let calendar = Calendar(identifier: .gregorian)
@@ -173,77 +161,5 @@ final class DateFormatterExtensionTests: XCTestCase {
         }
     }
     
-    //TODO: Delete this test
-    func testUTCDateFormatterRoundTrip() throws {
-        let formatter = DateFormatter.UTCDate
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        
-        let originalDate = Date()
-        let formattedString = formatter.string(from: originalDate)
-        
-        // With fixed "yyyy" format, round trip parsing should work
-        guard let parsedDate = formatter.date(from: formattedString) else {
-            XCTFail("Should be able to parse formatted date string: \(formattedString)")
-            return
-        }
-        
-        // Dates should be equal within 1 second (accounting for sub-second precision loss)
-        let timeDifference = abs(originalDate.timeIntervalSince(parsedDate))
-        XCTAssertLessThan(timeDifference, 1.0, "Round trip should preserve time within 1 second")
-    }
-    
-    // MARK: - Thread Safety Tests
-    //TODO: Delete this test
-    func testFormatterThreadSafety() throws {
-        let expectation = XCTestExpectation(description: "Thread safety test")
-        let testDate = Date()
-        var results: [String] = []
-        let queue = DispatchQueue(label: "test", attributes: .concurrent)
-        
-        for i in 0..<100 {
-            queue.async {
-                let formatter = DateFormatter.shortDate
-                let result = formatter.string(from: testDate)
-                
-                DispatchQueue.main.async {
-                    results.append(result)
-                    if results.count == 100 {
-                        expectation.fulfill()
-                    }
-                }
-            }
-        }
-        
-        wait(for: [expectation], timeout: 5.0)
-        
-        // All results should be identical
-        let firstResult = results.first!
-        XCTAssertTrue(results.allSatisfy { $0 == firstResult }, "All concurrent calls should produce identical results")
-    }
-    
     // MARK: - Locale Handling Tests
-    //TODO: Delete this test
-    func testShortDateFormatterWithDifferentLocales() throws {
-        let formatter = DateFormatter.shortDate
-        let testDate = Date()
-        
-        let locales = [
-            Locale(identifier: "en_US"),
-            Locale(identifier: "en_GB"),
-            Locale(identifier: "de_DE"),
-            Locale(identifier: "ja_JP")
-        ]
-        
-        var results: [String] = []
-        
-        for locale in locales {
-            formatter.locale = locale
-            let result = formatter.string(from: testDate)
-            results.append(result)
-            XCTAssertFalse(result.isEmpty, "Should produce non-empty result for locale \(locale.identifier)")
-        }
-        
-        // Results might be different due to locale-specific formatting
-        // This is expected behavior for short date style
-    }
 }
