@@ -35,6 +35,8 @@
 		1B24643B2E2C242A001BA533 /* HistoryAggregationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */; };
 		1B24643C2E2C242A001BA533 /* DataValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464382E2C242A001BA533 /* DataValidationTests.swift */; };
 		1B24643D2E2C242A001BA533 /* ShoeBusinessLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */; };
+		1B2464402E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */; };
+		1B2464412E2C32FE001BA533 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B3D29D22A3E78F100BE7956 /* StyleAndModifierExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */; };
 		1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D42A3E794A00BE7956 /* Line.swift */; };
@@ -146,6 +148,8 @@
 		1B2464382E2C242A001BA533 /* DataValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataValidationTests.swift; sourceTree = "<group>"; };
 		1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAggregationTests.swift; sourceTree = "<group>"; };
 		1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeBusinessLogicTests.swift; sourceTree = "<group>"; };
+		1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeStoreIntegrationTests.swift; sourceTree = "<group>"; };
+		1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleAndModifierExtensions.swift; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 		1BAC72082377351200390E8B /* ShoeCycleTests */ = {
 			isa = PBXGroup;
 			children = (
+				1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */,
+				1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */,
 				1B2464382E2C242A001BA533 /* DataValidationTests.swift */,
 				1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */,
 				1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */,
@@ -647,6 +653,8 @@
 			files = (
 				1B24643B2E2C242A001BA533 /* HistoryAggregationTests.swift in Sources */,
 				1B24643C2E2C242A001BA533 /* DataValidationTests.swift in Sources */,
+				1B2464402E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift in Sources */,
+				1B2464412E2C32FE001BA533 /* UserSettingsTests.swift in Sources */,
 				1B24643D2E2C242A001BA533 /* ShoeBusinessLogicTests.swift in Sources */,
 				1BCF9FFB2A1BFDDD007F697E /* ShoeTests.swift in Sources */,
 				1BCF9FEF2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift in Sources */,

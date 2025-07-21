@@ -18,11 +18,10 @@ extension Set where Element == History {
         return sortedRuns
     }
     
-    func collateHistories(ascending: Bool) -> [WeeklyCollatedNew] {
-        let settings = UserSettings.shared
+    func collateHistories(ascending: Bool, firstDayOfWeek: Int = UserSettings.shared.firstDayOfWeek.rawValue) -> [WeeklyCollatedNew] {
         var collatedArray = [WeeklyCollatedNew]()
         var calendar = Calendar(identifier: .gregorian)
-        calendar.firstWeekday = settings.firstDayOfWeek.rawValue
+        calendar.firstWeekday = firstDayOfWeek
         let sortedRuns = self.sortHistories(ascending: ascending)
         sortedRuns.forEach { history in
             let beginningOfWeek = history.runDate.beginningOfWeek(forCalendar: calendar)

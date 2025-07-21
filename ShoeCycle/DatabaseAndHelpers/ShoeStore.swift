@@ -24,14 +24,15 @@ class ShoeStore: ObservableObject {
     
     let context: NSManagedObjectContext
     
-    private let settings = UserSettings.shared
+    private let settings: UserSettings
     private static let defaultStartDate = Date()
     private static let defaultExpirationDate = Date() + TimeInterval.secondsInSixMonths
     private static let defaultStartDistance = NSNumber(value: 0.0)
     private static let defautlMaxDistance = NSNumber(value: 350.0)
     private static let defaultTotalDistance = NSNumber(value: 0.0)
     
-    init() {
+    init(userSettings: UserSettings = UserSettings.shared) {
+        self.settings = userSettings
         do {
             context = try ShoeStore.openStore()
 
@@ -40,6 +41,19 @@ class ShoeStore: ObservableObject {
         }
         catch {
             fatalError("could not open database or fetch shoes")
+        }
+    }
+    
+    // Test initializer that accepts a custom context and settings
+    init(context: NSManagedObjectContext, userSettings: UserSettings = UserSettings.shared) {
+        self.context = context
+        self.settings = userSettings
+        do {
+            privateAllShoes = try context.fetch(Shoe.allShoesFetchRequest)
+            updateAllShoeSets()
+        }
+        catch {
+            fatalError("could not fetch shoes from provided context")
         }
     }
     
@@ -137,7 +151,7 @@ class ShoeStore: ObservableObject {
             upperBound = privateAllShoes[toOffset + 1].orderingValue.doubleValue
         }
         else {
-            upperBound = privateAllShoes[toOffset - 1].orderingValue.doubleValue + 2.0
+            upperBound = privateAllShoes[toOffset].orderingValue.doubleValue + 2.0
         }
         
         let newOrderingValue = (lowerBound + upperBound) / 2

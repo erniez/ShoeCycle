@@ -12,17 +12,19 @@ class UserSettings: ObservableObject {
     @propertyWrapper struct FavoriteDistance {
         var wrappedValue: Double {
             get {
-                UserDefaults.standard.double(forKey: key)
+                userDefaults.double(forKey: key)
             }
             set {
-                UserDefaults.standard.set(newValue, forKey: key)
+                userDefaults.set(newValue, forKey: key)
             }
         }
         private let key: String
+        private let userDefaults: UserDefaults
         private let formatter = NumberFormatter.decimal
         
-        init(key: String) {
+        init(key: String, userDefaults: UserDefaults = UserDefaults.standard) {
             self.key = key
+            self.userDefaults = userDefaults
         }
         
         var projectedValue: String? {
@@ -66,11 +68,20 @@ class UserSettings: ObservableObject {
     @Published private(set) var selectedShoeURL: URL?
     @Published private(set) var graphAllShoes: Bool
     
-    let legacySelectedShoe = UserDefaults.standard.integer(forKey: StorageKey.legacySelectedShoe)
+    let legacySelectedShoe: Int
     
-    private let defaults = UserDefaults.standard
+    private let defaults: UserDefaults
     
-    init() {
+    init(userDefaults: UserDefaults = UserDefaults.standard) {
+        self.defaults = userDefaults
+        self.legacySelectedShoe = defaults.integer(forKey: StorageKey.legacySelectedShoe)
+        
+        // Initialize property wrappers with the injected UserDefaults
+        self._favorite1 = FavoriteDistance(key: StorageKey.userDefinedDistance1, userDefaults: userDefaults)
+        self._favorite2 = FavoriteDistance(key: StorageKey.userDefinedDistance2, userDefaults: userDefaults)
+        self._favorite3 = FavoriteDistance(key: StorageKey.userDefinedDistance3, userDefaults: userDefaults)
+        self._favorite4 = FavoriteDistance(key: StorageKey.userDefinedDistance4, userDefaults: userDefaults)
+        
         distanceUnit = DistanceUnit(rawValue: defaults.integer(forKey: StorageKey.distanceUnit)) ?? .miles
         firstDayOfWeek = FirstDayOfWeek(rawValue: defaults.integer(forKey: StorageKey.firstDayOfWeek)) ?? .monday
         stravaEnabled = defaults.bool(forKey: StorageKey.stravaEnabled)

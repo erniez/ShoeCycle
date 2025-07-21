@@ -113,7 +113,7 @@ final class HistoryCollationTests: DBInteractiveTestCase {
             _ = createTestHistory(for: shoe, date: runDate, distance: distance)
         }
         
-        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true)
+        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true, firstDayOfWeek: calendar.firstWeekday)
         
         XCTAssertEqual(collated.count, 1, "Should collate into single week")
         XCTAssertEqual(collated[0].runDistance, distances.reduce(0, +), accuracy: 0.01,
@@ -142,7 +142,7 @@ final class HistoryCollationTests: DBInteractiveTestCase {
             _ = createTestHistory(for: shoe, date: runDate, distance: distance)
         }
         
-        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true)
+        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true, firstDayOfWeek: calendar.firstWeekday)
         
         XCTAssertEqual(collated.count, 2, "Should have two weeks")
         
@@ -164,7 +164,7 @@ final class HistoryCollationTests: DBInteractiveTestCase {
         // Week 3 run (skip week 2)
         _ = createTestHistory(for: shoe, date: week3Date, distance: 7.0)
         
-        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true)
+        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true, firstDayOfWeek: calendar.firstWeekday)
         
         XCTAssertEqual(collated.count, 3, "Should include gap week with zero distance")
         
@@ -187,7 +187,7 @@ final class HistoryCollationTests: DBInteractiveTestCase {
         _ = createTestHistory(for: shoe, date: lastWeek2023, distance: 3.0)
         _ = createTestHistory(for: shoe, date: firstWeek2024, distance: 4.0)
         
-        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true)
+        let collated = (shoe.history ?? Set<History>()).collateHistories(ascending: true, firstDayOfWeek: calendar.firstWeekday)
         
         XCTAssertGreaterThanOrEqual(collated.count, 2, "Should handle year boundary")
         
@@ -331,7 +331,7 @@ final class HistoryCollationTests: DBInteractiveTestCase {
         
         let histories = shoe.history ?? Set<History>()
         let sortedHistories = histories.sortHistories(ascending: true)
-        let collatedHistories = (shoe.history ?? Set<History>()).collateHistories(ascending: true)
+        let collatedHistories = (shoe.history ?? Set<History>()).collateHistories(ascending: true, firstDayOfWeek: calendar.firstWeekday)
         let monthlyHistories = (shoe.history ?? Set<History>()).historiesByMonth(ascending: true)
         
         XCTAssertEqual(sortedHistories.count, 0, "Empty set should remain empty")
@@ -346,7 +346,7 @@ final class HistoryCollationTests: DBInteractiveTestCase {
         
         let histories = shoe.history ?? Set<History>()
         let sortedHistories = histories.sortHistories(ascending: true)
-        let collatedHistories = (shoe.history ?? Set<History>()).collateHistories(ascending: true)
+        let collatedHistories = (shoe.history ?? Set<History>()).collateHistories(ascending: true, firstDayOfWeek: calendar.firstWeekday)
         let monthlyHistories = (shoe.history ?? Set<History>()).historiesByMonth(ascending: true)
         
         XCTAssertEqual(sortedHistories.count, 1, "Single entry should remain single")
