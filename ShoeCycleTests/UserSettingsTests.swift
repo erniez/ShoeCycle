@@ -34,11 +34,17 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Distance Unit Tests
     
+    // Given: A new UserSettings instance is created
+    // When: Accessing the default distance unit
+    // Then: Should default to miles
     func testDistanceUnitDefault() throws {
         // Test default value (miles)
         XCTAssertEqual(userSettings.distanceUnit, .miles, "Should default to miles")
     }
     
+    // Given: A UserSettings instance exists
+    // When: Setting distance unit to kilometers
+    // Then: Should update the value and persist to UserDefaults
     func testSetDistanceUnit() throws {
         userSettings.set(distanceUnit: .km)
         
@@ -49,11 +55,17 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(storedValue, UserSettings.DistanceUnit.km.rawValue, "Should persist to UserDefaults")
     }
     
+    // Given: DistanceUnit enum cases exist
+    // When: Calling displayString() on each case
+    // Then: Should return correct display strings
     func testDistanceUnitDisplayStrings() throws {
         XCTAssertEqual(UserSettings.DistanceUnit.miles.displayString(), "miles", "Miles display string should be correct")
         XCTAssertEqual(UserSettings.DistanceUnit.km.displayString(), "km", "Kilometers display string should be correct")
     }
     
+    // Given: DistanceUnit enum conforms to Identifiable
+    // When: Accessing id property on enum cases
+    // Then: Should return self and maintain uniqueness
     func testDistanceUnitIdentifiable() throws {
         let miles = UserSettings.DistanceUnit.miles
         let km = UserSettings.DistanceUnit.km
@@ -65,10 +77,16 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - First Day of Week Tests
     
+    // Given: A new UserSettings instance is created
+    // When: Accessing the default first day of week
+    // Then: Should default to Monday
     func testFirstDayOfWeekDefault() throws {
         XCTAssertEqual(userSettings.firstDayOfWeek, .monday, "Should default to Monday")
     }
     
+    // Given: A UserSettings instance exists
+    // When: Setting first day of week to Sunday
+    // Then: Should update the value and persist to UserDefaults
     func testSetFirstDayOfWeek() throws {
         userSettings.set(firstDayOfWeek: .sunday)
         
@@ -79,6 +97,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(storedValue, UserSettings.FirstDayOfWeek.sunday.rawValue, "Should persist to UserDefaults")
     }
     
+    // Given: FirstDayOfWeek enum cases exist
+    // When: Accessing raw values
+    // Then: Should match Calendar weekday standard values
     func testFirstDayOfWeekRawValues() throws {
         // Raw values should match Calendar weekday values
         XCTAssertEqual(UserSettings.FirstDayOfWeek.sunday.rawValue, 1, "Sunday should be 1 (Calendar standard)")
@@ -87,10 +108,16 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Strava Settings Tests
     
+    // Given: A new UserSettings instance is created
+    // When: Accessing the default Strava enabled state
+    // Then: Should default to false (disabled)
     func testStravaEnabledDefault() throws {
         XCTAssertFalse(userSettings.stravaEnabled, "Strava should be disabled by default")
     }
     
+    // Given: A UserSettings instance exists
+    // When: Toggling Strava enabled state
+    // Then: Should update the value and persist to UserDefaults
     func testSetStravaEnabled() throws {
         userSettings.set(stravaEnabled: true)
         
@@ -107,10 +134,16 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Graph All Shoes Tests
     
+    // Given: A new UserSettings instance is created
+    // When: Accessing the default graph all shoes state
+    // Then: Should default to false (disabled)
     func testGraphAllShoesDefault() throws {
         XCTAssertFalse(userSettings.graphAllShoes, "Graph all shoes should be disabled by default")
     }
     
+    // Given: A UserSettings instance exists
+    // When: Toggling graph all shoes state
+    // Then: Should update the value and persist to UserDefaults
     func testSetGraphAllShoes() throws {
         userSettings.set(graphAllShoes: true)
         
@@ -127,10 +160,16 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Selected Shoe Tests
     
+    // Given: A new UserSettings instance is created
+    // When: Accessing the default selected shoe URL
+    // Then: Should be nil (no selection)
     func testSelectedShoeDefault() throws {
         XCTAssertNil(userSettings.selectedShoeURL, "Should have no selected shoe by default")
     }
     
+    // Given: A UserSettings instance exists
+    // When: Setting a selected shoe URL
+    // Then: Should update the value and persist to UserDefaults
     func testSetSelectedShoe() throws {
         let testURL = URL(string: "x-coredata://test/Shoe/123")!
         
@@ -143,6 +182,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(storedURL, testURL, "Should persist URL to UserDefaults")
     }
     
+    // Given: A UserSettings instance with a selected shoe
+    // When: Clearing the selected shoe (setting to nil)
+    // Then: Should clear the value and remove from UserDefaults
     func testClearSelectedShoe() throws {
         let testURL = URL(string: "x-coredata://test/Shoe/123")!
         userSettings.setSelected(shoeUrl: testURL)
@@ -157,6 +199,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertNil(storedURL, "Should remove URL from UserDefaults")
     }
     
+    // Given: A UserSettings instance with a selected shoe URL
+    // When: Checking if different URLs are selected
+    // Then: Should correctly identify selected vs non-selected URLs
     func testIsSelectedShoe() throws {
         let testURL1 = URL(string: "x-coredata://test/Shoe/123")!
         let testURL2 = URL(string: "x-coredata://test/Shoe/456")!
@@ -173,6 +218,9 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Favorite Distance Tests
     
+    // Given: A new UserSettings instance is created
+    // When: Accessing default favorite distance values
+    // Then: All favorites should default to 0.0
     func testFavoriteDistanceDefaults() throws {
         XCTAssertEqual(userSettings.favorite1, 0.0, "Favorite 1 should default to 0")
         XCTAssertEqual(userSettings.favorite2, 0.0, "Favorite 2 should default to 0")
@@ -180,6 +228,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(userSettings.favorite4, 0.0, "Favorite 4 should default to 0")
     }
     
+    // Given: A UserSettings instance exists
+    // When: Setting various favorite distance values
+    // Then: Should update values and persist to UserDefaults
     func testSetFavoriteDistances() throws {
         userSettings.favorite1 = 3.1
         userSettings.favorite2 = 5.0
@@ -199,6 +250,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(stored2, 5.0, "Should persist favorite 2")
     }
     
+    // Given: A UserSettings instance with favorite distances set
+    // When: Accessing projected values (formatted strings)
+    // Then: Should return formatted strings for positive values, nil for zero/negative
     func testFavoriteDistanceProjectedValues() throws {
         userSettings.favorite1 = 3.14159
         userSettings.favorite2 = 0.0
@@ -212,6 +266,9 @@ final class UserSettingsTests: XCTestCase {
         }
     }
     
+    // Given: A UserSettings instance with various favorite distances
+    // When: Counting non-zero favorite distances
+    // Then: Should return correct count of positive values
     func testFavoriteDistanceCount() throws {
         // All zeros
         XCTAssertEqual(userSettings.favoriteDistanceCount(), 0, "Should count 0 when all favorites are 0")
@@ -231,6 +288,9 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Legacy Support Tests
     
+    // Given: UserDefaults contains a legacy selected shoe value
+    // When: Creating a new UserSettings instance
+    // Then: Should read the legacy value correctly
     func testLegacySelectedShoe() throws {
         // Set legacy value in test UserDefaults
         testUserDefaults.set(42, forKey: UserSettings.StorageKey.legacySelectedShoe)
@@ -242,6 +302,9 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Storage Key Tests
     
+    // Given: All UserSettings storage keys are defined
+    // When: Checking for uniqueness across all keys
+    // Then: Should have no duplicate key values
     func testStorageKeyUniqueness() throws {
         let keys = [
             UserSettings.StorageKey.distanceUnit,
@@ -263,6 +326,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(keys.count, uniqueKeys.count, "All storage keys should be unique")
     }
     
+    // Given: Storage keys with descriptive names
+    // When: Checking key naming conventions
+    // Then: Should contain descriptive terms to prevent typos
     func testStorageKeyNaming() throws {
         // Verify key naming conventions to catch typos
         XCTAssertTrue(UserSettings.StorageKey.distanceUnit.contains("DistanceUnit"), "Distance unit key should be descriptive")
@@ -272,6 +338,9 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Edge Cases and Error Handling
     
+    // Given: UserDefaults contains invalid distance unit raw value
+    // When: Creating a new UserSettings instance
+    // Then: Should fallback to default miles value
     func testInvalidDistanceUnitFallback() throws {
         // Set invalid raw value in test UserDefaults
         testUserDefaults.set(999, forKey: UserSettings.StorageKey.distanceUnit)
@@ -281,6 +350,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(settings.distanceUnit, .miles, "Should fallback to miles for invalid distance unit")
     }
     
+    // Given: UserDefaults contains invalid first day of week raw value
+    // When: Creating a new UserSettings instance
+    // Then: Should fallback to default Monday value
     func testInvalidFirstDayOfWeekFallback() throws {
         // Set invalid raw value in test UserDefaults
         testUserDefaults.set(999, forKey: UserSettings.StorageKey.firstDayOfWeek)
@@ -290,6 +362,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertEqual(settings.firstDayOfWeek, .monday, "Should fallback to monday for invalid first day")
     }
     
+    // Given: Favorite distances set to zero and negative values
+    // When: Accessing projected values
+    // Then: Should return nil for non-positive distances
     func testZeroFavoriteDistances() throws {
         userSettings.favorite1 = 0.0
         userSettings.favorite2 = -5.0 // Negative value
@@ -298,6 +373,9 @@ final class UserSettingsTests: XCTestCase {
         XCTAssertNil(userSettings.$favorite2, "Negative distance should have nil projected value")
     }
     
+    // Given: A favorite distance set to maximum finite value
+    // When: Storing and formatting the distance
+    // Then: Should handle very large distances correctly
     func testVeryLargeFavoriteDistances() throws {
         let largeDistance = Double.greatestFiniteMagnitude
         userSettings.favorite1 = largeDistance
@@ -308,10 +386,16 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - ObservableObject Behavior Tests
     
+    // Given: A UserSettings instance
+    // When: Checking ObservableObject conformance
+    // Then: Should conform to ObservableObject protocol
     func testSettingsIsObservableObject() throws {
         XCTAssertTrue(userSettings is (any ObservableObject), "UserSettings should conform to ObservableObject")
     }
     
+    // Given: A UserSettings instance with objectWillChange subscription
+    // When: Updating a published property
+    // Then: Should trigger objectWillChange notifications
     func testPublishedPropertiesUpdate() throws {
         let expectation = XCTestExpectation(description: "Published value should update")
         
@@ -335,6 +419,9 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - Singleton Behavior Tests
     
+    // Given: Multiple references to UserSettings.shared
+    // When: Comparing instance references
+    // Then: Should return the same singleton instance
     func testSingletonBehavior() throws {
         let settings1 = UserSettings.shared
         let settings2 = UserSettings.shared

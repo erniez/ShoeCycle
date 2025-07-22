@@ -65,6 +65,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Meaningful Edge Cases**: Test boundary conditions your app encounters, not hypothetical scenarios
 - **Avoid Cargo Cult Testing**: Remove tests that only verify system behavior (thread safety, locale handling, etc.)
 - **Simple Validation**: Prefer direct constant validation over complex approximation testing
+- **Gherkin Documentation**: All test methods MUST include Given/When/Then documentation above the function declaration:
+  ```swift
+  // Given: Initial state and conditions
+  // When: Action being performed
+  // Then: Expected outcome
+  func testSomeFeature() throws {
+      // test implementation
+  }
+  ```
 
 ### Key Design Patterns
 - **Strategy Pattern**: `SelectedShoeStrategy` for shoe selection logic

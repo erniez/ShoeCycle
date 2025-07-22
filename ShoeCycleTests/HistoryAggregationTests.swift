@@ -11,6 +11,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
     
     // MARK: - YTD (Year-to-Date) Calculation Tests
     
+    // Given: A test shoe with multiple runs in current year
+    // When: Calculating YTD totals using history aggregation
+    // Then: Should sum all current year distances correctly
     func testYTDCalculationWithCurrentYearHistory() throws {
         let shoe = createTestShoe()
         let currentYear = Date.currentYear
@@ -34,6 +37,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertEqual(ytd, 75.0, "YTD should be sum of current year distances")
     }
     
+    // Given: A test shoe with runs only in previous year
+    // When: Calculating YTD totals for current year
+    // Then: Should return 0 for current year with no runs
     func testYTDCalculationWithNoCurrentYearHistory() throws {
         let shoe = createTestShoe()
         let currentYear = Date.currentYear
@@ -52,6 +58,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertEqual(ytd, 0.0, "YTD should be 0 when no runs in current year")
     }
     
+    // Given: A test shoe with runs in both current and previous years
+    // When: Calculating YTD totals
+    // Then: Should separate current year from previous year totals
     func testYTDCalculationWithMixedYearHistory() throws {
         let shoe = createTestShoe()
         let currentYear = Date.currentYear
@@ -77,6 +86,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
     
     // MARK: - Yearly Total Calculation Tests
     
+    // Given: A test shoe with multiple runs distributed throughout a single year
+    // When: Calculating yearly totals
+    // Then: Should sum all runs for that year correctly
     func testYearlyTotalWithSingleYear() throws {
         let shoe = createTestShoe()
         let testYear = 2023
@@ -101,6 +113,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertEqual(yearTotal, 90.0, "Yearly total should sum all runs in the year")
     }
     
+    // Given: A test shoe with runs across three different years
+    // When: Calculating yearly totals for each year
+    // Then: Should correctly total distances for each year separately
     func testYearlyTotalWithMultipleYears() throws {
         let shoe = createTestShoe()
         
@@ -134,6 +149,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertEqual(yearlyTotals[2024] ?? 0, 60.0, "2024 total should be 60")
     }
     
+    // Given: A test shoe with runs in 2022 and 2024 but none in 2023
+    // When: Calculating yearly totals including gap year
+    // Then: Should handle empty years correctly with 0 totals
     func testYearlyTotalWithEmptyYear() throws {
         let shoe = createTestShoe()
         
@@ -152,6 +170,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
     
     // MARK: - Monthly Aggregation Tests
     
+    // Given: A test shoe with multiple runs in the same month
+    // When: Grouping histories by month
+    // Then: Should group all runs from same month together
     func testMonthlyHistoryGrouping() throws {
         let shoe = createTestShoe()
         
@@ -176,6 +197,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertEqual(januaryTotal, 45.0, "January total should be 10 + 15 + 20")
     }
     
+    // Given: A test shoe with runs across different months in same year
+    // When: Grouping histories by month
+    // Then: Should create separate groups for each month
     func testMonthlyHistoryAcrossMultipleMonths() throws {
         let shoe = createTestShoe()
         
@@ -204,6 +228,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
     
     // MARK: - Cross-Year Boundary Tests
     
+    // Given: A test shoe with runs on both sides of year boundary
+    // When: Calculating yearly totals and monthly groupings
+    // Then: Should correctly separate runs by year boundary
     func testYearBoundaryCalculations() throws {
         let shoe = createTestShoe()
         
@@ -225,6 +252,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
     
     // MARK: - Section ViewModel Tests
     
+    // Given: A test shoe with multiple history entries in same month
+    // When: Creating HistorySectionViewModel from histories
+    // Then: Should calculate correct totals and section metadata
     func testHistorySectionViewModelCreation() throws {
         let shoe = createTestShoe()
         
@@ -246,6 +276,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertEqual(monthComponents.month, 1, "Section should be for January")
     }
     
+    // Given: A HistorySectionViewModel and mock yearly totals
+    // When: Populating sections with yearly total data
+    // Then: Should correctly apply yearly totals to sections
     func testHistorySectionPopulateWithYearlyTotals() throws {
         let shoe = createTestShoe()
         let currentYear = Date.currentYear
@@ -266,6 +299,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
     
     // MARK: - Edge Cases
     
+    // Given: A test shoe with no history entries
+    // When: Calculating yearly totals
+    // Then: Should return 0 for current year and include current year key
     func testYearlyCalculationWithNoHistory() throws {
         let shoe = createTestShoe()
         
@@ -280,6 +316,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertTrue(yearlyTotals.keys.contains(currentYear), "Current year should be in dictionary for UI display")
     }
     
+    // Given: A test shoe with runs that have zero distance
+    // When: Calculating yearly totals
+    // Then: Should handle zero distances and maintain year in dictionary
     func testYearlyCalculationWithZeroDistanceRuns() throws {
         let shoe = createTestShoe()
         let testYear = 2023
@@ -298,6 +337,9 @@ final class HistoryAggregationTests: DBInteractiveTestCase {
         XCTAssertTrue(yearlyTotals.keys.contains(testYear), "Year with zero total should still be in the dictionary for UI display")
     }
     
+    // Given: A test shoe with runs added in non-chronological order
+    // When: Grouping histories by month with ascending/descending sort
+    // Then: Should return properly sorted month groups
     func testMonthlyGroupingSortOrder() throws {
         let shoe = createTestShoe()
         

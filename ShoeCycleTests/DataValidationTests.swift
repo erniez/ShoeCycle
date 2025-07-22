@@ -11,6 +11,9 @@ final class DataValidationTests: DBInteractiveTestCase {
     
     // MARK: - Distance Validation Tests
     
+    // Given: A test shoe exists
+    // When: Adding history with negative distance
+    // Then: Should store negative distance and affect totals correctly
     func testNegativeDistanceValues() throws {
         let shoe = createTestShoe()
         
@@ -25,6 +28,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(runTotal, -10.0, "Negative distance should decrease total")
     }
     
+    // Given: A test shoe exists
+    // When: Adding history with zero distance
+    // Then: Should accept zero distance without changing total
     func testZeroDistanceValues() throws {
         let shoe = createTestShoe()
         
@@ -38,6 +44,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(runTotal, 0.0, "Zero distance should not change total")
     }
     
+    // Given: A test shoe exists
+    // When: Adding history with very large distance (1000 miles)
+    // Then: Should accept and include large distances in totals
     func testExtremelyLargeDistanceValues() throws {
         let shoe = createTestShoe()
         
@@ -52,6 +61,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(runTotal, largeDistance, "Large distance should be included in total")
     }
     
+    // Given: A test shoe exists
+    // When: Adding history with high-precision decimal distance
+    // Then: Should maintain reasonable floating point precision
     func testFloatingPointPrecision() throws {
         let shoe = createTestShoe()
         
@@ -64,6 +76,9 @@ final class DataValidationTests: DBInteractiveTestCase {
     }
     
     // MARK: - Shoe Distance Constraints Tests
+    // Given: A test shoe with negative max distance
+    // When: Adding positive distance history
+    // Then: Should store negative max and correctly identify when exceeded
     func testNegativeMaxDistance() throws {
         let shoe = createTestShoe()
         
@@ -80,6 +95,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertTrue(hasExceededMax, "Positive distance should exceed negative max")
     }
     
+    // Given: A test shoe with zero max distance
+    // When: Adding any positive distance
+    // Then: Should correctly identify that max is exceeded
     func testZeroMaxDistance() throws {
         let shoe = createTestShoe()
         
@@ -92,6 +110,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertTrue(hasExceededMax, "Any positive distance should exceed zero max")
     }
     
+    // Given: A test shoe with negative start distance
+    // When: Adding positive distance history
+    // Then: Should include negative start distance in total calculations
     func testNegativeStartDistance() throws {
         let shoe = createTestShoe()
         
@@ -104,6 +125,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(runTotal, -20.0, "Negative start distance should affect calculations correctly")
     }
 
+    // Given: A test shoe with start distance higher than max distance
+    // When: Checking if max distance is exceeded
+    // Then: Should correctly identify that start distance can exceed max
     func testStartDistanceExceedsMaxDistance() throws {
         let shoe = createTestShoe()
         
@@ -120,6 +144,9 @@ final class DataValidationTests: DBInteractiveTestCase {
     
     // MARK: - Date Validation Tests
     
+    // Given: A test shoe exists
+    // When: Adding history with future run date
+    // Then: Should accept future dates for run entries
     func testFutureRunDates() throws {
         let shoe = createTestShoe()
         
@@ -131,6 +158,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertGreaterThan(history.runDate, Date(), "Run date should be in future")
     }
     
+    // Given: A test shoe exists
+    // When: Adding history with very old date (1970)
+    // Then: Should accept historical dates for run entries
     func testVeryOldRunDates() throws {
         let shoe = createTestShoe()
         
@@ -141,6 +171,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(history.runDate, veryOldDate, "Should accept very old dates")
     }
 
+    // Given: A test shoe exists
+    // When: Setting start date after expiration date
+    // Then: Should allow illogical date combinations
     func testShoeStartDateAfterExpirationDate() throws {
         let shoe = createTestShoe()
         
@@ -155,6 +188,9 @@ final class DataValidationTests: DBInteractiveTestCase {
                            "Should allow start date after expiration date")
     }
     
+    // Given: A test shoe exists
+    // When: Setting expiration date in the past
+    // Then: Should allow past expiration dates
     func testShoeExpirationDateInPast() throws {
         let shoe = createTestShoe()
         
@@ -165,6 +201,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertLessThan(shoe.expirationDate, Date(), "Should allow past expiration dates")
     }
     
+    // Given: A test shoe with a start date
+    // When: Adding history with run date before shoe start date
+    // Then: Should allow run dates before shoe creation
     func testRunDateBeforeShoeStartDate() throws {
         let shoe = createTestShoe()
         
@@ -178,6 +217,9 @@ final class DataValidationTests: DBInteractiveTestCase {
                          "Should allow run dates before shoe start date")
     }
     
+    // Given: A test shoe with an expiration date
+    // When: Adding history with run date after shoe expiration
+    // Then: Should allow run dates after shoe expiration
     func testRunDateAfterShoeExpirationDate() throws {
         let shoe = createTestShoe()
         
@@ -193,6 +235,9 @@ final class DataValidationTests: DBInteractiveTestCase {
     
     // MARK: - String/Text Validation Tests
     
+    // Given: A test shoe exists
+    // When: Setting brand name to empty string
+    // Then: Should accept empty brand names
     func testEmptyBrandName() throws {
         let shoe = createTestShoe()
         
@@ -200,6 +245,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(shoe.brand, "", "Should accept empty brand name")
     }
     
+    // Given: A test shoe exists
+    // When: Setting brand name to very long string (1000 characters)
+    // Then: Should accept very long brand names
     func testVeryLongBrandName() throws {
         let shoe = createTestShoe()
         
@@ -210,6 +258,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(shoe.brand, longBrand, "Should accept very long brand names")
     }
     
+    // Given: A test shoe exists
+    // When: Setting brand name with special characters and symbols
+    // Then: Should accept all special characters in brand names
     func testBrandNameWithSpecialCharacters() throws {
         let shoe = createTestShoe()
         
@@ -219,6 +270,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(shoe.brand, specialBrand, "Should accept special characters in brand name")
     }
     
+    // Given: A test shoe exists
+    // When: Setting brand name with Unicode characters and emojis
+    // Then: Should accept Unicode characters in brand names
     func testBrandNameWithUnicodeCharacters() throws {
         let shoe = createTestShoe()
         
@@ -230,6 +284,9 @@ final class DataValidationTests: DBInteractiveTestCase {
     
     // MARK: - Core Data Relationship Validation Tests
 
+    // Given: A Core Data context exists
+    // When: Creating history entry without associating to a shoe
+    // Then: Should allow history to exist without shoe relationship
     func testHistoryWithoutShoe() throws {
         // Test creating history without associating it to a shoe
         let history = History(context: testContext)
@@ -239,6 +296,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertNil(history.shoe, "History should be able to exist without shoe relationship")
     }
     
+    // Given: A test shoe is created
+    // When: Checking history relationship
+    // Then: Should allow shoe to exist without history entries
     func testShoeWithoutHistory() throws {
         let shoe = createTestShoe()
         
@@ -246,6 +306,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(shoe.history?.count ?? 0, 0, "Shoe should be able to exist without history")
     }
     
+    // Given: A test shoe and history entry are created and linked
+    // When: Checking bidirectional relationship
+    // Then: Should maintain proper Core Data relationship integrity
     func testHistoryShoeRelationshipIntegrity() throws {
         let shoe = createTestShoe()
         let history = createTestHistory(for: shoe, date: Date(), distance: 15.0)
@@ -255,6 +318,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertTrue(shoe.history?.contains(history) ?? false, "Shoe should contain the history")
     }
     
+    // Given: A test shoe with one history entry
+    // When: Removing history from the shoe
+    // Then: Should properly break the bidirectional relationship
     func testRemoveHistoryFromShoe() throws {
         let shoe = createTestShoe()
         let history = createTestHistory(for: shoe, date: Date(), distance: 25.0)
@@ -270,6 +336,9 @@ final class DataValidationTests: DBInteractiveTestCase {
     
     // MARK: - Numerical Edge Cases
     
+    // Given: A test shoe exists
+    // When: Setting max distance to maximum double value
+    // Then: Should handle maximum finite double values
     func testDoubleMaxValue() throws {
         let shoe = createTestShoe()
         
@@ -280,6 +349,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(shoe.maxDistance.doubleValue, maxDouble, "Should handle maximum double values")
     }
     
+    // Given: A test shoe exists
+    // When: Setting start distance to minimum double value
+    // Then: Should handle most negative finite double values
     func testDoubleMinValue() throws {
         let shoe = createTestShoe()
         
@@ -290,6 +362,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(shoe.startDistance.doubleValue, minDouble, "Should handle minimum double values")
     }
 
+    // Given: A test shoe exists
+    // When: Setting total distance to NaN (Not a Number)
+    // Then: Should store and preserve NaN values
     func testNaNValues() throws {
         let shoe = createTestShoe()
         
@@ -300,6 +375,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertTrue(shoe.totalDistance.doubleValue.isNaN, "Should store NaN values")
     }
     
+    // Given: A test shoe exists
+    // When: Setting max distance to positive infinity
+    // Then: Should store and identify positive infinity values
     func testInfinityValues() throws {
         let shoe = createTestShoe()
         
@@ -311,6 +389,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertTrue(shoe.maxDistance.doubleValue > 0, "Should be positive infinity")
     }
 
+    // Given: A test shoe exists
+    // When: Setting start distance to negative infinity
+    // Then: Should store and identify negative infinity values
     func testNegativeInfinityValues() throws {
         let shoe = createTestShoe()
         
@@ -324,6 +405,9 @@ final class DataValidationTests: DBInteractiveTestCase {
     
     // MARK: - Calculation Edge Cases
     
+    // Given: A test shoe with start distance and mixed positive/negative history
+    // When: Calculating total distance
+    // Then: Should correctly sum all positive and negative distances
     func testTotalCalculationWithMixedSigns() throws {
         let shoe = createTestShoe()
         shoe.startDistance = NSNumber(value: 100.0)
@@ -338,6 +422,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertEqual(runTotal, 140.0, "Should handle mixed positive/negative distances: 100 + 50 - 30 + 20")
     }
     
+    // Given: A test shoe with zero max distance and positive history
+    // When: Checking if max distance is exceeded
+    // Then: Should handle division by zero scenario gracefully
     func testProgressCalculationWithZeroMax() throws {
         let shoe = createTestShoe()
         shoe.maxDistance = NSNumber(value: 0.0)
@@ -356,6 +443,9 @@ final class DataValidationTests: DBInteractiveTestCase {
         XCTAssertTrue(hasExceeded, "Should correctly identify when zero max is exceeded")
     }
 
+    // Given: A test shoe with start distance and exactly offsetting negative history
+    // When: Calculating total distance
+    // Then: Should result in exactly zero when distances cancel out
     func testCalculationResultingInZero() throws {
         let shoe = createTestShoe()
         shoe.startDistance = NSNumber(value: 50.0)

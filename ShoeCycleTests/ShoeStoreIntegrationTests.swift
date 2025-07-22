@@ -41,6 +41,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - Shoe Creation Tests
     
+    // Given: A ShoeStore with in-memory context
+    // When: Creating a new shoe
+    // Then: Should create shoe with correct defaults and add to active shoes
     func testCreateShoe() throws {
         let initialCount = shoeStore.activeShoes.count
         
@@ -64,6 +67,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertTrue(shoeStore.activeShoes.contains(newShoe), "New shoe should be in active shoes")
     }
     
+    // Given: A ShoeStore with in-memory context
+    // When: Creating multiple shoes sequentially
+    // Then: Should create all shoes with increasing ordering values
     func testCreateMultipleShoes() throws {
         let initialCount = shoeStore.activeShoes.count
         
@@ -87,6 +93,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - Shoe Removal Tests
     
+    // Given: A ShoeStore with one active shoe
+    // When: Removing the shoe
+    // Then: Should remove shoe from both active and all shoes collections
     func testRemoveShoe() throws {
         let shoe = shoeStore.createShoe()
         shoeStore.saveContext()
@@ -101,6 +110,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertFalse(shoeStore.allShoes.contains(shoe), "Removed shoe should not be in all shoes")
     }
     
+    // Given: A ShoeStore with one active shoe
+    // When: Removing shoe by its URL
+    // Then: Should remove shoe and make it unfindable by URL
     func testRemoveShoeByURL() throws {
         let shoe = shoeStore.createShoe()
         shoeStore.saveContext()
@@ -115,6 +127,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertNil(shoeStore.getShoe(from: shoeURL), "Should not be able to find removed shoe")
     }
     
+    // Given: A ShoeStore with isolated UserSettings and one active shoe
+    // When: Removing the shoe
+    // Then: Should properly remove shoe from collections
     func testRemoveSelectedShoe() throws {
         let shoe = shoeStore.createShoe()
         shoeStore.saveContext()
@@ -133,6 +148,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - History Management Tests
     
+    // Given: A ShoeStore with one active shoe
+    // When: Adding history entry to the shoe
+    // Then: Should create history with correct details and relationships
     func testAddHistoryToShoe() throws {
         let shoe = shoeStore.createShoe()
         let initialHistoryCount = shoe.history?.count ?? 0
@@ -155,6 +173,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertEqual(history.shoe, shoe, "History should reference the shoe")
     }
     
+    // Given: A ShoeStore with one active shoe
+    // When: Adding multiple history entries with different dates and distances
+    // Then: Should create all entries and calculate correct total distance
     func testAddMultipleHistoryEntries() throws {
         let shoe = shoeStore.createShoe()
         
@@ -177,6 +198,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertEqual(totalHistoryDistance, expectedTotal, "Total history distance should match sum")
     }
     
+    // Given: A ShoeStore with shoe containing start distance and history
+    // When: Updating total distance manually
+    // Then: Should calculate correct total including start distance
     func testUpdateTotalDistance() throws {
         let shoe = shoeStore.createShoe()
         shoe.startDistance = NSNumber(value: 100.0)
@@ -193,6 +217,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertEqual(shoe.totalDistance.doubleValue, 140.0, "Manual update should maintain correct total")
     }
     
+    // Given: A ShoeStore with shoe containing one history entry
+    // When: Deleting the history entry
+    // Then: Should remove history and update shoe relationship
     func testDeleteHistory() throws {
         let shoe = shoeStore.createShoe()
         shoeStore.addHistory(to: shoe, date: Date(), distance: 10.0)
@@ -214,6 +241,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - Shoe Organization Tests
     
+    // Given: A ShoeStore with one active and one retired shoe
+    // When: Updating all shoes collections
+    // Then: Should correctly separate active from hall of fame shoes
     func testActiveVsHallOfFameShoes() throws {
         let activeShoe = shoeStore.createShoe()
         activeShoe.brand = "Active Shoe"
@@ -235,6 +265,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertTrue(shoeStore.allShoes.contains(retiredShoe), "Both shoes should be in all shoes")
     }
     
+    // Given: A ShoeStore with multiple shoes created sequentially
+    // When: Checking ordering in active shoes collection
+    // Then: Should maintain proper ordering based on orderingValue
     func testShoeOrdering() throws {
         let shoe1 = shoeStore.createShoe()
         shoeStore.saveContext()
@@ -261,6 +294,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertLessThan(shoe2Index, shoe3Index, "Shoe2 should appear before shoe3 in sorted order")
     }
     
+    // Given: A ShoeStore with three shoes in specific order
+    // When: Adjusting ordering by moving first shoe to third position
+    // Then: Should update ordering values to reflect new position
     func testAdjustShoeOrdering() throws {
         let shoe1 = shoeStore.createShoe()
         shoe1.brand = "Shoe 1"
@@ -300,6 +336,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - Shoe Lookup Tests
     
+    // Given: A ShoeStore with one shoe saved and updated
+    // When: Retrieving shoe by its URL
+    // Then: Should find and return the correct shoe with its properties
     func testGetShoeFromURL() throws {
         let shoe = shoeStore.createShoe()
         shoe.brand = "Test Shoe"
@@ -314,6 +353,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertEqual(retrievedShoe?.brand, "Test Shoe", "Should have correct properties")
     }
     
+    // Given: A ShoeStore and an invalid URL
+    // When: Attempting to retrieve shoe by invalid URL
+    // Then: Should return nil gracefully
     func testGetShoeFromInvalidURL() throws {
         let invalidURL = URL(string: "invalid://url")
         let retrievedShoe = shoeStore.getShoe(from: invalidURL)
@@ -321,6 +363,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertNil(retrievedShoe, "Should return nil for invalid URL")
     }
     
+    // Given: A ShoeStore and nil URL
+    // When: Attempting to retrieve shoe by nil URL
+    // Then: Should return nil gracefully
     func testGetShoeFromNilURL() throws {
         let retrievedShoe = shoeStore.getShoe(from: nil)
         
@@ -329,6 +374,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - Context Management Tests
     
+    // Given: A ShoeStore with unsaved changes
+    // When: Saving the context
+    // Then: Should persist changes and clear hasChanges flag
     func testSaveContext() throws {
         let shoe = shoeStore.createShoe()
         shoe.brand = "Test Save"
@@ -342,6 +390,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         XCTAssertFalse(shoeStore.context.hasChanges, "Context should have no changes after save")
     }
     
+    // Given: A ShoeStore with no pending changes
+    // When: Saving the context
+    // Then: Should complete without issues and maintain no changes state
     func testSaveContextWithNoChanges() throws {
         // This should not crash or cause issues
         shoeStore.saveContext()
@@ -351,6 +402,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - Data Persistence Tests
     
+    // Given: A ShoeStore with saved shoe data
+    // When: Creating new store instance with same context
+    // Then: Should be able to retrieve persisted shoe with all properties
     func testShoePersistence() throws {
         let shoe = shoeStore.createShoe()
         shoe.brand = "Persistence Test"
@@ -376,6 +430,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         }
     }
     
+    // Given: A ShoeStore with saved shoe and history data
+    // When: Creating new store instance with same context
+    // Then: Should be able to retrieve persisted history with correct details
     func testHistoryPersistence() throws {
         let shoe = shoeStore.createShoe()
         let testDate = Date()
@@ -409,6 +466,9 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     
     // MARK: - Error Handling Tests
     
+    // Given: A ShoeStore with new shoe created but not published
+    // When: Updating all shoes without publishing changes
+    // Then: Should update internal state but not published arrays until publishing enabled
     func testUpdateAllShoesWithoutPublishing() throws {
         let initialActiveCount = shoeStore.activeShoes.count
         
