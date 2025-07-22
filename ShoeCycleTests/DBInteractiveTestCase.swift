@@ -12,14 +12,17 @@ import CoreData
 class DBInteractiveTestCase: XCTestCase {
     
     var testContext: NSManagedObjectContext!
+    private var shoeOrderingCounter: Double = 0
     
     override func setUp() {
         super.setUp()
         testContext = createInMemoryContext()
+        shoeOrderingCounter = 0
     }
     
     override func tearDown() {
         testContext = nil
+        shoeOrderingCounter = 0
         super.tearDown()
     }
     
@@ -47,6 +50,11 @@ class DBInteractiveTestCase: XCTestCase {
         shoe.totalDistance = NSNumber(value: 0.0)
         shoe.startDate = Date()
         shoe.expirationDate = Date().addingTimeInterval(TimeInterval.secondsInSixMonths)
+        
+        // Assign ordering value similar to ShoeStore.createShoe()
+        shoeOrderingCounter += 1
+        shoe.orderingValue = NSNumber(value: shoeOrderingCounter)
+        
         return shoe
     }
     
