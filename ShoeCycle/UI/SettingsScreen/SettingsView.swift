@@ -122,21 +122,115 @@ struct SettingsFirstDayOfWeekView: View {
     }
 }
 
+// MARK: - VSI Architecture for SettingsFavoriteDistances
+
+struct SettingsFavoriteDistancesState {
+    var favorite1Text: String = ""
+    var favorite2Text: String = ""
+    var favorite3Text: String = ""
+    var favorite4Text: String = ""
+}
+
+class SettingsFavoriteDistancesInteractor {
+    enum Action {
+        case viewAppeared
+        case favorite1Changed(String)
+        case favorite2Changed(String)
+        case favorite3Changed(String)
+        case favorite4Changed(String)
+        case saveChanges
+    }
+    
+    private let userSettings: UserSettings
+    private let distanceUtility: DistanceUtility
+    private var saveWorkItem: DispatchWorkItem?
+    
+    init(userSettings: UserSettings = UserSettings.shared, distanceUtility: DistanceUtility = DistanceUtility()) {
+        self.userSettings = userSettings
+        self.distanceUtility = distanceUtility
+    }
+    
+    func handle(state: inout SettingsFavoriteDistancesState, action: Action) {
+        switch action {
+        case .viewAppeared:
+            state.favorite1Text = distanceUtility.favoriteDistanceDisplayString(for: userSettings.favorite1)
+            state.favorite2Text = distanceUtility.favoriteDistanceDisplayString(for: userSettings.favorite2)
+            state.favorite3Text = distanceUtility.favoriteDistanceDisplayString(for: userSettings.favorite3)
+            state.favorite4Text = distanceUtility.favoriteDistanceDisplayString(for: userSettings.favorite4)
+            
+        case .favorite1Changed(let newText):
+            state.favorite1Text = newText
+            scheduleDebounceeSave(for: .favorite1Changed(newText))
+            
+        case .favorite2Changed(let newText):
+            state.favorite2Text = newText
+            scheduleDebounceeSave(for: .favorite2Changed(newText))
+            
+        case .favorite3Changed(let newText):
+            state.favorite3Text = newText
+            scheduleDebounceeSave(for: .favorite3Changed(newText))
+            
+        case .favorite4Changed(let newText):
+            state.favorite4Text = newText
+            scheduleDebounceeSave(for: .favorite4Changed(newText))
+            
+        case .saveChanges:
+            saveCurrentState(state)
+        }
+    }
+    
+    private func scheduleDebounceeSave(for action: Action) {
+        saveWorkItem?.cancel()
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            switch action {
+            case .favorite1Changed(let text):
+                self.userSettings.favorite1 = self.distanceUtility.distance(from: text)
+            case .favorite2Changed(let text):
+                self.userSettings.favorite2 = self.distanceUtility.distance(from: text)
+            case .favorite3Changed(let text):
+                self.userSettings.favorite3 = self.distanceUtility.distance(from: text)
+            case .favorite4Changed(let text):
+                self.userSettings.favorite4 = self.distanceUtility.distance(from: text)
+            default:
+                break
+            }
+        }
+        saveWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: workItem)
+    }
+    
+    private func saveCurrentState(_ state: SettingsFavoriteDistancesState) {
+        userSettings.favorite1 = distanceUtility.distance(from: state.favorite1Text)
+        userSettings.favorite2 = distanceUtility.distance(from: state.favorite2Text)
+        userSettings.favorite3 = distanceUtility.distance(from: state.favorite3Text)
+        userSettings.favorite4 = distanceUtility.distance(from: state.favorite4Text)
+    }
+}
+
 struct SettingsFavoriteDistancesView: View {
-    @ObservedObject var viewModel = SettingsFavoriteDistancesViewModel()
+    @State private var state = SettingsFavoriteDistancesState()
+    private let interactor: SettingsFavoriteDistancesInteractor
+    
+    init(userSettings: UserSettings = UserSettings.shared, distanceUtility: DistanceUtility = DistanceUtility()) {
+        self.interactor = SettingsFavoriteDistancesInteractor(userSettings: userSettings, distanceUtility: distanceUtility)
+    }
     
     var body: some View {
         VStack {
             HStack {
-                TextField("Favorite 1", text: $viewModel.favorite1, prompt: Text("Favorite 1"))
-                TextField("Favorite 2", text: $viewModel.favorite2, prompt: Text("Favorite 2"))
+                TextField("Favorite 1", text: favorite1Binding, prompt: Text("Favorite 1"))
+                TextField("Favorite 2", text: favorite2Binding, prompt: Text("Favorite 2"))
             }
             HStack {
-                TextField("Favorite 3", text: $viewModel.favorite3, prompt: Text("Favorite 3"))
-                TextField("Favorite 4", text: $viewModel.favorite4, prompt: Text("Favorite 4"))
+                TextField("Favorite 3", text: favorite3Binding, prompt: Text("Favorite 3"))
+                TextField("Favorite 4", text: favorite4Binding, prompt: Text("Favorite 4"))
             }
         }
         .textFieldStyle(.numberEntry)
+        .onAppear {
+            interactor.handle(state: &state, action: .viewAppeared)
+        }
         .toolbar {
             ToolbarItem(placement: .keyboard) {
                 Button("Done") {
@@ -145,6 +239,42 @@ struct SettingsFavoriteDistancesView: View {
             }
         }
         .shoeCycleSection(title: "Favorite Distances", color: .shoeCycleGreen, image: Image("heartPlus"))
+    }
+    
+    private var favorite1Binding: Binding<String> {
+        Binding(
+            get: { state.favorite1Text },
+            set: { newValue in
+                interactor.handle(state: &state, action: .favorite1Changed(newValue))
+            }
+        )
+    }
+    
+    private var favorite2Binding: Binding<String> {
+        Binding(
+            get: { state.favorite2Text },
+            set: { newValue in
+                interactor.handle(state: &state, action: .favorite2Changed(newValue))
+            }
+        )
+    }
+    
+    private var favorite3Binding: Binding<String> {
+        Binding(
+            get: { state.favorite3Text },
+            set: { newValue in
+                interactor.handle(state: &state, action: .favorite3Changed(newValue))
+            }
+        )
+    }
+    
+    private var favorite4Binding: Binding<String> {
+        Binding(
+            get: { state.favorite4Text },
+            set: { newValue in
+                interactor.handle(state: &state, action: .favorite4Changed(newValue))
+            }
+        )
     }
 }
 
