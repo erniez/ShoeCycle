@@ -63,20 +63,62 @@ struct SettingsUnitsView: View {
     }
 }
 
+// MARK: - VSI Architecture for SettingsFirstDayOfWeek
+
+struct SettingsFirstDayOfWeekState {
+    var selectedFirstDayOfWeek: UserSettings.FirstDayOfWeek = .sunday
+}
+
+struct SettingsFirstDayOfWeekInteractor {
+    enum Action {
+        case viewAppeared
+        case firstDayOfWeekChanged(UserSettings.FirstDayOfWeek)
+    }
+    
+    private let userSettings: UserSettings
+    
+    init(userSettings: UserSettings = UserSettings.shared) {
+        self.userSettings = userSettings
+    }
+    
+    func handle(state: inout SettingsFirstDayOfWeekState, action: Action) {
+        switch action {
+        case .viewAppeared:
+            state.selectedFirstDayOfWeek = userSettings.firstDayOfWeek
+        case .firstDayOfWeekChanged(let newValue):
+            state.selectedFirstDayOfWeek = newValue
+            userSettings.set(firstDayOfWeek: newValue)
+        }
+    }
+}
+
 struct SettingsFirstDayOfWeekView: View {
-    @State var firstDayOfWeek = UserSettings.shared.firstDayOfWeek
-    @EnvironmentObject var settings: UserSettings
+    @State private var state = SettingsFirstDayOfWeekState()
+    private let interactor: SettingsFirstDayOfWeekInteractor
+    
+    init(userSettings: UserSettings = UserSettings.shared) {
+        self.interactor = SettingsFirstDayOfWeekInteractor(userSettings: userSettings)
+    }
     
     var body: some View {
-        Picker("Please select the first day of week", selection: $firstDayOfWeek) {
+        Picker("Please select the first day of week", selection: firstDayOfWeekBinding) {
             Text("Sunday").tag(UserSettings.FirstDayOfWeek.sunday)
             Text("Monday").tag(UserSettings.FirstDayOfWeek.monday)
         }
         .pickerStyle(.segmented)
-        .onChange(of: firstDayOfWeek) { newValue in
-            settings.set(firstDayOfWeek: newValue)
+        .onAppear {
+            interactor.handle(state: &state, action: .viewAppeared)
         }
         .shoeCycleSection(title: "First Day of Week", color: .shoeCycleBlue, image: Image(systemName: "calendar"))
+    }
+    
+    private var firstDayOfWeekBinding: Binding<UserSettings.FirstDayOfWeek> {
+        Binding(
+            get: { state.selectedFirstDayOfWeek },
+            set: { newValue in
+                interactor.handle(state: &state, action: .firstDayOfWeekChanged(newValue))
+            }
+        )
     }
 }
 
