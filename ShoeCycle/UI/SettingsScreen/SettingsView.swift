@@ -181,21 +181,25 @@ class SettingsFavoriteDistancesInteractor {
     
     private func scheduleDebounceeSave(for action: Action) {
         saveWorkItem?.cancel()
+        
         let workItem = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
-            switch action {
-            case .favorite1Changed(let text):
-                self.userSettings.favorite1 = self.distanceUtility.distance(from: text)
-            case .favorite2Changed(let text):
-                self.userSettings.favorite2 = self.distanceUtility.distance(from: text)
-            case .favorite3Changed(let text):
-                self.userSettings.favorite3 = self.distanceUtility.distance(from: text)
-            case .favorite4Changed(let text):
-                self.userSettings.favorite4 = self.distanceUtility.distance(from: text)
-            default:
-                break
+            DispatchQueue.main.async {
+                switch action {
+                case .favorite1Changed(let text):
+                    self.userSettings.favorite1 = self.distanceUtility.distance(from: text)
+                case .favorite2Changed(let text):
+                    self.userSettings.favorite2 = self.distanceUtility.distance(from: text)
+                case .favorite3Changed(let text):
+                    self.userSettings.favorite3 = self.distanceUtility.distance(from: text)
+                case .favorite4Changed(let text):
+                    self.userSettings.favorite4 = self.distanceUtility.distance(from: text)
+                default:
+                    break
+                }
             }
         }
+        
         saveWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: workItem)
     }
@@ -415,6 +419,7 @@ struct AboutView: View {
         return "ShoeCycle is programmed by Ernie Zappacosta.\n\nCurrent version is \(version)"
     }
 }
+
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
