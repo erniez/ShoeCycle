@@ -32,19 +32,34 @@ struct SettingsView: View {
 }
 
 struct SettingsUnitsView: View {
-    @State var units = UserSettings.shared.distanceUnit
-    @EnvironmentObject var settings: UserSettings
+    @State private var state = SettingsUnitsState()
+    private let interactor: SettingsUnitsInteractor
+    
+    init(userSettings: UserSettings = UserSettings.shared) {
+        self.interactor = SettingsUnitsInteractor(userSettings: userSettings)
+    }
     
     var body: some View {
-        Picker("Please select units for distance", selection: $units) {
-            Text(UserSettings.DistanceUnit.miles.displayString().capitalized).tag(UserSettings.DistanceUnit.miles)
-            Text(UserSettings.DistanceUnit.km.displayString().capitalized).tag(UserSettings.DistanceUnit.km)
+        Picker("Please select units for distance", selection: distanceUnitBinding) {
+            Text(UserSettings.DistanceUnit.miles.displayString().capitalized)
+                .tag(UserSettings.DistanceUnit.miles)
+            Text(UserSettings.DistanceUnit.km.displayString().capitalized)
+                .tag(UserSettings.DistanceUnit.km)
         }
         .pickerStyle(.segmented)
-        .onChange(of: units) { newValue in
-            settings.set(distanceUnit: units)
+        .onAppear {
+            interactor.handle(state: &state, action: .viewAppeared)
         }
         .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image(systemName: "gearshape.fill"))
+    }
+    
+    private var distanceUnitBinding: Binding<UserSettings.DistanceUnit> {
+        Binding(
+            get: { state.selectedUnit },
+            set: { newValue in
+                interactor.handle(state: &state, action: .unitChanged(newValue))
+            }
+        )
     }
 }
 

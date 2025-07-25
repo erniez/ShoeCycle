@@ -38,6 +38,8 @@
 		1B2464402E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */; };
 		1B2464412E2C32FE001BA533 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */; };
 		1B2464432E2DF172001BA533 /* SelectedShoeStrategyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464422E2DF172001BA533 /* SelectedShoeStrategyTests.swift */; };
+		1B2464472E311F03001BA533 /* SettingsUnitsInteractionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464462E311F03001BA533 /* SettingsUnitsInteractionsTests.swift */; };
+		1B2464492E331042001BA533 /* SettingsUnitsInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464482E331042001BA533 /* SettingsUnitsInteractions.swift */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B3D29D22A3E78F100BE7956 /* StyleAndModifierExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */; };
 		1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D42A3E794A00BE7956 /* Line.swift */; };
@@ -152,6 +154,8 @@
 		1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeStoreIntegrationTests.swift; sourceTree = "<group>"; };
 		1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
 		1B2464422E2DF172001BA533 /* SelectedShoeStrategyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedShoeStrategyTests.swift; sourceTree = "<group>"; };
+		1B2464462E311F03001BA533 /* SettingsUnitsInteractionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUnitsInteractionsTests.swift; sourceTree = "<group>"; };
+		1B2464482E331042001BA533 /* SettingsUnitsInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUnitsInteractions.swift; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleAndModifierExtensions.swift; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 		1B0AD8002A3123A3006AB307 /* SettingsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				1B2464482E331042001BA533 /* SettingsUnitsInteractions.swift */,
 				1B0AD8012A3123CA006AB307 /* SettingsView.swift */,
 				1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */,
 				1BE540602AA7A46700DCC109 /* StravaInteractor.swift */,
@@ -387,6 +392,7 @@
 		1BAC72082377351200390E8B /* ShoeCycleTests */ = {
 			isa = PBXGroup;
 			children = (
+				1B2464462E311F03001BA533 /* SettingsUnitsInteractionsTests.swift */,
 				1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */,
 				1B2464422E2DF172001BA533 /* SelectedShoeStrategyTests.swift */,
 				1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */,
@@ -663,6 +669,7 @@
 				1BCF9FEF2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift in Sources */,
 				1B24642D2E2B42E9001BA533 /* CalendarExtensionTests.swift in Sources */,
 				1B24642E2E2B42E9001BA533 /* DateFormatterExtensionTests.swift in Sources */,
+				1B2464472E311F03001BA533 /* SettingsUnitsInteractionsTests.swift in Sources */,
 				1B24642F2E2B42E9001BA533 /* HistoryCollationTests.swift in Sources */,
 				1B2464432E2DF172001BA533 /* SelectedShoeStrategyTests.swift in Sources */,
 				1B2464372E2BF07B001BA533 /* DBInteractiveTestCase.swift in Sources */,
@@ -693,6 +700,7 @@
 				1B0AD7FA2A2FA76B006AB307 /* ActiveShoesView.swift in Sources */,
 				1BE5406A2AAB73B500DCC109 /* HealthKitService.swift in Sources */,
 				1B6505832AD8467E002B0A6C /* FTUHintManager.swift in Sources */,
+				1B2464492E331042001BA533 /* SettingsUnitsInteractions.swift in Sources */,
 				1B3D29DC2A4F2BFD00BE7956 /* AppView.swift in Sources */,
 				1B0AD8022A3123CA006AB307 /* SettingsView.swift in Sources */,
 				1B3D29DA2A46319700BE7956 /* ShoeDetailView.swift in Sources */,
@@ -796,7 +804,7 @@
 				GCC_PREFIX_HEADER = "ShoeCycle/Supporting Files/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ShoeCycle/Supporting Files/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -855,7 +863,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -920,7 +928,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -983,7 +991,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = ShoeCycleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1073,7 +1081,7 @@
 				GCC_PREFIX_HEADER = "ShoeCycle/Supporting Files/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ShoeCycle/Supporting Files/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1112,7 +1120,7 @@
 				GCC_PREFIX_HEADER = "ShoeCycle/Supporting Files/ShoeCycle-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ShoeCycle/Supporting Files/ShoeCycle-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

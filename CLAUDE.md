@@ -61,6 +61,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 #### Testing Best Practices
 - **Database Safety**: Use `DBInteractiveTestCase` base class for Core Data tests to prevent database pollution
+- **UserDefaults Safety**: NEVER use `UserDefaults.standard` in tests. Always use test-specific suite:
+  ```swift
+  // CORRECT: Isolated test UserDefaults
+  let testUserDefaults = UserDefaults(suiteName: "com.shoecycle.tests")!
+  
+  // WRONG: Pollutes user data
+  UserDefaults.standard
+  ```
 - **Focus on App Logic**: Test your app's behavior, not Foundation APIs (avoid testing `Calendar`, `DateFormatter`, etc.)
 - **Meaningful Edge Cases**: Test boundary conditions your app encounters, not hypothetical scenarios
 - **Avoid Cargo Cult Testing**: Remove tests that only verify system behavior (thread safety, locale handling, etc.)
@@ -79,3 +87,74 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Strategy Pattern**: `SelectedShoeStrategy` for shoe selection logic
 - **Factory Pattern**: `AnalyticsFactory` for analytics initialization
 - **Observer Pattern**: Core Data change notifications via `@Published` properties
+
+## SwiftUI Architecture Pattern
+
+**IMPORTANT: Use View State Interactor (VSI) pattern for ALL SwiftUI views**
+
+### Structure Template
+```swift
+// State: Pure struct with data only
+struct FeatureState {
+    var property: Type
+}
+
+// Interactor: Struct with Actions enum and handle method
+struct FeatureInteractor {
+    enum Action {
+        case actionName(Type)
+        case viewAppeared
+    }
+    
+    private let dependencies: Dependencies
+    
+    func handle(state: inout FeatureState, action: Action) {
+        switch action {
+        case .actionName(let value):
+            // Inline logic for simple cases
+            state.property = value
+            dependencies.sideEffect()
+        }
+    }
+}
+
+// View: Thin UI layer with custom bindings
+struct FeatureView: View {
+    @State private var state = FeatureState()
+    private let interactor: FeatureInteractor
+    
+    init(dependencies: Dependencies = .shared) {
+        self.interactor = FeatureInteractor(dependencies: dependencies)
+    }
+    
+    var body: some View {
+        // UI elements use propertyBinding, not $state.property
+        TextField("", text: propertyBinding)
+            .onAppear { interactor.handle(state: &state, action: .viewAppeared) }
+    }
+    
+    private var propertyBinding: Binding<Type> {
+        Binding(
+            get: { state.property },
+            set: { interactor.handle(state: &state, action: .actionName($0)) }
+        )
+    }
+}
+```
+
+### VSI Architecture Rules
+- **State**: Structs only, no behavior or logic
+- **Actions**: All user interactions must go through action enum
+- **Interactor**: Handles ALL business logic, uses `inout state` for mutations
+- **View**: Custom bindings for all state changes, NEVER use `$state.property` directly
+- **Files**: Keep State/Interactor in separate `FeatureArchitecture.swift` files
+- **Simple handlers**: Keep logic inline in switch cases unless complex
+- **Dependencies**: Inject services through interactor init, not environment objects
+
+### VSI Benefits
+- Unidirectional data flow prevents state management bugs
+- Excellent testability - business logic is pure and isolated
+- Clear separation of concerns (View ↔ State ↔ Interactor)
+- Predictable state changes - easy debugging
+- Consistent pattern across entire codebase
+- SwiftUI-optimized architecture
