@@ -13,20 +13,24 @@ struct SettingsView: View {
     @EnvironmentObject var settings: UserSettings
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                SettingsUnitsView()
-                    .padding([.top], 16)
-                SettingsFirstDayOfWeekView()
-                SettingsFavoriteDistancesView()
-                SettingsHealthKitView()
-                SettingsStravaView(interactor: StravaInteractor(settings: settings))
-                AboutView()
-                    .padding([.bottom])
+        // NavigationView is required for keyboard toolbars to work properly in SwiftUI
+        // Without this, the Done button won't appear on number pad keyboards
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 24) {
+                    SettingsUnitsView()
+                        .padding([.top], 16)
+                    SettingsFirstDayOfWeekView()
+                    SettingsFavoriteDistancesView()
+                    SettingsHealthKitView()
+                    SettingsStravaView(interactor: StravaInteractor(settings: settings))
+                    AboutView()
+                        .padding([.bottom])
+                }
+                .fixedSize(horizontal: false, vertical: true)
             }
-            .fixedSize(horizontal: false, vertical: true)
+            .background(.patternedBackground)
         }
-        .background(.patternedBackground)
     }
     
 }
@@ -210,7 +214,8 @@ struct SettingsFavoriteDistancesView: View {
             interactor.handle(state: &state, action: .viewAppeared)
         }
         .toolbar {
-            ToolbarItem(placement: .keyboard) {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
                 Button("Done") {
                     dismissKeyboard()
                 }
