@@ -108,8 +108,8 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
     
     // Given: State with initial values
     // When: Handle favorite1Changed action
-    // Then: State should update favorite1Text immediately
-    func testFavorite1ChangedUpdatesStateImmediately() {
+    // Then: State should update and save to UserSettings immediately
+    func testFavorite1ChangedUpdatesStateAndSavesImmediately() {
         let testUserSettings = createTestUserSettings()
         let testDistanceUtility = createTestDistanceUtility()
         let interactor = SettingsFavoriteDistancesInteractor(
@@ -125,12 +125,13 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
         XCTAssertEqual(state.favorite2Text, "")
         XCTAssertEqual(state.favorite3Text, "")
         XCTAssertEqual(state.favorite4Text, "")
+        XCTAssertEqual(testUserSettings.favorite1, 5.5, accuracy: 0.01)
     }
     
     // Given: State with initial values
     // When: Handle favorite2Changed action
-    // Then: State should update favorite2Text immediately
-    func testFavorite2ChangedUpdatesStateImmediately() {
+    // Then: State should update and save to UserSettings immediately
+    func testFavorite2ChangedUpdatesStateAndSavesImmediately() {
         let testUserSettings = createTestUserSettings()
         let testDistanceUtility = createTestDistanceUtility()
         let interactor = SettingsFavoriteDistancesInteractor(
@@ -146,12 +147,13 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
         XCTAssertEqual(state.favorite2Text, "10.5")
         XCTAssertEqual(state.favorite3Text, "")
         XCTAssertEqual(state.favorite4Text, "")
+        XCTAssertEqual(testUserSettings.favorite2, 10.5, accuracy: 0.01)
     }
     
     // Given: State with initial values
     // When: Handle favorite3Changed action
-    // Then: State should update favorite3Text immediately
-    func testFavorite3ChangedUpdatesStateImmediately() {
+    // Then: State should update and save to UserSettings immediately
+    func testFavorite3ChangedUpdatesStateAndSavesImmediately() {
         let testUserSettings = createTestUserSettings()
         let testDistanceUtility = createTestDistanceUtility()
         let interactor = SettingsFavoriteDistancesInteractor(
@@ -167,12 +169,13 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
         XCTAssertEqual(state.favorite2Text, "")
         XCTAssertEqual(state.favorite3Text, "13.1")
         XCTAssertEqual(state.favorite4Text, "")
+        XCTAssertEqual(testUserSettings.favorite3, 13.1, accuracy: 0.01)
     }
     
     // Given: State with initial values
     // When: Handle favorite4Changed action
-    // Then: State should update favorite4Text immediately
-    func testFavorite4ChangedUpdatesStateImmediately() {
+    // Then: State should update and save to UserSettings immediately
+    func testFavorite4ChangedUpdatesStateAndSavesImmediately() {
         let testUserSettings = createTestUserSettings()
         let testDistanceUtility = createTestDistanceUtility()
         let interactor = SettingsFavoriteDistancesInteractor(
@@ -188,38 +191,13 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
         XCTAssertEqual(state.favorite2Text, "")
         XCTAssertEqual(state.favorite3Text, "")
         XCTAssertEqual(state.favorite4Text, "26.2")
-    }
-    
-    // Given: State with current values
-    // When: Handle saveChanges action
-    // Then: Should save all current state values to UserSettings via DistanceUtility
-    func testSaveChangesUpdatesUserSettings() {
-        let testUserSettings = createTestUserSettings()
-        let testDistanceUtility = createTestDistanceUtility()
-        let interactor = SettingsFavoriteDistancesInteractor(
-            userSettings: testUserSettings,
-            distanceUtility: testDistanceUtility
-        )
-        
-        var state = SettingsFavoriteDistancesState(
-            favorite1Text: "5.0",
-            favorite2Text: "10.0",
-            favorite3Text: "13.1",
-            favorite4Text: "26.2"
-        )
-        
-        interactor.handle(state: &state, action: .saveChanges)
-        
-        XCTAssertEqual(testUserSettings.favorite1, 5.0, accuracy: 0.01)
-        XCTAssertEqual(testUserSettings.favorite2, 10.0, accuracy: 0.01)
-        XCTAssertEqual(testUserSettings.favorite3, 13.1, accuracy: 0.01)
         XCTAssertEqual(testUserSettings.favorite4, 26.2, accuracy: 0.01)
     }
     
     // Given: State with invalid text values
-    // When: Handle saveChanges action
-    // Then: Should save zero values for invalid strings
-    func testSaveChangesWithInvalidStringsStoresZero() {
+    // When: Handle favorite changes with invalid strings
+    // Then: Should save zero values for invalid strings immediately
+    func testFavoriteChangedWithInvalidStringsStoresZero() {
         let testUserSettings = createTestUserSettings()
         let testDistanceUtility = createTestDistanceUtility()
         let interactor = SettingsFavoriteDistancesInteractor(
@@ -227,14 +205,12 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
             distanceUtility: testDistanceUtility
         )
         
-        var state = SettingsFavoriteDistancesState(
-            favorite1Text: "invalid",
-            favorite2Text: "abc",
-            favorite3Text: "",
-            favorite4Text: "not_a_number"
-        )
+        var state = SettingsFavoriteDistancesState()
         
-        interactor.handle(state: &state, action: .saveChanges)
+        interactor.handle(state: &state, action: .favorite1Changed("invalid"))
+        interactor.handle(state: &state, action: .favorite2Changed("abc"))
+        interactor.handle(state: &state, action: .favorite3Changed(""))
+        interactor.handle(state: &state, action: .favorite4Changed("not_a_number"))
         
         XCTAssertEqual(testUserSettings.favorite1, 0.0, accuracy: 0.01)
         XCTAssertEqual(testUserSettings.favorite2, 0.0, accuracy: 0.01)
@@ -246,7 +222,7 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
     
     // Given: Fresh interactor and state
     // When: Full workflow from viewAppeared to text changes
-    // Then: Should properly sync and update through complete flow
+    // Then: Should properly sync and save immediately through complete flow
     func testCompleteWorkflow() {
         let testUserSettings = createTestUserSettings()
         let testDistanceUtility = createTestDistanceUtility()
@@ -269,14 +245,13 @@ final class SettingsFavoriteDistancesInteractorTests: XCTestCase {
         XCTAssertEqual(state.favorite3Text, "13.1")
         XCTAssertEqual(state.favorite4Text, "")
         
-        // Simulate user changing favorite2
+        // Simulate user changing favorite2 - should save immediately
         interactor.handle(state: &state, action: .favorite2Changed("10.0"))
         XCTAssertEqual(state.favorite2Text, "10.0")
-        
-        // Simulate manual save
-        interactor.handle(state: &state, action: .saveChanges)
-        XCTAssertEqual(testUserSettings.favorite1, 5.0, accuracy: 0.01)
         XCTAssertEqual(testUserSettings.favorite2, 10.0, accuracy: 0.01)
+        
+        // Verify all settings are correct
+        XCTAssertEqual(testUserSettings.favorite1, 5.0, accuracy: 0.01)
         XCTAssertEqual(testUserSettings.favorite3, 13.1, accuracy: 0.01)
         XCTAssertEqual(testUserSettings.favorite4, 0.0, accuracy: 0.01)
     }

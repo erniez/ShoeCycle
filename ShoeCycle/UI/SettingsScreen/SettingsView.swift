@@ -131,7 +131,7 @@ struct SettingsFavoriteDistancesState {
     var favorite4Text: String = ""
 }
 
-class SettingsFavoriteDistancesInteractor {
+struct SettingsFavoriteDistancesInteractor {
     enum Action {
         case viewAppeared
         case favorite1Changed(String)
@@ -143,7 +143,6 @@ class SettingsFavoriteDistancesInteractor {
     
     private let userSettings: UserSettings
     private let distanceUtility: DistanceUtility
-    private var saveWorkItem: DispatchWorkItem?
     
     init(userSettings: UserSettings = UserSettings.shared, distanceUtility: DistanceUtility = DistanceUtility()) {
         self.userSettings = userSettings
@@ -160,48 +159,23 @@ class SettingsFavoriteDistancesInteractor {
             
         case .favorite1Changed(let newText):
             state.favorite1Text = newText
-            scheduleDebounceeSave(for: .favorite1Changed(newText))
+            userSettings.favorite1 = distanceUtility.distance(from: newText)
             
         case .favorite2Changed(let newText):
             state.favorite2Text = newText
-            scheduleDebounceeSave(for: .favorite2Changed(newText))
+            userSettings.favorite2 = distanceUtility.distance(from: newText)
             
         case .favorite3Changed(let newText):
             state.favorite3Text = newText
-            scheduleDebounceeSave(for: .favorite3Changed(newText))
+            userSettings.favorite3 = distanceUtility.distance(from: newText)
             
         case .favorite4Changed(let newText):
             state.favorite4Text = newText
-            scheduleDebounceeSave(for: .favorite4Changed(newText))
+            userSettings.favorite4 = distanceUtility.distance(from: newText)
             
         case .saveChanges:
             saveCurrentState(state)
         }
-    }
-    
-    private func scheduleDebounceeSave(for action: Action) {
-        saveWorkItem?.cancel()
-        
-        let workItem = DispatchWorkItem { [weak self] in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch action {
-                case .favorite1Changed(let text):
-                    self.userSettings.favorite1 = self.distanceUtility.distance(from: text)
-                case .favorite2Changed(let text):
-                    self.userSettings.favorite2 = self.distanceUtility.distance(from: text)
-                case .favorite3Changed(let text):
-                    self.userSettings.favorite3 = self.distanceUtility.distance(from: text)
-                case .favorite4Changed(let text):
-                    self.userSettings.favorite4 = self.distanceUtility.distance(from: text)
-                default:
-                    break
-                }
-            }
-        }
-        
-        saveWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: workItem)
     }
     
     private func saveCurrentState(_ state: SettingsFavoriteDistancesState) {
