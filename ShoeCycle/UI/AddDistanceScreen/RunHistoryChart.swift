@@ -14,24 +14,27 @@ struct RunHistoryChart: View {
     let collatedHistory: [WeeklyCollatedNew]
     @Binding var graphAllShoes: Bool
     
+    @State private var state = RunHistoryChartState()
+    private let interactor: RunHistoryChartInteractor
+    
     private let formatter = NumberFormatter.decimal
     private let distanceUtility = DistanceUtility()
     private let pointsPerGraphData = 50
 
-    private var xValues: [Date] {
-        collatedHistory.map { $0.date }
-    }
     private var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 2
         return calendar
     }
+    
+    init(collatedHistory: [WeeklyCollatedNew], graphAllShoes: Binding<Bool>) {
+        self.collatedHistory = collatedHistory
+        self._graphAllShoes = graphAllShoes
+        self.interactor = RunHistoryChartInteractor()
+    }
+    
     private func weekOfYear(from date: Date) -> Int {
         calendar.component(.weekOfYear, from: date)
-    }
-    var maxDistance: Double {
-        let maxDistance = collatedHistory.reduce(Double(0)) { return max($0, $1.runDistance) }
-        return maxDistance
     }
     
     var body: some View {
@@ -39,7 +42,7 @@ struct RunHistoryChart: View {
             ZStack {
                 // Fixed Chart to have fixed Y-axis and RuleMark.
                 Chart {
-                    ForEach(collatedHistory) { item in
+                    ForEach(state.chartData) { item in
                         LineMark(
                             x: .value("Date", item.date),
                             y: .value(settings.distanceUnit.displayString(), distanceUtility.distance(from: item.runDistance)),
@@ -48,12 +51,12 @@ struct RunHistoryChart: View {
                         .foregroundStyle(Color.clear)
                     }
                     RuleMark(
-                        y: .value("Max Mileage", distanceUtility.distance(from: maxDistance))
+                        y: .value("Max Mileage", distanceUtility.distance(from: state.maxDistance))
                     )
                     .foregroundStyle(Color.shoeCycleBlue)
                     .lineStyle(StrokeStyle(lineWidth: 3, dash: [10, 10]))
                     .annotation(position: .overlay, alignment: .bottomTrailing) {
-                        Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: maxDistance))) ?? "")
+                        Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: state.maxDistance))) ?? "")
                             .foregroundColor(.shoeCycleBlue)
                     }
                 }
@@ -77,7 +80,7 @@ struct RunHistoryChart: View {
                 
                 // TODO: Better handle zero history case
                 // Scrollable Chart for X-axis
-                if collatedHistory.count > 0 {
+                if state.chartData.count > 0 {
                     ScrollViewReader { proxy in
                         ScrollView(.horizontal) {
                             ZStack {
@@ -86,7 +89,7 @@ struct RunHistoryChart: View {
                                     // between them. This will match the rectangle to a datapoint's location
                                     // in the ScrollView. Assign the datapoint's id to each rectangle so
                                     // that we can scroll to it later on.
-                                    ForEach(collatedHistory) { item in
+                                    ForEach(state.chartData) { item in
                                         Rectangle()
                                             .fill(.clear)
                                             .frame(maxWidth: .infinity, maxHeight: 0)
@@ -94,7 +97,7 @@ struct RunHistoryChart: View {
                                     }
                                 }
                                 Chart {
-                                    ForEach(collatedHistory) { item in
+                                    ForEach(state.chartData) { item in
                                         LineMark(
                                             x: .value("Date", item.date),
                                             y: .value(settings.distanceUnit.displayString(), distanceUtility.distance(from: item.runDistance)),
@@ -110,27 +113,33 @@ struct RunHistoryChart: View {
                                     // The RuleMark can mess with the Y-axis scaling, so we need to add an invisible one here so that the
                                     // Y-axis scales the same as the fixed chart above.
                                     RuleMark(
-                                        y: .value("Max Mileage", distanceUtility.distance(from: maxDistance))
+                                        y: .value("Max Mileage", distanceUtility.distance(from: state.maxDistance))
                                     )
                                     .foregroundStyle(Color.clear)
                                     .lineStyle(StrokeStyle(lineWidth: 3, dash: [10, 10]))
                                     .annotation(position: .overlay, alignment: .bottomTrailing) {
-                                        Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: maxDistance))) ?? "")
+                                        Text(formatter.string(from: NSNumber(value: distanceUtility.distance(from: state.maxDistance))) ?? "")
                                             .foregroundColor(Color.clear)
                                     }
                                 }
                                 .onAppear {
-                                    proxy.scrollTo(collatedHistory.last!.id)
+                                    if let lastItem = state.chartData.last {
+                                        proxy.scrollTo(lastItem.id)
+                                    }
                                 }
-                                .onChange(of: graphAllShoes, perform: { _ in
-                                    proxy.scrollTo(collatedHistory.last!.id)
+                                .onChange(of: state.graphAllShoes, perform: { _ in
+                                    if let lastItem = state.chartData.last {
+                                        proxy.scrollTo(lastItem.id)
+                                    }
                                 })
-                                .onChange(of: collatedHistory, perform: { _ in
-                                    proxy.scrollTo(collatedHistory.last!.id)
+                                .onChange(of: state.chartData, perform: { _ in
+                                    if let lastItem = state.chartData.last {
+                                        proxy.scrollTo(lastItem.id)
+                                    }
                                 })
-                                .frame(width: CGFloat(collatedHistory.count * pointsPerGraphData))
+                                .frame(width: CGFloat(state.chartData.count * pointsPerGraphData))
                                 .chartXAxis() {
-                                    AxisMarks(preset: .aligned, values: xValues) { value in
+                                    AxisMarks(preset: .aligned, values: state.xValues) { value in
                                         if let date = value.as(Date.self) {
                                             // Show every other date
                                             if weekOfYear(from: date) % 2 == 0 {
@@ -149,7 +158,7 @@ struct RunHistoryChart: View {
                                             .foregroundStyle(Color.clear)
                                     }
                                 }
-                                .animation(.easeOut(duration: 0.5), value: collatedHistory)
+                                .animation(.easeOut(duration: 0.5), value: state.chartData)
                                 .padding([.bottom], 8)
                             }
                         }
@@ -178,18 +187,27 @@ struct RunHistoryChart: View {
                     .dynamicTypeSize(.medium)
                 Spacer()
                 Button  {
-                    graphAllShoes.toggle()
-                    settings.set(graphAllShoes: graphAllShoes)
+                    interactor.handle(state: &state, action: .toggleGraphAllShoes)
                 } label: {
                     Text(graphAllShoesToggleText())
                         .font(.callout)
                 }
             }
         }
+        .onAppear {
+            interactor.handle(state: &state, action: .viewAppeared)
+            interactor.handle(state: &state, action: .dataUpdated(collatedHistory))
+        }
+        .onChange(of: collatedHistory) { newData in
+            interactor.handle(state: &state, action: .dataUpdated(newData))
+        }
+        .onChange(of: state.graphAllShoes) { newValue in
+            graphAllShoes = newValue
+        }
     }
     
     func graphAllShoesToggleText() -> String {
-        if settings.graphAllShoes == true {
+        if state.graphAllShoes == true {
             return "Graph Current Shoe"
         }
         else {

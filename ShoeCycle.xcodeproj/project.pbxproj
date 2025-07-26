@@ -42,6 +42,12 @@
 		1B2464492E331042001BA533 /* SettingsUnitsInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464482E331042001BA533 /* SettingsUnitsInteractions.swift */; };
 		1B24644B2E33146C001BA533 /* SettingsFirstDayOfWeekInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24644A2E33146C001BA533 /* SettingsFirstDayOfWeekInteractorTests.swift */; };
 		1B24644D2E33182A001BA533 /* SettingsFavoriteDistancesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24644C2E33182A001BA533 /* SettingsFavoriteDistancesInteractorTests.swift */; };
+		1B2464662E350DBE001BA533 /* HistoryListInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464652E350DBE001BA533 /* HistoryListInteractions.swift */; };
+		1B24646C2E350DE0001BA533 /* RunHistoryChartInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24646A2E350DE0001BA533 /* RunHistoryChartInteractions.swift */; };
+		1B24646D2E350DE0001BA533 /* ShoeCycleProgressInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B24646B2E350DE0001BA533 /* ShoeCycleProgressInteractions.swift */; };
+		1B24646E2E350DE0001BA533 /* AddDistanceInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464672E350DE0001BA533 /* AddDistanceInteractions.swift */; };
+		1B24646F2E350DE0001BA533 /* FavoriteDistancesInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464692E350DE0001BA533 /* FavoriteDistancesInteractions.swift */; };
+		1B2464702E350DE0001BA533 /* DateDistanceEntryInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2464682E350DE0001BA533 /* DateDistanceEntryInteractions.swift */; };
 		1B2E8CA514C9105C00F0917C /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2E8CA414C9105C00F0917C /* History.m */; };
 		1B3D29D22A3E78F100BE7956 /* StyleAndModifierExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */; };
 		1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D29D42A3E794A00BE7956 /* Line.swift */; };
@@ -160,6 +166,12 @@
 		1B2464482E331042001BA533 /* SettingsUnitsInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsUnitsInteractions.swift; sourceTree = "<group>"; };
 		1B24644A2E33146C001BA533 /* SettingsFirstDayOfWeekInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFirstDayOfWeekInteractorTests.swift; sourceTree = "<group>"; };
 		1B24644C2E33182A001BA533 /* SettingsFavoriteDistancesInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFavoriteDistancesInteractorTests.swift; sourceTree = "<group>"; };
+		1B2464652E350DBE001BA533 /* HistoryListInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListInteractions.swift; sourceTree = "<group>"; };
+		1B2464672E350DE0001BA533 /* AddDistanceInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceInteractions.swift; sourceTree = "<group>"; };
+		1B2464682E350DE0001BA533 /* DateDistanceEntryInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDistanceEntryInteractions.swift; sourceTree = "<group>"; };
+		1B2464692E350DE0001BA533 /* FavoriteDistancesInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteDistancesInteractions.swift; sourceTree = "<group>"; };
+		1B24646A2E350DE0001BA533 /* RunHistoryChartInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryChartInteractions.swift; sourceTree = "<group>"; };
+		1B24646B2E350DE0001BA533 /* ShoeCycleProgressInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleProgressInteractions.swift; sourceTree = "<group>"; };
 		1B2E8CA314C9105C00F0917C /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		1B2E8CA414C9105C00F0917C /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		1B3D29D12A3E78F100BE7956 /* StyleAndModifierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleAndModifierExtensions.swift; sourceTree = "<group>"; };
@@ -267,9 +279,9 @@
 		1B0AD8002A3123A3006AB307 /* SettingsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */,
 				1B2464482E331042001BA533 /* SettingsUnitsInteractions.swift */,
 				1B0AD8012A3123CA006AB307 /* SettingsView.swift */,
-				1B3D29D62A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift */,
 				1BE540602AA7A46700DCC109 /* StravaInteractor.swift */,
 			);
 			path = SettingsScreen;
@@ -279,11 +291,16 @@
 			isa = PBXGroup;
 			children = (
 				1B7F365E2A2400F700377485 /* HistoryView */,
+				1B2464672E350DE0001BA533 /* AddDistanceInteractions.swift */,
 				1B1738DE2A06A2A2006D632D /* AddDistanceView.swift */,
+				1B2464682E350DE0001BA533 /* DateDistanceEntryInteractions.swift */,
 				1BBCF59C2A70834C002D28D3 /* DateDistanceEntryView.swift */,
 				1BCF9FEC2A1BC11B007F697E /* DateProgressViewModel.swift */,
+				1B2464692E350DE0001BA533 /* FavoriteDistancesInteractions.swift */,
 				1B7ED91B2A6886AF006ABC42 /* FavoriteDistancesView.swift */,
 				1BCF9FF22A1BD591007F697E /* RunHistoryChart.swift */,
+				1B24646A2E350DE0001BA533 /* RunHistoryChartInteractions.swift */,
+				1B24646B2E350DE0001BA533 /* ShoeCycleProgressInteractions.swift */,
 				1B1738F62A15422C006D632D /* ShoeCycleProgressView.swift */,
 				1BCF9FE72A1AC27A007F697E /* ShoeImageView.swift */,
 			);
@@ -373,6 +390,7 @@
 		1B7F365E2A2400F700377485 /* HistoryView */ = {
 			isa = PBXGroup;
 			children = (
+				1B2464652E350DBE001BA533 /* HistoryListInteractions.swift */,
 				1B7F365F2A24012F00377485 /* HistoryRowView.swift */,
 				1B7F36632A2405D100377485 /* HistoryListView.swift */,
 				1B0AD7F62A2F7FDB006AB307 /* HistorySectionView.swift */,
@@ -396,25 +414,25 @@
 		1BAC72082377351200390E8B /* ShoeCycleTests */ = {
 			isa = PBXGroup;
 			children = (
+				1B2464282E2B42E9001BA533 /* CalendarExtensionTests.swift */,
+				1B2464382E2C242A001BA533 /* DataValidationTests.swift */,
+				1B2464292E2B42E9001BA533 /* DateExtensionTests.swift */,
+				1B24642A2E2B42E9001BA533 /* DateFormatterExtensionTests.swift */,
+				1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */,
+				1B2464362E2BF07B001BA533 /* DBInteractiveTestCase.swift */,
+				1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */,
+				1B24642B2E2B42E9001BA533 /* HistoryCollationTests.swift */,
+				1BAC720B2377351200390E8B /* Info.plist */,
+				1B2464422E2DF172001BA533 /* SelectedShoeStrategyTests.swift */,
 				1B24644C2E33182A001BA533 /* SettingsFavoriteDistancesInteractorTests.swift */,
 				1B24644A2E33146C001BA533 /* SettingsFirstDayOfWeekInteractorTests.swift */,
 				1B2464462E311F03001BA533 /* SettingsUnitsInteractionsTests.swift */,
-				1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */,
-				1B2464422E2DF172001BA533 /* SelectedShoeStrategyTests.swift */,
-				1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */,
-				1B2464382E2C242A001BA533 /* DataValidationTests.swift */,
-				1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */,
 				1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */,
 				1BAC72092377351200390E8B /* ShoeCycleTests.swift */,
-				1B2464282E2B42E9001BA533 /* CalendarExtensionTests.swift */,
-				1B2464292E2B42E9001BA533 /* DateExtensionTests.swift */,
-				1B24642A2E2B42E9001BA533 /* DateFormatterExtensionTests.swift */,
-				1B24642B2E2B42E9001BA533 /* HistoryCollationTests.swift */,
-				1B24642C2E2B42E9001BA533 /* TimeIntervalExtensionTests.swift */,
-				1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */,
+				1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */,
 				1BCF9FFA2A1BFDDD007F697E /* ShoeTests.swift */,
-				1B2464362E2BF07B001BA533 /* DBInteractiveTestCase.swift */,
-				1BAC720B2377351200390E8B /* Info.plist */,
+				1B24642C2E2B42E9001BA533 /* TimeIntervalExtensionTests.swift */,
+				1B24643F2E2C32FE001BA533 /* UserSettingsTests.swift */,
 			);
 			path = ShoeCycleTests;
 			sourceTree = "<group>";
@@ -715,6 +733,11 @@
 				1B09C8C72AD0DF1A00AD0A21 /* CoreDataObserver.swift in Sources */,
 				1BA7B2CE2ABCBEAF0005958E /* AnalyticsKeyNames.swift in Sources */,
 				1B7F36622A24039500377485 /* NumberFormatterExtension.swift in Sources */,
+				1B24646C2E350DE0001BA533 /* RunHistoryChartInteractions.swift in Sources */,
+				1B24646D2E350DE0001BA533 /* ShoeCycleProgressInteractions.swift in Sources */,
+				1B24646E2E350DE0001BA533 /* AddDistanceInteractions.swift in Sources */,
+				1B24646F2E350DE0001BA533 /* FavoriteDistancesInteractions.swift in Sources */,
+				1B2464702E350DE0001BA533 /* DateDistanceEntryInteractions.swift in Sources */,
 				1B1738DF2A06A2A2006D632D /* AddDistanceView.swift in Sources */,
 				1B3D29D72A3E79CC00BE7956 /* SettingsFavoriteDistancesViewModel.swift in Sources */,
 				1B62EB952A5231FC00226147 /* ImageStore.swift in Sources */,
@@ -738,6 +761,7 @@
 				1B0D52132A5345A7001D3DB9 /* CameraPickerView.swift in Sources */,
 				1BE540662AA92CF600DCC109 /* NetworkService.swift in Sources */,
 				1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */,
+				1B2464662E350DBE001BA533 /* HistoryListInteractions.swift in Sources */,
 				1BCF9FE62A1AA890007F697E /* DateFormatterExtensions.swift in Sources */,
 				1BCF9FF42A1BD5B9007F697E /* RunHistoryChart.swift in Sources */,
 				1B2E8CA514C9105C00F0917C /* History.m in Sources */,

@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(fastlane test:*)",
-      "Bash(xcodebuild:*)"
+      "Bash(xcodebuild:*)",
+      "Bash(swiftc:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

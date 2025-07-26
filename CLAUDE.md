@@ -147,9 +147,15 @@ struct FeatureView: View {
 - **Actions**: All user interactions must go through action enum
 - **Interactor**: Handles ALL business logic, uses `inout state` for mutations
 - **View**: Custom bindings for all state changes, NEVER use `$state.property` directly
-- **Files**: Keep State/Interactor in separate `FeatureArchitecture.swift` files
+- **Files**: Keep State/Interactor in separate `FeatureInteractions.swift` files
 - **Simple handlers**: Keep logic inline in switch cases unless complex
 - **Dependencies**: Inject services through interactor init, not environment objects
+
+### SwiftUI Keyboard Toolbar Rule
+- **NavigationView Required**: Views with TextField keyboard toolbars MUST be wrapped in NavigationView
+- **Reason**: SwiftUI requires NavigationView context for keyboard toolbar buttons (like "Done") to appear
+- **Implementation**: Wrap the main view content in `NavigationView { ... }`
+- **Comment**: Always add comment: `// NavigationView is required for keyboard toolbars to work properly in SwiftUI`
 
 ### VSI Benefits
 - Unidirectional data flow prevents state management bugs

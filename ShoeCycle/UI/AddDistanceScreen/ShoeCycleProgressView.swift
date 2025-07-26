@@ -17,8 +17,22 @@ fileprivate struct ShoeCycleProgressView: View {
     let endValue: String
     @Binding var shouldBounce: Bool
     
-    @State private var bounceState = false
+    @State private var state = ShoeCycleProgressState()
+    private let interactor: ShoeCycleProgressInteractor
+    
     private let animationDuration: TimeInterval = 0.25
+    
+    init(progressWidth: CGFloat, progressColor: Color, progressBarValue: Double, value: Double, units: String, startValue: String, endValue: String, shouldBounce: Binding<Bool>) {
+        self.progressWidth = progressWidth
+        self.progressColor = progressColor
+        self.progressBarValue = progressBarValue
+        self.value = value
+        self.units = units
+        self.startValue = startValue
+        self.endValue = endValue
+        self._shouldBounce = shouldBounce
+        self.interactor = ShoeCycleProgressInteractor()
+    }
     
     var body: some View {
         HStack {
@@ -50,17 +64,22 @@ fileprivate struct ShoeCycleProgressView: View {
                     .font(.headline)
                     .padding(.top, -4)
             }
-            .scaleEffect(bounceState ? 1.75 : 1.0)
+            .scaleEffect(state.bounceState ? 1.75 : 1.0)
             .foregroundColor(progressColor)
             Spacer()
         }
-        .onChange(of: value, perform: { _ in
-            if shouldBounce == true {
-                self.bounce()
-                self.shouldBounce = false
+        .onChange(of: value) { _ in
+            if shouldBounce {
+                interactor.handle(state: &state, action: .bounceTriggered)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationDuration) {
+                    interactor.handle(state: &state, action: .bounceStateChanged(false))
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.notificationOccurred(.success)
+                }
+                shouldBounce = false
             }
-        })
-        .animation(.bouncy(duration: animationDuration, extraBounce: 0.3), value: bounceState)
+        }
+        .animation(.bouncy(duration: animationDuration, extraBounce: 0.3), value: state.bounceState)
     }
     
     private func formatNumberForDisplay(value: Double) -> String {
@@ -68,14 +87,6 @@ fileprivate struct ShoeCycleProgressView: View {
         return NumberFormatter.decimal.string(from: number) ?? ""
     }
     
-    private func bounce() {
-        bounceState.toggle()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationDuration, execute: {
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(.success)
-            bounceState.toggle()
-        })
-    }
 }
 
 struct ShoeCycleDistanceProgressView: View {
@@ -91,7 +102,16 @@ struct ShoeCycleDistanceProgressView: View {
     private let distanceUtility = DistanceUtility()
     
     var body: some View {
-        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleGreen, progressBarValue: progressBarValue, value: distanceUtility.distance(from: value), units: settings.distanceUnit.displayString().capitalized, startValue: "0", endValue: String(Int(distanceUtility.distance(from: Double(endvalue)))), shouldBounce: $shouldBounce)
+        ShoeCycleProgressView(
+            progressWidth: progressWidth, 
+            progressColor: .shoeCycleGreen, 
+            progressBarValue: progressBarValue, 
+            value: distanceUtility.distance(from: value), 
+            units: settings.distanceUnit.displayString().capitalized, 
+            startValue: "0", 
+            endValue: String(Int(distanceUtility.distance(from: Double(endvalue)))), 
+            shouldBounce: $shouldBounce
+        )
     }
 }
 
@@ -100,7 +120,16 @@ struct ShoeCycleDateProgressView: View {
     let viewModel: DateProgressViewModel
     
     var body: some View {
-        ShoeCycleProgressView(progressWidth: progressWidth, progressColor: .shoeCycleBlue, progressBarValue: viewModel.progressBarValue, value: Double(viewModel.daysToGo), units: "Days Left", startValue: DateFormatter.shortDate.string(from: viewModel.startDate), endValue: DateFormatter.shortDate.string(from: viewModel.endDate), shouldBounce: viewModel.$shouldBounce)
+        ShoeCycleProgressView(
+            progressWidth: progressWidth, 
+            progressColor: .shoeCycleBlue, 
+            progressBarValue: viewModel.progressBarValue, 
+            value: Double(viewModel.daysToGo), 
+            units: "Days Left", 
+            startValue: DateFormatter.shortDate.string(from: viewModel.startDate), 
+            endValue: DateFormatter.shortDate.string(from: viewModel.endDate), 
+            shouldBounce: viewModel.$shouldBounce
+        )
     }
 }
 

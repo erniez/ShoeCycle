@@ -8,14 +8,6 @@
 import SwiftUI
 
 struct DateDistanceEntryView: View {
-    @State private var buttonMaxHeight: CGFloat?
-    @State private var showHistoryView = false
-    @State private var showFavoriteDistances = false
-    @State private var favoriteDistanceToAdd = 0.0
-    @State private var showAuthorizationDeniedAlert = false
-    @State private var stravaLoading = false
-    @State private var showReachabilityAlert = false
-    @State private var showUnknownNetworkErrorAlert = false
     @Binding var runDate: Date
     @Binding var runDistance: String
     @Binding var shouldBounce: Bool
@@ -23,10 +15,18 @@ struct DateDistanceEntryView: View {
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
     
+    @State private var state = DateDistanceEntryState()
+    @State private var interactor: DateDistanceEntryInteractor
     private let distanceUtility = DistanceUtility()
-    private let stravaService = StravaService()
-    private let healthService = HealthKitService()
-    private let analytics = AnalyticsFactory.sharedAnalyticsLogger()
+    
+    init(runDate: Binding<Date>, runDistance: Binding<String>, shouldBounce: Binding<Bool>, shoe: Shoe) {
+        self._runDate = runDate
+        self._runDistance = runDistance
+        self._shouldBounce = shouldBounce
+        self.shoe = shoe
+        // Initialize interactor with shoe, dependencies will be set in onAppear
+        self._interactor = State(initialValue: DateDistanceEntryInteractor(shoe: shoe))
+    }
     
     var body: some View {
         HStack(alignment: .top) {
@@ -48,13 +48,12 @@ struct DateDistanceEntryView: View {
                         value: geometry.size.height
                     )
                 })
-                .frame(height: buttonMaxHeight)
+                .frame(height: state.buttonMaxHeight)
                 .background(Color(uiColor: .systemGray6))
                 .cornerRadius(8)
                 
                 Button {
-                    analytics.logEvent(name: AnalyticsKeys.Event.showHistoryEvent, userInfo: nil)
-                    showHistoryView = true
+                    interactor.handle(state: &state, action: .showHistory)
                 } label: {
                     Label("History", systemImage: "calendar")
                         .font(.callout)
@@ -62,9 +61,8 @@ struct DateDistanceEntryView: View {
                 }
                 .buttonStyle(.shoeCycle)
                 .padding([.top], 4)
-                .fullScreenCover(isPresented: $showHistoryView) {
-                    let viewModel = HistoryListViewModel(shoeStore: shoeStore, shoe: shoe)
-                    HistoryListView(listData: viewModel)
+                .fullScreenCover(isPresented: $state.showHistoryView) {
+                    HistoryListView(shoeStore: shoeStore, shoe: shoe)
                 }
             }
             .fixedSize()
@@ -83,7 +81,7 @@ struct DateDistanceEntryView: View {
                             value: geometry.size.height
                         )
                     })
-                    .frame(height: buttonMaxHeight)
+                    .frame(height: state.buttonMaxHeight)
                     .frame(minWidth: 50)
                     .textFieldStyle(.numberEntry)
                     .toolbar {
@@ -97,9 +95,7 @@ struct DateDistanceEntryView: View {
                     .font(.title3)
                 
                 Button {
-                    analytics.logEvent(name: AnalyticsKeys.Event.showFavoriteDistancesEvent,
-                                    userInfo: [AnalyticsKeys.UserInfo.numberOfFavoritesUsedKey : settings.favoriteDistanceCount()])
-                    showFavoriteDistances = true
+                    interactor.handle(state: &state, action: .showFavoriteDistances)
                 } label: {
                     Label("Distances", systemImage: "heart.fill")
                         .font(.callout)
@@ -112,10 +108,10 @@ struct DateDistanceEntryView: View {
             .padding(.vertical, 8)
             .padding(.leading, 8)
             .fixedSize()
-            .fullScreenCover(isPresented: $showFavoriteDistances) {
-                FavoriteDistancesView(distanceToAdd: $favoriteDistanceToAdd)
+            .fullScreenCover(isPresented: $state.showFavoriteDistances) {
+                FavoriteDistancesView(distanceToAdd: $state.favoriteDistanceToAdd)
             }
-            .onChange(of: favoriteDistanceToAdd) { newValue in
+            .onChange(of: state.favoriteDistanceToAdd) { newValue in
                 if newValue > 0 {
                     runDistance = distanceUtility.displayString(for: newValue)
                 }
@@ -128,23 +124,20 @@ struct DateDistanceEntryView: View {
                     Button {
                         dismissKeyboard()
                         shouldBounce = true
-                        let distance = distanceUtility.distance(from: runDistance)
                         if settings.healthKitEnabled || settings.stravaEnabled {
-                            Task {
-                                await handleAsynchronousDistanceAdd(distance: distance)
-                                handleAddDistanceAnalytics(for: shoe, distance: distance)
-                            }
+                            interactor.handle(state: &state, action: .addDistancePressed(runDate: runDate, runDistance: runDistance))
+                            // Note: runDistance clearing will be handled by the async success callback in the interactor
                         }
                         else {
+                            let distance = distanceUtility.distance(from: runDistance)
                             shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
                             shoeStore.updateActiveShoes()
-                            handleAddDistanceAnalytics(for: shoe, distance: distance)
                             runDistance = ""
                         }
                     } label: {
                         Image("button-add-run")
                     }
-                    if stravaLoading == true {
+                    if state.stravaLoading == true {
                         ProgressView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         // TODO: Filling a shape has become simpler in iOS 17
@@ -168,17 +161,17 @@ struct DateDistanceEntryView: View {
                 }
             }
             .padding([.top, .bottom, .trailing], 8)
-            .alert("Access to Health App Denied", isPresented: $showAuthorizationDeniedAlert) {
+            .alert("Access to Health App Denied", isPresented: $state.showAuthorizationDeniedAlert) {
                 Button("OK") {}
             } message: {
                 Text("Please enable access in the health app settings. Go to Settings -> Health -> Data Access & Devices -> Enable Sharing for ShoeCycle")
             }
-            .alert("Cannot Access the Internet", isPresented: $showReachabilityAlert) {
+            .alert("Cannot Access the Internet", isPresented: $state.showReachabilityAlert) {
                 Button("OK") {}
             } message: {
                 Text("Please check your network settings and try again")
             }
-            .alert("Unknown Error", isPresented: $showUnknownNetworkErrorAlert) {
+            .alert("Unknown Error", isPresented: $state.showUnknownNetworkErrorAlert) {
                 Button("OK") {}
             } message: {
                 Text("An unknown network error has occurred. Please try again later, or turn Strava access off then on in the Settings tab")
@@ -186,52 +179,18 @@ struct DateDistanceEntryView: View {
         }
         .dynamicTypeSize(.medium ... .large)
         .onPreferenceChange(RowHeightPreferenceKey.self) {
-            buttonMaxHeight = $0
+            interactor.handle(state: &state, action: .buttonMaxHeightChanged($0))
         }
-    }
-    
-    func handleAsynchronousDistanceAdd(distance: Double) async {
-        do {
-            if settings.healthKitEnabled == true {
-                let shoeIdentifier = shoe.objectID.uriRepresentation().absoluteString
-                let metadata = ["ShoeCycleShoeIdentifier" : shoeIdentifier]
-                try await healthService.saveRun(distance: distance,
-                                                date: runDate, metadata: metadata)
-                analytics.logEvent(name: AnalyticsKeys.Event.healthKitEvent, userInfo: nil)
-            }
-            
-            if settings.stravaEnabled == true {
-                let activity = StravaActivity(name: "ShoeCycle Logged Run",
-                                              distance: distanceUtility.stravaDistance(for: distance),
-                                              startDate: runDate)
-                stravaLoading = true
-                try await stravaService.send(activity: activity)
-                analytics.logEvent(name: AnalyticsKeys.Event.stravaEvent, userInfo: nil)
-            }
-            
-            shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
-            runDistance = ""
-            stravaLoading = false
+        .onAppear {
+            interactor.setDependencies(shoeStore: shoeStore, settings: settings)
+            interactor.handle(state: &state, action: .viewAppeared)
         }
-        catch let error {
-            if case HealthKitService.DomainError.healthDataSharingDenied = error {
-                showAuthorizationDeniedAlert = true
+        .onChange(of: state.stravaLoading) { loading in
+            // Clear distance when async operation completes successfully
+            if !loading && runDistance.count > 0 && !state.showAuthorizationDeniedAlert && !state.showReachabilityAlert && !state.showUnknownNetworkErrorAlert {
+                runDistance = ""
             }
-            else if case StravaService.DomainError.reachability = error {
-                showReachabilityAlert = true
-            }
-            else {
-                showUnknownNetworkErrorAlert = true
-            }
-            stravaLoading = false
         }
-    }
-    
-    func handleAddDistanceAnalytics(for shoe: Shoe, distance: Double) {
-        let userInfo: [String : Any] = [ AnalyticsKeys.UserInfo.mileageNumberKey : NSNumber(value: distance),
-                                         AnalyticsKeys.UserInfo.totalMileageNumberKey : NSNumber(value: shoe.totalDistance.doubleValue),
-                                         AnalyticsKeys.UserInfo.mileageUnitKey : settings.distanceUnit.displayString() ]
-        analytics.logEvent(name: AnalyticsKeys.Event.logMileageEvent, userInfo: userInfo)
     }
 }
 

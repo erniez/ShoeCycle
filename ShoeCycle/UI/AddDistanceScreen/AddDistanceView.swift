@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct AddDistanceView: View {
-    @State private var runDate = Date()
-    @State private var runDistance = ""
-    @State private var graphAllShoes = UserSettings.shared.graphAllShoes
-    @State private var shouldBounce = false
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
+    
+    @State private var state = AddDistanceState()
+    @State private var interactor = AddDistanceInteractor()
+    
     let screenWidth = UIScreen.main.bounds.size.width
     let minimumDrag: CGFloat = 20
     
     var body: some View {
-        if settings.selectedShoeURL != nil {
+        // NavigationView is required for keyboard toolbars to work properly in SwiftUI
+        // Without this, the Done button won't appear on number pad keyboards
+        NavigationView {
+            if settings.selectedShoeURL != nil {
             let progressBarWidth = screenWidth * 0.60
             VStack {
                 HStack {
@@ -36,7 +39,7 @@ struct AddDistanceView: View {
                                     return
                                 }
                              
-                                handleVerticalSwipe(translationHeight: translation.height)
+                                interactor.handle(state: &state, action: .swipeGestureDetected(translationHeight: translation.height))
                             }))
                     Image("scroll-arrows")
                         .padding(.leading, 8)
@@ -46,27 +49,35 @@ struct AddDistanceView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .fill(Color.sectionBackground)
-                    DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shouldBounce: $shouldBounce, shoe: shoe)
+                    DateDistanceEntryView(runDate: $state.runDate, runDistance: $state.runDistance, shouldBounce: $state.shouldBounce, shoe: shoe)
                 }
                 .padding([.vertical], 16)
                 .fixedSize(horizontal: false, vertical: true)
-                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue, shouldBounce: $shouldBounce)
-                ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate, shouldBounce: $shouldBounce))
-                RunHistoryChart(collatedHistory: historiesToShow().collateHistories(ascending: true), graphAllShoes: $graphAllShoes)
+                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue, shouldBounce: $state.shouldBounce)
+                ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate, shouldBounce: $state.shouldBounce))
+                RunHistoryChart(collatedHistory: historiesToShow().collateHistories(ascending: true), graphAllShoes: $state.graphAllShoes)
                     .padding([.vertical], 16)
             }
             .padding([.horizontal], 16)
             .background(.patternedBackground)
             .ignoresSafeArea(.keyboard, edges: [.bottom])
+            .onAppear {
+                interactor.setDependencies(shoeStore: shoeStore, userSettings: settings)
+                interactor.handle(state: &state, action: .viewAppeared)
+            }
+            .onChange(of: state.graphAllShoes) { newValue in
+                interactor.handle(state: &state, action: .graphAllShoesToggled(newValue))
+            }
         }
         else {
             // Shouldn't ever see this
             Text("Something went wrong")
         }
+        }
     }
     
     func historiesToShow() -> Set<History> {
-        if graphAllShoes == true {
+        if state.graphAllShoes == true {
             var allHistories: Set<History> = []
             shoeStore.activeShoes.forEach { shoe in
                 allHistories.formUnion(shoe.history)
@@ -78,22 +89,6 @@ struct AddDistanceView: View {
         }
     }
     
-    func handleVerticalSwipe(translationHeight: Double) {
-        switch translationHeight {
-        case -Double.infinity ..< -minimumDrag: // Swipe up
-            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex < shoeStore.activeShoes.count - 1 {
-                let shoe = shoeStore.activeShoes[shoeIndex + 1]
-                settings.setSelected(shoeUrl: shoe.objectID.uriRepresentation())
-            }
-        case minimumDrag ..< Double.infinity:  // Swipe down
-            if let shoeIndex = shoeStore.activeShoes.firstIndex(of: shoe), shoeIndex > 0 {
-                let shoe = shoeStore.activeShoes[shoeIndex - 1]
-                settings.setSelected(shoeUrl: shoe.objectID.uriRepresentation())
-            }
-        default:
-            break // Do nothing
-        }
-    }
 }
 
 struct AddDistanceView_Previews: PreviewProvider {

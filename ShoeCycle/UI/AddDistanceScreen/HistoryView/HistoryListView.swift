@@ -86,20 +86,27 @@ struct HistoryListViewModel {
 }
 
 struct HistoryListView: View {
-    var listData: HistoryListViewModel
+    let shoeStore: ShoeStore
+    let shoe: Shoe
     @EnvironmentObject var settings: UserSettings
     @Environment(\.dismiss) var dismiss
-    @State var showMailComposer = false
-    private let analytics = AnalyticsFactory.sharedAnalyticsLogger()
+    
+    @State private var state = HistoryListState()
+    private let interactor: HistoryListInteractor
     private let currentYear = Date.currentYear
+    
+    init(shoeStore: ShoeStore, shoe: Shoe) {
+        self.shoeStore = shoeStore
+        self.shoe = shoe
+        self.interactor = HistoryListInteractor(shoeStore: shoeStore, shoe: shoe)
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 if MailComposeView.canSendMail() == true {
                     Button("Email Data") {
-                        analytics.logEvent(name: AnalyticsKeys.Event.emailShoeTapped, userInfo: nil)
-                        showMailComposer = true
+                        interactor.handle(state: &state, action: .showMailComposer)
                     }
                 }
                 Spacer()
@@ -110,7 +117,7 @@ struct HistoryListView: View {
             .padding([.horizontal], 24)
             .padding([.bottom], 16)
             HStack {
-                let ytd = listData.yearlyTotals[currentYear] ?? 0
+                let ytd = state.yearlyTotals[currentYear] ?? 0
                 Text("YTD: \(DistanceUtility().displayString(for: NSNumber(value: ytd))) \(settings.distanceUnit.displayString())")
             }
             .font(.headline)
@@ -124,13 +131,13 @@ struct HistoryListView: View {
             .font(.headline)
             .padding([.horizontal], 24)
             List {
-                ForEach(listData.sections) { sectionViewModel in
+                ForEach(state.sections) { sectionViewModel in
                     Section(header: HistorySectionView(viewModel: sectionViewModel)) {
                         ForEach(sectionViewModel.historyViewModels) { rowViewModel in
                             HistoryRowView(viewModel: rowViewModel)
                         }
                         .onDelete { indexSet in
-                            listData.removeHistories(from: sectionViewModel, atOffsets: indexSet)
+                            interactor.handle(state: &state, action: .removeHistories(from: sectionViewModel, atOffsets: indexSet))
                         }
                     }
                 }
@@ -138,21 +145,21 @@ struct HistoryListView: View {
             .listStyle(.insetGrouped)
         }
         .dynamicTypeSize(.medium ... .xLarge)
-        .fullScreenCover(isPresented: $showMailComposer, content: {
-            MailComposeView(shoe: listData.shoe)
+        .fullScreenCover(isPresented: $state.showMailComposer, content: {
+            MailComposeView(shoe: shoe)
                 .ignoresSafeArea(edges: [.bottom])
         })
+        .onAppear {
+            interactor.handle(state: &state, action: .viewAppeared)
+        }
     }
 }
 
 struct HistoryListView_Previews: PreviewProvider {
     static let shoeStore = ShoeStore()
-    static var listData: HistoryListViewModel {
-        let shoe = MockShoeGenerator().generateNewShoeWithData()
-        return HistoryListViewModel(shoeStore: shoeStore, shoe: shoe)
-    }
+    static let shoe = MockShoeGenerator().generateNewShoeWithData()
     
     static var previews: some View {
-        HistoryListView(listData: listData)
+        HistoryListView(shoeStore: shoeStore, shoe: shoe)
     }
 }

@@ -24,19 +24,23 @@ struct FavoriteDistanceButton: View {
 }
 
 struct FavoriteDistancesView: View {
-    let settings = UserSettings.shared
-    let formatter = NumberFormatter.decimal
     @Binding var distanceToAdd: Double
     @Environment(\.dismiss) var dismiss
+    @State private var state = FavoriteDistancesState()
+    private let interactor: FavoriteDistancesInteractor
     
     private let padding = 8.0
-    private let distanceUtility = DistanceUtility()
+    
+    init(distanceToAdd: Binding<Double>) {
+        self._distanceToAdd = distanceToAdd
+        self.interactor = FavoriteDistancesInteractor()
+    }
     
     var body: some View {
         VStack {
             HStack {
                 Button("Cancel") {
-                    distanceToAdd(0)
+                    interactor.handle(state: &state, action: .cancelPressed)
                     dismiss()
                 }
                 .padding(16)
@@ -45,20 +49,38 @@ struct FavoriteDistancesView: View {
 
             VStack(alignment: .leading, spacing: 16) {
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: "5k") { distanceToAdd(3.10686) }
-                    FavoriteDistanceButton(title: "10k") { distanceToAdd(6.21371) }
+                    FavoriteDistanceButton(title: "5k") { 
+                        interactor.handle(state: &state, action: .distanceSelected(3.10686))
+                        dismiss()
+                    }
+                    FavoriteDistanceButton(title: "10k") { 
+                        interactor.handle(state: &state, action: .distanceSelected(6.21371))
+                        dismiss()
+                    }
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: "5 miles") { distanceToAdd(5) }
-                    FavoriteDistanceButton(title: "10 miles") { distanceToAdd(10) }
+                    FavoriteDistanceButton(title: "5 miles") { 
+                        interactor.handle(state: &state, action: .distanceSelected(5))
+                        dismiss()
+                    }
+                    FavoriteDistanceButton(title: "10 miles") { 
+                        interactor.handle(state: &state, action: .distanceSelected(10))
+                        dismiss()
+                    }
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: "Half Marathon") { distanceToAdd(13.1) }
-                    FavoriteDistanceButton(title: "Marathon") { distanceToAdd(26.2) }
+                    FavoriteDistanceButton(title: "Half Marathon") { 
+                        interactor.handle(state: &state, action: .distanceSelected(13.1))
+                        dismiss()
+                    }
+                    FavoriteDistanceButton(title: "Marathon") { 
+                        interactor.handle(state: &state, action: .distanceSelected(26.2))
+                        dismiss()
+                    }
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
@@ -69,19 +91,27 @@ struct FavoriteDistancesView: View {
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: displayString(for: settings.favorite1) ?? "Favorite 1") {
-                        distanceToAdd(Double(settings.favorite1))
+                    FavoriteDistanceButton(title: state.favorite1DisplayString ?? "Favorite 1") {
+                        let settings = UserSettings.shared
+                        interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite1)))
+                        dismiss()
                     }
-                    FavoriteDistanceButton(title: displayString(for: settings.favorite2) ?? "Favorite 2") {
-                        distanceToAdd(Double(settings.favorite2))
+                    FavoriteDistanceButton(title: state.favorite2DisplayString ?? "Favorite 2") {
+                        let settings = UserSettings.shared
+                        interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite2)))
+                        dismiss()
                     }
                 }
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: displayString(for: settings.favorite3) ?? "Favorite 3") {
-                        distanceToAdd(Double(settings.favorite3))
+                    FavoriteDistanceButton(title: state.favorite3DisplayString ?? "Favorite 3") {
+                        let settings = UserSettings.shared
+                        interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite3)))
+                        dismiss()
                     }
-                    FavoriteDistanceButton(title: displayString(for: settings.favorite4) ?? "Favorite 4") {
-                        distanceToAdd(Double(settings.favorite4))
+                    FavoriteDistanceButton(title: state.favorite4DisplayString ?? "Favorite 4") {
+                        let settings = UserSettings.shared
+                        interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite4)))
+                        dismiss()
                     }
                 }
             }
@@ -94,19 +124,12 @@ struct FavoriteDistancesView: View {
         }
         .background(.patternedBackground)
         .dynamicTypeSize(.medium ... .xLarge)
-    }
-    
-    func distanceToAdd(_ distance: Double) {
-        distanceToAdd = distance
-        dismiss()
-    }
-    
-    func displayString(for distance: Double) -> String? {
-        let displayString = distanceUtility.favoriteDistanceDisplayString(for: distance)
-        if displayString.count > 0 {
-            return displayString
+        .onAppear {
+            interactor.handle(state: &state, action: .viewAppeared)
         }
-        return nil
+        .onChange(of: state.distanceToAdd) { newValue in
+            distanceToAdd = newValue
+        }
     }
 }
 
