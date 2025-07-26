@@ -4,7 +4,8 @@
       "Bash(fastlane test:*)",
       "Bash(xcodebuild:*)",
       "Bash(swiftc:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(./xcode_project_modifier.rb:*)"
     ],
     "deny": []
   }

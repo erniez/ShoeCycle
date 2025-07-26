@@ -164,3 +164,48 @@ struct FeatureView: View {
 - Predictable state changes - easy debugging
 - Consistent pattern across entire codebase
 - SwiftUI-optimized architecture
+
+## Xcode Project File Modification
+
+### Overview
+The project includes a Ruby script (`xcode_project_modifier.rb`) for programmatically modifying Xcode project files using the `xcodeproj` gem.
+
+### Setup
+```bash
+# Install the xcodeproj gem (already installed)
+gem install xcodeproj
+```
+
+### Usage
+The script provides a command-line interface for common project modifications:
+
+```bash
+# Add a file to the project
+./xcode_project_modifier.rb add path/to/file.swift [group/path]
+
+# Remove a file from the project  
+./xcode_project_modifier.rb remove path/to/file.swift
+
+# List files in the project (with optional pattern filter)
+./xcode_project_modifier.rb list [pattern]
+```
+
+### Key Features
+- **Automatic Build Phase Management**: Swift files are automatically added to compile sources
+- **Group Support**: Files can be organized into specific groups/folders
+- **Path Handling**: Handles both absolute and relative paths correctly
+- **Duplicate Detection**: Prevents adding files that already exist in the project
+- **Clean Removal**: Removes files from both project references and build phases
+
+### Use Cases
+- Adding new VSI Interactions files after refactoring
+- Removing deprecated files from the project
+- Organizing files into proper groups
+- Automating project structure changes
+- **Writing Unit Tests**: Add new test files to ShoeCycleTests target for testing business logic
+- **Test Cleanup**: Remove obsolete or deprecated test files from the test target
+
+### Technical Details
+- Uses the industry-standard `xcodeproj` Ruby gem (same as CocoaPods)
+- Maintains proper UUID generation and project file integrity
+- Handles PBXGroup hierarchy and build phase updates automatically

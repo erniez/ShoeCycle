@@ -83,6 +83,12 @@
 		1BBCF59F2A718163002D28D3 /* PatternedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBCF59E2A718163002D28D3 /* PatternedBackground.swift */; };
 		1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */; };
 		1BC08E7B14D42171007A4344 /* Shoe.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E7A14D42171007A4344 /* Shoe.m */; };
+		1BC96BBC2E35453B00A332DA /* FavoriteDistancesInteractionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC96BB82E35453B00A332DA /* FavoriteDistancesInteractionsTests.swift */; };
+		1BC96BBD2E35453B00A332DA /* HistoryListInteractionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC96BB92E35453B00A332DA /* HistoryListInteractionsTests.swift */; };
+		1BC96BBE2E35453B00A332DA /* ShoeCycleProgressInteractionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC96BBB2E35453B00A332DA /* ShoeCycleProgressInteractionsTests.swift */; };
+		1BC96BBF2E35453B00A332DA /* DateDistanceEntryInteractionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC96BB72E35453B00A332DA /* DateDistanceEntryInteractionsTests.swift */; };
+		1BC96BC02E35453B00A332DA /* AddDistanceInteractionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC96BB62E35453B00A332DA /* AddDistanceInteractionsTests.swift */; };
+		1BC96BC12E35453B00A332DA /* RunHistoryChartInteractionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC96BBA2E35453B00A332DA /* RunHistoryChartInteractionsTests.swift */; };
 		1BCEEBAE14B678AB00672194 /* TreadTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */; };
 		1BCF643E148AF7E7004C0E6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCF643D148AF7E7004C0E6A /* UIKit.framework */; };
 		1BCF6440148AF7E7004C0E6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCF643F148AF7E7004C0E6A /* Foundation.framework */; };
@@ -211,6 +217,12 @@
 		1BBD9CAD247C4B71004DA730 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1BC08E7914D42171007A4344 /* Shoe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shoe.h; sourceTree = "<group>"; };
 		1BC08E7A14D42171007A4344 /* Shoe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shoe.m; sourceTree = "<group>"; };
+		1BC96BB62E35453B00A332DA /* AddDistanceInteractionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDistanceInteractionsTests.swift; sourceTree = "<group>"; };
+		1BC96BB72E35453B00A332DA /* DateDistanceEntryInteractionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDistanceEntryInteractionsTests.swift; sourceTree = "<group>"; };
+		1BC96BB82E35453B00A332DA /* FavoriteDistancesInteractionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteDistancesInteractionsTests.swift; sourceTree = "<group>"; };
+		1BC96BB92E35453B00A332DA /* HistoryListInteractionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListInteractionsTests.swift; sourceTree = "<group>"; };
+		1BC96BBA2E35453B00A332DA /* RunHistoryChartInteractionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryChartInteractionsTests.swift; sourceTree = "<group>"; };
+		1BC96BBB2E35453B00A332DA /* ShoeCycleProgressInteractionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleProgressInteractionsTests.swift; sourceTree = "<group>"; };
 		1BCEEBAD14B678AB00672194 /* TreadTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TreadTracker.xcdatamodel; sourceTree = "<group>"; };
 		1BCF6439148AF7E7004C0E6A /* ShoeCycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoeCycle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BCF643D148AF7E7004C0E6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -414,20 +426,26 @@
 		1BAC72082377351200390E8B /* ShoeCycleTests */ = {
 			isa = PBXGroup;
 			children = (
+				1BC96BB62E35453B00A332DA /* AddDistanceInteractionsTests.swift */,
 				1B2464282E2B42E9001BA533 /* CalendarExtensionTests.swift */,
 				1B2464382E2C242A001BA533 /* DataValidationTests.swift */,
+				1BC96BB72E35453B00A332DA /* DateDistanceEntryInteractionsTests.swift */,
 				1B2464292E2B42E9001BA533 /* DateExtensionTests.swift */,
 				1B24642A2E2B42E9001BA533 /* DateFormatterExtensionTests.swift */,
 				1BCF9FEE2A1BC6A6007F697E /* DateProgressViewInteractorTests.swift */,
 				1B2464362E2BF07B001BA533 /* DBInteractiveTestCase.swift */,
+				1BC96BB82E35453B00A332DA /* FavoriteDistancesInteractionsTests.swift */,
 				1B2464392E2C242A001BA533 /* HistoryAggregationTests.swift */,
 				1B24642B2E2B42E9001BA533 /* HistoryCollationTests.swift */,
+				1BC96BB92E35453B00A332DA /* HistoryListInteractionsTests.swift */,
 				1BAC720B2377351200390E8B /* Info.plist */,
+				1BC96BBA2E35453B00A332DA /* RunHistoryChartInteractionsTests.swift */,
 				1B2464422E2DF172001BA533 /* SelectedShoeStrategyTests.swift */,
 				1B24644C2E33182A001BA533 /* SettingsFavoriteDistancesInteractorTests.swift */,
 				1B24644A2E33146C001BA533 /* SettingsFirstDayOfWeekInteractorTests.swift */,
 				1B2464462E311F03001BA533 /* SettingsUnitsInteractionsTests.swift */,
 				1B24643A2E2C242A001BA533 /* ShoeBusinessLogicTests.swift */,
+				1BC96BBB2E35453B00A332DA /* ShoeCycleProgressInteractionsTests.swift */,
 				1BAC72092377351200390E8B /* ShoeCycleTests.swift */,
 				1B24643E2E2C32FE001BA533 /* ShoeStoreIntegrationTests.swift */,
 				1BCF9FFA2A1BFDDD007F697E /* ShoeTests.swift */,
@@ -702,6 +720,12 @@
 				1B2464302E2B42E9001BA533 /* TimeIntervalExtensionTests.swift in Sources */,
 				1B2464312E2B42E9001BA533 /* DateExtensionTests.swift in Sources */,
 				1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */,
+				1BC96BBC2E35453B00A332DA /* FavoriteDistancesInteractionsTests.swift in Sources */,
+				1BC96BBD2E35453B00A332DA /* HistoryListInteractionsTests.swift in Sources */,
+				1BC96BBE2E35453B00A332DA /* ShoeCycleProgressInteractionsTests.swift in Sources */,
+				1BC96BBF2E35453B00A332DA /* DateDistanceEntryInteractionsTests.swift in Sources */,
+				1BC96BC02E35453B00A332DA /* AddDistanceInteractionsTests.swift in Sources */,
+				1BC96BC12E35453B00A332DA /* RunHistoryChartInteractionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
