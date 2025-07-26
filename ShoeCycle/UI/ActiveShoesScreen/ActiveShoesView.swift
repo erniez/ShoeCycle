@@ -82,7 +82,7 @@ struct ActiveShoesView: View {
         }
         // Monitor active shoes for deletions and additions.
         // Individual shoe detail changes are observed from within the view model
-        .onChange(of: shoeStore.activeShoes) { newValue in
+        .onChange(of: shoeStore.activeShoes) { _, newValue in
             shoeRowViewModels = ShoeListRowViewModel.generateShoeViewModels(from: newValue)
         }
     }

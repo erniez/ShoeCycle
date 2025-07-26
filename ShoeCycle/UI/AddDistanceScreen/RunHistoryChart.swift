@@ -127,16 +127,16 @@ struct RunHistoryChart: View {
                                         proxy.scrollTo(lastItem.id)
                                     }
                                 }
-                                .onChange(of: state.graphAllShoes, perform: { _ in
+                                .onChange(of: state.graphAllShoes) {
                                     if let lastItem = state.chartData.last {
                                         proxy.scrollTo(lastItem.id)
                                     }
-                                })
-                                .onChange(of: state.chartData, perform: { _ in
+                                }
+                                .onChange(of: state.chartData) {
                                     if let lastItem = state.chartData.last {
                                         proxy.scrollTo(lastItem.id)
                                     }
-                                })
+                                }
                                 .frame(width: CGFloat(state.chartData.count * pointsPerGraphData))
                                 .chartXAxis() {
                                     AxisMarks(preset: .aligned, values: state.xValues) { value in
@@ -198,10 +198,10 @@ struct RunHistoryChart: View {
             interactor.handle(state: &state, action: .viewAppeared)
             interactor.handle(state: &state, action: .dataUpdated(collatedHistory))
         }
-        .onChange(of: collatedHistory) { newData in
+        .onChange(of: collatedHistory) { _, newData in
             interactor.handle(state: &state, action: .dataUpdated(newData))
         }
-        .onChange(of: state.graphAllShoes) { newValue in
+        .onChange(of: state.graphAllShoes) { _, newValue in
             graphAllShoes = newValue
         }
     }

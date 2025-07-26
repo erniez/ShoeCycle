@@ -53,7 +53,7 @@ struct HallOfFameView: View {
         }
         // Monitor hall of fame shoes for deletions and additions.
         // Individual shoe detail changes are observed from within the view model
-        .onChange(of: shoeStore.hallOfFameShoes) { newValue in
+        .onChange(of: shoeStore.hallOfFameShoes) { _, newValue in
             shoeRowViewModels = ShoeListRowViewModel.generateShoeViewModels(from: newValue)
         }
     }

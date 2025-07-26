@@ -127,7 +127,7 @@ struct FavoriteDistancesView: View {
         .onAppear {
             interactor.handle(state: &state, action: .viewAppeared)
         }
-        .onChange(of: state.distanceToAdd) { newValue in
+        .onChange(of: state.distanceToAdd) { _, newValue in
             distanceToAdd = newValue
         }
     }
@@ -137,7 +137,7 @@ struct FavoriteDistancesView_Previews: PreviewProvider {
     @State static var distanceToAdd = 0.0
     static var previews: some View {
         FavoriteDistancesView(distanceToAdd: $distanceToAdd)
-            .onChange(of: distanceToAdd) { newValue in
+            .onChange(of: distanceToAdd) { _, newValue in
                 print("changed!")
                 print(newValue)
             }

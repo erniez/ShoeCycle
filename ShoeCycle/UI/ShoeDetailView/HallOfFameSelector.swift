@@ -32,7 +32,7 @@ struct HallOfFameSelector: View {
             }
         }
         .animation(.default, value: viewModel.hallOfFame)
-        .onChange(of: viewModel.hallOfFame) { newValue in
+        .onChange(of: viewModel.hallOfFame) { _, newValue in
             if newValue == true {
                 analytics.logEvent(name: AnalyticsKeys.Event.addToHOFEvent, userInfo: nil)
             }

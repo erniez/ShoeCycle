@@ -111,7 +111,7 @@ struct DateDistanceEntryView: View {
             .fullScreenCover(isPresented: $state.showFavoriteDistances) {
                 FavoriteDistancesView(distanceToAdd: $state.favoriteDistanceToAdd)
             }
-            .onChange(of: state.favoriteDistanceToAdd) { newValue in
+            .onChange(of: state.favoriteDistanceToAdd) { _, newValue in
                 if newValue > 0 {
                     runDistance = distanceUtility.displayString(for: newValue)
                 }
@@ -185,7 +185,7 @@ struct DateDistanceEntryView: View {
             interactor.setDependencies(shoeStore: shoeStore, settings: settings)
             interactor.handle(state: &state, action: .viewAppeared)
         }
-        .onChange(of: state.stravaLoading) { loading in
+        .onChange(of: state.stravaLoading) { _, loading in
             // Clear distance when async operation completes successfully
             if !loading && runDistance.count > 0 && !state.showAuthorizationDeniedAlert && !state.showReachabilityAlert && !state.showUnknownNetworkErrorAlert {
                 runDistance = ""

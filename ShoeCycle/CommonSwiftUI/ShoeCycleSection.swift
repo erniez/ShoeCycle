@@ -88,7 +88,7 @@ struct ShoeCycleSection_Previews: PreviewProvider {
             Text("Km").tag(UserSettings.DistanceUnit.km)
         }
         .pickerStyle(.segmented)
-        .onChange(of: units) { newValue in
+        .onChange(of: units) { _, newValue in
             Logger.app.debug("\(String(describing: units.rawValue))")
         }
         .shoeCycleSection(title: "Units", color: .shoeCycleOrange, image: Image("gear"))

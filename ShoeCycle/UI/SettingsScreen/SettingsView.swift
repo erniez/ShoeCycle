@@ -293,10 +293,10 @@ struct SettingsHealthKitView: View {
                 .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
                 .padding(.horizontal)
         }
-        .onChange(of: settings.healthKitEnabled, perform: { newValue in
+        .onChange(of: settings.healthKitEnabled) { _, newValue in
             healthKitIsOn = newValue
-        })
-        .onChange(of: healthKitIsOn) { newValue in
+        }
+        .onChange(of: healthKitIsOn) { _, newValue in
             if newValue == true {
                 Task {
                     do {
@@ -365,7 +365,7 @@ struct SettingsStravaView: View {
                 .background(Color.sectionBackground, ignoresSafeAreaEdges: [])
                 .padding(.horizontal)
         }
-        .onChange(of: stravaIsOn) { newValue in
+        .onChange(of: stravaIsOn) { _, newValue in
             if newValue == true {
                 Task {
                     await stravaIsOn = stravaInteractor.fetchToken(with: webAuthenticationSession)

@@ -65,7 +65,7 @@ struct AddDistanceView: View {
                 interactor.setDependencies(shoeStore: shoeStore, userSettings: settings)
                 interactor.handle(state: &state, action: .viewAppeared)
             }
-            .onChange(of: state.graphAllShoes) { newValue in
+            .onChange(of: state.graphAllShoes) { _, newValue in
                 interactor.handle(state: &state, action: .graphAllShoesToggled(newValue))
             }
         }

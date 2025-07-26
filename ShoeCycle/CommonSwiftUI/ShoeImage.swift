@@ -84,7 +84,7 @@ fileprivate struct ShoeImagePicker: ViewModifier {
                 showImageSelection = true
             }
             .photosPicker(isPresented: $showPhotoPicker, selection: $shoeItem)
-            .onChange(of: shoeItem) { _ in
+            .onChange(of: shoeItem) {
                 Task {
                     if let data = try? await shoeItem?.loadTransferable(type: Data.self),
                        let shoeUIImage = UIImage(data: data) {
