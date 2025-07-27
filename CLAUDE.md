@@ -18,9 +18,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 5. Run the app
 
 ### Dependencies
-- Uses **Carthage** for framework dependencies (AFNetworking, Charts, MBProgressHUD)
 - Uses **Swift Package Manager** for Firebase Analytics
-- No CocoaPods or other package managers
+- No CocoaPods, Carthage, or other package managers
 
 ## Architecture Overview
 
