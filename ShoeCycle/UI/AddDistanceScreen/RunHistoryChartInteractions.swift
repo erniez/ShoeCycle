@@ -9,10 +9,10 @@ import SwiftUI
 import CoreData
 
 struct RunHistoryChartState {
-    var graphAllShoes: Bool = false
-    var maxDistance: Double = 0.0
-    var xValues: [Date] = []
-    var chartData: [WeeklyCollatedNew] = []
+    fileprivate(set) var graphAllShoes: Bool = false
+    fileprivate(set) var maxDistance: Double = 0.0
+    fileprivate(set) var xValues: [Date] = []
+    fileprivate(set) var chartData: [WeeklyCollatedNew] = []
     
     init() {}
 }

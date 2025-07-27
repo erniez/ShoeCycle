@@ -9,11 +9,11 @@ import SwiftUI
 import CoreData
 
 struct AddDistanceState {
-    var runDate: Date = Date()
-    var runDistance: String = ""
-    var graphAllShoes: Bool = false
-    var shouldBounce: Bool = false
-    var historiesToShow: Set<History> = []
+    fileprivate(set) var runDate: Date = Date()
+    fileprivate(set) var runDistance: String = ""
+    fileprivate(set) var graphAllShoes: Bool = false
+    fileprivate(set) var shouldBounce: Bool = false
+    fileprivate(set) var historiesToShow: Set<History> = []
     
     init() {}
 }

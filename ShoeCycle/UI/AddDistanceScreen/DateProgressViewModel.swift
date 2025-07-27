@@ -10,7 +10,6 @@ import SwiftUI
 struct DateProgressViewModel {
     let startDate: Date
     let endDate: Date
-    @Binding var shouldBounce: Bool
     
     var progressBarValue: Double {
         let shoeDateDifference = endDate.timeIntervalSince(startDate) / TimeInterval.secondsInDay
@@ -19,8 +18,8 @@ struct DateProgressViewModel {
         return progressBarValue
     }
     
-    var daysToGo: Int {
-        let currentDateDifference = -Date().timeIntervalSince(endDate) / TimeInterval.secondsInDay
+    func daysToGo(currentDate: Date = Date()) -> Int {
+        let currentDateDifference = -currentDate.timeIntervalSince(endDate) / TimeInterval.secondsInDay
         return max(0, Int(currentDateDifference))
     }
 }

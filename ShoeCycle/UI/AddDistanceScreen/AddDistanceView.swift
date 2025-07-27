@@ -49,13 +49,19 @@ struct AddDistanceView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .fill(Color.sectionBackground)
-                    DateDistanceEntryView(runDate: $state.runDate, runDistance: $state.runDistance, shouldBounce: $state.shouldBounce, shoe: shoe)
+                    DateDistanceEntryView(parentInteractor: interactor, parentState: $state, shoe: shoe)
                 }
                 .padding([.vertical], 16)
                 .fixedSize(horizontal: false, vertical: true)
-                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue, shouldBounce: $state.shouldBounce)
-                ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate, shouldBounce: $state.shouldBounce))
-                RunHistoryChart(collatedHistory: historiesToShow().collateHistories(ascending: true), graphAllShoes: $state.graphAllShoes)
+                ShoeCycleDistanceProgressView(progressWidth: progressBarWidth, value: shoe.totalDistance.doubleValue, endvalue: shoe.maxDistance.intValue, parentInteractor: interactor, parentState: state, setShouldBounce: { newValue in
+                    interactor.handle(state: &state, action: .shouldBounceChanged(newValue))
+                })
+                ShoeCycleDateProgressView(progressWidth: progressBarWidth, viewModel: DateProgressViewModel(startDate: shoe.startDate, endDate: shoe.expirationDate), parentInteractor: interactor, parentState: state, setShouldBounce: { newValue in
+                    interactor.handle(state: &state, action: .shouldBounceChanged(newValue))
+                })
+                RunHistoryChart(collatedHistory: historiesToShow().collateHistories(ascending: true), parentInteractor: interactor, parentState: state, setGraphAllShoes: { newValue in
+                    interactor.handle(state: &state, action: .graphAllShoesToggled(newValue))
+                })
                     .padding([.vertical], 16)
             }
             .padding([.horizontal], 16)

@@ -145,13 +145,26 @@ struct HistoryListView: View {
             .listStyle(.insetGrouped)
         }
         .dynamicTypeSize(.medium ... .xLarge)
-        .fullScreenCover(isPresented: $state.showMailComposer, content: {
+        .fullScreenCover(isPresented: showMailComposerBinding, content: {
             MailComposeView(shoe: shoe)
                 .ignoresSafeArea(edges: [.bottom])
         })
         .onAppear {
             interactor.handle(state: &state, action: .viewAppeared)
         }
+    }
+    
+    private var showMailComposerBinding: Binding<Bool> {
+        Binding(
+            get: { state.showMailComposer },
+            set: { newValue in
+                if newValue {
+                    interactor.handle(state: &state, action: .showMailComposer)
+                } else {
+                    interactor.handle(state: &state, action: .dismissMailComposer)
+                }
+            }
+        )
     }
 }
 

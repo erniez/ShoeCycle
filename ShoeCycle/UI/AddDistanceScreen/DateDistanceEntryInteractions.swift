@@ -9,14 +9,14 @@ import SwiftUI
 import CoreData
 
 struct DateDistanceEntryState {
-    var buttonMaxHeight: CGFloat?
-    var showHistoryView: Bool = false
-    var showFavoriteDistances: Bool = false
-    var favoriteDistanceToAdd: Double = 0.0
-    var showAuthorizationDeniedAlert: Bool = false
-    var stravaLoading: Bool = false
-    var showReachabilityAlert: Bool = false
-    var showUnknownNetworkErrorAlert: Bool = false
+    fileprivate(set) var buttonMaxHeight: CGFloat?
+    fileprivate(set) var showHistoryView: Bool = false
+    fileprivate(set) var showFavoriteDistances: Bool = false
+    fileprivate(set) var favoriteDistanceToAdd: Double = 0.0
+    fileprivate(set) var showAuthorizationDeniedAlert: Bool = false
+    fileprivate(set) var stravaLoading: Bool = false
+    fileprivate(set) var showReachabilityAlert: Bool = false
+    fileprivate(set) var showUnknownNetworkErrorAlert: Bool = false
     
     init() {}
 }

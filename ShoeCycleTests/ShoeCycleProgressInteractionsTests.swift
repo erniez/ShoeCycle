@@ -29,7 +29,8 @@ final class ShoeCycleProgressInteractionsTests: XCTestCase {
     func testBounceTriggeredTogglesFromFalseToTrue() {
         let interactor = ShoeCycleProgressInteractor()
         var state = ShoeCycleProgressState()
-        state.bounceState = false
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .bounceStateChanged(false))
         
         interactor.handle(state: &state, action: .bounceTriggered)
         
@@ -42,7 +43,8 @@ final class ShoeCycleProgressInteractionsTests: XCTestCase {
     func testBounceTriggeredTogglesFromTrueToFalse() {
         let interactor = ShoeCycleProgressInteractor()
         var state = ShoeCycleProgressState()
-        state.bounceState = true
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .bounceStateChanged(true))
         
         interactor.handle(state: &state, action: .bounceTriggered)
         
@@ -55,7 +57,8 @@ final class ShoeCycleProgressInteractionsTests: XCTestCase {
     func testBounceStateChangedSetsToTrue() {
         let interactor = ShoeCycleProgressInteractor()
         var state = ShoeCycleProgressState()
-        state.bounceState = false
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .bounceStateChanged(false))
         
         interactor.handle(state: &state, action: .bounceStateChanged(true))
         
@@ -68,7 +71,8 @@ final class ShoeCycleProgressInteractionsTests: XCTestCase {
     func testBounceStateChangedSetsToFalse() {
         let interactor = ShoeCycleProgressInteractor()
         var state = ShoeCycleProgressState()
-        state.bounceState = true
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .bounceStateChanged(true))
         
         interactor.handle(state: &state, action: .bounceStateChanged(false))
         
@@ -81,7 +85,8 @@ final class ShoeCycleProgressInteractionsTests: XCTestCase {
     func testBounceStateChangedIsIdempotent() {
         let interactor = ShoeCycleProgressInteractor()
         var state = ShoeCycleProgressState()
-        state.bounceState = false
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .bounceStateChanged(false))
         
         interactor.handle(state: &state, action: .bounceStateChanged(false))
         

@@ -70,7 +70,7 @@ struct SettingsUnitsView: View {
 // MARK: - VSI Architecture for SettingsFirstDayOfWeek
 
 struct SettingsFirstDayOfWeekState {
-    var selectedFirstDayOfWeek: UserSettings.FirstDayOfWeek = .sunday
+    fileprivate(set) var selectedFirstDayOfWeek: UserSettings.FirstDayOfWeek = .sunday
 }
 
 struct SettingsFirstDayOfWeekInteractor {
@@ -129,10 +129,10 @@ struct SettingsFirstDayOfWeekView: View {
 // MARK: - VSI Architecture for SettingsFavoriteDistances
 
 struct SettingsFavoriteDistancesState {
-    var favorite1Text: String = ""
-    var favorite2Text: String = ""
-    var favorite3Text: String = ""
-    var favorite4Text: String = ""
+    fileprivate(set) var favorite1Text: String = ""
+    fileprivate(set) var favorite2Text: String = ""
+    fileprivate(set) var favorite3Text: String = ""
+    fileprivate(set) var favorite4Text: String = ""
 }
 
 struct SettingsFavoriteDistancesInteractor {

@@ -15,14 +15,16 @@ fileprivate struct ShoeCycleProgressView: View {
     let units: String
     let startValue: String
     let endValue: String
-    @Binding var shouldBounce: Bool
+    let parentInteractor: AddDistanceInteractor
+    let parentState: AddDistanceState
+    let setShouldBounce: (Bool) -> Void
     
     @State private var state = ShoeCycleProgressState()
     private let interactor: ShoeCycleProgressInteractor
     
     private let animationDuration: TimeInterval = 0.25
     
-    init(progressWidth: CGFloat, progressColor: Color, progressBarValue: Double, value: Double, units: String, startValue: String, endValue: String, shouldBounce: Binding<Bool>) {
+    init(progressWidth: CGFloat, progressColor: Color, progressBarValue: Double, value: Double, units: String, startValue: String, endValue: String, parentInteractor: AddDistanceInteractor, parentState: AddDistanceState, setShouldBounce: @escaping (Bool) -> Void) {
         self.progressWidth = progressWidth
         self.progressColor = progressColor
         self.progressBarValue = progressBarValue
@@ -30,7 +32,9 @@ fileprivate struct ShoeCycleProgressView: View {
         self.units = units
         self.startValue = startValue
         self.endValue = endValue
-        self._shouldBounce = shouldBounce
+        self.parentInteractor = parentInteractor
+        self.parentState = parentState
+        self.setShouldBounce = setShouldBounce
         self.interactor = ShoeCycleProgressInteractor()
     }
     
@@ -69,14 +73,14 @@ fileprivate struct ShoeCycleProgressView: View {
             Spacer()
         }
         .onChange(of: value) {
-            if shouldBounce {
+            if parentState.shouldBounce {
                 interactor.handle(state: &state, action: .bounceTriggered)
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationDuration) {
                     interactor.handle(state: &state, action: .bounceStateChanged(false))
                     let generator = UINotificationFeedbackGenerator()
                     generator.notificationOccurred(.success)
                 }
-                shouldBounce = false
+                setShouldBounce(false)
             }
         }
         .animation(.bouncy(duration: animationDuration, extraBounce: 0.3), value: state.bounceState)
@@ -94,7 +98,9 @@ struct ShoeCycleDistanceProgressView: View {
     let progressWidth: CGFloat
     let value: Double
     let endvalue: Int
-    @Binding var shouldBounce: Bool
+    let parentInteractor: AddDistanceInteractor
+    let parentState: AddDistanceState
+    let setShouldBounce: (Bool) -> Void
     
     private var progressBarValue: Double {
         min(1, value / Double(endvalue))
@@ -110,7 +116,9 @@ struct ShoeCycleDistanceProgressView: View {
             units: settings.distanceUnit.displayString().capitalized, 
             startValue: "0", 
             endValue: String(Int(distanceUtility.distance(from: Double(endvalue)))), 
-            shouldBounce: $shouldBounce
+            parentInteractor: parentInteractor,
+            parentState: parentState,
+            setShouldBounce: setShouldBounce
         )
     }
 }
@@ -118,28 +126,34 @@ struct ShoeCycleDistanceProgressView: View {
 struct ShoeCycleDateProgressView: View {
     let progressWidth: CGFloat
     let viewModel: DateProgressViewModel
+    let parentInteractor: AddDistanceInteractor
+    let parentState: AddDistanceState
+    let setShouldBounce: (Bool) -> Void
     
     var body: some View {
         ShoeCycleProgressView(
             progressWidth: progressWidth, 
             progressColor: .shoeCycleBlue, 
             progressBarValue: viewModel.progressBarValue, 
-            value: Double(viewModel.daysToGo), 
+            value: Double(viewModel.daysToGo()), 
             units: "Days Left", 
             startValue: DateFormatter.shortDate.string(from: viewModel.startDate), 
             endValue: DateFormatter.shortDate.string(from: viewModel.endDate), 
-            shouldBounce: viewModel.$shouldBounce
+            parentInteractor: parentInteractor,
+            parentState: parentState,
+            setShouldBounce: setShouldBounce
         )
     }
 }
 
 struct ShoeCycleProgressView_Previews: PreviewProvider {
-    @State static var shouldBounce = false
+    @State static var parentState = AddDistanceState()
+    static var parentInteractor = AddDistanceInteractor()
     static var previews: some View {
         VStack {
             Spacer()
-            ShoeCycleProgressView(progressWidth: 200, progressColor: .shoeCycleGreen, progressBarValue: 0.3, value: 20, units: "miles", startValue: "0", endValue: "350", shouldBounce: $shouldBounce)
-            ShoeCycleDateProgressView(progressWidth: 200, viewModel: DateProgressViewModel(startDate: Date(timeIntervalSinceNow: -100 * TimeInterval.secondsInDay), endDate: Date(timeIntervalSinceNow: 50 * TimeInterval.secondsInDay), shouldBounce: $shouldBounce))
+            ShoeCycleProgressView(progressWidth: 200, progressColor: .shoeCycleGreen, progressBarValue: 0.3, value: 20, units: "miles", startValue: "0", endValue: "350", parentInteractor: parentInteractor, parentState: parentState, setShouldBounce: { _ in })
+            ShoeCycleDateProgressView(progressWidth: 200, viewModel: DateProgressViewModel(startDate: Date(timeIntervalSinceNow: -100 * TimeInterval.secondsInDay), endDate: Date(timeIntervalSinceNow: 50 * TimeInterval.secondsInDay)), parentInteractor: parentInteractor, parentState: parentState, setShouldBounce: { _ in })
             Spacer()
         }
         .background(.black)

@@ -9,9 +9,9 @@ import SwiftUI
 import CoreData
 
 struct HistoryListState {
-    var sections: [HistorySectionViewModel] = []
-    var yearlyTotals: YearlyTotalDistance = [:]
-    var showMailComposer: Bool = false
+    fileprivate(set) var sections: [HistorySectionViewModel] = []
+    fileprivate(set) var yearlyTotals: YearlyTotalDistance = [:]
+    fileprivate(set) var showMailComposer: Bool = false
     
     init() {}
 }

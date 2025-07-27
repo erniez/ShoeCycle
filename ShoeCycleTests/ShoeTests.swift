@@ -91,7 +91,6 @@ final class ShoeTests: DBInteractiveTestCase {
             _ = createTestHistory(for: shoe, date: date, distance: Double(i))
         }
         
-        let histories = Array(shoe.history ?? Set<History>())
         let formatter = DateFormatter.shortDate
         
         var calendar = Calendar(identifier: .gregorian)

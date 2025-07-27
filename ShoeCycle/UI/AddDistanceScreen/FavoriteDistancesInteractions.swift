@@ -9,11 +9,11 @@ import SwiftUI
 import CoreData
 
 struct FavoriteDistancesState {
-    var distanceToAdd: Double = 0.0
-    var favorite1DisplayString: String?
-    var favorite2DisplayString: String?
-    var favorite3DisplayString: String?
-    var favorite4DisplayString: String?
+    fileprivate(set) var distanceToAdd: Double = 0.0
+    fileprivate(set) var favorite1DisplayString: String?
+    fileprivate(set) var favorite2DisplayString: String?
+    fileprivate(set) var favorite3DisplayString: String?
+    fileprivate(set) var favorite4DisplayString: String?
     
     init() {}
 }

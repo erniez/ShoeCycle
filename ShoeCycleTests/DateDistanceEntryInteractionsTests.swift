@@ -116,7 +116,8 @@ final class DateDistanceEntryInteractionsTests: DBInteractiveTestCase {
         let shoe = createTestShoe()
         let interactor = DateDistanceEntryInteractor(shoe: shoe)
         var state = DateDistanceEntryState()
-        state.showHistoryView = true
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .showHistory)
         
         interactor.handle(state: &state, action: .dismissHistory)
         
@@ -148,7 +149,8 @@ final class DateDistanceEntryInteractionsTests: DBInteractiveTestCase {
         let shoe = createTestShoe()
         let interactor = DateDistanceEntryInteractor(shoe: shoe)
         var state = DateDistanceEntryState()
-        state.showFavoriteDistances = true
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .showFavoriteDistances)
         
         interactor.handle(state: &state, action: .dismissFavoriteDistances)
         
@@ -212,10 +214,10 @@ final class DateDistanceEntryInteractionsTests: DBInteractiveTestCase {
         let interactor = DateDistanceEntryInteractor(shoe: shoe)
         var state = DateDistanceEntryState()
         
-        // Set all alerts to true first
-        state.showAuthorizationDeniedAlert = true
-        state.showReachabilityAlert = true
-        state.showUnknownNetworkErrorAlert = true
+        // Set all alerts to true first through interactor actions
+        interactor.handle(state: &state, action: .showAlert(.authorizationDenied))
+        interactor.handle(state: &state, action: .showAlert(.reachability))
+        interactor.handle(state: &state, action: .showAlert(.unknownNetworkError))
         
         // Test dismissing authorization denied alert
         interactor.handle(state: &state, action: .dismissAlert(.authorizationDenied))

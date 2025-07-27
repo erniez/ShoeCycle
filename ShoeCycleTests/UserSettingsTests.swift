@@ -386,12 +386,6 @@ final class UserSettingsTests: XCTestCase {
     
     // MARK: - ObservableObject Behavior Tests
     
-    // Given: A UserSettings instance
-    // When: Checking ObservableObject conformance
-    // Then: Should conform to ObservableObject protocol
-    func testSettingsIsObservableObject() throws {
-        XCTAssertTrue(userSettings is (any ObservableObject), "UserSettings should conform to ObservableObject")
-    }
     
     // Given: A UserSettings instance with objectWillChange subscription
     // When: Updating a published property

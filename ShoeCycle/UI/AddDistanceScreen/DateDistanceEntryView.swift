@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct DateDistanceEntryView: View {
-    @Binding var runDate: Date
-    @Binding var runDistance: String
-    @Binding var shouldBounce: Bool
     @ObservedObject var shoe: Shoe
     @EnvironmentObject var shoeStore: ShoeStore
     @EnvironmentObject var settings: UserSettings
@@ -19,10 +16,12 @@ struct DateDistanceEntryView: View {
     @State private var interactor: DateDistanceEntryInteractor
     private let distanceUtility = DistanceUtility()
     
-    init(runDate: Binding<Date>, runDistance: Binding<String>, shouldBounce: Binding<Bool>, shoe: Shoe) {
-        self._runDate = runDate
-        self._runDistance = runDistance
-        self._shouldBounce = shouldBounce
+    let parentInteractor: AddDistanceInteractor
+    @Binding var parentState: AddDistanceState
+    
+    init(parentInteractor: AddDistanceInteractor, parentState: Binding<AddDistanceState>, shoe: Shoe) {
+        self.parentInteractor = parentInteractor
+        self._parentState = parentState
         self.shoe = shoe
         // Initialize interactor with shoe, dependencies will be set in onAppear
         self._interactor = State(initialValue: DateDistanceEntryInteractor(shoe: shoe))
@@ -36,7 +35,7 @@ struct DateDistanceEntryView: View {
                     .foregroundColor(.white)
                 
                 DatePicker("runDate",
-                           selection: $runDate,
+                           selection: runDateBinding,
                            displayedComponents: [.date])
                 .accentColor(.shoeCycleOrange)
                 .foregroundColor(.white)
@@ -61,7 +60,7 @@ struct DateDistanceEntryView: View {
                 }
                 .buttonStyle(.shoeCycle)
                 .padding([.top], 4)
-                .fullScreenCover(isPresented: $state.showHistoryView) {
+                .fullScreenCover(isPresented: showHistoryViewBinding) {
                     HistoryListView(shoeStore: shoeStore, shoe: shoe)
                 }
             }
@@ -74,7 +73,7 @@ struct DateDistanceEntryView: View {
                     .padding(.bottom, -4)
                     .foregroundColor(.white)
                 
-                TextField(" Distance  ", text: $runDistance, prompt: Text(" Distance ").foregroundColor(Color(uiColor: .systemGray2)))
+                TextField(" Distance  ", text: runDistanceBinding, prompt: Text(" Distance ").foregroundColor(Color(uiColor: .systemGray2)))
                     .background(GeometryReader { geometry in
                         Color.clear.preference(
                             key: RowHeightPreferenceKey.self,
@@ -108,12 +107,12 @@ struct DateDistanceEntryView: View {
             .padding(.vertical, 8)
             .padding(.leading, 8)
             .fixedSize()
-            .fullScreenCover(isPresented: $state.showFavoriteDistances) {
-                FavoriteDistancesView(distanceToAdd: $state.favoriteDistanceToAdd)
+            .fullScreenCover(isPresented: showFavoriteDistancesBinding) {
+                FavoriteDistancesView(distanceToAdd: favoriteDistanceToAddBinding)
             }
             .onChange(of: state.favoriteDistanceToAdd) { _, newValue in
                 if newValue > 0 {
-                    runDistance = distanceUtility.displayString(for: newValue)
+                    parentInteractor.handle(state: &parentState, action: .distanceChanged(distanceUtility.displayString(for: newValue)))
                 }
             }
             
@@ -123,16 +122,16 @@ struct DateDistanceEntryView: View {
                 ZStack {
                     Button {
                         dismissKeyboard()
-                        shouldBounce = true
+                        parentInteractor.handle(state: &parentState, action: .shouldBounceChanged(true))
                         if settings.healthKitEnabled || settings.stravaEnabled {
-                            interactor.handle(state: &state, action: .addDistancePressed(runDate: runDate, runDistance: runDistance))
+                            interactor.handle(state: &state, action: .addDistancePressed(runDate: parentState.runDate, runDistance: parentState.runDistance))
                             // Note: runDistance clearing will be handled by the async success callback in the interactor
                         }
                         else {
-                            let distance = distanceUtility.distance(from: runDistance)
-                            shoeStore.addHistory(to: shoe, date: runDate, distance: distance)
+                            let distance = distanceUtility.distance(from: parentState.runDistance)
+                            shoeStore.addHistory(to: shoe, date: parentState.runDate, distance: distance)
                             shoeStore.updateActiveShoes()
-                            runDistance = ""
+                            parentInteractor.handle(state: &parentState, action: .distanceChanged(""))
                         }
                     } label: {
                         Image("button-add-run")
@@ -161,17 +160,17 @@ struct DateDistanceEntryView: View {
                 }
             }
             .padding([.top, .bottom, .trailing], 8)
-            .alert("Access to Health App Denied", isPresented: $state.showAuthorizationDeniedAlert) {
+            .alert("Access to Health App Denied", isPresented: showAuthorizationDeniedAlertBinding) {
                 Button("OK") {}
             } message: {
                 Text("Please enable access in the health app settings. Go to Settings -> Health -> Data Access & Devices -> Enable Sharing for ShoeCycle")
             }
-            .alert("Cannot Access the Internet", isPresented: $state.showReachabilityAlert) {
+            .alert("Cannot Access the Internet", isPresented: showReachabilityAlertBinding) {
                 Button("OK") {}
             } message: {
                 Text("Please check your network settings and try again")
             }
-            .alert("Unknown Error", isPresented: $state.showUnknownNetworkErrorAlert) {
+            .alert("Unknown Error", isPresented: showUnknownNetworkErrorAlertBinding) {
                 Button("OK") {}
             } message: {
                 Text("An unknown network error has occurred. Please try again later, or turn Strava access off then on in the Settings tab")
@@ -187,10 +186,94 @@ struct DateDistanceEntryView: View {
         }
         .onChange(of: state.stravaLoading) { _, loading in
             // Clear distance when async operation completes successfully
-            if !loading && runDistance.count > 0 && !state.showAuthorizationDeniedAlert && !state.showReachabilityAlert && !state.showUnknownNetworkErrorAlert {
-                runDistance = ""
+            if !loading && parentState.runDistance.count > 0 && !state.showAuthorizationDeniedAlert && !state.showReachabilityAlert && !state.showUnknownNetworkErrorAlert {
+                parentInteractor.handle(state: &parentState, action: .distanceChanged(""))
             }
         }
+    }
+    
+    private var runDateBinding: Binding<Date> {
+        Binding(
+            get: { parentState.runDate },
+            set: { newValue in
+                parentInteractor.handle(state: &parentState, action: .dateChanged(newValue))
+            }
+        )
+    }
+    
+    private var runDistanceBinding: Binding<String> {
+        Binding(
+            get: { parentState.runDistance },
+            set: { newValue in
+                parentInteractor.handle(state: &parentState, action: .distanceChanged(newValue))
+            }
+        )
+    }
+    
+    private var showHistoryViewBinding: Binding<Bool> {
+        Binding(
+            get: { state.showHistoryView },
+            set: { newValue in
+                interactor.handle(state: &state, action: newValue ? .showHistory : .dismissHistory)
+            }
+        )
+    }
+    
+    private var showFavoriteDistancesBinding: Binding<Bool> {
+        Binding(
+            get: { state.showFavoriteDistances },
+            set: { newValue in
+                interactor.handle(state: &state, action: newValue ? .showFavoriteDistances : .dismissFavoriteDistances)
+            }
+        )
+    }
+    
+    private var favoriteDistanceToAddBinding: Binding<Double> {
+        Binding(
+            get: { state.favoriteDistanceToAdd },
+            set: { newValue in
+                interactor.handle(state: &state, action: .favoriteDistanceSelected(newValue))
+            }
+        )
+    }
+    
+    private var showAuthorizationDeniedAlertBinding: Binding<Bool> {
+        Binding(
+            get: { state.showAuthorizationDeniedAlert },
+            set: { newValue in
+                if newValue {
+                    interactor.handle(state: &state, action: .showAlert(.authorizationDenied))
+                } else {
+                    interactor.handle(state: &state, action: .dismissAlert(.authorizationDenied))
+                }
+            }
+        )
+    }
+    
+    private var showReachabilityAlertBinding: Binding<Bool> {
+        Binding(
+            get: { state.showReachabilityAlert },
+            set: { newValue in
+                if newValue {
+                    interactor.handle(state: &state, action: .showAlert(.reachability))
+                } else {
+                    interactor.handle(state: &state, action: .dismissAlert(.reachability))
+                }
+            }
+        )
+    }
+    
+    private var showUnknownNetworkErrorAlertBinding: Binding<Bool> {
+        Binding(
+            get: { state.showUnknownNetworkErrorAlert },
+            set: { newValue in
+                if newValue {
+                    interactor.handle(state: &state, action: .showAlert(.unknownNetworkError))
+                } else {
+                    interactor.handle(state: &state, action: .dismissAlert(.unknownNetworkError))
+                }
+            }
+        )
     }
 }
 
@@ -206,14 +289,13 @@ private extension DateDistanceEntryView {
 }
 
 struct DateDistanceEntryView_Previews: PreviewProvider {
-    @State static var runDate = Date()
-    @State static var runDistance = "5"
-    @State static var shouldBounce = false
+    @State static var parentState = AddDistanceState()
     @StateObject static var settings = UserSettings.shared
     static var shoe = MockShoeGenerator().generateNewShoeWithData()
+    static var parentInteractor = AddDistanceInteractor()
     
     static var previews: some View {
-        DateDistanceEntryView(runDate: $runDate, runDistance: $runDistance, shouldBounce: $shouldBounce, shoe: shoe)
+        DateDistanceEntryView(parentInteractor: parentInteractor, parentState: $parentState, shoe: shoe)
             .environmentObject(settings)
             .background(Color.gray)
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ShoeCycleProgressState {
-    var bounceState: Bool = false
+    fileprivate(set) var bounceState: Bool = false
     
     init() {}
 }

@@ -313,8 +313,6 @@ final class ShoeStoreIntegrationTests: XCTestCase {
         shoeStore.updateAllShoes()
         
         let originalOrderingValue1 = shoe1.orderingValue.doubleValue
-        let originalOrderingValue2 = shoe2.orderingValue.doubleValue
-        let originalOrderingValue3 = shoe3.orderingValue.doubleValue
         
         // Move shoe1 to position 2 (between shoe2 and shoe3)
         let fromURL = shoe1.objectID.uriRepresentation()
@@ -472,7 +470,7 @@ final class ShoeStoreIntegrationTests: XCTestCase {
     func testUpdateAllShoesWithoutPublishing() throws {
         let initialActiveCount = shoeStore.activeShoes.count
         
-        let shoe = shoeStore.createShoe()
+        _ = shoeStore.createShoe()
         shoeStore.saveContext()
         
         // Update without publishing changes

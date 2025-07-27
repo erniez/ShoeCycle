@@ -144,7 +144,8 @@ final class RunHistoryChartInteractionsTests: XCTestCase {
         
         let interactor = RunHistoryChartInteractor(userSettings: testUserSettings)
         var state = RunHistoryChartState()
-        state.graphAllShoes = false
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .viewAppeared)
         
         interactor.handle(state: &state, action: .toggleGraphAllShoes)
         
@@ -161,7 +162,8 @@ final class RunHistoryChartInteractionsTests: XCTestCase {
         
         let interactor = RunHistoryChartInteractor(userSettings: testUserSettings)
         var state = RunHistoryChartState()
-        state.graphAllShoes = true
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .viewAppeared)
         
         interactor.handle(state: &state, action: .toggleGraphAllShoes)
         
@@ -178,7 +180,8 @@ final class RunHistoryChartInteractionsTests: XCTestCase {
         
         let interactor = RunHistoryChartInteractor(userSettings: testUserSettings)
         var state = RunHistoryChartState()
-        state.graphAllShoes = false
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .viewAppeared)
         
         // First toggle: false -> true
         interactor.handle(state: &state, action: .toggleGraphAllShoes)

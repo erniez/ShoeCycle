@@ -101,7 +101,8 @@ final class FavoriteDistancesInteractionsTests: XCTestCase {
         let testUserSettings = createTestUserSettings()
         let interactor = FavoriteDistancesInteractor(userSettings: testUserSettings)
         var state = FavoriteDistancesState()
-        state.distanceToAdd = 5.0
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .distanceSelected(5.0))
         
         interactor.handle(state: &state, action: .cancelPressed)
         

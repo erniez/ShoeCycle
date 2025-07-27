@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsUnitsState {
-    var selectedUnit: UserSettings.DistanceUnit
+    fileprivate(set) var selectedUnit: UserSettings.DistanceUnit
     
     init(selectedUnit: UserSettings.DistanceUnit = .miles) {
         self.selectedUnit = selectedUnit

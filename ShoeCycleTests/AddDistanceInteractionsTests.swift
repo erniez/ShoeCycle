@@ -137,7 +137,8 @@ final class AddDistanceInteractionsTests: DBInteractiveTestCase {
         interactor.setDependencies(shoeStore: shoeStore, userSettings: testUserSettings)
         
         var state = AddDistanceState()
-        state.graphAllShoes = false
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .graphAllShoesToggled(false))
         
         interactor.handle(state: &state, action: .graphAllShoesToggled(true))
         

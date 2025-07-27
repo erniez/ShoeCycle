@@ -109,7 +109,8 @@ final class HistoryListInteractionsTests: DBInteractiveTestCase {
         
         let interactor = HistoryListInteractor(shoeStore: shoeStore, shoe: shoe, settings: testUserSettings, analytics: mockAnalytics)
         var state = HistoryListState()
-        state.showMailComposer = true
+        // Set initial state through interactor action to match actual usage
+        interactor.handle(state: &state, action: .showMailComposer)
         
         interactor.handle(state: &state, action: .dismissMailComposer)
         

@@ -12,7 +12,9 @@ import Charts
 struct RunHistoryChart: View {
     @EnvironmentObject var settings: UserSettings
     let collatedHistory: [WeeklyCollatedNew]
-    @Binding var graphAllShoes: Bool
+    let parentInteractor: AddDistanceInteractor
+    let parentState: AddDistanceState
+    let setGraphAllShoes: (Bool) -> Void
     
     @State private var state = RunHistoryChartState()
     private let interactor: RunHistoryChartInteractor
@@ -27,9 +29,11 @@ struct RunHistoryChart: View {
         return calendar
     }
     
-    init(collatedHistory: [WeeklyCollatedNew], graphAllShoes: Binding<Bool>) {
+    init(collatedHistory: [WeeklyCollatedNew], parentInteractor: AddDistanceInteractor, parentState: AddDistanceState, setGraphAllShoes: @escaping (Bool) -> Void) {
         self.collatedHistory = collatedHistory
-        self._graphAllShoes = graphAllShoes
+        self.parentInteractor = parentInteractor
+        self.parentState = parentState
+        self.setGraphAllShoes = setGraphAllShoes
         self.interactor = RunHistoryChartInteractor()
     }
     
@@ -127,7 +131,7 @@ struct RunHistoryChart: View {
                                         proxy.scrollTo(lastItem.id)
                                     }
                                 }
-                                .onChange(of: state.graphAllShoes) {
+                                .onChange(of: parentState.graphAllShoes) {
                                     if let lastItem = state.chartData.last {
                                         proxy.scrollTo(lastItem.id)
                                     }
@@ -187,7 +191,7 @@ struct RunHistoryChart: View {
                     .dynamicTypeSize(.medium)
                 Spacer()
                 Button  {
-                    interactor.handle(state: &state, action: .toggleGraphAllShoes)
+                    setGraphAllShoes(!parentState.graphAllShoes)
                 } label: {
                     Text(graphAllShoesToggleText())
                         .font(.callout)
@@ -195,19 +199,15 @@ struct RunHistoryChart: View {
             }
         }
         .onAppear {
-            interactor.handle(state: &state, action: .viewAppeared)
             interactor.handle(state: &state, action: .dataUpdated(collatedHistory))
         }
         .onChange(of: collatedHistory) { _, newData in
             interactor.handle(state: &state, action: .dataUpdated(newData))
         }
-        .onChange(of: state.graphAllShoes) { _, newValue in
-            graphAllShoes = newValue
-        }
     }
     
     func graphAllShoesToggleText() -> String {
-        if state.graphAllShoes == true {
+        if parentState.graphAllShoes == true {
             return "Graph Current Shoe"
         }
         else {

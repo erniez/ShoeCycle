@@ -96,7 +96,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```swift
 // State: Pure struct with data only
 struct FeatureState {
-    var property: Type
+    fileprivate(set) var property: Type
 }
 
 // Interactor: Struct with Actions enum and handle method
@@ -144,9 +144,13 @@ struct FeatureView: View {
 
 ### VSI Architecture Rules
 - **State**: Structs only, no behavior or logic
+- **State Properties**: Use `fileprivate(set)` for all mutable state properties to prevent accidental direct mutations
 - **Actions**: All user interactions must go through action enum
 - **Interactor**: Handles ALL business logic, uses `inout state` for mutations
 - **View**: Custom bindings for all state changes, NEVER use `$state.property` directly
+- **Parent-Child Communication**: Pass parent interactor and closure-based setters, never direct state bindings
+- **Modal Bindings**: Create custom bindings for all modal presentations (`fullScreenCover`, `alert`, etc.)
+- **No Direct Parent State Access**: Child views should never receive `@Binding` to parent state properties
 - **Files**: Keep State/Interactor in separate `FeatureInteractions.swift` files
 - **Simple handlers**: Keep logic inline in switch cases unless complex
 - **Dependencies**: Inject services through interactor init, not environment objects
@@ -164,6 +168,152 @@ struct FeatureView: View {
 - Predictable state changes - easy debugging
 - Consistent pattern across entire codebase
 - SwiftUI-optimized architecture
+- **Compile-time safety**: `fileprivate(set)` prevents accidental state mutations
+- **Clear parent-child contracts**: Closure-based communication makes dependencies explicit
+- **Testable isolation**: Parent and child state management can be tested independently
+
+## Advanced VSI Patterns
+
+### Parent-Child Communication
+
+When child views need to modify parent state, use closure-based communication instead of direct state bindings:
+
+```swift
+// CORRECT: Closure-based parent state modification
+struct ChildView: View {
+    let parentInteractor: ParentInteractor
+    let parentState: ParentState
+    let setParentProperty: (PropertyType) -> Void
+    
+    var body: some View {
+        Button("Update Parent") {
+            setParentProperty(newValue)
+        }
+    }
+}
+
+// Parent View Implementation
+struct ParentView: View {
+    @State private var state = ParentState()
+    private let interactor = ParentInteractor()
+    
+    var body: some View {
+        ChildView(
+            parentInteractor: interactor,
+            parentState: state,
+            setParentProperty: { newValue in
+                interactor.handle(state: &state, action: .propertyChanged(newValue))
+            }
+        )
+    }
+}
+```
+
+### Custom Modal Bindings
+
+For modal presentations (`fullScreenCover`, `alert`, `sheet`), create custom bindings:
+
+```swift
+struct FeatureView: View {
+    @State private var state = FeatureState()
+    private let interactor = FeatureInteractor()
+    
+    var body: some View {
+        Button("Show Modal") {
+            interactor.handle(state: &state, action: .showModal)
+        }
+        .fullScreenCover(isPresented: showModalBinding) {
+            ModalView()
+        }
+    }
+    
+    private var showModalBinding: Binding<Bool> {
+        Binding(
+            get: { state.showModal },
+            set: { newValue in
+                if newValue {
+                    interactor.handle(state: &state, action: .showModal)
+                } else {
+                    interactor.handle(state: &state, action: .dismissModal)
+                }
+            }
+        )
+    }
+}
+```
+
+### Real-World Examples
+
+**Progress View Pattern** (ShoeCycleDistanceProgressView):
+```swift
+// Child view receives closure to modify parent bounce state
+ShoeCycleDistanceProgressView(
+    progressWidth: progressBarWidth,
+    value: shoe.totalDistance.doubleValue,
+    endvalue: shoe.maxDistance.intValue,
+    parentInteractor: interactor,
+    parentState: state,
+    setShouldBounce: { newValue in
+        interactor.handle(state: &state, action: .shouldBounceChanged(newValue))
+    }
+)
+```
+
+**Chart Component Pattern** (RunHistoryChart):
+```swift
+// Chart component with closure-based parent state modification
+RunHistoryChart(
+    collatedHistory: historiesToShow().collateHistories(ascending: true),
+    parentInteractor: interactor,
+    parentState: state,
+    setGraphAllShoes: { newValue in
+        interactor.handle(state: &state, action: .graphAllShoesToggled(newValue))
+    }
+)
+```
+
+**Modal Presentation Pattern** (HistoryListView):
+```swift
+// Custom binding for mail composer modal
+.fullScreenCover(isPresented: showMailComposerBinding) {
+    MailComposeView(shoe: shoe)
+}
+
+private var showMailComposerBinding: Binding<Bool> {
+    Binding(
+        get: { state.showMailComposer },
+        set: { newValue in
+            if newValue {
+                interactor.handle(state: &state, action: .showMailComposer)
+            } else {
+                interactor.handle(state: &state, action: .dismissMailComposer)
+            }
+        }
+    )
+}
+```
+
+### Anti-Patterns to Avoid
+
+❌ **Direct parent state bindings**:
+```swift
+// WRONG: Child can directly mutate parent state
+ChildView(someProperty: $parentState.property)
+```
+
+❌ **Direct state property bindings**:
+```swift
+// WRONG: Bypasses interactor action handling
+.fullScreenCover(isPresented: $state.showModal)
+```
+
+❌ **Mutable state properties without fileprivate(set)**:
+```swift
+// WRONG: Allows accidental direct mutations
+struct FeatureState {
+    var property: Type // Should be fileprivate(set)
+}
+```
 
 ## Xcode Project File Modification
 
