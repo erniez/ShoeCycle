@@ -13,14 +13,11 @@ I’ve totally rewritten the code from the ground up in SwiftUI. I have plans to
 
 This code base is a decent example of code quality. However, there are a few caveats that I must mention. I was learning SwiftUI as I was writing this. Some of the code is a little messy, and I will be refactoring it in the near future. The first screen I attacked was the main add distance screen, so it’s a bit disorganized. All database interaction code was a direct port from Objective-C to Swift. I will be refactoring this code as well. Please look at the develop branch to see the latest code work. 
 
-All the legacy code has been tucked away in the LegacyCode directory for historical purposes. Please don't look at it for examples of code quality 🙏
-
 ## Future Updates
 These are my near-term plans for updates:
 - Decoupling from all legacy code.
 - Refactoring some of the SwiftUI
 - Diving a little deeper into Core Data and refactoring the ShoeStore
-- Unit Tests (I want this app to have as many tests as possible)
 - Making a more valuable Strava integration.
 
 ## Running the App
