@@ -16,13 +16,30 @@ struct DateDistanceEntryView: View {
     @State private var interactor: DateDistanceEntryInteractor
     private let distanceUtility = DistanceUtility()
     
-    let parentInteractor: AddDistanceInteractor
-    @Binding var parentState: AddDistanceState
+    // Props from parent - specific data only
+    let currentDate: Date
+    let currentDistance: String
     
-    init(parentInteractor: AddDistanceInteractor, parentState: Binding<AddDistanceState>, shoe: Shoe) {
-        self.parentInteractor = parentInteractor
-        self._parentState = parentState
+    // Callbacks to parent - explicit actions
+    let onDateChanged: (Date) -> Void
+    let onDistanceChanged: (String) -> Void
+    let onDistanceAdded: () -> Void
+    let onBounceRequested: () -> Void
+    
+    init(shoe: Shoe, 
+         currentDate: Date,
+         currentDistance: String,
+         onDateChanged: @escaping (Date) -> Void,
+         onDistanceChanged: @escaping (String) -> Void,
+         onDistanceAdded: @escaping () -> Void,
+         onBounceRequested: @escaping () -> Void) {
         self.shoe = shoe
+        self.currentDate = currentDate
+        self.currentDistance = currentDistance
+        self.onDateChanged = onDateChanged
+        self.onDistanceChanged = onDistanceChanged
+        self.onDistanceAdded = onDistanceAdded
+        self.onBounceRequested = onBounceRequested
         // Initialize interactor with shoe, dependencies will be set in onAppear
         self._interactor = State(initialValue: DateDistanceEntryInteractor(shoe: shoe))
     }
@@ -112,7 +129,7 @@ struct DateDistanceEntryView: View {
             }
             .onChange(of: state.favoriteDistanceToAdd) { _, newValue in
                 if newValue > 0 {
-                    parentInteractor.handle(state: &parentState, action: .distanceChanged(distanceUtility.displayString(for: newValue)))
+                    onDistanceChanged(distanceUtility.displayString(for: newValue))
                 }
             }
             
@@ -122,16 +139,17 @@ struct DateDistanceEntryView: View {
                 ZStack {
                     Button {
                         dismissKeyboard()
-                        parentInteractor.handle(state: &parentState, action: .shouldBounceChanged(true))
+                        onBounceRequested()
                         if settings.healthKitEnabled || settings.stravaEnabled {
-                            interactor.handle(state: &state, action: .addDistancePressed(runDate: parentState.runDate, runDistance: parentState.runDistance))
+                            interactor.handle(state: &state, action: .addDistancePressed(runDate: currentDate, runDistance: currentDistance))
                             // Note: runDistance clearing will be handled by the async success callback in the interactor
                         }
                         else {
-                            let distance = distanceUtility.distance(from: parentState.runDistance)
-                            shoeStore.addHistory(to: shoe, date: parentState.runDate, distance: distance)
+                            let distance = distanceUtility.distance(from: currentDistance)
+                            shoeStore.addHistory(to: shoe, date: currentDate, distance: distance)
                             shoeStore.updateActiveShoes()
-                            parentInteractor.handle(state: &parentState, action: .distanceChanged(""))
+                            onDistanceAdded()
+                            onDistanceChanged("")
                         }
                     } label: {
                         Image("button-add-run")
@@ -186,26 +204,26 @@ struct DateDistanceEntryView: View {
         }
         .onChange(of: state.stravaLoading) { _, loading in
             // Clear distance when async operation completes successfully
-            if !loading && parentState.runDistance.count > 0 && !state.showAuthorizationDeniedAlert && !state.showReachabilityAlert && !state.showUnknownNetworkErrorAlert {
-                parentInteractor.handle(state: &parentState, action: .distanceChanged(""))
+            if !loading && currentDistance.count > 0 && !state.showAuthorizationDeniedAlert && !state.showReachabilityAlert && !state.showUnknownNetworkErrorAlert {
+                onDistanceChanged("")
             }
         }
     }
     
     private var runDateBinding: Binding<Date> {
         Binding(
-            get: { parentState.runDate },
+            get: { currentDate },
             set: { newValue in
-                parentInteractor.handle(state: &parentState, action: .dateChanged(newValue))
+                onDateChanged(newValue)
             }
         )
     }
     
     private var runDistanceBinding: Binding<String> {
         Binding(
-            get: { parentState.runDistance },
+            get: { currentDistance },
             set: { newValue in
-                parentInteractor.handle(state: &parentState, action: .distanceChanged(newValue))
+                onDistanceChanged(newValue)
             }
         )
     }
@@ -289,14 +307,30 @@ private extension DateDistanceEntryView {
 }
 
 struct DateDistanceEntryView_Previews: PreviewProvider {
-    @State static var parentState = AddDistanceState()
+    @State static var date = Date()
+    @State static var distance = ""
     @StateObject static var settings = UserSettings.shared
     static var shoe = MockShoeGenerator().generateNewShoeWithData()
-    static var parentInteractor = AddDistanceInteractor()
     
     static var previews: some View {
-        DateDistanceEntryView(parentInteractor: parentInteractor, parentState: $parentState, shoe: shoe)
-            .environmentObject(settings)
-            .background(Color.gray)
+        DateDistanceEntryView(
+            shoe: shoe,
+            currentDate: date,
+            currentDistance: distance,
+            onDateChanged: { newDate in
+                date = newDate
+            },
+            onDistanceChanged: { newDistance in
+                distance = newDistance
+            },
+            onDistanceAdded: {
+                print("Distance added")
+            },
+            onBounceRequested: {
+                print("Bounce requested")
+            }
+        )
+        .environmentObject(settings)
+        .background(Color.gray)
     }
 }

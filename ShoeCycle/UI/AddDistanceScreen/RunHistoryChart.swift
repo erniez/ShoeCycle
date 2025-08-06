@@ -12,9 +12,8 @@ import Charts
 struct RunHistoryChart: View {
     @EnvironmentObject var settings: UserSettings
     let collatedHistory: [WeeklyCollatedNew]
-    let parentInteractor: AddDistanceInteractor
-    let parentState: AddDistanceState
-    let setGraphAllShoes: (Bool) -> Void
+    let isGraphingAllShoes: Bool
+    let onToggleGraphAllShoes: () -> Void
     
     @State private var state = RunHistoryChartState()
     private let interactor: RunHistoryChartInteractor
@@ -29,11 +28,10 @@ struct RunHistoryChart: View {
         return calendar
     }
     
-    init(collatedHistory: [WeeklyCollatedNew], parentInteractor: AddDistanceInteractor, parentState: AddDistanceState, setGraphAllShoes: @escaping (Bool) -> Void) {
+    init(collatedHistory: [WeeklyCollatedNew], isGraphingAllShoes: Bool, onToggleGraphAllShoes: @escaping () -> Void) {
         self.collatedHistory = collatedHistory
-        self.parentInteractor = parentInteractor
-        self.parentState = parentState
-        self.setGraphAllShoes = setGraphAllShoes
+        self.isGraphingAllShoes = isGraphingAllShoes
+        self.onToggleGraphAllShoes = onToggleGraphAllShoes
         self.interactor = RunHistoryChartInteractor()
     }
     
@@ -131,7 +129,7 @@ struct RunHistoryChart: View {
                                         proxy.scrollTo(lastItem.id)
                                     }
                                 }
-                                .onChange(of: parentState.graphAllShoes) {
+                                .onChange(of: isGraphingAllShoes) { _, _ in
                                     if let lastItem = state.chartData.last {
                                         proxy.scrollTo(lastItem.id)
                                     }
@@ -191,7 +189,7 @@ struct RunHistoryChart: View {
                     .dynamicTypeSize(.medium)
                 Spacer()
                 Button  {
-                    setGraphAllShoes(!parentState.graphAllShoes)
+                    onToggleGraphAllShoes()
                 } label: {
                     Text(graphAllShoesToggleText())
                         .font(.callout)
@@ -207,7 +205,7 @@ struct RunHistoryChart: View {
     }
     
     func graphAllShoesToggleText() -> String {
-        if parentState.graphAllShoes == true {
+        if isGraphingAllShoes {
             return "Graph Current Shoe"
         }
         else {
