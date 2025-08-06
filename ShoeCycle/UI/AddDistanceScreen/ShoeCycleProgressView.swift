@@ -70,8 +70,8 @@ fileprivate struct ShoeCycleProgressView: View {
             .foregroundColor(progressColor)
             Spacer()
         }
-        .onChange(of: shouldBounce) { _, newValue in
-            if newValue {
+        .onChange(of: value) { _, _ in
+            if shouldBounce {
                 interactor.handle(state: &state, action: .bounceTriggered)
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationDuration) {
                     interactor.handle(state: &state, action: .bounceStateChanged(false))
