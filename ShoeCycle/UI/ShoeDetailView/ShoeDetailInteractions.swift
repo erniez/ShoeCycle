@@ -16,6 +16,7 @@ struct ShoeDetailState {
     fileprivate(set) var startDate: Date
     fileprivate(set) var expirationDate: Date
     fileprivate(set) var hasChanged: Bool = false
+    fileprivate(set) var showDeleteConfirmation: Bool = false
     
     let shoeURL: URL
     let newShoe: Shoe?
@@ -64,6 +65,9 @@ struct ShoeDetailInteractor {
         case cancelNewShoe
         case saveNewShoe
         case viewDisappeared
+        case deleteShoe
+        case confirmDelete
+        case cancelDelete
     }
     
     private var store: ShoeStore?
@@ -125,6 +129,19 @@ struct ShoeDetailInteractor {
                 AnalyticsFactory.sharedAnalyticsLogger().logEvent(name: AnalyticsKeys.Event.didEditShoe, userInfo: nil)
                 updateShoeValues(state: state)
             }
+            
+        case .deleteShoe:
+            state.showDeleteConfirmation = true
+            
+        case .confirmDelete:
+            state.showDeleteConfirmation = false
+            if let shoe = getShoe(from: state) {
+                store.remove(shoe: shoe)
+                selectedShoeStrategy?.updateSelectedShoe()
+            }
+            
+        case .cancelDelete:
+            state.showDeleteConfirmation = false
         }
     }
     

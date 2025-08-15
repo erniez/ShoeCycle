@@ -109,6 +109,19 @@ struct ShoeDetailView: View {
                 if state.newShoe == nil {
                     HallOfFameSelector(hallOfFameBinding: hallOfFameBinding)
                         .padding([.top], 16)
+                    
+                    // Delete Button - only for existing shoes
+                    Button("Delete Shoe") {
+                        interactor.handle(state: &state, action: .deleteShoe)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(Color.red)
+                    .cornerRadius(8)
+                    .frame(width: UIScreen.main.bounds.width * 0.5)
+                    .contentShape(Rectangle())
+                    .padding([.top], 16)
                 }
                 
                 Spacer()
@@ -136,6 +149,17 @@ struct ShoeDetailView: View {
             }
             .onDisappear {
                 interactor.handle(state: &state, action: .viewDisappeared)
+            }
+            .alert("Delete Shoe", isPresented: showDeleteConfirmationBinding) {
+                Button("Cancel", role: .cancel) {
+                    interactor.handle(state: &state, action: .cancelDelete)
+                }
+                Button("Delete", role: .destructive) {
+                    interactor.handle(state: &state, action: .confirmDelete)
+                    dismiss()
+                }
+            } message: {
+                Text("Are you sure you want to delete this shoe? This action cannot be undone.")
             }
             .navigationBarTitleDisplayMode(.inline)
             .ignoresSafeArea(.keyboard, edges: [.bottom])
@@ -189,6 +213,17 @@ struct ShoeDetailView: View {
         Binding(
             get: { interactor.getHallOfFameStatus(from: state) },
             set: { interactor.handle(state: &state, action: .hallOfFameToggled($0)) }
+        )
+    }
+    
+    private var showDeleteConfirmationBinding: Binding<Bool> {
+        Binding(
+            get: { state.showDeleteConfirmation },
+            set: { newValue in
+                if !newValue {
+                    interactor.handle(state: &state, action: .cancelDelete)
+                }
+            }
         )
     }
     
