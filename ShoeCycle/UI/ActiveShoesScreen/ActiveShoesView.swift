@@ -56,11 +56,8 @@ struct ActiveShoesView: View {
                 }
             }
             .navigationDestination(for: ShoeListRowViewModel.self) { viewModel in
-                if let viewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: viewModel.shoeURL) {
-                    ShoeDetailView(viewModel: viewModel,
-                                   selectedShoeStrategy: selectedShoeStrategy)
-                }
-
+                ShoeDetailView(shoeURL: viewModel.shoeURL,
+                               selectedShoeStrategy: selectedShoeStrategy)
             }
             .navigationTitle("Active Shoes")
             .toolbar {
@@ -74,7 +71,8 @@ struct ActiveShoesView: View {
         }
         .fullScreenCover(isPresented: $presentNewShoeView) {
             let shoe = createShoe()
-            ShoeDetailView(viewModel: ShoeDetailViewModel(store: shoeStore, shoeURL: shoe.objectID.uriRepresentation(), newShoe: shoe)!,
+            ShoeDetailView(shoeURL: shoe.objectID.uriRepresentation(),
+                           newShoe: shoe,
                            selectedShoeStrategy: selectedShoeStrategy)
         }
         .onAppear {

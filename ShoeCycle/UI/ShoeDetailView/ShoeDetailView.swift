@@ -8,150 +8,35 @@
 import SwiftUI
 import PhotosUI
 
-class ShoeDetailViewModel: ObservableObject, Hashable {
-    
-    static func == (lhs: ShoeDetailViewModel, rhs: ShoeDetailViewModel) -> Bool {
-        return lhs.shoeURL == rhs.shoeURL
-    }
-    
-    @Published var shoeName: String {
-        didSet {
-            hasChanged = true
-        }
-    }
-    @Published var startDistance: String {
-        didSet {
-            hasChanged = true
-        }
-    }
-    @Published var maxDistance: String {
-        didSet {
-            hasChanged = true
-        }
-    }
-    @Published var startDate: Date {
-        didSet {
-            hasChanged = true
-        }
-    }
-    @Published var expirationDate: Date {
-        didSet {
-            hasChanged = true
-        }
-    }
-    
-    var isNewShoe: Bool {
-        return newShoe != nil
-    }
-    
-    var hallOfFame: Bool {
-        get {
-            guard let shoe = getShoe() else {
-                return false
-            }
-            return shoe.hallOfFame
-        }
-        set {
-            guard let shoe = getShoe() else {
-                return
-            }
-            shoe.hallOfFame = newValue
-        }
-    }
-    
-    let shoeURL: URL
-    let newShoe: Shoe?
-    @Published var hasChanged = false
-    
-    private let store: ShoeStore
-    private let distanceUtility = DistanceUtility()
-    
-    init?(store: ShoeStore, shoeURL: URL, newShoe: Shoe? = nil) {
-        self.shoeURL = shoeURL
-        self.store = store
-        if let shoe = newShoe {
-            shoeName = shoe.brand
-            startDistance = distanceUtility.displayString(for: shoe.startDistance.doubleValue)
-            maxDistance = distanceUtility.displayString(for: shoe.maxDistance.doubleValue)
-            startDate = shoe.startDate
-            expirationDate = shoe.expirationDate
-        }
-        else {
-            guard let shoe = store.getShoe(from: shoeURL) else {
-                return nil
-            }
-            shoeName = shoe.brand
-            startDistance = distanceUtility.displayString(for: shoe.startDistance.doubleValue)
-            maxDistance = distanceUtility.displayString(for: shoe.maxDistance.doubleValue)
-            startDate = shoe.startDate
-            expirationDate = shoe.expirationDate
-            AnalyticsFactory.sharedAnalyticsLogger().logEvent(name: AnalyticsKeys.Event.viewShoeDetail, userInfo: nil)
-        }
-        self.newShoe = newShoe
-    }
-    
-    /**
-     Picks which shoe to update. If it's a new shoe, we update that one.
-     Otherwise, we update the one pointed to by the URL, if it still exists.
-     If neither shoe exists, we return with no action.
-    */
-    func updateShoeValues() {
-        let shoeToUpdate: Shoe?
-        if isNewShoe {
-            shoeToUpdate = newShoe
-        }
-        else {
-            shoeToUpdate = store.getShoe(from: shoeURL)
-        }
-        
-        guard let shoe = shoeToUpdate else {
-            return
-        }
-        shoe.brand = shoeName
-        shoe.startDistance = NSNumber(value: distanceUtility.distance(from: startDistance))
-        shoe.maxDistance = NSNumber(value: distanceUtility.distance(from: maxDistance))
-        store.updateTotalDistance(shoe: shoe)
-        shoe.startDate = startDate
-        shoe.expirationDate = expirationDate
-    }
-    
-    func getShoe() -> Shoe? {
-        if let shoe = newShoe {
-            return shoe
-        }
-        return store.getShoe(from: shoeURL)
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(shoeURL)
-    }
-}
-
 struct ShoeDetailView: View {
     @EnvironmentObject private var shoeStore: ShoeStore
-    @ObservedObject var viewModel: ShoeDetailViewModel
+    @State private var state: ShoeDetailState
+    @State private var interactor: ShoeDetailInteractor
     @Environment(\.dismiss) var dismiss
-    let selectedShoeStrategy: SelectedShoeStrategy?
     
-    init(viewModel: ShoeDetailViewModel, selectedShoeStrategy: SelectedShoeStrategy? = nil) {
-        self.viewModel = viewModel
-        self.selectedShoeStrategy = selectedShoeStrategy
+    private let shoeURL: URL
+    private let newShoe: Shoe?
+    
+    init(shoeURL: URL, newShoe: Shoe? = nil, selectedShoeStrategy: SelectedShoeStrategy? = nil) {
+        self.shoeURL = shoeURL
+        self.newShoe = newShoe
+        let dummyStore = ShoeStore() // Temporary store for initialization
+        self._state = State(initialValue: ShoeDetailState(shoeURL: shoeURL, newShoe: newShoe, store: dummyStore))
+        self._interactor = State(initialValue: ShoeDetailInteractor(selectedShoeStrategy: selectedShoeStrategy))
     }
     
     var body: some View {
-        if let shoe = viewModel.getShoe() {
+        if let shoe = getShoe() {
             VStack {
-                if viewModel.isNewShoe == true {
+                if state.isNewShoe == true {
                     HStack {
                         Button("Cancel") {
-                            if let shoe = viewModel.newShoe {
-                                shoeStore.remove(shoe: shoe)
-                            }
+                            interactor.handle(state: &state, action: .cancelNewShoe)
                             dismiss()
                         }
                         Spacer()
                         Button("Done") {
-                            updateShoes(viewModel: viewModel)
+                            interactor.handle(state: &state, action: .saveNewShoe)
                             dismiss()
                         }
                     }
@@ -159,7 +44,7 @@ struct ShoeDetailView: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Name:")
-                    TextField("Shoe Name", text: $viewModel.shoeName, prompt: Text("Shoe Name"))
+                    TextField("Shoe Name", text: shoeNameBinding, prompt: Text("Shoe Name"))
                         .textFieldStyle(TextEntryStyle())
                         .padding([.bottom], 8)
                 }
@@ -171,13 +56,13 @@ struct ShoeDetailView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Start:")
-                        TextField("Start Distance", text: $viewModel.startDistance)
+                        TextField("Start Distance", text: startDistanceBinding)
                             .textFieldStyle(.numberEntry)
                     }
                     .padding([.horizontal], 16)
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Max:")
-                        TextField("Max Distance", text: $viewModel.maxDistance)
+                        TextField("Max Distance", text: maxDistanceBinding)
                             .textFieldStyle(.numberEntry)
                     }
                     .padding([.horizontal], 16)
@@ -191,7 +76,7 @@ struct ShoeDetailView: View {
                         Text("Start:")
                         Spacer()
                         DatePicker("Start Date",
-                                   selection: $viewModel.startDate,
+                                   selection: startDateBinding,
                                    displayedComponents: [.date])
                         .accentColor(.shoeCycleOrange)
                         .foregroundColor(.white)
@@ -204,7 +89,7 @@ struct ShoeDetailView: View {
                         Text("End:")
                         Spacer()
                         DatePicker("Expiration Date",
-                                   selection: $viewModel.expirationDate,
+                                   selection: expirationDateBinding,
                                    displayedComponents: [.date])
                         .accentColor(.shoeCycleOrange)
                         .foregroundColor(.white)
@@ -221,8 +106,8 @@ struct ShoeDetailView: View {
                 ShoeImage(shoe: shoe)
                     .padding([.horizontal], 32)
                 
-                if viewModel.newShoe == nil {
-                    HallOfFameSelector(viewModel: viewModel)
+                if state.newShoe == nil {
+                    HallOfFameSelector(hallOfFameBinding: hallOfFameBinding)
                         .padding([.top], 16)
                 }
                 
@@ -230,7 +115,7 @@ struct ShoeDetailView: View {
                 
                 #if DEBUG
                 Button("Generate Histories") {
-                    updateShoes(viewModel: viewModel)
+                    interactor.handle(state: &state, action: .saveNewShoe)
                     MockShoeGenerator(store: shoeStore).addRunHistories(to: shoe, saveData: true)
                     shoeStore.updateAllShoes()
                     dismiss()
@@ -243,11 +128,14 @@ struct ShoeDetailView: View {
             .dynamicTypeSize(.medium ... .xLarge)
             .padding([.horizontal], 16)
             .background(.patternedBackground)
+            .onAppear {
+                interactor.setStore(shoeStore)
+                // Recreate state with proper store
+                state = ShoeDetailState(shoeURL: shoeURL, newShoe: newShoe, store: shoeStore)
+                interactor.handle(state: &state, action: .viewAppeared)
+            }
             .onDisappear {
-                if viewModel.isNewShoe == false, viewModel.hasChanged == true {
-                    AnalyticsFactory.sharedAnalyticsLogger().logEvent(name: AnalyticsKeys.Event.didEditShoe, userInfo: nil)
-                    updateShoes(viewModel: viewModel)
-                }
+                interactor.handle(state: &state, action: .viewDisappeared)
             }
             .navigationBarTitleDisplayMode(.inline)
             .ignoresSafeArea(.keyboard, edges: [.bottom])
@@ -260,21 +148,64 @@ struct ShoeDetailView: View {
         
     }
     
-    // TODO: Move this business logic into an interactor
-    func updateShoes(viewModel: ShoeDetailViewModel) {
-        viewModel.updateShoeValues()
-        shoeStore.saveContext()
-        shoeStore.updateAllShoes()
-        selectedShoeStrategy?.updateSelectedShoe()
+    // MARK: - Custom Bindings
+    
+    private var shoeNameBinding: Binding<String> {
+        Binding(
+            get: { state.shoeName },
+            set: { interactor.handle(state: &state, action: .shoeNameChanged($0)) }
+        )
+    }
+    
+    private var startDistanceBinding: Binding<String> {
+        Binding(
+            get: { state.startDistance },
+            set: { interactor.handle(state: &state, action: .startDistanceChanged($0)) }
+        )
+    }
+    
+    private var maxDistanceBinding: Binding<String> {
+        Binding(
+            get: { state.maxDistance },
+            set: { interactor.handle(state: &state, action: .maxDistanceChanged($0)) }
+        )
+    }
+    
+    private var startDateBinding: Binding<Date> {
+        Binding(
+            get: { state.startDate },
+            set: { interactor.handle(state: &state, action: .startDateChanged($0)) }
+        )
+    }
+    
+    private var expirationDateBinding: Binding<Date> {
+        Binding(
+            get: { state.expirationDate },
+            set: { interactor.handle(state: &state, action: .expirationDateChanged($0)) }
+        )
+    }
+    
+    private var hallOfFameBinding: Binding<Bool> {
+        Binding(
+            get: { interactor.getHallOfFameStatus(from: state) },
+            set: { interactor.handle(state: &state, action: .hallOfFameToggled($0)) }
+        )
+    }
+    
+    // Helper method to get shoe using environment object store
+    private func getShoe() -> Shoe? {
+        if let shoe = newShoe {
+            return shoe
+        }
+        return shoeStore.getShoe(from: shoeURL)
     }
 }
 
 struct ShoeDetailView_Previews: PreviewProvider {
     static let shoe = MockShoeGenerator().generateNewShoeWithData(saveData: true)
-    static let viewModel = ShoeDetailViewModel(store: ShoeStore(), shoeURL: shoe.objectID.uriRepresentation())!
     
     static var previews: some View {
-        ShoeDetailView(viewModel: viewModel,
+        ShoeDetailView(shoeURL: shoe.objectID.uriRepresentation(),
                        selectedShoeStrategy: SelectedShoeStrategy(store: ShoeStore(), 
                                                                   settings: UserSettings.shared))
     }

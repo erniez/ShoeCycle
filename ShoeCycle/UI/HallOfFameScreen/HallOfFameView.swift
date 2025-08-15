@@ -43,9 +43,7 @@ struct HallOfFameView: View {
                         }
                     }
                     .navigationDestination(for: ShoeListRowViewModel.self) { viewModel in
-                        if let detailViewModel = ShoeDetailViewModel(store: shoeStore, shoeURL: viewModel.shoeURL) {
-                            ShoeDetailView(viewModel: detailViewModel)
-                        }
+                        ShoeDetailView(shoeURL: viewModel.shoeURL)
                     }
                     .navigationTitle("Hall of Fame Shoes")
                 }

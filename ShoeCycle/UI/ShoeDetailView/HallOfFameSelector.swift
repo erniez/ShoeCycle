@@ -8,31 +8,29 @@
 import SwiftUI
 
 struct HallOfFameSelector: View {
-    @ObservedObject var viewModel: ShoeDetailViewModel
+    @Binding var hallOfFameBinding: Bool
     private let analytics = AnalyticsFactory.sharedAnalyticsLogger()
     
     var body: some View {
         HStack {
             Text("🏆")
             Group {
-                if viewModel.hallOfFame == true {
+                if hallOfFameBinding == true {
                     Text("Remove from Hall of Fame")
                         .onTapGesture {
-                            viewModel.hallOfFame = false
-                            viewModel.hasChanged = true
+                            hallOfFameBinding = false
                         }
                 }
                 else {
                     Text("Add to Hall of Fame")
                         .onTapGesture {
-                            viewModel.hallOfFame = true
-                            viewModel.hasChanged = true
+                            hallOfFameBinding = true
                         }
                 }
             }
         }
-        .animation(.default, value: viewModel.hallOfFame)
-        .onChange(of: viewModel.hallOfFame) { _, newValue in
+        .animation(.default, value: hallOfFameBinding)
+        .onChange(of: hallOfFameBinding) { _, newValue in
             if newValue == true {
                 analytics.logEvent(name: AnalyticsKeys.Event.addToHOFEvent, userInfo: nil)
             }

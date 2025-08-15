@@ -73,6 +73,7 @@
 		1BA7B2CE2ABCBEAF0005958E /* AnalyticsKeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7B2CD2ABCBEAF0005958E /* AnalyticsKeyNames.swift */; };
 		1BA7B2D02ABCC3C30005958E /* AnalyticsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7B2CF2ABCC3C30005958E /* AnalyticsFactory.swift */; };
 		1BA84A062ABBBC830020ECB0 /* SelectedShoeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */; };
+		1BA84AFA2E4CD32900013A98 /* ShoeDetailInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA84AF92E4CD32900013A98 /* ShoeDetailInteractions.swift */; };
 		1BAC720A2377351200390E8B /* ShoeCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC72092377351200390E8B /* ShoeCycleTests.swift */; };
 		1BAD389219E25C4000161DA8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAD389119E25C4000161DA8 /* HealthKit.framework */; };
 		1BB8A813288497B500B45B67 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BB8A812288497B500B45B67 /* FirebaseAnalytics */; };
@@ -108,6 +109,7 @@
 		1BE540682AAA231300DCC109 /* StravaTokenKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540672AAA231300DCC109 /* StravaTokenKeeper.swift */; };
 		1BE5406A2AAB73B500DCC109 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE540692AAB73B500DCC109 /* HealthKitService.swift */; };
 		1BF005412A58C430007AE489 /* HallOfFameSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF005402A58C430007AE489 /* HallOfFameSelector.swift */; };
+		3405C1C06E8559F7D75320FB /* ShoeDetailInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1246FB9C56390FC3DF9193 /* ShoeDetailInteractions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +205,7 @@
 		1BA7B2CD2ABCBEAF0005958E /* AnalyticsKeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsKeyNames.swift; sourceTree = "<group>"; };
 		1BA7B2CF2ABCC3C30005958E /* AnalyticsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsFactory.swift; sourceTree = "<group>"; };
 		1BA84A052ABBBC830020ECB0 /* SelectedShoeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedShoeStrategy.swift; sourceTree = "<group>"; };
+		1BA84AF92E4CD32900013A98 /* ShoeDetailInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeDetailInteractions.swift; sourceTree = "<group>"; };
 		1BAC72072377351200390E8B /* ShoeCycleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoeCycleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BAC72092377351200390E8B /* ShoeCycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeCycleTests.swift; sourceTree = "<group>"; };
 		1BAC720B2377351200390E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -244,6 +247,7 @@
 		1BE540672AAA231300DCC109 /* StravaTokenKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaTokenKeeper.swift; sourceTree = "<group>"; };
 		1BE540692AAB73B500DCC109 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		1BF005402A58C430007AE489 /* HallOfFameSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallOfFameSelector.swift; sourceTree = "<group>"; };
+		4B1246FB9C56390FC3DF9193 /* ShoeDetailInteractions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShoeDetailInteractions.swift; path = ShoeCycle/UI/ShoeDetailView/ShoeDetailInteractions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				1BF005402A58C430007AE489 /* HallOfFameSelector.swift */,
+				1BA84AF92E4CD32900013A98 /* ShoeDetailInteractions.swift */,
 				1B3D29D92A46319700BE7956 /* ShoeDetailView.swift */,
 			);
 			path = ShoeDetailView;
@@ -460,6 +465,7 @@
 				1BAC72082377351200390E8B /* ShoeCycleTests */,
 				1BCF643C148AF7E7004C0E6A /* Frameworks */,
 				1BCF643A148AF7E7004C0E6A /* Products */,
+				2B6F9DBFFC23902E6C66704B /* UI */,
 			);
 			sourceTree = "<group>";
 		};
@@ -537,6 +543,22 @@
 				1B68ACA22ABFA9BE00348E8A /* StravaURLs.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2B6F9DBFFC23902E6C66704B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				76411FED9C44848012CD52B7 /* ShoeDetailView */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		76411FED9C44848012CD52B7 /* ShoeDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				4B1246FB9C56390FC3DF9193 /* ShoeDetailInteractions.swift */,
+			);
+			name = ShoeDetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -756,6 +778,7 @@
 				1B0AD7F52A2CE7C2006AB307 /* ViewExtensions.swift in Sources */,
 				1BBC60632AE4CD19008B0FE0 /* Logging.swift in Sources */,
 				1BE540642AA81E6D00DCC109 /* StravaService.swift in Sources */,
+				1BA84AFA2E4CD32900013A98 /* ShoeDetailInteractions.swift in Sources */,
 				1B0D52132A5345A7001D3DB9 /* CameraPickerView.swift in Sources */,
 				1BE540662AA92CF600DCC109 /* NetworkService.swift in Sources */,
 				1B1738E12A06BBA2006D632D /* ColorExtension.swift in Sources */,
@@ -776,6 +799,7 @@
 				1B0CEA032AF07744003D427A /* MailComposeView.swift in Sources */,
 				1BC08E7B14D42171007A4344 /* Shoe.m in Sources */,
 				1B3D29D52A3E794A00BE7956 /* Line.swift in Sources */,
+				3405C1C06E8559F7D75320FB /* ShoeDetailInteractions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
