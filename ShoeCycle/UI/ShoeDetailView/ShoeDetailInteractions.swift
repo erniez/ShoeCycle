@@ -113,12 +113,15 @@ struct ShoeDetailInteractor {
             state.hasChanged = true
             
         case .hallOfFameToggled(let newValue):
-            guard let shoe = getShoe(from: state) else { return }
+            guard let shoe = getShoe(from: state), let storeRef = self.store else { return }
             shoe.hallOfFame = newValue
+            storeRef.saveContext()
+            storeRef.updateAllShoes()
             
         case .cancelNewShoe:
+            guard let storeRef = self.store else { return }
             if let shoe = state.newShoe {
-                store.remove(shoe: shoe)
+                storeRef.remove(shoe: shoe)
             }
             
         case .saveNewShoe:
@@ -135,8 +138,9 @@ struct ShoeDetailInteractor {
             
         case .confirmDelete:
             state.showDeleteConfirmation = false
+            guard let storeRef = self.store else { return }
             if let shoe = getShoe(from: state) {
-                store.remove(shoe: shoe)
+                storeRef.remove(shoe: shoe)
                 selectedShoeStrategy?.updateSelectedShoe()
             }
             

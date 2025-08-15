@@ -28,10 +28,6 @@ struct HallOfFameView: View {
                                 HallOfFameRowView(viewModel: viewModel)
                             }
                         }
-                        .onDelete { indexSet in
-                            let shoesToRemove = indexSet.map { shoeRowViewModels[$0] }
-                            shoesToRemove.forEach { shoeStore.removeShoe(with: $0.shoeURL) }
-                        }
                         .onMove { fromOffsets, toOffset in
                             let urls = shoeRowViewModels.getShoeURLs(fromOffsets: fromOffsets, toOffset: toOffset)
                             // Short circuiting the UDF here to allow for smooth UI
