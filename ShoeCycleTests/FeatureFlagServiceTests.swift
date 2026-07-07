@@ -101,6 +101,48 @@ final class FeatureFlagServiceTests: XCTestCase {
         XCTAssertFalse(state.bucketingId.isEmpty, "Identity must be resolved before evaluation")
     }
 
+    // Given: A successful viewAppeared resolves the demo badge ON, then the network fails on a
+    //        later refresh (e.g. FeatureFlagsStore's periodic background timer hits a network blip)
+    // When: .refresh is dispatched again against the now-offline service
+    // Then: resolvedFlags is unchanged — a failed refresh must never wipe the last-good resolved
+    //       state, only FeatureFlagService.loadFlags()'s cache-degrade contract keeps this true,
+    //       and nothing previously pinned that one level up, through the interactor (code review)
+    func testFailedRefreshPreservesLastGoodResolvedFlags() async {
+        let defaults = makeTestDefaults()
+        let network = StubRESTService()
+        network.stub(data: Self.demoBadgeOnPayload)
+        let service = FeatureFlagService(network: network, userDefaults: defaults)
+        let interactor = FeatureFlagsInteractor(
+            service: service,
+            identityProvider: FeatureFlagIdentityProvider(userDefaults: makeTestDefaults())
+        )
+
+        let box = Box(FeatureFlagsState())
+        let binding = Binding<FeatureFlagsState>(get: { box.value }, set: { box.value = $0 })
+        await interactor.handle(state: binding, action: .viewAppeared)
+
+        XCTAssertTrue(
+            box.value.isEnabled(FeatureFlagKey.settingsDemoBadge),
+            "Sanity: flag must resolve ON from the good fetch before the offline refresh"
+        )
+
+        // Same network stub instance, now failing — service.loadFlags() degrades to its own
+        // cache (populated by the successful viewAppeared above), not to empty.
+        network.stub(error: URLError(.notConnectedToInternet))
+        await interactor.handle(state: binding, action: .refresh)
+
+        XCTAssertTrue(
+            box.value.isEnabled(FeatureFlagKey.settingsDemoBadge),
+            "A failed refresh must preserve the last-good resolved value, not wipe it"
+        )
+    }
+
+    private static let demoBadgeOnPayload = """
+    { "flags": [
+        { "key": "ios-settings-demo-badge", "enabled": true, "rolloutPercentage": 100 }
+    ] }
+    """.data(using: .utf8)!
+
     // MARK: - Kill switch fails CLOSED on malformed `enabled` (ShoeCycle-Web-rae, AC3)
 
     // Given: A served payload whose only flag's `enabled` kill switch is JSON null at 100% rollout
@@ -247,6 +289,13 @@ private final class Box<T> {
 /// abstraction (ShoeCycle-Web-54b) — matching how Strava's services are tested. Each test
 /// creates its own instance, so (unlike a static-state `URLProtocol` stub) nothing here requires
 /// serial test execution to stay deterministic.
+///
+/// `@MainActor`-isolated deliberately, not coincidentally: this stub's mutable `stubbedData` /
+/// `stubbedError` are plain (non-`Sendable`) `var`s, unlike the real `NetworkService`, which is
+/// safe to call from any isolation. Confining the stub to the same actor as the `@MainActor` test
+/// class that owns it makes that safety structural instead of relying on every test happening to
+/// call it single-threaded.
+@MainActor
 private final class StubRESTService: RESTService {
     enum DomainError: Error {
         case unknown

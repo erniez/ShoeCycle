@@ -67,6 +67,12 @@ struct FeatureFlagsResponse: Decodable, Equatable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        // If `flags` itself isn't a JSON array (wrong type, or absent with no default), this
+        // throws HERE, before the loop below ever starts — a single call, not a loop, so it needs
+        // no termination proof of its own. That failure propagates out of this initializer to
+        // `FeatureFlagService.loadFlags()`, which degrades to the cache like any other decode
+        // failure. The provably-terminating loop below only concerns per-ELEMENT failures once we
+        // are already inside a valid array.
         var flagsContainer = try container.nestedUnkeyedContainer(forKey: .flags)
         var decodedFlags: [FeatureFlag] = []
         while !flagsContainer.isAtEnd {

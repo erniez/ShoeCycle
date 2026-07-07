@@ -114,6 +114,7 @@
 		1BF005412A58C430007AE489 /* HallOfFameSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF005402A58C430007AE489 /* HallOfFameSelector.swift */; };
 		3405C1C06E8559F7D75320FB /* ShoeDetailInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1246FB9C56390FC3DF9193 /* ShoeDetailInteractions.swift */; };
 		40390D34B74E64517822970D /* FeatureFlagsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BB6BBE690E8808AC988BFB /* FeatureFlagsStore.swift */; };
+		40873A11D493248EFBD66D94 /* FeatureFlagsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8053587C7DEA917A6433D /* FeatureFlagsStoreTests.swift */; };
 		4E43F0F1C957FAD869AF8057 /* FeatureFlagEvaluatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30180211744D5F67BAF5619E /* FeatureFlagEvaluatorTests.swift */; };
 		61E85A696365099DB7632657 /* FeatureFlagIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210BF0AA78E338151EB6162F /* FeatureFlagIdentityTests.swift */; };
 		852F6A81BA3540B983758652 /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EDB40798EC7B057B35030 /* FeatureFlag.swift */; };
@@ -261,6 +262,7 @@
 		30180211744D5F67BAF5619E /* FeatureFlagEvaluatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeatureFlagEvaluatorTests.swift; sourceTree = "<group>"; };
 		41A0CA51E2DF635BFC9ACE72 /* FeatureFlagService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagService.swift; path = FeatureFlagService.swift; sourceTree = "<group>"; };
 		4B1246FB9C56390FC3DF9193 /* ShoeDetailInteractions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShoeDetailInteractions.swift; path = ShoeCycle/UI/ShoeDetailView/ShoeDetailInteractions.swift; sourceTree = "<group>"; };
+		55D8053587C7DEA917A6433D /* FeatureFlagsStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagsStoreTests.swift; path = ShoeCycleTests/FeatureFlagsStoreTests.swift; sourceTree = "<group>"; };
 		57BB6BBE690E8808AC988BFB /* FeatureFlagsStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagsStore.swift; path = ShoeCycle/Services/FeatureFlagsStore.swift; sourceTree = "<group>"; };
 		83DA7C8DF3840B6E76BD7C47 /* FeatureFlagIdentity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagIdentity.swift; path = FeatureFlagIdentity.swift; sourceTree = "<group>"; };
 		91182BCACB48ECBE48EF4D86 /* FeatureFlagsInteractions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagsInteractions.swift; path = FeatureFlagsInteractions.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				1BCF643A148AF7E7004C0E6A /* Products */,
 				2B6F9DBFFC23902E6C66704B /* UI */,
 				5DE56CEE8A00701691978BA2 /* Services */,
+				FC730D1D88A65DB46FBE720E /* ShoeCycleTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -594,6 +597,14 @@
 				4B1246FB9C56390FC3DF9193 /* ShoeDetailInteractions.swift */,
 			);
 			name = ShoeDetailView;
+			sourceTree = "<group>";
+		};
+		FC730D1D88A65DB46FBE720E /* ShoeCycleTests */ = {
+			isa = PBXGroup;
+			children = (
+				55D8053587C7DEA917A6433D /* FeatureFlagsStoreTests.swift */,
+			);
+			name = ShoeCycleTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -761,6 +772,7 @@
 				4E43F0F1C957FAD869AF8057 /* FeatureFlagEvaluatorTests.swift in Sources */,
 				99D8446172BEAE385F499433 /* FeatureFlagServiceTests.swift in Sources */,
 				61E85A696365099DB7632657 /* FeatureFlagIdentityTests.swift in Sources */,
+				40873A11D493248EFBD66D94 /* FeatureFlagsStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
