@@ -190,4 +190,14 @@ final class FeatureFlagEvaluatorTests: XCTestCase {
             XCTAssertFalse(FeatureFlagEvaluator.isEnabled(flag, bucketingId: "id"))
         }
     }
+
+    // Given: JSON where `flags` itself is not an array (a structurally invalid payload)
+    // When: Decoding FeatureFlagsResponse
+    // Then: The whole decode throws immediately — before the per-element lossy loop ever starts
+    //       — rather than hanging or silently succeeding with garbage. FeatureFlagService is what
+    //       degrades this to the cache; this test only pins that the decoder itself fails fast.
+    func testFlagsNotAnArrayThrowsRatherThanHanging() {
+        let json = #"{ "flags": "not-an-array" }"#.data(using: .utf8)!
+        XCTAssertThrowsError(try JSONDecoder().decode(FeatureFlagsResponse.self, from: json))
+    }
 }

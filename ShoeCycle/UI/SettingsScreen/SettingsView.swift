@@ -11,11 +11,9 @@ import AuthenticationServices
 
 struct SettingsView: View {
     @EnvironmentObject var settings: UserSettings
-
-    // Feature-flag feature state. The view observes resolved booleans only (via
-    // state.isEnabled), never the raw service or evaluation logic — the interactor owns fetch.
-    @State private var flagsState = FeatureFlagsState()
-    private let flagsInteractor = FeatureFlagsInteractor()
+    // Feature flags load once at app launch and refresh on a timer (AppView.swift) — this view
+    // only reads the shared, already-resolved state. It never owns a fetch or an interactor.
+    @EnvironmentObject var featureFlags: FeatureFlagsStore
 
     var body: some View {
         // NavigationView is required for keyboard toolbars to work properly in SwiftUI
@@ -31,7 +29,7 @@ struct SettingsView: View {
                     SettingsStravaView(interactor: StravaInteractor(settings: settings))
                     // Trivial reversible demo element gated behind a feature flag to prove the
                     // toggle system end-to-end. Toggling the flag server-side shows/hides it.
-                    if flagsState.isEnabled(FeatureFlagKey.settingsDemoBadge) {
+                    if featureFlags.isEnabled(FeatureFlagKey.settingsDemoBadge) {
                         FeatureFlagDemoBadge()
                     }
                     AboutView()
@@ -40,9 +38,6 @@ struct SettingsView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
             .background(.patternedBackground)
-        }
-        .task {
-            await flagsInteractor.handle(state: $flagsState, action: .viewAppeared)
         }
     }
 
@@ -426,5 +421,7 @@ struct AboutView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environmentObject(UserSettings.shared)
+            .environmentObject(FeatureFlagsStore())
     }
 }

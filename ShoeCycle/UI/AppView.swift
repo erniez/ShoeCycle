@@ -33,6 +33,7 @@ struct AppView: View {
     @StateObject private var shoeStore = ShoeStore()
     @StateObject private var settings = UserSettings.shared
     @StateObject private var healthKitService = HealthKitService()
+    @StateObject private var featureFlags = FeatureFlagsStore()
     @State private var activeTab: TabIdentifier = InitialTabStrategy().initialTab()
     @State private var shoeFTUHint = false
     
@@ -83,6 +84,7 @@ struct AppView: View {
         .environmentObject(shoeStore)
         .environmentObject(settings)
         .environmentObject(healthKitService)
+        .environmentObject(featureFlags)
         .dynamicTypeSize(.medium ... .xLarge)
         .onAppear {
             let selectedShoeStrategy = SelectedShoeStrategy(store: shoeStore, settings: settings)
@@ -92,6 +94,9 @@ struct AppView: View {
             if shoeStore.activeShoes.count >= 2, let _ = ftuManager.hintMessage() {
                 shoeFTUHint = true
             }
+            // Flags are app-level config: load once at launch, then keep refreshing in the
+            // background for the life of the app — not per-view (ShoeCycle-Web-54b).
+            featureFlags.start()
         }
         .alert("Hint", isPresented: $shoeFTUHint) {
             HStack {

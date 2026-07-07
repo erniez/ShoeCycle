@@ -47,8 +47,65 @@ struct FeatureFlag: Codable, Equatable {
 }
 
 /// Envelope returned by the public `/api/feature-flags` serve endpoint.
-struct FeatureFlagsResponse: Codable, Equatable {
+///
+/// `flags` decodes leniently PER ELEMENT (ShoeCycle-Web-54b): one malformed flag definition
+/// (e.g. a missing `key`) is dropped rather than aborting the whole array, so a single corrupt
+/// definition cannot poison every other healthy flag in the same response — fail-closed is
+/// per-flag, not per-payload. Ports the same fix already shipped on Android
+/// (`LenientFeatureFlagListSerializer`). Only ever decoded (never encoded), so `Decodable` is
+/// sufficient — no need to carry a synthesized `Encodable` nobody calls.
+struct FeatureFlagsResponse: Decodable, Equatable {
     let flags: [FeatureFlag]
+
+    private enum CodingKeys: String, CodingKey {
+        case flags
+    }
+
+    init(flags: [FeatureFlag]) {
+        self.flags = flags
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        // If `flags` itself isn't a JSON array (wrong type, or absent with no default), this
+        // throws HERE, before the loop below ever starts — a single call, not a loop, so it needs
+        // no termination proof of its own. That failure propagates out of this initializer to
+        // `FeatureFlagService.loadFlags()`, which degrades to the cache like any other decode
+        // failure. The provably-terminating loop below only concerns per-ELEMENT failures once we
+        // are already inside a valid array.
+        var flagsContainer = try container.nestedUnkeyedContainer(forKey: .flags)
+        var decodedFlags: [FeatureFlag] = []
+        while !flagsContainer.isAtEnd {
+            // IMPORTANT: `try? flagsContainer.decode(FeatureFlag.self)` directly is NOT safe here.
+            // Nothing in the Decodable protocol guarantees an unkeyed container's cursor still
+            // advances when the element's own decode throws partway through — that's an
+            // implementation detail, not a contract, and relying on it produced an infinite loop
+            // in practice for a single-malformed-element payload. `LossyElement.init(from:)`
+            // below never throws (it swallows the inner failure itself via `try?`), so THIS
+            // decode call always succeeds — and a successful `decode(_:)` on an unkeyed container
+            // is guaranteed by the protocol to consume exactly one element and advance the
+            // cursor. That guarantee, not an assumption about throw behavior, is what makes the
+            // loop provably terminate.
+            let element = try flagsContainer.decode(LossyElement.self)
+            if let flag = element.flag {
+                decodedFlags.append(flag)
+            }
+        }
+        self.flags = decodedFlags
+    }
+
+    /// Decodes a single `flags` array element as an optional `FeatureFlag`, absorbing any
+    /// decode failure into `flag == nil` instead of throwing. See the safety note in
+    /// `init(from:)` above for why this indirection — rather than a direct `try?` on the array
+    /// loop — is required for correctness, not just style.
+    private struct LossyElement: Decodable {
+        let flag: FeatureFlag?
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            flag = try? container.decode(FeatureFlag.self)
+        }
+    }
 }
 
 // MARK: - Evaluator (deterministic bucketing algorithm, §3 + precedence §4)

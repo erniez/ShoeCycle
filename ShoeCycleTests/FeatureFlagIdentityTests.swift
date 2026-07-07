@@ -8,6 +8,10 @@
 import XCTest
 @testable import ShoeCycle
 
+/// `@MainActor` because `FeatureFlagIdentityProvider` is main-actor-isolated (ShoeCycle-Web-54b)
+/// — matching how it's actually driven in the app avoids sprinkling `await` on every
+/// synchronous call here.
+@MainActor
 final class FeatureFlagIdentityTests: XCTestCase {
 
     private func makeTestDefaults() -> UserDefaults {
