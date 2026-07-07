@@ -1,9 +1,10 @@
 //  FeatureFlagService.swift
 //  ShoeCycle
 //
-//  Fetches the PUBLIC feature-flag serve endpoint (no auth header), decodes the definitions,
-//  and caches the last good response for offline / stale fallback
-//  (architecture/feature-toggles.md §4.3). Lives alongside NetworkService / StravaService.
+//  Fetches the PUBLIC feature-flag serve endpoint (no auth header) through the shared
+//  `RESTService` networking abstraction — the same pattern StravaService / StravaTokenKeeper use
+//  — decodes the definitions, and caches the last good response for offline / stale fallback
+//  (architecture/feature-toggles.md §4.3).
 //
 
 import Foundation
@@ -24,22 +25,27 @@ protocol FeatureFlagLoading {
 
 final class FeatureFlagService: FeatureFlagLoading {
 
-    /// Pinned configuration — endpoint path, cache key, TTL (no magic numbers, §5).
+    /// Pinned configuration — endpoint path, cache key, refresh interval (no magic numbers, §5).
     enum Constant {
         /// Public serve endpoint (unauthenticated). Path pinned by sub-issue C's OpenAPI.
         static let endpoint = URL(string: "https://api.shoecycleapp.com/api/feature-flags")!
         /// UserDefaults key for the cached last-good definitions.
         static let cacheKey = "com.shoecycle.featureToggles.cachedFlags"
-        /// Cache time-to-live. Definitions older than this are refreshed on next opportunity;
-        /// stale-but-present cache is still used for offline fallback per §4.3.
-        static let cacheTTL: TimeInterval = 60 * 60 // 1 hour
+        /// How often `FeatureFlagsStore` re-fetches definitions in the background once the app
+        /// has launched (ShoeCycle-Web-54b). This interval IS the staleness bound — there is no
+        /// separate freshness check on the cache itself, because a stale-but-present cache must
+        /// still be served as the offline fallback regardless of its age (§4.3).
+        static let refreshInterval: TimeInterval = 60 * 60 // 1 hour
     }
 
-    private let session: URLSession
+    private let network: any RESTService
     private let userDefaults: UserDefaults
 
-    init(session: URLSession = .shared, userDefaults: UserDefaults = .standard) {
-        self.session = session
+    /// - Parameters:
+    ///   - network: Any object that conforms to RESTService. Defaults to NetworkService().
+    ///   - userDefaults: persistence for the cached last-good response.
+    init(network: any RESTService = NetworkService(), userDefaults: UserDefaults = .standard) {
+        self.network = network
         self.userDefaults = userDefaults
     }
 
@@ -47,19 +53,15 @@ final class FeatureFlagService: FeatureFlagLoading {
 
     func loadFlags() async -> [FeatureFlag] {
         do {
-            // PUBLIC endpoint: a plain GET with NO Authorization header.
-            let (data, response) = try await session.data(from: Constant.endpoint)
-            guard let http = response as? HTTPURLResponse,
-                  (200...299).contains(http.statusCode) else {
-                return cachedFlags
-            }
-            let decoded = try JSONDecoder().decode(FeatureFlagsResponse.self, from: data)
-            cache(decoded.flags)
-            return decoded.flags
+            // PUBLIC endpoint: getJSONData never attaches an Authorization header.
+            let response: FeatureFlagsResponse = try await network.getJSONData(url: Constant.endpoint)
+            cache(response.flags)
+            return response.flags
         } catch {
-            // Network or parse failure never crashes and never blocks launch: fall back to the
-            // last cached definitions (§4.3).
-            Logger.app.error("Feature flag fetch failed, using cache: \(error.localizedDescription)")
+            // Network, HTTP-status, or parse failure never crashes and never blocks launch: fall
+            // back to the last cached definitions (§4.3). Logged regardless of failure kind so an
+            // operator can distinguish "server down" from "payload changed shape" in the field.
+            Logger.app.error("Feature flag fetch failed, using cache: \(String(describing: error))")
             return cachedFlags
         }
     }
@@ -74,19 +76,20 @@ final class FeatureFlagService: FeatureFlagLoading {
     /// The cache entry including its timestamp, or nil if none / undecodable.
     private func cachedEntry() -> CacheEntry? {
         guard let data = userDefaults.data(forKey: Constant.cacheKey) else { return nil }
-        return try? JSONDecoder().decode(CacheEntry.self, from: data)
-    }
-
-    /// True when a cache exists and is within `cacheTTL`.
-    var isCacheFresh: Bool {
-        guard let entry = cachedEntry() else { return false }
-        return Date().timeIntervalSince(entry.timestamp) < Constant.cacheTTL
+        do {
+            return try data.jsonDecode()
+        } catch {
+            Logger.app.error("Failed to decode cached feature flags: \(String(describing: error))")
+            return nil
+        }
     }
 
     private func cache(_ flags: [FeatureFlag]) {
         let entry = CacheEntry(flags: flags, timestamp: Date())
-        if let data = try? JSONEncoder().encode(entry) {
-            userDefaults.set(data, forKey: Constant.cacheKey)
+        do {
+            userDefaults.set(try entry.jsonEncode(), forKey: Constant.cacheKey)
+        } catch {
+            Logger.app.error("Failed to cache feature flags: \(String(describing: error))")
         }
     }
 

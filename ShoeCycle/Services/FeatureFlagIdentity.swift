@@ -9,11 +9,21 @@
 import Foundation
 
 /// Supplies the stable per-caller identity hashed for percentage bucketing.
+///
+/// `bucketingId()` is `@MainActor`-isolated (ShoeCycle-Web-54b): `persistedAnonymousId()` below
+/// has a check-then-write race if two callers can run concurrently (both read "no id yet", both
+/// generate a different UUID, the later write silently wins and flips the caller's rollout
+/// cohort). Confining just this method to the main actor — the same actor
+/// `FeatureFlagsInteractor.handle` is isolated to — removes the race by construction instead of
+/// adding a lock: there is only ever one caller in flight. (The initializer is deliberately left
+/// nonisolated so it stays usable as a plain default-parameter value — Swift evaluates default
+/// argument expressions in a synchronous nonisolated context regardless of the callee's own
+/// isolation, so an isolated initializer can't be used as one.)
 protocol FeatureFlagIdentityProviding {
     /// The bucketing id per the pinned precedence: authenticated user id if signed in, else a
     /// persisted anonymous UUID. Never empty — an anon UUID is generated + persisted
     /// synchronously on first read if none exists yet.
-    func bucketingId() -> String
+    @MainActor func bucketingId() -> String
 }
 
 /// Default identity provider.
@@ -42,6 +52,7 @@ final class FeatureFlagIdentityProvider: FeatureFlagIdentityProviding {
         self.authenticatedUserIdProvider = authenticatedUserId
     }
 
+    @MainActor
     func bucketingId() -> String {
         // 1. Authenticated identity wins and is used verbatim (no case normalization).
         if let authenticatedId = authenticatedUserIdProvider(), !authenticatedId.isEmpty {
@@ -52,6 +63,7 @@ final class FeatureFlagIdentityProvider: FeatureFlagIdentityProviding {
         return persistedAnonymousId()
     }
 
+    @MainActor
     private func persistedAnonymousId() -> String {
         if let existing = userDefaults.string(forKey: Self.anonIdStorageKey), !existing.isEmpty {
             return existing
