@@ -24,6 +24,7 @@
       }
     },
     "5 miles" : {
+      "comment" : "Preset distance button in the favorite distances picker",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -34,6 +35,7 @@
       }
     },
     "10 miles" : {
+      "comment" : "Preset distance button in the favorite distances picker",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -44,6 +46,7 @@
       }
     },
     "About" : {
+      "comment" : "Button in Settings that opens the about dialog",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -65,6 +68,7 @@
       }
     },
     "Access to Health App Denied" : {
+      "comment" : "Alert title when Health app access is denied while adding a run",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -97,6 +101,7 @@
       }
     },
     "Add Shoe" : {
+      "comment" : "Toolbar button that creates a new shoe",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -107,6 +112,7 @@
       }
     },
     "Add to Hall of Fame" : {
+      "comment" : "Tappable label on the shoe detail screen that retires a shoe",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -117,6 +123,7 @@
       }
     },
     "An unknown network error has occurred. Please try again later, or turn Strava access off then on in the Settings tab" : {
+      "comment" : "Alert message for an unknown Strava network error",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -127,6 +134,7 @@
       }
     },
     "Are you sure you want to delete this shoe? This action cannot be undone." : {
+      "comment" : "Delete shoe confirmation alert message",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -148,6 +156,7 @@
       }
     },
     "Camera" : {
+      "comment" : "Image source option in the photo picker dialog",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -158,6 +167,7 @@
       }
     },
     "Cancel" : {
+      "comment" : "Generic cancel button in dialogs and alerts",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -168,6 +178,7 @@
       }
     },
     "Cannot Access the Internet" : {
+      "comment" : "Alert title when the network is unreachable",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -178,6 +189,7 @@
       }
     },
     "Connect to Health App" : {
+      "comment" : "Settings label for the HealthKit toggle",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -199,6 +211,7 @@
       }
     },
     "Date:" : {
+      "comment" : "Field label for the run date on the Add Distance screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -220,6 +233,7 @@
       }
     },
     "Delete" : {
+      "comment" : "Destructive confirm button in the delete shoe alert",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -274,6 +288,7 @@
       }
     },
     "Distance:" : {
+      "comment" : "Field label for the run distance on the Add Distance screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -295,6 +310,7 @@
       }
     },
     "Don't show again" : {
+      "comment" : "Dismiss-permanently button in the first-time-use hint alert",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -305,6 +321,7 @@
       }
     },
     "Done" : {
+      "comment" : "Generic confirm/dismiss button (keyboard toolbar, dialogs, new-shoe save)",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -337,6 +354,7 @@
       }
     },
     "End:" : {
+      "comment" : "Field label for the shoe expiration date on the shoe detail screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -347,6 +365,7 @@
       }
     },
     "Error: Shoe does not exist." : {
+      "comment" : "Fallback text shown when a shoe can't be loaded on the detail screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -368,6 +387,7 @@
       }
     },
     "Favorite 1" : {
+      "comment" : "Placeholder for the first custom favorite-distance field in Settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -378,6 +398,7 @@
       }
     },
     "Favorite 2" : {
+      "comment" : "Placeholder for the second custom favorite-distance field in Settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -388,6 +409,7 @@
       }
     },
     "Favorite 3" : {
+      "comment" : "Placeholder for the third custom favorite-distance field in Settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -398,6 +420,7 @@
       }
     },
     "Favorite 4" : {
+      "comment" : "Placeholder for the fourth custom favorite-distance field in Settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -452,6 +475,7 @@
       }
     },
     "Half Marathon" : {
+      "comment" : "Preset distance button in the favorite distances picker",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -517,6 +541,7 @@
       }
     },
     "Marathon" : {
+      "comment" : "Preset distance button in the favorite distances picker",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -527,6 +552,7 @@
       }
     },
     "Max Distance" : {
+      "comment" : "Placeholder for the shoe max-distance field on the shoe detail screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -537,6 +563,7 @@
       }
     },
     "Max:" : {
+      "comment" : "Field label for the shoe max distance on the shoe detail screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -591,6 +618,7 @@
       }
     },
     "Name:" : {
+      "comment" : "Field label for the shoe name on the shoe detail screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -601,6 +629,7 @@
       }
     },
     "New feature available" : {
+      "comment" : "Label on the feature-flag demo badge in Settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -611,6 +640,7 @@
       }
     },
     "OK" : {
+      "comment" : "Generic acknowledge button in alerts",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -621,6 +651,7 @@
       }
     },
     "Photo Library" : {
+      "comment" : "Image source option in the photo picker dialog",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -631,6 +662,7 @@
       }
     },
     "Please add a shoe in the Active Shoes tab" : {
+      "comment" : "Placeholder shown on the Add Distance tab when no shoe is selected",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -641,6 +673,7 @@
       }
     },
     "Please check your network settings and try again" : {
+      "comment" : "Alert message when the network is unreachable",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -651,6 +684,7 @@
       }
     },
     "Please enable access in the health app settings. Go to Settings -> Health -> Data Access & Devices -> Enable Sharing for ShoeCycle" : {
+      "comment" : "Alert message directing the user to grant Health access in system settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -683,6 +717,7 @@
       }
     },
     "Please tap the \"Add Shoe\" button in the top right of the screen to add a shoe." : {
+      "comment" : "Empty-state hint on the Active Shoes tab when there are no shoes",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -704,6 +739,7 @@
       }
     },
     "Remove from Hall of Fame" : {
+      "comment" : "Tappable label on the shoe detail screen that un-retires a shoe",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -769,6 +805,7 @@
       }
     },
     "Shoe Name" : {
+      "comment" : "Placeholder and accessibility label for the shoe name field",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -801,6 +838,7 @@
       }
     },
     "Something went wrong" : {
+      "comment" : "Fallback text on the Add Distance screen when no shoe is available",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -811,6 +849,7 @@
       }
     },
     "Something went wrong while trying to enable access to the health app. Please try again later." : {
+      "comment" : "Alert message when enabling Health access fails unexpectedly",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -832,6 +871,7 @@
       }
     },
     "Start Distance" : {
+      "comment" : "Placeholder for the shoe starting-distance field on the shoe detail screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -842,6 +882,7 @@
       }
     },
     "Start:" : {
+      "comment" : "Field label for the shoe start date on the shoe detail screen",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -852,6 +893,7 @@
       }
     },
     "Sunday" : {
+      "comment" : "First-day-of-week picker option",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -862,6 +904,7 @@
       }
     },
     "Monday" : {
+      "comment" : "First-day-of-week picker option",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -894,6 +937,7 @@
       }
     },
     "Turning on this option will connect you with the Strava login screen." : {
+      "comment" : "Explanatory caption under the Strava toggle in Settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -904,6 +948,7 @@
       }
     },
     "Turning this option on will write directly to the Walk + Run Section of the Health App." : {
+      "comment" : "Explanatory caption under the Health app toggle in Settings",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -925,6 +970,7 @@
       }
     },
     "Unknown Error" : {
+      "comment" : "Alert title for an unexpected error",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1045,6 +1091,7 @@
       }
     },
     "You have no shoes in the Hall of Fame. Please go to the Active Shoes tab and edit the shoe you want to add." : {
+      "comment" : "Empty-state text on the Hall of Fame tab",
       "localizations" : {
         "es" : {
           "stringUnit" : {
