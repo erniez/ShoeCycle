@@ -19,8 +19,8 @@ struct FTUHintManager {
     static let completedHintsKey = "ShoeCycleFTUCompletedFeatures"
 
     // Hint Info Strings
-    static let hintInfoStravaFeature = String(localized: "You can integrate with Strava! Add your runs to Strava as easily as tapping the \"+\" button.  Just tap on the \"Setup\" tab to get started!")
-    static let hintInfoSwipeFeature = String(localized: "You can swipe between shoes just by by swiping up or down on the shoe image in the \"Add Distance\" screen.")
+    static let hintInfoStravaFeature = String(localized: "You can integrate with Strava! Add your runs to Strava as easily as tapping the \"+\" button.  Just tap on the \"Settings\" tab to get started!")
+    static let hintInfoSwipeFeature = String(localized: "You can swipe between shoes just by swiping up or down on the shoe image in the \"Add Distance\" screen.")
     static let hintInfoEmailHistoryFeature = String(localized: "You can export your run history as a CSV file via email!  Just tap \"Email Data\" at the top left of the Run History screen.")
     static let hintInfoHOFFeature = String(localized: "You can now add shoes to the Hall of Fame section, so they don't crowd your active sneakers.")
     static let hintInfoGraphAllShoesFeature = String(localized: "You can tap the button at the bottom right of the graph to toggle between showing data for all active shoes or just the currently selected shoe.")

@@ -784,7 +784,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ShoeCycle está programado por Ernie Zappacosta.\n\nLa versión actual es %@"
+            "value" : "ShoeCycle fue creado por Ernie Zappacosta.\n\nLa versión actual es %@"
           }
         }
       }
@@ -989,7 +989,7 @@
         }
       }
     },
-    "You can integrate with Strava! Add your runs to Strava as easily as tapping the \"+\" button.  Just tap on the \"Setup\" tab to get started!" : {
+    "You can integrate with Strava! Add your runs to Strava as easily as tapping the \"+\" button.  Just tap on the \"Settings\" tab to get started!" : {
       "comment" : "First-time-use hint",
       "localizations" : {
         "es" : {
@@ -1022,7 +1022,7 @@
         }
       }
     },
-    "You can swipe between shoes just by by swiping up or down on the shoe image in the \"Add Distance\" screen." : {
+    "You can swipe between shoes just by swiping up or down on the shoe image in the \"Add Distance\" screen." : {
       "comment" : "First-time-use hint",
       "localizations" : {
         "es" : {
