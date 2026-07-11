@@ -106,7 +106,7 @@ class ShoeListRowViewModel: Hashable {
             // unsure of the root cause because none of these default values showed up in his
             // data. We're just going to go with it for now and hope my CoreData refactor
             // takes care of it.
-            self?.brand = shoe.brand ?? "N/A"
+            self?.brand = shoe.brand ?? String(localized: "N/A")
             self?.totalDistance = shoe.totalDistance?.doubleValue ?? 0.0
         }
     }
@@ -125,7 +125,7 @@ extension ShoeListRowViewModel {
         return shoes.compactMap { shoe in
             let shoeObserver = CoreDataObserver(object: shoe)
             return ShoeListRowViewModel(shoeObserver: shoeObserver,
-                                        brand: shoe.brand ?? "N/A",
+                                        brand: shoe.brand ?? String(localized: "N/A"),
                                         totalDistance: shoe.totalDistance?.doubleValue ?? 0.0,
                                         shoeURL: shoe.objectID.uriRepresentation())
         }

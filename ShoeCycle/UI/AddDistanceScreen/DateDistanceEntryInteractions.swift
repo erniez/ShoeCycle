@@ -140,7 +140,7 @@ struct DateDistanceEntryInteractor {
             }
             
             if settings.stravaEnabled == true {
-                let activity = StravaActivity(name: "ShoeCycle Logged Run",
+                let activity = StravaActivity(name: String(localized: "ShoeCycle Logged Run"),
                                               distance: distanceUtility.stravaDistance(for: distance),
                                               startDate: runDate)
                 // TODO: Handle loading state through separate mechanism

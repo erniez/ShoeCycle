@@ -206,10 +206,10 @@ struct RunHistoryChart: View {
     
     func graphAllShoesToggleText() -> String {
         if isGraphingAllShoes {
-            return "Graph Current Shoe"
+            return String(localized: "Graph Current Shoe")
         }
         else {
-            return "Graph All Active Shoes"
+            return String(localized: "Graph All Active Shoes")
         }
     }
 }

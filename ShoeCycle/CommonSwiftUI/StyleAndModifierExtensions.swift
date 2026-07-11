@@ -55,7 +55,7 @@ extension ButtonStyle where Self == ShoeCycleButtonStyle {
 }
 
 extension View {
-    func shoeCycleSection(title: String, color: Color, image: Image) -> some View {
+    func shoeCycleSection(title: LocalizedStringKey, color: Color, image: Image) -> some View {
         modifier(ShoeCycleSection(title: title, color: color, image: image))
     }
 }

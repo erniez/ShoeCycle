@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 struct ShoeCycleSection: ViewModifier {
-    let title: String
+    let title: LocalizedStringKey
     let color: Color
     let image: Image
     

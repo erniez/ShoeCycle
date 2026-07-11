@@ -117,9 +117,11 @@
 		40873A11D493248EFBD66D94 /* FeatureFlagsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8053587C7DEA917A6433D /* FeatureFlagsStoreTests.swift */; };
 		4E43F0F1C957FAD869AF8057 /* FeatureFlagEvaluatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30180211744D5F67BAF5619E /* FeatureFlagEvaluatorTests.swift */; };
 		61E85A696365099DB7632657 /* FeatureFlagIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210BF0AA78E338151EB6162F /* FeatureFlagIdentityTests.swift */; };
+		7A729993F1E90D8AA949D9E0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4B72A9B4021DF191D8B392C9 /* Localizable.xcstrings */; };
 		852F6A81BA3540B983758652 /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1EDB40798EC7B057B35030 /* FeatureFlag.swift */; };
 		99D8446172BEAE385F499433 /* FeatureFlagServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176E4FA0AD18AD13EEB49BAD /* FeatureFlagServiceTests.swift */; };
 		C2CBA5F500C483667E194A74 /* feature-toggles.vectors.json in Resources */ = {isa = PBXBuildFile; fileRef = A1DF88E0E2758CBCB83CD9AA /* feature-toggles.vectors.json */; };
+		D9F1B8C0F9A9018A9EF5D9DB /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0FEF36681BD682056A1969E6 /* InfoPlist.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +148,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0FEF36681BD682056A1969E6 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		176E4FA0AD18AD13EEB49BAD /* FeatureFlagServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeatureFlagServiceTests.swift; sourceTree = "<group>"; };
 		1B09C8C62AD0DF1A00AD0A21 /* CoreDataObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataObserver.swift; sourceTree = "<group>"; };
 		1B09C8CA2AD4694F00AD0A21 /* ConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogger.swift; sourceTree = "<group>"; };
@@ -262,6 +265,7 @@
 		30180211744D5F67BAF5619E /* FeatureFlagEvaluatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeatureFlagEvaluatorTests.swift; sourceTree = "<group>"; };
 		41A0CA51E2DF635BFC9ACE72 /* FeatureFlagService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagService.swift; path = FeatureFlagService.swift; sourceTree = "<group>"; };
 		4B1246FB9C56390FC3DF9193 /* ShoeDetailInteractions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShoeDetailInteractions.swift; path = ShoeCycle/UI/ShoeDetailView/ShoeDetailInteractions.swift; sourceTree = "<group>"; };
+		4B72A9B4021DF191D8B392C9 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		55D8053587C7DEA917A6433D /* FeatureFlagsStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagsStoreTests.swift; path = ShoeCycleTests/FeatureFlagsStoreTests.swift; sourceTree = "<group>"; };
 		57BB6BBE690E8808AC988BFB /* FeatureFlagsStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagsStore.swift; path = ShoeCycle/Services/FeatureFlagsStore.swift; sourceTree = "<group>"; };
 		83DA7C8DF3840B6E76BD7C47 /* FeatureFlagIdentity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlagIdentity.swift; path = FeatureFlagIdentity.swift; sourceTree = "<group>"; };
@@ -530,6 +534,7 @@
 				1BCF6444148AF7E7004C0E6A /* Supporting Files */,
 				1BCF9FE92A1ACFB4007F697E /* TestDataGeneration */,
 				1BBC605D2AE44278008B0FE0 /* ShoeCycleApp.swift */,
+				4B72A9B4021DF191D8B392C9 /* Localizable.xcstrings */,
 			);
 			path = ShoeCycle;
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 				1BCF644B148AF7E7004C0E6A /* ShoeCycle-Prefix.pch */,
 				1BAD389319E25C4000161DA8 /* ShoeCycle.entitlements */,
 				1BCEEBAC14B678AB00672194 /* TreadTracker.xcdatamodeld */,
+				0FEF36681BD682056A1969E6 /* InfoPlist.xcstrings */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -684,6 +690,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
 			);
 			mainGroup = 1BCF642E148AF7E5004C0E6A;
 			packageReferences = (
@@ -714,6 +721,8 @@
 			files = (
 				1BA4A3AD22DA792B003EB5CA /* Media.xcassets in Resources */,
 				1BBD9CAE247C4B71004DA730 /* GoogleService-Info.plist in Resources */,
+				7A729993F1E90D8AA949D9E0 /* Localizable.xcstrings in Resources */,
+				D9F1B8C0F9A9018A9EF5D9DB /* InfoPlist.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

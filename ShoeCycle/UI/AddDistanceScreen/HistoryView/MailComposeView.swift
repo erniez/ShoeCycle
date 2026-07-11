@@ -19,11 +19,11 @@ struct MailComposeView: UIViewControllerRepresentable {
         let csvData = csvString.data(using: NSUTF8StringEncoding)!
         let mailViewController = MFMailComposeViewController()
         mailViewController.mailComposeDelegate = mailDelegate
-        mailViewController.setSubject("CSV data from ShoeCycle shoe: \(shoe.brand ?? "N/A")")
+        mailViewController.setSubject(String(localized: "CSV data from ShoeCycle shoe: \(shoe.brand ?? String(localized: "N/A"))"))
         mailViewController.addAttachmentData(csvData,
                                              mimeType: "text/csv",
                                              fileName: "ShoeCycleShoeData-\(shoe.brand ?? "").csv")
-        mailViewController.setMessageBody("Attached is the CSV shoe data from ShoeCycle!",
+        mailViewController.setMessageBody(String(localized: "Attached is the CSV shoe data from ShoeCycle!"),
                                           isHTML: false)
         return mailViewController
     }

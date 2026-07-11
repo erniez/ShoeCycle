@@ -412,8 +412,8 @@ struct AboutView: View {
     }
     
     func aboutMessageText() -> String {
-        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") ?? ""
-        return "ShoeCycle is programmed by Ernie Zappacosta.\n\nCurrent version is \(version)"
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        return String(localized: "ShoeCycle is programmed by Ernie Zappacosta.\n\nCurrent version is \(version)")
     }
 }
 
