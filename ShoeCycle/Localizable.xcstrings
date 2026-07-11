@@ -1,0 +1,1106 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " Distance " : {
+      "comment" : "Placeholder prompt for the run distance text field",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Distancia "
+          }
+        }
+      }
+    },
+    " Distance  " : {
+      "comment" : "Accessibility label for the run distance text field",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Distancia  "
+          }
+        }
+      }
+    },
+    "5 miles" : {
+      "comment" : "Preset distance button in the favorite distances picker",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 millas"
+          }
+        }
+      }
+    },
+    "10 miles" : {
+      "comment" : "Preset distance button in the favorite distances picker",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 millas"
+          }
+        }
+      }
+    },
+    "About" : {
+      "comment" : "Button in Settings that opens the about dialog",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acerca de"
+          }
+        }
+      }
+    },
+    "Access Denied" : {
+      "comment" : "Alert title when HealthKit authorization is denied",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceso denegado"
+          }
+        }
+      }
+    },
+    "Access to Health App Denied" : {
+      "comment" : "Alert title when Health app access is denied while adding a run",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceso a la app Salud denegado"
+          }
+        }
+      }
+    },
+    "Active Shoes" : {
+      "comment" : "Tab bar item and navigation title",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapatillas activas"
+          }
+        }
+      }
+    },
+    "Add Distance" : {
+      "comment" : "Tab bar item",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar distancia"
+          }
+        }
+      }
+    },
+    "Add Shoe" : {
+      "comment" : "Toolbar button that creates a new shoe",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar zapatilla"
+          }
+        }
+      }
+    },
+    "Add to Hall of Fame" : {
+      "comment" : "Tappable label on the shoe detail screen that retires a shoe",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar al Salón de la Fama"
+          }
+        }
+      }
+    },
+    "An unknown network error has occurred. Please try again later, or turn Strava access off then on in the Settings tab" : {
+      "comment" : "Alert message for an unknown Strava network error",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocurrió un error de red desconocido. Inténtalo de nuevo más tarde, o desactiva y vuelve a activar el acceso a Strava en la pestaña Ajustes"
+          }
+        }
+      }
+    },
+    "Are you sure you want to delete this shoe? This action cannot be undone." : {
+      "comment" : "Delete shoe confirmation alert message",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Seguro que quieres eliminar esta zapatilla? Esta acción no se puede deshacer."
+          }
+        }
+      }
+    },
+    "Attached is the CSV shoe data from ShoeCycle!" : {
+      "comment" : "Email body for CSV export",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Aquí tienes adjuntos los datos CSV de tu zapatilla de ShoeCycle!"
+          }
+        }
+      }
+    },
+    "Camera" : {
+      "comment" : "Image source option in the photo picker dialog",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cámara"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "comment" : "Generic cancel button in dialogs and alerts",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
+    "Cannot Access the Internet" : {
+      "comment" : "Alert title when the network is unreachable",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay conexión a internet"
+          }
+        }
+      }
+    },
+    "Connect to Health App" : {
+      "comment" : "Settings label for the HealthKit toggle",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectar con la app Salud"
+          }
+        }
+      }
+    },
+    "CSV data from ShoeCycle shoe: %@" : {
+      "comment" : "Email subject for CSV export. %@ is the shoe name",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datos CSV de la zapatilla de ShoeCycle: %@"
+          }
+        }
+      }
+    },
+    "Date:" : {
+      "comment" : "Field label for the run date on the Add Distance screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha:"
+          }
+        }
+      }
+    },
+    "Days Left" : {
+      "comment" : "Unit label under the countdown number on the date progress bar",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Días restantes"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "comment" : "Destructive confirm button in the delete shoe alert",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
+    "Delete Shoe" : {
+      "comment" : "Delete button and confirmation alert title",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar zapatilla"
+          }
+        }
+      }
+    },
+    "Distance" : {
+      "comment" : "Section title on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia"
+          }
+        }
+      }
+    },
+    "Distance: %@ %@" : {
+      "comment" : "Shoe row subtitle. First %@ is the distance value, second %@ is the unit",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia: %@ %@"
+          }
+        }
+      }
+    },
+    "Distance(%@)" : {
+      "comment" : "Column header in run history. %@ is the distance unit",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia (%@)"
+          }
+        }
+      }
+    },
+    "Distance:" : {
+      "comment" : "Field label for the run distance on the Add Distance screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia:"
+          }
+        }
+      }
+    },
+    "Distances" : {
+      "comment" : "Button that opens the favorite distances picker",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancias"
+          }
+        }
+      }
+    },
+    "Don't show again" : {
+      "comment" : "Dismiss-permanently button in the first-time-use hint alert",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No mostrar de nuevo"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "comment" : "Generic confirm/dismiss button (keyboard toolbar, dialogs, new-shoe save)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listo"
+          }
+        }
+      }
+    },
+    "Email Data" : {
+      "comment" : "Button that emails run history as CSV",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar por correo"
+          }
+        }
+      }
+    },
+    "Enable" : {
+      "comment" : "Strava toggle label",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activar"
+          }
+        }
+      }
+    },
+    "End:" : {
+      "comment" : "Field label for the shoe expiration date on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fin:"
+          }
+        }
+      }
+    },
+    "Error: Shoe does not exist." : {
+      "comment" : "Fallback text shown when a shoe can't be loaded on the detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error: la zapatilla no existe."
+          }
+        }
+      }
+    },
+    "Expiration Date" : {
+      "comment" : "Hidden date picker label (VoiceOver)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de vencimiento"
+          }
+        }
+      }
+    },
+    "Favorite 1" : {
+      "comment" : "Placeholder for the first custom favorite-distance field in Settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorita 1"
+          }
+        }
+      }
+    },
+    "Favorite 2" : {
+      "comment" : "Placeholder for the second custom favorite-distance field in Settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorita 2"
+          }
+        }
+      }
+    },
+    "Favorite 3" : {
+      "comment" : "Placeholder for the third custom favorite-distance field in Settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorita 3"
+          }
+        }
+      }
+    },
+    "Favorite 4" : {
+      "comment" : "Placeholder for the fourth custom favorite-distance field in Settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorita 4"
+          }
+        }
+      }
+    },
+    "Favorite Distances" : {
+      "comment" : "Section title",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancias favoritas"
+          }
+        }
+      }
+    },
+    "First Day of Week" : {
+      "comment" : "Settings section title",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primer día de la semana"
+          }
+        }
+      }
+    },
+    "Graph All Active Shoes" : {
+      "comment" : "Chart toggle button",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver todas las zapatillas activas"
+          }
+        }
+      }
+    },
+    "Graph Current Shoe" : {
+      "comment" : "Chart toggle button",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver zapatilla actual"
+          }
+        }
+      }
+    },
+    "Half Marathon" : {
+      "comment" : "Preset distance button in the favorite distances picker",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Media maratón"
+          }
+        }
+      }
+    },
+    "Hall of Fame" : {
+      "comment" : "Tab bar item",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salón de la Fama"
+          }
+        }
+      }
+    },
+    "Hall of Fame Shoes" : {
+      "comment" : "Navigation title",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapatillas del Salón de la Fama"
+          }
+        }
+      }
+    },
+    "Hint" : {
+      "comment" : "Alert title for first-time-use feature hints",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consejo"
+          }
+        }
+      }
+    },
+    "History" : {
+      "comment" : "Button that opens the run history list",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial"
+          }
+        }
+      }
+    },
+    "Image Picker" : {
+      "comment" : "Confirmation dialog title for choosing a shoe photo source",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir imagen"
+          }
+        }
+      }
+    },
+    "Marathon" : {
+      "comment" : "Preset distance button in the favorite distances picker",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maratón"
+          }
+        }
+      }
+    },
+    "Max Distance" : {
+      "comment" : "Placeholder for the shoe max-distance field on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia máxima"
+          }
+        }
+      }
+    },
+    "Max:" : {
+      "comment" : "Field label for the shoe max distance on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máx.:"
+          }
+        }
+      }
+    },
+    "miles" : {
+      "comment" : "Distance unit shown throughout the app. Also shown capitalized in the units picker",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "millas"
+          }
+        }
+      }
+    },
+    "km" : {
+      "comment" : "Distance unit shown throughout the app. Also shown capitalized in the units picker",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "km"
+          }
+        }
+      }
+    },
+    "Month not found" : {
+      "comment" : "Fallback when a history section's month can't be determined",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mes no encontrado"
+          }
+        }
+      }
+    },
+    "N/A" : {
+      "comment" : "Fallback when a shoe has no name",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N/D"
+          }
+        }
+      }
+    },
+    "Name:" : {
+      "comment" : "Field label for the shoe name on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre:"
+          }
+        }
+      }
+    },
+    "New feature available" : {
+      "comment" : "Label on the feature-flag demo badge in Settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nueva función disponible"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "comment" : "Generic acknowledge button in alerts",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
+          }
+        }
+      }
+    },
+    "Photo Library" : {
+      "comment" : "Image source option in the photo picker dialog",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fototeca"
+          }
+        }
+      }
+    },
+    "Please add a shoe in the Active Shoes tab" : {
+      "comment" : "Placeholder shown on the Add Distance tab when no shoe is selected",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agrega una zapatilla en la pestaña Zapatillas activas"
+          }
+        }
+      }
+    },
+    "Please check your network settings and try again" : {
+      "comment" : "Alert message when the network is unreachable",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisa tu conexión de red e inténtalo de nuevo"
+          }
+        }
+      }
+    },
+    "Please enable access in the health app settings. Go to Settings -> Health -> Data Access & Devices -> Enable Sharing for ShoeCycle" : {
+      "comment" : "Alert message directing the user to grant Health access in system settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Habilita el acceso en los ajustes de la app Salud. Ve a Configuración -> Salud -> Acceso a datos y dispositivos -> Activa el acceso para ShoeCycle"
+          }
+        }
+      }
+    },
+    "Please select the first day of week" : {
+      "comment" : "Picker accessibility label",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona el primer día de la semana"
+          }
+        }
+      }
+    },
+    "Please select units for distance" : {
+      "comment" : "Picker accessibility label",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona las unidades de distancia"
+          }
+        }
+      }
+    },
+    "Please tap the \"Add Shoe\" button in the top right of the screen to add a shoe." : {
+      "comment" : "Empty-state hint on the Active Shoes tab when there are no shoes",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca el botón \"Agregar zapatilla\" en la parte superior derecha de la pantalla para agregar una zapatilla."
+          }
+        }
+      }
+    },
+    "Popular Distances" : {
+      "comment" : "Section title",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancias populares"
+          }
+        }
+      }
+    },
+    "Remove from Hall of Fame" : {
+      "comment" : "Tappable label on the shoe detail screen that un-retires a shoe",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitar del Salón de la Fama"
+          }
+        }
+      }
+    },
+    "Run Date" : {
+      "comment" : "Column header in run history",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de carrera"
+          }
+        }
+      }
+    },
+    "runDate" : {
+      "comment" : "Hidden date picker label (VoiceOver)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de la carrera"
+          }
+        }
+      }
+    },
+    "Selected" : {
+      "comment" : "Marks the currently selected shoe in the list",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionada"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "comment" : "Tab bar item",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes"
+          }
+        }
+      }
+    },
+    "Shoe" : {
+      "comment" : "Section title on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapatilla"
+          }
+        }
+      }
+    },
+    "Shoe Name" : {
+      "comment" : "Placeholder and accessibility label for the shoe name field",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre de la zapatilla"
+          }
+        }
+      }
+    },
+    "ShoeCycle is programmed by Ernie Zappacosta.\n\nCurrent version is %@" : {
+      "comment" : "About alert message. %@ is the app version",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ShoeCycle fue creado por Ernie Zappacosta.\n\nLa versión actual es %@"
+          }
+        }
+      }
+    },
+    "ShoeCycle Logged Run" : {
+      "comment" : "Activity name sent to Strava",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carrera registrada con ShoeCycle"
+          }
+        }
+      }
+    },
+    "Something went wrong" : {
+      "comment" : "Fallback text on the Add Distance screen when no shoe is available",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algo salió mal"
+          }
+        }
+      }
+    },
+    "Something went wrong while trying to enable access to the health app. Please try again later." : {
+      "comment" : "Alert message when enabling Health access fails unexpectedly",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algo salió mal al intentar habilitar el acceso a la app Salud. Inténtalo de nuevo más tarde."
+          }
+        }
+      }
+    },
+    "Start Date" : {
+      "comment" : "Hidden date picker label (VoiceOver)",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de inicio"
+          }
+        }
+      }
+    },
+    "Start Distance" : {
+      "comment" : "Placeholder for the shoe starting-distance field on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia inicial"
+          }
+        }
+      }
+    },
+    "Start:" : {
+      "comment" : "Field label for the shoe start date on the shoe detail screen",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicio:"
+          }
+        }
+      }
+    },
+    "Sunday" : {
+      "comment" : "First-day-of-week picker option",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domingo"
+          }
+        }
+      }
+    },
+    "Monday" : {
+      "comment" : "First-day-of-week picker option",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lunes"
+          }
+        }
+      }
+    },
+    "Total for %@:  " : {
+      "comment" : "Monthly total prefix in run history. %@ is the month name. Trailing spaces are intentional",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total de %@:  "
+          }
+        }
+      }
+    },
+    "Total for the year: %@ %@" : {
+      "comment" : "Yearly total in run history. First %@ is the distance, second %@ is the unit",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total del año: %@ %@"
+          }
+        }
+      }
+    },
+    "Turning on this option will connect you with the Strava login screen." : {
+      "comment" : "Explanatory caption under the Strava toggle in Settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al activar esta opción se abrirá la pantalla de inicio de sesión de Strava."
+          }
+        }
+      }
+    },
+    "Turning this option on will write directly to the Walk + Run Section of the Health App." : {
+      "comment" : "Explanatory caption under the Health app toggle in Settings",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al activar esta opción se escribirá directamente en la sección Caminar + Correr de la app Salud."
+          }
+        }
+      }
+    },
+    "Units" : {
+      "comment" : "Settings section title",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unidades"
+          }
+        }
+      }
+    },
+    "Unknown Error" : {
+      "comment" : "Alert title for an unexpected error",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error desconocido"
+          }
+        }
+      }
+    },
+    "Wear Time" : {
+      "comment" : "Section title on the shoe detail screen for start/end dates",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiempo de uso"
+          }
+        }
+      }
+    },
+    "Weekly Distance" : {
+      "comment" : "Chart legend label",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distancia semanal"
+          }
+        }
+      }
+    },
+    "What's New" : {
+      "comment" : "Settings section title for the feature flag demo badge",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novedades"
+          }
+        }
+      }
+    },
+    "YTD: %@ %@" : {
+      "comment" : "Year-to-date total. First %@ is the distance, second %@ is the unit",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este año: %@ %@"
+          }
+        }
+      }
+    },
+    "You can export your run history as a CSV file via email!  Just tap \"Email Data\" at the top left of the Run History screen." : {
+      "comment" : "First-time-use hint",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Puedes exportar tu historial de carreras como archivo CSV por correo!  Solo toca \"Enviar por correo\" en la parte superior izquierda de la pantalla de historial."
+          }
+        }
+      }
+    },
+    "You can integrate with Strava! Add your runs to Strava as easily as tapping the \"+\" button.  Just tap on the \"Settings\" tab to get started!" : {
+      "comment" : "First-time-use hint",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Puedes integrarte con Strava! Agrega tus carreras a Strava con solo tocar el botón \"+\".  ¡Ve a la pestaña Ajustes para empezar!"
+          }
+        }
+      }
+    },
+    "You can now add shoes to the Hall of Fame section, so they don't crowd your active sneakers." : {
+      "comment" : "First-time-use hint",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahora puedes agregar zapatillas al Salón de la Fama para que no estorben entre tus zapatillas activas."
+          }
+        }
+      }
+    },
+    "You can see yearly distances in the History view. The shoes tracked will match what the graph tracks." : {
+      "comment" : "First-time-use hint",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes ver las distancias anuales en la vista de historial. Las zapatillas incluidas serán las mismas que muestra la gráfica."
+          }
+        }
+      }
+    },
+    "You can swipe between shoes just by swiping up or down on the shoe image in the \"Add Distance\" screen." : {
+      "comment" : "First-time-use hint",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes cambiar de zapatilla deslizando hacia arriba o hacia abajo sobre la imagen de la zapatilla en la pantalla \"Agregar distancia\"."
+          }
+        }
+      }
+    },
+    "You can tap the button at the bottom right of the graph to toggle between showing data for all active shoes or just the currently selected shoe." : {
+      "comment" : "First-time-use hint",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes tocar el botón en la parte inferior derecha de la gráfica para alternar entre ver los datos de todas las zapatillas activas o solo de la zapatilla seleccionada."
+          }
+        }
+      }
+    },
+    "You have no shoes in the Hall of Fame. Please go to the Active Shoes tab and edit the shoe you want to add." : {
+      "comment" : "Empty-state text on the Hall of Fame tab",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tienes zapatillas en el Salón de la Fama. Ve a la pestaña Zapatillas activas y edita la zapatilla que quieras agregar."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

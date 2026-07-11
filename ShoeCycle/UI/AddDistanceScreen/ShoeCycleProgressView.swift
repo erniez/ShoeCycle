@@ -131,7 +131,7 @@ struct ShoeCycleDateProgressView: View {
             progressColor: .shoeCycleBlue, 
             progressBarValue: viewModel.progressBarValue, 
             value: Double(viewModel.daysToGo()), 
-            units: "Days Left", 
+            units: String(localized: "Days Left"),
             startValue: DateFormatter.shortDate.string(from: viewModel.startDate), 
             endValue: DateFormatter.shortDate.string(from: viewModel.endDate), 
             shouldBounce: shouldBounce,

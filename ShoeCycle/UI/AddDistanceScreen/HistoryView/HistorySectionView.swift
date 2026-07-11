@@ -26,7 +26,7 @@ struct HistorySectionViewModel: Identifiable, Equatable {
         let monthStrings = calendar.monthSymbols
         let components = calendar.dateComponents([.month], from: monthDate)
         guard let month = components.month else {
-            return "Month not found"
+            return String(localized: "Month not found")
         }
         return monthStrings[month - 1]
     }
@@ -80,7 +80,7 @@ struct HistorySectionView: View {
     }
     
     var monthTotalString: AttributedString {
-        var monthTotalString = AttributedString("Total for \(viewModel.monthString):  ")
+        var monthTotalString = AttributedString(localized: "Total for \(viewModel.monthString):  ")
         monthTotalString.font = .subheadline
         monthTotalString.foregroundColor = .shoeCycleOrange
         return monthTotalString

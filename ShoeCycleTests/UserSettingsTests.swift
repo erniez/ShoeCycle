@@ -59,8 +59,9 @@ final class UserSettingsTests: XCTestCase {
     // When: Calling displayString() on each case
     // Then: Should return correct display strings
     func testDistanceUnitDisplayStrings() throws {
-        XCTAssertEqual(UserSettings.DistanceUnit.miles.displayString(), "miles", "Miles display string should be correct")
-        XCTAssertEqual(UserSettings.DistanceUnit.km.displayString(), "km", "Kilometers display string should be correct")
+        // Compare against the localized strings so the assertion holds in any test-run locale
+        XCTAssertEqual(UserSettings.DistanceUnit.miles.displayString(), String(localized: "miles"), "Miles display string should be correct")
+        XCTAssertEqual(UserSettings.DistanceUnit.km.displayString(), String(localized: "km"), "Kilometers display string should be correct")
     }
     
     // Given: DistanceUnit enum conforms to Identifiable

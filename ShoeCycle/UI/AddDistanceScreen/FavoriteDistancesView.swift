@@ -61,11 +61,11 @@ struct FavoriteDistancesView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: "5 miles") { 
+                    FavoriteDistanceButton(title: String(localized: "5 miles")) {
                         interactor.handle(state: &state, action: .distanceSelected(5))
                         dismiss()
                     }
-                    FavoriteDistanceButton(title: "10 miles") { 
+                    FavoriteDistanceButton(title: String(localized: "10 miles")) {
                         interactor.handle(state: &state, action: .distanceSelected(10))
                         dismiss()
                     }
@@ -73,11 +73,11 @@ struct FavoriteDistancesView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: "Half Marathon") { 
+                    FavoriteDistanceButton(title: String(localized: "Half Marathon")) {
                         interactor.handle(state: &state, action: .distanceSelected(13.1))
                         dismiss()
                     }
-                    FavoriteDistanceButton(title: "Marathon") { 
+                    FavoriteDistanceButton(title: String(localized: "Marathon")) {
                         interactor.handle(state: &state, action: .distanceSelected(26.2))
                         dismiss()
                     }
@@ -91,24 +91,24 @@ struct FavoriteDistancesView: View {
             
             VStack(alignment: .leading, spacing: 16) {
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: state.favorite1DisplayString ?? "Favorite 1") {
+                    FavoriteDistanceButton(title: state.favorite1DisplayString ?? String(localized: "Favorite 1")) {
                         let settings = UserSettings.shared
                         interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite1)))
                         dismiss()
                     }
-                    FavoriteDistanceButton(title: state.favorite2DisplayString ?? "Favorite 2") {
+                    FavoriteDistanceButton(title: state.favorite2DisplayString ?? String(localized: "Favorite 2")) {
                         let settings = UserSettings.shared
                         interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite2)))
                         dismiss()
                     }
                 }
                 HStack(spacing: 16) {
-                    FavoriteDistanceButton(title: state.favorite3DisplayString ?? "Favorite 3") {
+                    FavoriteDistanceButton(title: state.favorite3DisplayString ?? String(localized: "Favorite 3")) {
                         let settings = UserSettings.shared
                         interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite3)))
                         dismiss()
                     }
-                    FavoriteDistanceButton(title: state.favorite4DisplayString ?? "Favorite 4") {
+                    FavoriteDistanceButton(title: state.favorite4DisplayString ?? String(localized: "Favorite 4")) {
                         let settings = UserSettings.shared
                         interactor.handle(state: &state, action: .distanceSelected(Double(settings.favorite4)))
                         dismiss()

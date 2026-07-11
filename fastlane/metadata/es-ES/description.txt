@@ -1,0 +1,22 @@
+Las zapatillas de correr no duran para siempre. ShoeCycle lleva la cuenta de la distancia que acumulas en cada par para que sepas exactamente cuándo es hora de cambiarlas.
+
+REGISTRA TUS CARRERAS
+Agrega la distancia con un par de toques. Elige entre distancias populares (5K, 10K, media maratón, maratón) o guarda tus distancias favoritas para registrarlas aún más rápido.
+
+CONTROLA EL DESGASTE DE TUS ZAPATILLAS
+Cada zapatilla tiene una barra de progreso de distancia y otra de tiempo de uso. Ve de un vistazo cuánta vida útil le queda a cada par.
+
+VARIOS PARES A LA VEZ
+¿Rotas entre varias zapatillas? Desliza sobre la imagen de la zapatilla para cambiar de par en segundos.
+
+GRÁFICA DE DISTANCIA SEMANAL
+Visualiza tu volumen de entrenamiento semana a semana, por zapatilla o de todas tus zapatillas activas.
+
+INTEGRACIÓN CON SALUD Y STRAVA
+Envía tus carreras a la app Salud de Apple y a Strava automáticamente al registrarlas.
+
+SALÓN DE LA FAMA
+Retira tus zapatillas con honor. Las zapatillas jubiladas se guardan en el Salón de la Fama con todo su historial.
+
+EXPORTA TU HISTORIAL
+Envía tu historial de carreras por correo como archivo CSV cuando quieras.

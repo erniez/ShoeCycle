@@ -42,8 +42,8 @@ class UserSettings: ObservableObject {
         
         func displayString() -> String {
             switch self {
-            case .miles: return "miles"
-            case .km: return "km"
+            case .miles: return String(localized: "miles")
+            case .km: return String(localized: "km")
             }
         }
     }
